@@ -16,7 +16,7 @@ The Doctrine CLI has been pre-configured and is available in SpiffyDoctrine\bin.
 is without any special configuration required.
 
 ## Installation
-See the [INSTALL.md](http://www.github.com/spiffyjr/spiffydoctrinemongoodb/tree/master/docs/INSTALL.md) file.
+See the [INSTALL.md](http://www.github.com/spiffyjr/spiffydoctrinemongoodm/tree/master/docs/INSTALL.md) file.
 
 ## TODO
-See the [TODO.md](http://www.github.com/spiffyjr/spiffydoctrinemongoodb/tree/master/docs/TODO.md) file.
+See the [TODO.md](http://www.github.com/spiffyjr/spiffydoctrinemongoodm/tree/master/docs/TODO.md) file.
