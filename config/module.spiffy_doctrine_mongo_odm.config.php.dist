@@ -1,0 +1,73 @@
+ <?php
+ /**
+  * SpiffyDoctrine MongoODM Configuration
+  *
+  * If you have a ./configs/autoload/ directory set up for your project, you can 
+  * drop this config file in it and change the values as you wish. This file is intended
+  * to be used with a standard Doctrine MongoODM setup. If you have something more advanced
+  * you may override the Zend\Di configuration manually (see module.config.php).
+  */
+$settings = array(
+    // enables production mode by disabling generation of hydrators and proxies
+    'production' => false,
+   
+    // sets the cache to use for metadata: one of 'array', 'apc', or 'memcache'
+    'cache' => 'memcache',
+   
+    // only used if cache above is set to memcache
+    'memcache' => array( 
+        'host' => '127.0.0.1',
+        'port' => '11211'
+    ),
+   
+    'connection' => array(
+        'server' => null,
+    ),
+    'driver' => array(
+        'class'     => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
+        'namespace' => 'Application\Document',
+        'paths'     => array('module/Application/src/Application/Document'),
+    ),
+    
+);
+
+/**
+ * YOU DO NOT NEED TO EDIT BELOW THIS LINE.
+ */
+$cache = array('array', 'memcache', 'apc');
+if (!in_array($settings['cache'], $cache)) {
+    throw new InvalidArgumentException(sprintf(
+        'cache must be one of: %s',
+        implode(', ', $cache)
+    ));
+}
+$settings['cache'] = 'doctrine_cache_' . $settings['cache'];
+
+return array(
+    'di' => array(
+        'instance' => array(
+            'doctrine_memcache' => array(
+                'parameters' => $settings['memcache']
+            ),
+            'mongo_config' => array(
+                'parameters' => array(
+                    'opts' => array(
+                        'auto_generate_proxies'   => !$settings['production'],
+                        'auto_generate_hydrators' => !$settings['production'],
+                    ),
+                    'metadataCache'  => $settings['cache'],
+                )
+            ),
+            'mongo_connection' => array(
+                'parameters' => $settings['connection']
+            ),
+            'mongo_driver_chain' => array(
+                'parameters' => array(
+                    'drivers' => array(
+                        'application_annotation_driver' => $settings['driver']
+                    )
+                )
+            ),
+        ),
+    ),
+);
