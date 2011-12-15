@@ -22,6 +22,7 @@ class Configuration extends Instance
             'hydrator_namespace'      => 'string',
         ),
         'optional' => array(
+            'default_db' => 'string'
         )
     );
     
@@ -69,7 +70,7 @@ class Configuration extends Instance
     {
         $opts   = $this->opts;
         $config = new ODMConfiguration;
-        
+
         // proxies
         $config->setAutoGenerateProxyClasses($opts['auto_generate_proxies']);
         $config->setProxyDir($opts['proxy_dir']);
@@ -79,6 +80,9 @@ class Configuration extends Instance
         $config->setAutoGenerateHydratorClasses($opts['auto_generate_hydrators']);
         $config->setHydratorDir($opts['hydrator_dir']);
         $config->setHydratorNamespace($opts['hydrator_namespace']);
+        
+        // default db
+        $config->setDefaultDB($opts['default_db']);
         
         // caching
         $config->setMetadataCacheImpl($this->metadataCache);

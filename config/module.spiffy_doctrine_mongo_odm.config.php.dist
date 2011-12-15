@@ -19,14 +19,20 @@ $settings = array(
         'host' => '127.0.0.1',
         'port' => '11211'
     ),
+
+    'config' => array(
+        // set the default database to use (or not)
+        'default_db' => null
+    ), 
    
     'connection' => array(
         'server' => null,
     ),
+    
     'driver' => array(
-        'class'            => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
-        'namespace'        => 'Application\Document',
-        'paths'            => array('module/Application/src/Application/Document'),
+        'class'     => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
+        'namespace' => 'Application\Document',
+        'paths'     => array('module/Application/src/Application/Document'),
     ),
     
 );
