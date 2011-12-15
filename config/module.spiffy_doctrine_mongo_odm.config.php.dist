@@ -27,9 +27,6 @@ $settings = array(
         'class'            => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
         'namespace'        => 'Application\Document',
         'paths'            => array('module/Application/src/Application/Document'),
-        
-        // only used if you're using an AnnotationDriver
-        'defaultNamespace' => 'Doctrine\ODM\MongoDB\Mapping\Annotations\\'
     ),
     
 );
