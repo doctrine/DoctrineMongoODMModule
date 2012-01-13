@@ -9,11 +9,11 @@ return array(
                         'port' => array('type' => false, 'required' => true),
                     )
                 ),
-                'SpiffyDoctrineMongoODM\Factory\DocumentManager' => array(
-                    'instantiator' => array('SpiffyDoctrineMongoODM\Factory\DocumentManager', 'get'),
+                'DoctrineMongoODMModule\Factory\DocumentManager' => array(
+                    'instantiator' => array('DoctrineMongoODMModule\Factory\DocumentManager', 'get'),
                     'methods' => array(
                         'get' => array(
-                            'conn' => array('type' => 'SpiffyDoctrineMongoODM\Doctrine\ODM\MongoDB\Connection', 'required' => true)
+                            'conn' => array('type' => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection', 'required' => true)
                         )
                     )
                 ),
@@ -22,23 +22,23 @@ return array(
         'instance' => array(
             'alias' => array(
                 // document manager
-                'doctrine_mongo' => 'SpiffyDoctrineMongoODM\Factory\DocumentManager',
+                'mongo_dm' => 'DoctrineMongoODMModule\Factory\DocumentManager',
                 
                 // configuration
-                'mongo_config'       => 'SpiffyDoctrineMongoODM\Doctrine\ODM\MongoDB\Configuration',
-                'mongo_connection'   => 'SpiffyDoctrineMongoODM\Doctrine\ODM\MongoDB\Connection',
-                'mongo_driver_chain' => 'SpiffyDoctrineMongoODM\Doctrine\ODM\MongoDB\DriverChain',
-                'mongo_evm'          => 'SpiffyDoctrine\Doctrine\Common\EventManager',
+                'mongo_config'       => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Configuration',
+                'mongo_connection'   => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection',
+                'mongo_driver_chain' => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\DriverChain',
+                'mongo_evm'          => 'DoctrineModule\Doctrine\Common\EventManager',
             ),
             'mongo_config' => array(
                 'parameters' => array(
                     'opts' => array(
                         'auto_generate_proxies'   => true,
-                        'proxy_dir'               => __DIR__ . '/../../../data/SpiffyDoctrine/Proxy',
-                        'proxy_namespace'         => 'SpiffyDoctrineMongoODM\Proxy',
+                        'proxy_dir'               => __DIR__ . '/../../../data/DoctrineModule/Proxy',
+                        'proxy_namespace'         => 'DoctrineMongoODMModule\Proxy',
                         'auto_generate_hydrators' => true,
-                        'hydrator_dir'            => __DIR__ . '/../../../data/SpiffyDoctrine/Hydrators',
-                        'hydrator_namespace'      => 'SpiffyDoctrineMongoODM\Hydrators',
+                        'hydrator_dir'            => __DIR__ . '/../../../data/DoctrineModule/Hydrators',
+                        'hydrator_namespace'      => 'DoctrineMongoODMModule\Hydrators',
                     ),
                     'metadataDriver' => 'mongo_driver_chain',
                     'metadataCache'  => 'doctrine_cache_array',
@@ -66,7 +66,7 @@ return array(
                     )
                 )
             ),
-            'doctrine_mongo' => array(
+            'mongo_dm' => array(
                 'parameters' => array(
                     'conn' => 'mongo_connection',
                 )
