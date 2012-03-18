@@ -18,7 +18,7 @@ $settings = array(
     'production' => false,
    
     // sets the cache to use for metadata: one of 'array', 'apc', or 'memcache'
-    'cache'      => 'array',
+    'cache' => 'array',
    
     // only used if cache above is set to memcache
     'memcache' => array( 
@@ -32,7 +32,7 @@ $settings = array(
     ), 
    
     'connection' => array(
-        'server'  => '127.0.0.1',
+        'server'  => 'mongodb://<user>:<password>@<server>:<port>',
         'options' => array()
     ),
     
@@ -71,6 +71,7 @@ return array(
                     'opts' => array(
                         'auto_generate_proxies'   => !$settings['production'],
                         'auto_generate_hydrators' => !$settings['production'],
+                        'default_db' => $settings['config']['default_db'],
                     ),
                     'metadataCache'  => $settings['cache'],
                 )
