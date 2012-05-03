@@ -408,5 +408,6 @@ return array(
     'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\DriverChain'                  => __DIR__ . '/src/DoctrineMongoODMModule/Doctrine/ODM/MongoDB/DriverChain.php',
     'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Configuration'                => __DIR__ . '/src/DoctrineMongoODMModule/Doctrine/ODM/MongoDB/Configuration.php',
     'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection'                   => __DIR__ . '/src/DoctrineMongoODMModule/Doctrine/ODM/MongoDB/Connection.php',
+    'DoctrineMongoODMModule\Authentication\Adapter\DoctrineDocument'                   => __DIR__ . '/src/DoctrineMongoODMModule/Authentication/Adapter/DoctrineDocument.php',    
     'DoctrineMongoODMModule\Module'                                            => __DIR__ . '/Module.php',
 );
