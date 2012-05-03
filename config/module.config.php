@@ -16,7 +16,14 @@ return array(
                             'conn' => array('type' => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection', 'required' => true)
                         )
                     )
-                ),
+                ),                
+                'DoctrineMongoODMModule\Authentication\Adapter\DoctrineDocument' => array(
+                    'methods' => array(
+                        'setDocument' => array(
+                            'document' => array('type' => false, 'required' => true)
+                        )
+                    )
+                )                
             ),
         ),
         'instance' => array(
