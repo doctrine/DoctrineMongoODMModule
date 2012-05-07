@@ -1,3 +1,6 @@
 [submodule "vendor/mongodb-odm"]
 	path = vendor/mongodb-odm
 	url = git://github.com/doctrine/mongodb-odm.git
+[submodule "vendor/mongodb"]
+	path = vendor/mongodb
+	url = git://github.com/doctrine/mongodb.git
