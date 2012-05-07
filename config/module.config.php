@@ -10,17 +10,29 @@ return array(
             'class' => array(
                 'Memcache' => array(
                     'addServer' => array(
-                        'host' => array('type' => false, 'required' => true),
-                        'port' => array('type' => false, 'required' => true),
+                        'host' => array(
+                            'type' => false,
+                            'required' => true,
+                        ),
+                        'port' => array(
+                            'type' => false,
+                            'required' => true,
+                        ),
                     )
                 ),
                 'DoctrineMongoODMModule\Factory\DocumentManager' => array(
-                    'instantiator' => array('DoctrineMongoODMModule\Factory\DocumentManager', 'get'),
+                    'instantiator' => array(
+                        'DoctrineMongoODMModule\Factory\DocumentManager',
+                        'get'
+                    ),
                     'methods' => array(
                         'get' => array(
-                            'conn' => array('type' => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection', 'required' => true)
-                        )
-                    )
+                            'conn' => array(
+                                'type' => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection',
+                                'required' => true,
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),
@@ -48,7 +60,7 @@ return array(
                     'metadataDriver' => 'mongo_driver_chain',
                     'metadataCache'  => 'doctrine_cache_array',
                     'logger'         => null,
-                )
+                ),
             ),
             'mongo_connection' => array(
                 'parameters' => array(
@@ -61,21 +73,21 @@ return array(
             'mongo_driver_chain' => array(
                 'parameters' => array(
                     'drivers' => array(),
-                    'cache' => 'doctrine_cache_array'
-                )
+                    'cache' => 'doctrine_cache_array',
+                ),
             ),
             'mongo_evm' => array(
                 'parameters' => array(
                     'opts' => array(
-                        'subscribers' => array()
-                    )
-                )
+                        'subscribers' => array(),
+                    ),
+                ),
             ),
             'mongo_dm' => array(
                 'parameters' => array(
                     'conn' => 'mongo_connection',
-                )
+                ),
             ),
-        )
-    )
+        ),
+    ),
 );
