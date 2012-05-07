@@ -39,32 +39,38 @@ class Module implements AutoloaderProvider
     {
         $moduleManager->events()->attach('loadModules.post', array($this, 'modulesLoaded'));
     }
-    
+
     public function modulesLoaded($e)
     {
         $config = $e->getConfigListener()->getMergedConfig();
         $config = $config['doctrine_mongoodm_module'];
-        
+
         if ($config->use_annotations) {
-            $libfile = $config->annotation_file ? 
-                realpath($config->annotation_file) : 
-                realpath(__DIR__ . '/vendor/mongodb-odm/lib/Doctrine/ODM/MongoDB/Mapping/Annotations/DoctrineAnnotations.php');
-                
-            if (!$libfile || !file_exists($libfile)) {
+
+            if (isset($config->annotation_file)) {
+                $libfile = realpath($config->annotation_file);
+            } else {
+                // Trying to load DoctrineAnnotations.php without knowing its location
+                $annotationReflection = new \ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
+                $libfile = dirname($annotationReflection->getFileName()) . '/DoctrineAnnotations.php';
+            }
+
+            if (!$libfile) {
                 throw new RuntimeException(
                     'Failed to load annotation mappings - check the "annotation_file" setting'
                 );
             }
+
             AnnotationRegistry::registerFile($libfile);
         }
-        
+
         if (!class_exists('Doctrine\ODM\MongoDB\Mapping\Annotations\Document', true)) {
             throw new \Exception('
                 Doctrine could not be autoloaded - ensure it is in the correct path.
             ');
         }
     }
-    
+
     public function getAutoloaderConfig()
     {
         return array(

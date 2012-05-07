@@ -1,5 +1,10 @@
 <?php
 return array(
+    'doctrine_mongoodm_module' => array(
+        // Use following setting if you know where your 'DoctrineAnnotations.php' is
+        //'annotation_file' => __DIR__ . '/../vendor/mongodb-odm/lib/Doctrine/ODM/MongoDB/Mapping/Annotations/DoctrineAnnotations.php',
+        'use_annotations' => true,
+    ),
     'di' => array(
         'definition' => array(
             'class' => array(
@@ -23,7 +28,7 @@ return array(
             'alias' => array(
                 // document manager
                 'mongo_dm' => 'DoctrineMongoODMModule\Factory\DocumentManager',
-                
+
                 // configuration
                 'mongo_config'       => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Configuration',
                 'mongo_connection'   => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection',
