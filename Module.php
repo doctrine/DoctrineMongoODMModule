@@ -64,7 +64,7 @@ class Module implements AutoloaderProvider
             AnnotationRegistry::registerFile($libfile);
         }
 
-        if (!class_exists('Doctrine\ODM\MongoDB\Mapping\Annotations\Document', true)) {
+        if (!class_exists('Doctrine\ODM\MongoDB\Mapping\Document', true)) {
             throw new \Exception('
                 Doctrine could not be autoloaded - ensure it is in the correct path.
             ');
