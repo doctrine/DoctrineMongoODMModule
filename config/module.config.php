@@ -8,6 +8,24 @@ return array(
     ),
 
     'di' => array(
+        'definition' => array(
+            'class' => array(
+                'Memcache' => array(
+                    'addServer' => array(
+                        'host' => array('type' => false, 'required' => true),
+                        'port' => array('type' => false, 'required' => true),
+                    )
+                ),
+                'DoctrineMongoODMModule\Factory\DocumentManager' => array(
+                    'instantiator' => array('DoctrineMongoODMModule\Factory\DocumentManager', 'get'),
+                    'methods' => array(
+                        'get' => array(
+                            'conn' => array('type' => 'DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection', 'required' => true)
+                        ),
+                    ),
+                ),               
+            ),
+        ),
         'instance' => array(
             'alias' => array(
                 // document manager
@@ -73,6 +91,12 @@ return array(
                 ),
             ),
 
+            'DoctrineModule\Authentication\Adapter\DoctrineObject' => array(
+                'parameters' => array(
+                    'objectManager' => 'mongo_dm',
+                ),
+            ), 
+            
             // Commands to be attached to CLI tools
             'doctrine_cli' => array(
                 'injections' => array(

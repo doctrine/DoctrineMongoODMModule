@@ -69,7 +69,7 @@ class Module implements AutoloaderProvider
 
     public function getAutoloaderConfig()
     {
-        if (realpath(__DIR__ . '/vendor/doctrine-orm/lib')) {
+        if (realpath(__DIR__ . '/vendor/mongodb-odm/lib')) {
             return array(
                 'Zend\Loader\ClassMapAutoloader' => array(
                     __DIR__ . '/autoload_classmap.php',
