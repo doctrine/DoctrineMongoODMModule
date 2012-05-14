@@ -51,14 +51,6 @@ return array(
                 ),
             ),
 
-            'mongo_evm' => array(
-                'parameters' => array(
-                    'opts' => array(
-                        'subscribers' => array(),
-                    ),
-                ),
-            ),
-
             'mongo_driver_chain' => array(
                 'parameters' => array(
                     'drivers' => array(),
@@ -79,10 +71,10 @@ return array(
                 'parameters' => array(
                     'opts' => array(
                         'auto_generate_proxies'   => true,
-                        'proxy_dir'               => __DIR__ . '/../../../data/DoctrineMongoODMModule/Proxy',
+                        'proxy_dir'               => __DIR__ . '/../../../../data/DoctrineMongoODMModule/Proxy',
                         'proxy_namespace'         => 'DoctrineMongoODMModule\Proxy',
                         'auto_generate_hydrators' => true,
-                        'hydrator_dir'            => __DIR__ . '/../../../data/DoctrineMongoODMModule/Hydrators',
+                        'hydrator_dir'            => __DIR__ . '/../../../../data/DoctrineMongoODMModule/Hydrators',
                         'hydrator_namespace'      => 'DoctrineMongoODMModule\Hydrators',
                     ),
                     'metadataDriver' => 'mongo_driver_chain',
