@@ -118,6 +118,9 @@ class Configuration extends Instance
         // finally, the driver
         $config->setMetadataDriverImpl($this->metadataDriver);
         
+        //Addition
+        $config->addFilter("readAccessControl", "\SdsDoctrineExtensions\AccessControl\Filter\ReadAccessControl");
+        
         $this->instance = $config;
     }
 }
