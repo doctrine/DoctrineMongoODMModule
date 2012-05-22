@@ -19,10 +19,9 @@
 
 namespace DoctrineMongoODMModule;
 
-use RuntimeException,
-    Doctrine\Common\Annotations\AnnotationRegistry,
-    Zend\Module\Consumer\AutoloaderProvider,
-    Zend\Module\Manager;
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain;
+use Zend\ModuleManager\ModuleManager;
 
 /**
  * DoctrineModule provider for Mongo DB.
@@ -31,57 +30,30 @@ use RuntimeException,
  * @link    www.doctrine-project.org
  * @since   1.0
  * @version $Revision$
- * @author  Kyle Spraggs <theman@spiffyjr.me>
+ * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class Module implements AutoloaderProvider
+class Module
 {
-    public function init(Manager $moduleManager)
-    {
-        $moduleManager->events()->attach('loadModules.post', array($this, 'modulesLoaded'));
-    }
-
-    public function modulesLoaded($e)
-    {
-        $config = $e->getConfigListener()->getMergedConfig();
-        $config = $config['doctrine_mongoodm_module'];
-
-        if ($config->use_annotations) {
-
-            if (isset($config->annotation_file)) {
-                $libfile = realpath($config->annotation_file);
-            } else {
-                // Trying to load DoctrineAnnotations.php without knowing its location
-                $annotationReflection = new \ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
-                $libfile = dirname($annotationReflection->getFileName()) . '/../Annotations/DoctrineAnnotations.php';
-            }
-
-            if (!$libfile) {
-                throw new RuntimeException('Failed to load annotation mappings - check the "annotation_file" setting');
-            }
-
-            AnnotationRegistry::registerFile($libfile);
-        }
-
-        if (!class_exists('Doctrine\ODM\MongoDB\Mapping\Annotations\Document', true)) {
-            throw new \Exception('Doctrine could not be autoloaded - ensure it is in the correct path.');
-        }
-    }
-
-    public function getAutoloaderConfig()
-    {
-        if (realpath(__DIR__ . '/vendor/mongodb-odm/lib')) {
-            return array(
-                'Zend\Loader\ClassMapAutoloader' => array(
-                    __DIR__ . '/autoload_classmap.php',
-                ),
-            );
-        }
-
-        return array();
-    }
-
-    public function getConfig($env = null)
+    public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
+    
+    public function getServiceConfiguration()
+    {
+        return array(
+            'aliases' => array(
+                'doctrine_odm_metadata_cache'  => 'Doctrine\Common\Cache\ArrayCache',
+            ),
+            'factories' => array(
+                'doctrine_odm_cli'                 => 'DoctrineODMModule\Service\CliFactory',
+                'Doctrine\Common\Cache\ArrayCache' => function() { return new ArrayCache; },
+                'Doctrine\MongoDB\Connection'       => 'DoctrineMongoODMModule\Service\ConnectionFactory',               
+                'Doctrine\ODM\MongoDB\Configuration'       => 'DoctrineMongoODMModule\Service\ConfigurationFactory',
+                'Doctrine\ODM\MongoDB\DocumentManager'       => 'DoctrineMongoODMModule\Service\DocumentManagerFactory',
+                'Doctrine\Common\Annotations\CachedReader'       => 'DoctrineMongoODMModule\Service\CachedReaderFactory',
+                'Doctrine\Common\EventManager'       => 'DoctrineMongoODMModule\Service\EventManagerFactory',          
+            )
+        );
+    }    
 }
