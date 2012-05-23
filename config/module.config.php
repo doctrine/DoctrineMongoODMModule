@@ -17,5 +17,15 @@ return array(
         'auto_generate_hydrators'   => true,
         'hydrator_dir'              => 'data/DoctrineMongoODMModule/Hydrator',
         'hydrator_namespace'        => 'DoctrineMongoODMModule\Hydrator',              
-    ),    
+    ),   
+    
+    'di' => array(    
+        'instance' => array(
+            'DoctrineModule\Authentication\Adapter\DoctrineObject' => array(
+                'parameters' => array(
+                    'objectManager' => 'Doctrine\ODM\MongoDB\DocumentManager',
+                ),
+            ),    
+        ),
+    ),
 );
