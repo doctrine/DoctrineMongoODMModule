@@ -6,14 +6,16 @@ quickly and easily. The following features are intended to work out of the box:
   - Multiple document managers
   - Multiple connections
   - Support for using existing Mongo connections
+  - Auth Adapter
+  - Hooks to add your own:
+        - Drivers
+        - Event Subscribers
+        - Annotations
+        - Filters (**Not yet supported by mongodb-odm**)
   
 ## Requirements
   - [DoctrineModule](http://www.github.com/doctrine/DoctrineModule)
   - [Zend Framework 2](http://www.github.com/zendframework/zf2)
-
-## Doctrine CLI
-The Doctrine CLI has been pre-configured and is available in DoctrineModule\bin. It should work as
-is without any special configuration required.
 
 ## Installation
 See the [INSTALL.md](http://www.github.com/doctrine/DoctrineMongoODMModule/tree/master/docs/INSTALL.md) file.

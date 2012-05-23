@@ -7,7 +7,8 @@ use Zend\EventManager\EventManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Doctrine\ODM\MongoDB\Configuration;
-
+use Doctrine\Common\Annotations\AnnotationRegistry;
+    
 class ConfigurationFactory implements FactoryInterface
 {
     /**
@@ -22,9 +23,29 @@ class ConfigurationFactory implements FactoryInterface
 
     protected $filters;
     
-    public function createService(ServiceLocatorInterface $sl)
+    protected $annotations;
+    
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $userConfig = $sl->get('Configuration')->doctrine_odm_config;        
+        $userConfig = $serviceLocator->get('Configuration')->doctrine_odm_config;         
+        
+        if ($userConfig->use_annotations) {
+
+            // Trying to load DoctrineAnnotations.php without knowing its location
+            $annotationReflection = new \ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
+            $libfile = dirname($annotationReflection->getFileName()) . '/../Annotations/DoctrineAnnotations.php';
+
+            AnnotationRegistry::registerFile($libfile);
+            
+            foreach($this->getAnnotations($serviceLocator) as $annotationFile){
+                AnnotationRegistry::registerFile($annotationFile);                
+            }
+        }
+
+        if (!class_exists('Doctrine\ODM\MongoDB\Mapping\Annotations\Document', true)) {
+            throw new \Exception('Doctrine could not be autoloaded - ensure it is in the correct path.');
+        }     
+               
         $config = new Configuration;
 
         // proxies
@@ -41,16 +62,16 @@ class ConfigurationFactory implements FactoryInterface
         $config->setDefaultDB($userConfig->default_db);
         
         // caching
-        $config->setMetadataCacheImpl($sl->get('doctrine_odm_metadata_cache'));
+        $config->setMetadataCacheImpl($serviceLocator->get('doctrine_odm_metadata_cache'));
         
         //filters
-        $filters = $this->getFilters($sl, $config);      
+        $filters = $this->getFilters($serviceLocator, $config);      
         foreach($filters as $alias => $class){
             $config->addFilter($alias, $class);
         }
         
         // finally, the driver
-        $config->setMetadataDriverImpl($this->getDriverChain($sl, $config));        
+        $config->setMetadataDriverImpl($this->getDriverChain($serviceLocator, $config));        
         
         return $config;
     }
@@ -104,5 +125,23 @@ class ConfigurationFactory implements FactoryInterface
             $this->filters = $filters;
         }
         return $this->filters;                     
+    }
+    
+    protected function getAnnotations(ServiceLocatorInterface $serviceLocator)
+    {
+        if (null == $this->annotations){
+            $events = $this->events();
+            $annotations  = array();
+
+            // TODO: Temporary workaround for EventManagerFactory. Remove when file is patched.
+            $events->setSharedManager($serviceLocator->get('ModuleManager')->events()->getSharedManager());
+            
+            $collection = $events->trigger('loadAnnotations', $serviceLocator);
+            foreach($collection as $response) {
+                $annotations = array_merge($annotations, $response);
+            }
+            $this->annotations = $annotations;
+        }
+        return $this->annotations;          
     }
 }

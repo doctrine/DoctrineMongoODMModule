@@ -20,7 +20,6 @@
 namespace DoctrineMongoODMModule;
 
 use Doctrine\Common\Cache\ArrayCache;
-use Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain;
 use Zend\ModuleManager\ModuleManager;
 
 /**
@@ -44,9 +43,10 @@ class Module
         return array(
             'aliases' => array(
                 'doctrine_odm_metadata_cache'  => 'Doctrine\Common\Cache\ArrayCache',
+                'mongo_dm' => 'Doctrine\ODM\MongoDB\DocumentManager'
             ),
             'factories' => array(
-                'doctrine_odm_cli'                 => 'DoctrineODMModule\Service\CliFactory',
+                'doctrine_odm_cli'                 => 'DoctrineMongoODMModule\Service\CliFactory',
                 'Doctrine\Common\Cache\ArrayCache' => function() { return new ArrayCache; },
                 'Doctrine\MongoDB\Connection'       => 'DoctrineMongoODMModule\Service\ConnectionFactory',               
                 'Doctrine\ODM\MongoDB\Configuration'       => 'DoctrineMongoODMModule\Service\ConfigurationFactory',

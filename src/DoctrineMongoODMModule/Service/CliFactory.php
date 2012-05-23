@@ -1,6 +1,6 @@
 <?php
 
-namespace DoctrineORMModule\Service;
+namespace DoctrineMongoODMModule\Service;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Helper\HelperSet;
@@ -9,39 +9,26 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class CliFactory implements FactoryInterface
 {
-    public function createService(ServiceLocatorInterface $sl)
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $entityManager = $sl->get('Doctrine\ORM\EntityManager');
-        $entityHelper  = new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($entityManager);
+        $documentManager = $serviceLocator->get('mongo_dm');
+        $documentHelper  = new \Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper($documentManager);
         $helperSet     = new HelperSet;
-        $helperSet->set($entityHelper, 'em');
+        $helperSet->set($documentHelper, 'dm');
 
         $cli = new Application;
-        $cli->setName('DoctrineORMModule Command Line Interface');
+        $cli->setName('DoctrineMongoODMModule Command Line Interface');
         $cli->setVersion('dev-master');
         $cli->setHelperSet($helperSet);
 
-        $cli->addCommands(array(
-            // DBAL Commands
-            new \Doctrine\DBAL\Tools\Console\Command\RunSqlCommand(),
-            new \Doctrine\DBAL\Tools\Console\Command\ImportCommand(),
-
-            // ORM Commands
-            new \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\ClearCache\ResultCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\SchemaTool\CreateCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\SchemaTool\DropCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\EnsureProductionSettingsCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\ConvertDoctrine1SchemaCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\GenerateRepositoriesCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\GenerateEntitiesCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\GenerateProxiesCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\ConvertMappingCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\RunDqlCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand(),
-            new \Doctrine\ORM\Tools\Console\Command\InfoCommand()
+        $cli->addCommands(array(           
+            new \Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand(),
+            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand(),
+            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand(),
+            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand(),
+            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand(),
+            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand(),
+            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),            
         ));
 
         return $cli;
