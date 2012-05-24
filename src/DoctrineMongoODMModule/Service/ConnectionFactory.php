@@ -9,7 +9,8 @@ class ConnectionFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $sl)
     {
-        $config = $sl->get('Configuration')->doctrine_odm_connection->toArray();       
+        $config = $sl->get('Configuration');
+        $config = $config['doctrine_odm_connection'];       
         
         return new \Doctrine\MongoDB\Connection(
             $config['server'],

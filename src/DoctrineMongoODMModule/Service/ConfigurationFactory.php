@@ -27,9 +27,10 @@ class ConfigurationFactory implements FactoryInterface
     
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $userConfig = $serviceLocator->get('Configuration')->doctrine_odm_config;         
+        $userConfig = $serviceLocator->get('Configuration');
+        $userConfig = $userConfig['doctrine_odm_config'];         
         
-        if ($userConfig->use_annotations) {
+        if ($userConfig['use_annotations']) {
 
             // Trying to load DoctrineAnnotations.php without knowing its location
             $annotationReflection = new \ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
@@ -49,17 +50,17 @@ class ConfigurationFactory implements FactoryInterface
         $config = new Configuration;
 
         // proxies
-        $config->setAutoGenerateProxyClasses($userConfig->auto_generate_proxies);
-        $config->setProxyDir($userConfig->proxy_dir);
-        $config->setProxyNamespace($userConfig->proxy_namespace);
+        $config->setAutoGenerateProxyClasses($userConfig['auto_generate_proxies']);
+        $config->setProxyDir($userConfig['proxy_dir']);
+        $config->setProxyNamespace($userConfig['proxy_namespace']);
         
         // hydrators
-        $config->setAutoGenerateHydratorClasses($userConfig->auto_generate_hydrators);
-        $config->setHydratorDir($userConfig->hydrator_dir);
-        $config->setHydratorNamespace($userConfig->hydrator_namespace);
+        $config->setAutoGenerateHydratorClasses($userConfig['auto_generate_hydrators']);
+        $config->setHydratorDir($userConfig['hydrator_dir']);
+        $config->setHydratorNamespace($userConfig['hydrator_namespace']);
         
         // default db
-        $config->setDefaultDB($userConfig->default_db);
+        $config->setDefaultDB($userConfig['default_db']);
         
         // caching
         $config->setMetadataCacheImpl($serviceLocator->get('doctrine_odm_metadata_cache'));
