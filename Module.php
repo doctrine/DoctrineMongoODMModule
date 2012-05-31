@@ -19,65 +19,70 @@
 
 namespace DoctrineMongoODMModule;
 
-use RuntimeException,
-    Doctrine\Common\Annotations\AnnotationRegistry,
-    Zend\Module\Consumer\AutoloaderProvider,
-    Zend\Module\Manager;
+use RuntimeException;
+use ReflectionClass;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Zend\ModuleManager\ModuleManagerInterface;
+use Zend\ModuleManager\ModuleEvent;
+use Zend\Loader\StandardAutoloader;
 
 /**
- * DoctrineModule provider for Mongo DB.
+ * Doctrine Module provider for Mongo DB ODM.
  *
  * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link    www.doctrine-project.org
- * @since   1.0
- * @version $Revision$
+ * @link    http://www.doctrine-project.org
+ * @since   0.1.0
  * @author  Kyle Spraggs <theman@spiffyjr.me>
+ * @author  Marco Pivetta <ocramius@gmail.com>
  */
-class Module implements AutoloaderProvider
+class Module
 {
-    public function init(Manager $moduleManager)
+    public function init(ModuleManagerInterface $moduleManager)
     {
         $moduleManager->events()->attach('loadModules.post', array($this, 'modulesLoaded'));
     }
 
-    public function modulesLoaded($e)
+    public function modulesLoaded(ModuleEvent $e)
     {
         $config = $e->getConfigListener()->getMergedConfig();
         $config = $config['doctrine_mongoodm_module'];
 
-        if ($config->use_annotations) {
+        if ($config['use_annotations']) {
+            $annotationsFile = false;
 
-            if (isset($config->annotation_file)) {
-                $libfile = realpath($config->annotation_file);
-            } else {
+            if (isset($config['annotation_file'])) {
+                $annotationsFile = realpath($config['annotation_file']);
+            }
+
+            if (!$annotationsFile) {
                 // Trying to load DoctrineAnnotations.php without knowing its location
-                $annotationReflection = new \ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
-                $libfile = dirname($annotationReflection->getFileName()) . '/../Annotations/DoctrineAnnotations.php';
+                $annotationReflection = new ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
+                $annotationsFile = realpath(
+                    dirname($annotationReflection->getFileName()) . '/../Annotations/DoctrineAnnotations.php'
+                );
             }
 
-            if (!$libfile) {
-                throw new RuntimeException('Failed to load annotation mappings - check the "annotation_file" setting');
+            if (!$annotationsFile) {
+                throw new RuntimeException('Failed to load annotation mappings, check the "annotation_file" setting');
             }
 
-            AnnotationRegistry::registerFile($libfile);
+            AnnotationRegistry::registerFile($annotationsFile);
         }
 
         if (!class_exists('Doctrine\ODM\MongoDB\Mapping\Annotations\Document', true)) {
-            throw new \Exception('Doctrine could not be autoloaded - ensure it is in the correct path.');
+            throw new RuntimeException('Doctrine could not be autoloaded - ensure it is in the correct path.');
         }
     }
 
     public function getAutoloaderConfig()
     {
-        if (realpath(__DIR__ . '/vendor/mongodb-odm/lib')) {
-            return array(
-                'Zend\Loader\ClassMapAutoloader' => array(
-                    __DIR__ . '/autoload_classmap.php',
+        return array(
+            'Zend\Loader\StandardAutoloader' => array(
+                StandardAutoloader::LOAD_NS => array(
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
-            );
-        }
-
-        return array();
+            ),
+        );
     }
 
     public function getConfig($env = null)
