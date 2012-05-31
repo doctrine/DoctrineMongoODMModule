@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -27,10 +27,9 @@ use Doctrine\MongoDB\Connection as MongoConnection,
  * Wrapper for MongoDB connection that helps setup configuration without relying
  * entirely on Di.
  *
- * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link    www.doctrine-project.org
- * @since   1.0
- * @version $Revision$
+ * @license MIT
+ * @link    http://www.doctrine-project.org
+ * @since   0.1.0
  * @author  Kyle Spraggs <theman@spiffyjr.me>
  */
 class Connection extends Instance
@@ -39,25 +38,25 @@ class Connection extends Instance
 	 * @var Doctrine\ORM\Configuration
 	 */
 	protected $config;
-	
+
 	/**
 	 * @var Doctrine\Common\EventManager
 	 */
 	protected $evm;
-    
+
     /**
      * @var null|Mongo
      */
     protected $server;
-    
+
     /**
      * @var array
      */
     protected $options = array();
-	
+
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param null|Mongo 	$server
      * @param array         $options
 	 * @param Configuration $config
@@ -73,10 +72,10 @@ class Connection extends Instance
         $this->options = $options ? $options : array();
 		$this->config  = $config ? $config->getInstance() : null;
 		$this->evm     = $evm ? $evm->getInstance() : null;
-		
+
 		parent::__construct(array());
 	}
-	
+
 	protected function loadInstance()
 	{
         $this->instance = new MongoConnection(

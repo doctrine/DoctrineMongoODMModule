@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -28,17 +28,16 @@ use Doctrine\Common\Cache\Cache,
  * Wrapper for MongoDB configuration that helps setup configuration without relying
  * entirely on Di.
  *
- * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link    www.doctrine-project.org
- * @since   1.0
- * @version $Revision$
+ * @license MIT
+ * @link    http://www.doctrine-project.org
+ * @since   0.1.0
  * @author  Kyle Spraggs <theman@spiffyjr.me>
  */
 class Configuration extends Instance
 {
     /**
-     * Definition for configuration options. 
-     * 
+     * Definition for configuration options.
+     *
      * @var array
      */
     protected $definition = array(
@@ -54,25 +53,25 @@ class Configuration extends Instance
             'default_db' => 'string'
         )
     );
-    
+
     /**
      * @var Doctrine\ORM\Mapping\Driver\Driver
      */
     protected $metadataDriver;
-    
+
     /**
      * @var Doctrine\Common\Cache\Cache
      */
     protected $metadataCache;
-    
+
     /**
      * @var Doctrine\DBAL\Logging\SQLLogger
      */
     protected $logger;
-    
+
     /**
      * Constructor.
-     * 
+     *
      * @param array    $opts
      * @param Driver   $metadataDriver
      * @param Cache    $metadataCache
@@ -83,14 +82,14 @@ class Configuration extends Instance
     	if ($metadataDriver instanceof DriverChain) {
     		$metadataDriver = $metadataDriver->getInstance();
     	}
-    	
+
     	$this->metadataDriver = $metadataDriver;
         $this->metadataCache  = $metadataCache;
         $this->logger         = $logger;
-        
+
         parent::__construct($opts);
     }
-    
+
     protected function loadInstance()
     {
         $opts   = $this->opts;
@@ -100,24 +99,24 @@ class Configuration extends Instance
         $config->setAutoGenerateProxyClasses($opts['auto_generate_proxies']);
         $config->setProxyDir($opts['proxy_dir']);
         $config->setProxyNamespace($opts['proxy_namespace']);
-        
+
         // hydrators
         $config->setAutoGenerateHydratorClasses($opts['auto_generate_hydrators']);
         $config->setHydratorDir($opts['hydrator_dir']);
         $config->setHydratorNamespace($opts['hydrator_namespace']);
-        
+
         // default db
         $config->setDefaultDB($opts['default_db']);
-        
+
         // caching
         $config->setMetadataCacheImpl($this->metadataCache);
 
         // logger
         $config->setLoggerCallable($this->logger);
-        
+
         // finally, the driver
         $config->setMetadataDriverImpl($this->metadataDriver);
-        
+
         $this->instance = $config;
     }
 }

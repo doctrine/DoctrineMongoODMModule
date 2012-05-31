@@ -10,6 +10,7 @@
         "zf2"
     ],
     "homepage": "http://www.doctrine-project.org/",
+    "license": "MIT",
     "authors": [
         {
             "name": "Kyle Spraggs",
