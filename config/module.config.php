@@ -116,21 +116,25 @@ return array(
             ),
 
             // Commands to be attached to CLI tools
-            'doctrine_cli' => array(
+            //'doctrine_cli' => array(
+            'Symfony\Component\Console\Application' => array(                  
                 'injections' => array(
-                    // MongoDB ODM
-                    'Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand',
-                    'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand',
-                    'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand',
-                    'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand',
-                    'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand',
-                    'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand',
-                    'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand',
+                    'add' => array(
+                        // MongoDB ODM
+                        array('command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand'),
+                        array('command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand'),
+                        array('command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand'),
+                        array('command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand'),
+                        array('command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand'),
+                        array('command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand'),
+                        array('command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand'),
+                    ),
                 ),
             ),
 
             // CLI helpers
-            'doctrine_cli_helperset' => array(
+            //'doctrine_cli_helperset' => array(
+            'Symfony\Component\Console\Helper\HelperSet' => array(                  
                 'injections' => array(
                     'set' => array(
                         array(
