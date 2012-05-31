@@ -1,0 +1,25 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+
+before_script:
+  - wget http://pecl.php.net/get/mongo-1.2.7.tgz
+  - tar -xzf mongo-1.2.7.tgz
+  - sh -c "cd mongo-1.2.7 && phpize && ./configure --enable-mongo && make && sudo make install"
+  - echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  - git submodule update --init
+  - cd ..
+  - git clone git://github.com/zendframework/ZendSkeletonApplication.git
+  - cd ZendSkeletonApplication
+  - cp ../DoctrineMongoODMModule/.travis/composer.json ./
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install
+  - rm -rf vendor/doctrine/DoctrineMongoODMModule
+  - cp -r ../DoctrineMongoODMModule vendor/doctrine/
+  - rm config/application.config.php && cp ../DoctrineMongoODMModule/.travis/application.config.php config/
+
+script:
+  - ./vendor/bin/doctrine-module odm:schema:create
+  - ./vendor/bin/doctrine-module odm:schema:drop
