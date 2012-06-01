@@ -76,9 +76,9 @@ return array(
                         'auto_generate_hydrators' => !$settings['production'],
                         'default_db' => $settings['config']['default_db'],
                         'proxy_dir' => $settings['config']['proxy_dir'],
-                        'proxy_namespace' => $settings['config']['hydrator_dir'],
-                        'proxy_dir' => $settings['config']['proxy_dir'],
-                        'hydrator_namespace' => $settings['config']['hydrator_dir'],
+                        'proxy_namespace' => $settings['config']['proxy_namespace'],
+                        'hydrator_dir' => $settings['config']['hydrator_dir'],
+                        'hydrator_namespace' => $settings['config']['hydrator_namespace'],
                     ),
                     'metadataCache'  => $settings['cache'],
                 )
