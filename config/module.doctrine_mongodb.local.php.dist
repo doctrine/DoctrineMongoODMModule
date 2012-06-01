@@ -25,7 +25,15 @@ $settings = array(
 
     'config' => array(
         // set the default database to use (or not)
-        'default_db' => null
+        'default_db' => null,
+       
+        // proxy
+        'proxy_dir' => 'data/DoctrineMongoODMModule/Proxy',
+        'proxy_namespace' => 'DoctrineMongoODMModule\Proxy',
+        
+        // hydrator
+        'hydrator_dir' =>'data/DoctrineMongoODMModule/Hydrators',
+        'hydrator_namespace' =>'DoctrineMongoODMModule\Hydrators',
     ),
 
     'connection' => array(
@@ -67,6 +75,10 @@ return array(
                         'auto_generate_proxies'   => !$settings['production'],
                         'auto_generate_hydrators' => !$settings['production'],
                         'default_db' => $settings['config']['default_db'],
+                        'proxy_dir' => $settings['config']['proxy_dir'],
+                        'proxy_namespace' => $settings['config']['proxy_namespace'],
+                        'hydrator_dir' => $settings['config']['hydrator_dir'],
+                        'hydrator_namespace' => $settings['config']['hydrator_namespace'],
                     ),
                     'metadataCache'  => $settings['cache'],
                 )
