@@ -43,6 +43,9 @@ Installation of this module uses composer. For composer documentation, please re
 
   6. drop `vendor/doctrine/DoctrineMongoODMModule/config/module.doctrine_mongodb.local.php.dist` into your application's
      `config/autoload` directory, rename it to `module.doctrine_mongodb.local.php` and make the appropriate changes.
+     
+  7. create directory `my/project/directory/data/DoctrineMongoODMModule/Proxy` and  
+     `my/project/directory/data/DoctrineMongoODMModule/Hydrators` and make sure your application has write access to it.
 
 ## Usage
 
