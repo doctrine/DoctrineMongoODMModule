@@ -25,7 +25,13 @@ $settings = array(
 
     'config' => array(
         // set the default database to use (or not)
-        'default_db' => null
+        'default_db' => null,
+        'proxy_hydrator_dirs' => array(
+            //location of the proxy dir. false for default
+            'proxy_dir' => false, 
+            //location of the hydrator dir. false for default
+            'hydrator_dir' => false
+        ),
     ),
 
     'connection' => array(
@@ -51,7 +57,8 @@ if (!in_array($settings['cache'], $cache)) {
     ));
 }
 $settings['cache'] = 'doctrine_cache_' . $settings['cache'];
-
+//remove default dirs from array
+$settings['config']['proxy_hydrator_dirs']=array_filter($settings['config']['proxy_hydrator_dirs'],function($v) {return ($v);});
 return array(
     'doctrine_mongoodm_module' => array(
         'use_annotations' => $settings['use_annotations'],
@@ -63,11 +70,11 @@ return array(
             ),
             'mongo_config' => array(
                 'parameters' => array(
-                    'opts' => array(
+                    'opts' => array_merge(array(
                         'auto_generate_proxies'   => !$settings['production'],
                         'auto_generate_hydrators' => !$settings['production'],
                         'default_db' => $settings['config']['default_db'],
-                    ),
+                    ),$settings['config']['proxy_hydrator_dirs']),
                     'metadataCache'  => $settings['cache'],
                 )
             ),
