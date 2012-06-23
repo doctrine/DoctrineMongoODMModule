@@ -19,12 +19,10 @@
 
 namespace DoctrineMongoODMModule;
 
-use RuntimeException;
-use ReflectionClass;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Zend\ModuleManager\ModuleManagerInterface;
-use Zend\ModuleManager\ModuleEvent;
-use Zend\Loader\StandardAutoloader;
+use DoctrineModule\Service as CommonService;
+use DoctrineMongoODMModule\Service as ODMService;
+use Doctrine\ODM\MongoDB\Tools\Console\Command;
 
 /**
  * Doctrine Module provider for Mongo DB ODM.
@@ -37,56 +35,77 @@ use Zend\Loader\StandardAutoloader;
  */
 class Module
 {
-    public function init(ModuleManagerInterface $moduleManager)
+    public function init($mm)
     {
-        $moduleManager->events()->attach('loadModules.post', array($this, 'modulesLoaded'));
+        $mm->events()->attach('loadModules.post', function($e) {
+            $config   = $e->getConfigListener()->getMergedConfig();
+            $autoload = isset($config['doctrine']['odm_autoload_annotations']) ?
+                $config['doctrine']['odm_autoload_annotations'] :
+                false;
+
+            if ($autoload) {
+                $refl = new \ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
+                $path = realpath(dirname($refl->getFileName()) . '/..') . '/Annotations/DoctrineAnnotations.php';
+
+                AnnotationRegistry::registerFile($path);
+            }
+        });
     }
 
-    public function modulesLoaded(ModuleEvent $e)
+    public function onBootstrap($e)
     {
-        $config = $e->getConfigListener()->getMergedConfig();
-        $config = $config['doctrine_mongoodm_module'];
+        $app    = $e->getTarget();
+        $events = $app->events()->getSharedManager();
 
-        if ($config['use_annotations']) {
-            $annotationsFile = false;
+        // Attach to helper set event and load the entity manager helper.
+        $events->attach('doctrine', 'loadCli.post', function($e) {
+            $cli = $e->getTarget();
 
-            if (isset($config['annotation_file'])) {
-                $annotationsFile = realpath($config['annotation_file']);
-            }
+            $cli->addCommands(array(
+                // DRM Commands
+                new Command\GenerateHydratorsCommand(),
+                new Command\GenerateProxiesCommand(),
+                new Command\QueryCommand(),
+                new Command\ClearCache\MetadataCommand(),
+                new Command\GenerateDocumentsCommand(),
+                new Command\GenerateRepositoriesCommand(),
+                new Command\Schema\CreateCommand(),
+                new Command\Schema\DropCommand(),
+            ));
 
-            if (!$annotationsFile) {
-                // Trying to load DoctrineAnnotations.php without knowing its location
-                $annotationReflection = new ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
-                $annotationsFile = realpath(
-                    dirname($annotationReflection->getFileName()) . '/../Annotations/DoctrineAnnotations.php'
-                );
-            }
+            $dm = $e->getParam('ServiceManager')->get('doctrine.documentmanager.odm_default');
+            $eh = new \Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper($dm);
 
-            if (!$annotationsFile) {
-                throw new RuntimeException('Failed to load annotation mappings, check the "annotation_file" setting');
-            }
-
-            AnnotationRegistry::registerFile($annotationsFile);
-        }
-
-        if (!class_exists('Doctrine\ODM\MongoDB\Mapping\Annotations\Document', true)) {
-            throw new RuntimeException('Doctrine could not be autoloaded - ensure it is in the correct path.');
-        }
-    }
-
-    public function getAutoloaderConfig()
-    {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                StandardAutoloader::LOAD_NS => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
-        );
+            $cli->getHelperSet()->set($eh, 'dm');
+        });
     }
 
     public function getConfig($env = null)
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+
+    /**
+     * Expected to return \Zend\ServiceManager\Configuration object or array to
+     * seed such an object.
+     *
+     * @return array|\Zend\ServiceManager\Configuration
+     */
+    public function getServiceConfiguration()
+    {
+        #die('here');
+        return array(
+            'aliases' => array(
+                'Doctrine\ODM\MongoDB\DocumentManager' => 'doctrine.documentmanager.odm_default',
+            ),
+            'factories' => array(
+                'doctrine.connection.odm_default'      => new ODMService\ConnectionFactory('odm_default'),
+                'doctrine.configuration.odm_default'   => new ODMService\ConfigurationFactory('odm_default'),
+                'doctrine.driver.odm_default'          => new ODMService\DriverFactory('odm_default'),
+                'doctrine.documentmanager.odm_default' => new ODMService\DocumentManagerFactory('odm_default'),
+                'doctrine.eventmanager.odm_default'    => new CommonService\EventManagerFactory('odm_default'),
+            )
+        );
     }
 }
