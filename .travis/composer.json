@@ -1,6 +1,6 @@
 {
     "require": {
-        "doctrine/DoctrineMongoODMModule": "dev-master",
+        "darh/DoctrineMongoODMModule": "dev-master",
         "zendframework/zendframework": "dev-master"
     }
 }

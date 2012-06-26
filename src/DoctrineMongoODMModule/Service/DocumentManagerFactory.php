@@ -17,11 +17,13 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace DoctrineMongoODMModule\Factory;
+namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\Common\Annotations\AnnotationRegistry,
+    DoctrineModule\Service\AbstractFactory,
     Doctrine\ODM\MongoDB\DocumentManager as MongoDocumentManager,
     DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Doctrine MongoDB document manager factory.
@@ -31,14 +33,28 @@ use Doctrine\Common\Annotations\AnnotationRegistry,
  * @since   0.1.0
  * @author  Kyle Spraggs <theman@spiffyjr.me>
  */
-class DocumentManager
+class DocumentManagerFactory extends AbstractFactory
 {
-    public static function get(Connection $conn)
+    public function createService(ServiceLocatorInterface $sl)
     {
+        $options    = $this->getOptions($sl, 'document_manager');
+        $connection = $sl->get($options->getConnection());       # << doctrine.connection.odm_default
+        $config     = $sl->get($options->getConfiguration());
+
         return MongoDocumentManager::create(
-            $conn->getInstance(),
-            $conn->getInstance()->getConfiguration(),
-            $conn->getInstance()->getEventManager()
+            $connection,
+            $connection->getConfiguration(),
+            $connection->getEventManager()
         );
+    }
+
+    /**
+     * Get the class name of the options associated with this factory.
+     *
+     * @return string
+     */
+    public function getOptionsClass()
+    {
+        return 'DoctrineMongoODMModule\Options\MongoDocumentManager';
     }
 }

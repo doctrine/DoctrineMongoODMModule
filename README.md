@@ -27,7 +27,7 @@ Installation of this module uses composer. For composer documentation, please re
      ```json
      {
          "require": {
-             "doctrine/DoctrineMongoODMModule": "dev-master"
+             "darh/DoctrineMongoODMModule": "dev-master"
          }
      }
      ```
@@ -61,18 +61,5 @@ Access the entity manager using the following di alias:
 
 ```php
 <?php
-$em = $this->getServiceLocator()->get('mongo_dm');
-```
-
-#### Injection
-You can also inject the `DocumentManager` directly in your controllers/services:
-
-```php
-class MyController extends \Zend\Mvc\Controller\ActionController
-{
-    public function __construct(\Doctrine\ODM\MongoDB\DocumentManager $dm) {
-        $this->dm = $dm;
-        // now you can use the DocumentManager!
-    }
-}
+$this->getServiceLocator()->get('doctrine.document_manager.odm_default');
 ```
