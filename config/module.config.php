@@ -3,6 +3,10 @@ return array(
     'doctrine' => array(
         'odm_autoload_annotations' => true,
 
+        'annotations' => array(
+            'odm_default' => array()
+        ),
+        
         'connection' => array(
             'odm_default' => array(
                 'configuration' => 'odm_default',
@@ -32,7 +36,9 @@ return array(
                 'hydrator_dir'       => 'data',
                 'hydrator_namespace' => 'DoctrineMongoODMModule\Hydrator',
 
-                'default_db'         => null
+                'default_db'         => null,
+                
+                'filters'            => array()
             )
         ),
 
@@ -51,19 +57,9 @@ return array(
         ),
 
         'eventmanager' => array(
-            'odm_default' => array()
+            'odm_default' => array(
+                'subscribers' => array()
+            )
         ),
-
-        'filters' => array(
-            'odm_default' => array()
-        ),
-
-        'subscribers' => array(
-            'odm_default' => array()
-        ),
-
-        'annotations' => array(
-            'odm_default' => array()
-        )
     ),
 );

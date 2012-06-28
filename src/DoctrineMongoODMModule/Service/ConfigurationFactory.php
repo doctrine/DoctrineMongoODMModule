@@ -196,7 +196,7 @@ class ConfigurationFactory extends AbstractFactory
         return $this->annotations;
     }
 
-    protected function getOptionsClass()
+    public function getOptionsClass()
     {
         return 'DoctrineMongoODMModule\Options\Configuration';
     }

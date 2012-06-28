@@ -104,7 +104,7 @@ class Module
                 'doctrine.configuration.odm_default' => new ODMService\ConfigurationFactory('odm_default'),
                 'doctrine.driver.odm_default'        => new CommonService\DriverFactory('odm_default'),
                 'doctrine.documentmanager.odm_default' => new ODMService\DocumentManagerFactory('odm_default'),
-                'doctrine.eventmanager.odm_default'  => new CommonService\EventManagerFactory('odm_default'),
+                'doctrine.eventmanager.odm_default'  => new ODMService\EventManagerFactory('odm_default'),
             )
         );
     }
