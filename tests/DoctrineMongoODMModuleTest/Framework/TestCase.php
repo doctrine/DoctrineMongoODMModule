@@ -17,28 +17,36 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace DoctrineMongoODMModule\Factory;
+namespace DoctrineMongoODMModuleTest\Framework;
 
-use Doctrine\Common\Annotations\AnnotationRegistry,
-    Doctrine\ODM\MongoDB\DocumentManager as MongoDocumentManager,
-    DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection;
+use PHPUnit_Framework_TestCase;
+use Zend\ServiceManager\ServiceManager;
 
-/**
- * Doctrine MongoDB document manager factory.
- *
- * @license MIT
- * @link    http://www.doctrine-project.org
- * @since   0.1.0
- * @author  Kyle Spraggs <theman@spiffyjr.me>
- */
-class DocumentManager
+class TestCase extends PHPUnit_Framework_TestCase
 {
-    public static function get(Connection $conn)
+    /**
+     * @var ServiceManager
+     */
+    protected static $sm;
+
+    /**
+     * @param ServiceManager $sm
+     */
+    public static function setServiceManager(ServiceManager $sm)
     {
-        return MongoDocumentManager::create(
-            $conn->getInstance(),
-            $conn->getInstance()->getConfiguration(),
-            $conn->getInstance()->getEventManager()
-        );
+        self::$sm = $sm;
+    }
+
+    /**
+     * @return ServiceManager
+     */
+    public function getServiceManager()
+    {
+    	return self::$sm;
+    }
+
+    public function getDocumentManager()
+    {
+        return $this->getServiceManager()->get('doctrine.documentmanager.odm_default');
     }
 }

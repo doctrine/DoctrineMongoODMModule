@@ -30,6 +30,11 @@
         {
             "name": "Guilherme Blanco",
             "email": "guilhermeblanco@hotmail.com"
+        },
+        {
+            "name": "Tim Roediger",
+            "email": "superdweebie@gmail.com",
+            "homepage": "http://superdweebie.com"
         }
     ],
     "require": {
@@ -40,7 +45,8 @@
 
     "autoload": {
         "psr-0": {
-            "DoctrineMongoODMModule": "src/"
+            "DoctrineMongoODMModule": "src/",
+            "DoctrineMongoODMModuleTest": "tests/"
         },
         "classmap": [
             "./"
