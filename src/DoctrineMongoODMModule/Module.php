@@ -19,11 +19,8 @@
 
 namespace DoctrineMongoODMModule;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
-use Zend\ModuleManager\ModuleManagerInterface;
-use Zend\ModuleManager\ModuleEvent;
+use Zend\EventManager\Event;
 
 /**
  * Doctrine Module provider for Mongo DB ODM.
@@ -35,35 +32,25 @@ use Zend\ModuleManager\ModuleEvent;
  */
 class Module
 {
-    public function onBootstrap($event)
+
+    /**
+     *
+     * @param \Zend\EventManager\Event $event
+     */
+    public function onBootstrap(Event $event)
     {
-        $app    = $event->getTarget();
+        $app = $event->getTarget();
         $sharedManager = $app->events()->getSharedManager();
 
         // Attach to helper set event and load the document manager helper.
         $sharedManager->attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
     }
 
-    public function registerAnnotations(ModuleEvent $event)
-    {
-        $config   = $event->getConfigListener()->getMergedConfig();
-        if (isset($config['doctrine']['odm_autoload_annotations'])) {
-            $autoload = $config['doctrine']['odm_autoload_annotations'];
-        } else {
-            $autoload = false;
-        }
-
-        if ($autoload) {
-            $annotationReflection = new \ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
-            $annotationsFile = realpath(
-                dirname($annotationReflection->getFileName()) . '/../Annotations/DoctrineAnnotations.php'
-            );
-
-            AnnotationRegistry::registerFile($annotationsFile);
-        }
-    }
-
-    public function loadCli($event){
+    /**
+     *
+     * @param \Zend\EventManager\Event $event
+     */
+    public function loadCli(Event $event){
         $cli = $event->getTarget();
         $cli->addCommands(array(
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand(),
@@ -100,9 +87,9 @@ class Module
                 'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
             ),
             'factories' => array(
-                'doctrine.connection.odm_default'    => new CommonService\ConnectionFactory('odm_default'),
+                'doctrine.connection.odm_default'    => new ODMService\ConnectionFactory('odm_default'),
                 'doctrine.configuration.odm_default' => new ODMService\ConfigurationFactory('odm_default'),
-                'doctrine.driver.odm_default'        => new CommonService\DriverFactory('odm_default'),
+                'doctrine.driver.odm_default'        => new ODMService\DriverFactory('odm_default'),
                 'doctrine.documentmanager.odm_default' => new ODMService\DocumentManagerFactory('odm_default'),
                 'doctrine.eventmanager.odm_default'  => new ODMService\EventManagerFactory('odm_default'),
             )

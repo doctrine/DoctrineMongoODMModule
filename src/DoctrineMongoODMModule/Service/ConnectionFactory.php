@@ -18,56 +18,39 @@
  */
 namespace DoctrineMongoODMModule\Service;
 
-use Doctrine\Common\EventManager;
-use Doctrine\Common\EventSubscriber;
 use DoctrineModule\Service\AbstractFactory;
-use DoctrineMongoODMModule\Events;
+use Doctrine\MongoDB\Connection;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Factory creates a doctrine event manager. Subscribers may come
- * from the options class or as respones to the getSubscribers event
+ * Factory creates a mongo connection
  *
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class EventManagerFactory extends AbstractFactory
+class ConnectionFactory extends AbstractFactory
 {
+
     /**
-     *
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     * @return \Doctrine\Common\EventManager
+     * @return \Doctrine\MongoDB\Connection
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /** @var $options \DoctrineModule\Options\EventManager */
-        $options = $this->getOptions($serviceLocator, 'eventmanager');
-        $eventManager     = new EventManager;
+        /** @var $options \DoctrineMongoODMModule\Options\Connection */
+        $options = $this->getOptions($serviceLocator, 'connection');
 
-        //Get subscribers from config
-        $subscribers = $options->getSubscribers();
-
-        //Get any other subscribers by triggering getSubscribers event
-        $events = $serviceLocator->get('EventManager');
-        $events->addIdentifiers(Events::identifier);
-        $collection = $events->trigger(Events::getSubscribers, $serviceLocator);
-        foreach($collection as $response) {
-            $subscribers = array_merge($subscribers, $response);
+        $connectionString = 'mongodb://';
+        if ($options->getUser() && $options->getPassword()) {
+            $connectionString .= $options->getUser() . ':' . $options->getPassword() . '@';
         }
-
-        foreach($subscribers as $subscriber) {
-            if ($subscriber instanceof EventSubscriber) {
-                $eventManager->addEventSubscriber($subscriber);
-            } elseif (is_subclass_of($subscriber, 'Doctrine\Common\EventSubscriber')) {
-                $eventManager->addEventSubscriber(new $subscriber);
-            } else {
-                $eventManager->addEventSubscriber($serviceLocator->get($subscriber));
-            }
+        $connectionString .= $options->getServer() . ':' . $options->getPort();
+        if ($options->getDbName()) {
+            $connectionString .= '/' . $options->getDbName();
         }
-
-        return $eventManager;
+        return new Connection($connectionString, $options->getOptions());
     }
 
     /**
@@ -77,6 +60,6 @@ class EventManagerFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'DoctrineModule\Options\EventManager';
+        return 'DoctrineMongoODMModule\Options\Connection';
     }
 }

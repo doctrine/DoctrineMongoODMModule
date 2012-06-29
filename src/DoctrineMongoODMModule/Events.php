@@ -16,37 +16,35 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
+namespace DoctrineMongoODMModule;
 
-namespace DoctrineMongoODMModuleTest\Framework;
-
-use PHPUnit_Framework_TestCase;
-use Zend\ServiceManager\ServiceManager;
-
-class TestCase extends PHPUnit_Framework_TestCase
+/**
+ * Event name strings
+ *
+ * @license MIT
+ * @link    http://www.doctrine-project.org/
+ * @since   0.1.0
+ * @author  Tim Roediger <superdweebie@gmail.com>
+ */
+class Events
 {
     /**
-     * @var ServiceManager
+     * Used when trigger zend eventManager events
      */
-    protected static $sm;
+    const identifier = 'DoctrineMongoODMModule';
 
     /**
-     * @param ServiceManager $sm
+     * Get any extra subscribers to be added to the doctrine eventManager
      */
-    public static function setServiceManager(ServiceManager $sm)
-    {
-        self::$sm = $sm;
-    }
+    const getSubscribers = 'getSubscribers';
 
     /**
-     * @return ServiceManager
+     * Get any filters to be added to the doctrine config
      */
-    public function getServiceManager()
-    {
-    	return self::$sm;
-    }
+    const getFilters = 'getFilters';
 
-    public function getDocumentManager()
-    {
-        return $this->getServiceManager()->get('doctrine.documentmanager.odm_default');
-    }
+    /**
+     * Get any extra annotations to be registered
+     */
+    const getAnnotations = 'getAnnotations';
 }

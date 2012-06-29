@@ -7,7 +7,7 @@
 >
     <testsuites>
         <testsuite name="DoctrineMongoODMModule Test Suite">
-            <directory>./DoctrineMongoODMTest</directory>
+            <directory>./DoctrineMongoODMModuleTest/</directory>
         </testsuite>
     </testsuites>
 

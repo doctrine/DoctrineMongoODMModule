@@ -18,11 +18,12 @@
  */
 namespace DoctrineMongoODMModule\Service;
 
-use DoctrineModule\Service\AbstractFactory;
-use Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use DoctrineModule\Service\AbstractFactory;
+use DoctrineMongoODMModule\Events;
+use Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain;
+use Doctrine\ODM\MongoDB\Configuration;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory to create MongoDB configuration object.
@@ -34,24 +35,6 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
  */
 class ConfigurationFactory extends AbstractFactory
 {
-    /**
-     * @var \Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain
-     */
-    protected $chain;
-
-    /**
-     * @var array
-     */
-    protected $filters;
-
-    /**
-     * @var array
-     */
-    protected $annotations;
-
-    protected function getIdentifier(){
-        return Events::IDENTIFIER;
-    }
 
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
@@ -61,8 +44,12 @@ class ConfigurationFactory extends AbstractFactory
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /** @var $options \DoctrineMongoODMModule\Options\Configuration */
-        $options = $this->getOptions($serviceLocator);
+        $options = $this->getOptions($serviceLocator, 'configuration');
 
+        $eventManager = $serviceLocator->get('EventManager');
+        $eventManager->addIdentifiers(Events::identifier);
+
+        // Register annotations
         if ($options->getAutoloadAnnotations())
         {
             $annotationReflection = new \ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
@@ -72,8 +59,19 @@ class ConfigurationFactory extends AbstractFactory
 
             AnnotationRegistry::registerFile($annotationsFile);
 
-            //Also register any other annotations provided by modules
-            AnnotationRegistry::registerAutoloadNamespaces($this->getAnnotations($serviceLocator));
+            //Get any other annotations from options
+            $annotations = $options->getAnnotations();
+
+            //Get any other annotations by triggering getAnnotations event
+            $collection = $eventManager->trigger(Events::getAnnotations, $serviceLocator);
+            foreach($collection as $response) {
+                $annotations = array_merge($annotations, $response);
+            }
+
+            foreach ($annotations as $namespace => $path) {
+                //Also register any other annotations provided by modules
+                AnnotationRegistry::registerAutoloadNamespaces($namespace, $path);
+            }
         }
 
         $config = new Configuration;
@@ -94,106 +92,25 @@ class ConfigurationFactory extends AbstractFactory
         // caching
         $config->setMetadataCacheImpl($serviceLocator->get($options->getMetadataCache()));
 
-        //filters
-        $filters = $this->getFilters($serviceLocator, $config);
+
+        //Get any filters from options
+        $filters = $options->getFilters();
+
+        //Get any other fitlers by triggering getFilters event
+        $collection = $eventManager->trigger(Events::getFilters, $serviceLocator);
+        foreach($collection as $response) {
+            $filters = array_merge($filters, $response);
+        }
+
+        // Register filters
         foreach($filters as $alias => $class){
             $config->addFilter($alias, $class);
         }
 
         // finally, the driver
-        $config->setMetadataDriverImpl($this->getDriverChain($serviceLocator, $config));
+        $config->setMetadataDriverImpl($serviceLocator->get($options->getDriver()));
 
         return $config;
-    }
-
-    /**
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @param array $config
-     * @return \Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain
-     */
-    protected function getDriverChain(ServiceLocatorInterface $serviceLocator, $config)
-    {
-
-        if (!null === $this->chain) {
-            return $this->chain;
-        }
-        $chain  = new DriverChain;
-
-        $reader = $serviceLocator->get('Doctrine\Common\Annotations\CachedReader');
-        $driverConfig = $serviceLocator->get('Configuration');
-        $driverConfig = $driverConfig['doctrine']['drivers']['odm'];
-
-        foreach($driverConfig as $params){
-            $chain->addDriver(new $params['class']($reader, $params['paths']), $params['namespace']);
-        }
-
-        $events = $this->events($serviceLocator);
-
-        $collection = $events->trigger(Events::LOAD_DRIVERS, $serviceLocator, array('config' => $config));
-        foreach($collection as $response) {
-            foreach($response as $namespace => $driver) {
-                $chain->addDriver($driver, $namespace);
-            }
-        }
-
-        $this->chain = $chain;
-        return $this->chain;
-    }
-
-    /**
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @param array $config
-     * @return array
-     */
-    protected function getFilters(ServiceLocatorInterface $serviceLocator, $config)
-    {
-        if (!null == $this->filters){
-            return $this->filters;
-        }
-
-        $filters  = array();
-
-        $filterConfig = $serviceLocator->get('Configuration');
-        $filterConfig = $filterConfig['doctrine']['filters']['odm'];
-        $filters = $filterConfig;
-
-        $events = $this->events($serviceLocator);
-
-        $collection = $events->trigger(Events::LOAD_FILTERS, $serviceLocator, array('config' => $config));
-        foreach($collection as $response) {
-            $filters = array_merge($filters, $response);
-        }
-        $this->filters = $filters;
-        return $this->filters;
-    }
-
-    /**
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return type
-     */
-    protected function getAnnotations(ServiceLocatorInterface $serviceLocator)
-    {
-        if (!null == $this->annotations){
-            return $this->annotations;
-        }
-
-        $annotations  = array();
-
-        $annotationsConfig = $serviceLocator->get('Configuration');
-        $annotationsConfig = $annotationsConfig['doctrine']['annotations']['odm'];
-        $annotations = $annotationsConfig;
-
-        $events = $this->events($serviceLocator);
-
-        $collection = $events->trigger(Events::LOAD_ANNOTATONS, $serviceLocator);
-        foreach($collection as $response) {
-            $annotations = array_merge($annotations, $response);
-        }
-        $this->annotations = $annotations;
-        return $this->annotations;
     }
 
     public function getOptionsClass()
