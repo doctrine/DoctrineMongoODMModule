@@ -20,8 +20,6 @@ namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use DoctrineModule\Service\AbstractFactory;
-use DoctrineMongoODMModule\Events;
-use Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain;
 use Doctrine\ODM\MongoDB\Configuration;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -46,9 +44,6 @@ class ConfigurationFactory extends AbstractFactory
         /** @var $options \DoctrineMongoODMModule\Options\Configuration */
         $options = $this->getOptions($serviceLocator, 'configuration');
 
-        $eventManager = $serviceLocator->get('EventManager');
-        $eventManager->addIdentifiers(Events::identifier);
-
         // Register annotations
         if ($options->getAutoloadAnnotations())
         {
@@ -59,19 +54,8 @@ class ConfigurationFactory extends AbstractFactory
 
             AnnotationRegistry::registerFile($annotationsFile);
 
-            //Get any other annotations from options
-            $annotations = $options->getAnnotations();
-
-            //Get any other annotations by triggering getAnnotations event
-            $collection = $eventManager->trigger(Events::getAnnotations, $serviceLocator);
-            foreach($collection as $response) {
-                $annotations = array_merge($annotations, $response);
-            }
-
-            foreach ($annotations as $namespace => $path) {
-                //Also register any other annotations provided by modules
-                AnnotationRegistry::registerAutoloadNamespaces($namespace, $path);
-            }
+            //Register any other annotations from options
+            AnnotationRegistry::registerAutoloadNamespaces($options->getAnnotations());
         }
 
         $config = new Configuration;
@@ -92,18 +76,8 @@ class ConfigurationFactory extends AbstractFactory
         // caching
         $config->setMetadataCacheImpl($serviceLocator->get($options->getMetadataCache()));
 
-
-        //Get any filters from options
-        $filters = $options->getFilters();
-
-        //Get any other fitlers by triggering getFilters event
-        $collection = $eventManager->trigger(Events::getFilters, $serviceLocator);
-        foreach($collection as $response) {
-            $filters = array_merge($filters, $response);
-        }
-
         // Register filters
-        foreach($filters as $alias => $class){
+        foreach($options->getFilters() as $alias => $class){
             $config->addFilter($alias, $class);
         }
 

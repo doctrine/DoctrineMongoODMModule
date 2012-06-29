@@ -18,7 +18,7 @@
  */
 namespace DoctrineMongoODMModule\Options;
 
-use Zend\Stdlib\Options;
+use Zend\Stdlib\AbstractOptions;
 
 /**
  * Connection options for doctrine mongo
@@ -28,7 +28,7 @@ use Zend\Stdlib\Options;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class Connection extends Options
+class Connection extends AbstractOptions
 {
 
     /**

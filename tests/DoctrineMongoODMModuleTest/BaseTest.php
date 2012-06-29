@@ -26,6 +26,8 @@ use Zend\ServiceManager\ServiceManager;
 abstract class BaseTest extends PHPUnit_Framework_TestCase
 {
 
+    const DEFAULT_DB = 'doctrineMongoODMModuleTest';
+
     protected $serviceManager;
 
     protected static $mvcConfig;
@@ -38,13 +40,14 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
         $serviceManager = new ServiceManager(new ServiceManagerConfiguration($mvcConfig['service_manager']));
         $serviceManager->setService('ApplicationConfiguration', $mvcConfig);
         $serviceManager->setAllowOverride(true);
-        $serviceManager->setService('Configuration', $this->alterConfig($serviceManager->get('Configuration')));
 
         $this->serviceManager = $serviceManager;
-        
+
         /** @var $moduleManager \Zend\ModuleManager\ModuleManager */
         $moduleManager = $serviceManager->get('ModuleManager');
         $moduleManager->loadModules();
+
+        $serviceManager->setService('Configuration', $this->alterConfig($serviceManager->get('Configuration')));
     }
 
     /**
@@ -69,5 +72,13 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
     public function getDocumentManager()
     {
         return $this->serviceManager->get('doctrine.documentmanager.odm_default');
+    }
+
+    public function tearDown()
+    {
+        $collections = $this->getDocumentManager()->getConnection()->selectDatabase(self::DEFAULT_DB)->listCollections();
+        foreach ($collections as $collection) {
+            $collection->remove(array(), array('safe' => true));
+        }
     }
 }

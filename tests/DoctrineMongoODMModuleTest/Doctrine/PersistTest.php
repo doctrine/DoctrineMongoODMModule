@@ -16,7 +16,7 @@ class PersistTest extends BaseTest{
             )
         );
         $config['doctrine']['driver']['odm_default']['drivers']['DoctrineMongoODMModuleTest\Assets\Document'] = 'test';
-        $config['doctrine']['configuration']['odm_default']['default_db'] = 'doctrineMongoODMModuleTest';
+        $config['doctrine']['configuration']['odm_default']['default_db'] = self::DEFAULT_DB;
         return $config;
     }
 

@@ -18,7 +18,7 @@
  */
 namespace DoctrineMongoODMModule\Options;
 
-use Zend\Stdlib\Options;
+use Zend\Stdlib\AbstractOptions;
 
 /**
  * Configuration options for doctrine mongo
@@ -28,7 +28,7 @@ use Zend\Stdlib\Options;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class Configuration extends Options
+class Configuration extends AbstractOptions
 {
 
     /**

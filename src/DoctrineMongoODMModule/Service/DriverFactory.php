@@ -20,7 +20,7 @@ namespace DoctrineMongoODMModule\Service;
 
 use InvalidArgumentException;
 use Doctrine\Common\Annotations;
-use DoctrineModule\Options\Driver as DriverOptions;
+use DoctrineMongoODMModule\Options\Driver as DriverOptions;
 use DoctrineModule\Service\AbstractFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -51,7 +51,7 @@ class DriverFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'DoctrineModule\Options\Driver';
+        return 'DoctrineMongoODMModule\Options\Driver';
     }
 
     /**

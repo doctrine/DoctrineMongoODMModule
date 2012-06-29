@@ -19,6 +19,7 @@
 
 namespace DoctrineMongoODMModule;
 
+use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
 use Zend\EventManager\Event;
 
@@ -40,7 +41,7 @@ class Module
     public function onBootstrap(Event $event)
     {
         $app = $event->getTarget();
-        $sharedManager = $app->events()->getSharedManager();
+        $sharedManager = $app->getEventManager()->getSharedManager();
 
         // Attach to helper set event and load the document manager helper.
         $sharedManager->attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
@@ -91,7 +92,7 @@ class Module
                 'doctrine.configuration.odm_default' => new ODMService\ConfigurationFactory('odm_default'),
                 'doctrine.driver.odm_default'        => new ODMService\DriverFactory('odm_default'),
                 'doctrine.documentmanager.odm_default' => new ODMService\DocumentManagerFactory('odm_default'),
-                'doctrine.eventmanager.odm_default'  => new ODMService\EventManagerFactory('odm_default'),
+                'doctrine.eventmanager.odm_default'  => new CommonService\EventManagerFactory('odm_default'),
             )
         );
     }

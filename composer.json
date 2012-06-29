@@ -39,17 +39,13 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "doctrine/DoctrineModule": "dev-master",
+        "doctrine/doctrine-module": "dev-master",
         "doctrine/mongodb-odm": "dev-master"
     },
 
     "autoload": {
         "psr-0": {
-            "DoctrineMongoODMModule": "src/",
-            "DoctrineMongoODMModuleTest": "tests/"
-        },
-        "classmap": [
-            "./"
-        ]
+            "DoctrineMongoODMModule": "src/"
+        }
     }
 }

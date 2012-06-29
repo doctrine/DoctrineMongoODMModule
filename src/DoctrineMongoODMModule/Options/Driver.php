@@ -16,35 +16,17 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace DoctrineMongoODMModule;
 
-/**
- * Event name strings
- *
- * @license MIT
- * @link    http://www.doctrine-project.org/
- * @since   0.1.0
- * @author  Tim Roediger <superdweebie@gmail.com>
- */
-class Events
+namespace DoctrineMongoODMModule\Options;
+
+use DoctrineModule\Options\Driver as DriverBase;
+
+class Driver extends DriverBase
 {
     /**
-     * Used when trigger zend eventManager events
+     * The class name of the Driver.
+     *
+     * @var string
      */
-    const identifier = 'DoctrineMongoODMModule';
-
-    /**
-     * Get any extra subscribers to be added to the doctrine eventManager
-     */
-    const getSubscribers = 'getSubscribers';
-
-    /**
-     * Get any filters to be added to the doctrine config
-     */
-    const getFilters = 'getFilters';
-
-    /**
-     * Get any extra annotations to be registered
-     */
-    const getAnnotations = 'getAnnotations';
+    protected $class = 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver';
 }

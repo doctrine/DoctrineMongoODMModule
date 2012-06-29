@@ -13,14 +13,17 @@ before_script:
   - cd ..
   - git clone git://github.com/zendframework/ZendSkeletonApplication.git
   - cd ZendSkeletonApplication
+  - rm .gitmodules
+  - git rm --cached vendor/ZF2
+  - rm config/application.config.php && cp ../DoctrineMongoODMModule/.travis/application.config.php config/
   - cp ../DoctrineMongoODMModule/.travis/composer.json ./
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install
   - rm -rf vendor/doctrine/DoctrineMongoODMModule
   - cp -r ../DoctrineMongoODMModule vendor/doctrine/
-  - rm config/application.config.php && cp ../DoctrineMongoODMModule/.travis/application.config.php config/
 
 script:
-  - ./vendor/doctrine/DoctrineMongoODMModule/.travis/run-cli.sh
+  - ./vendor/bin/doctrine-module odm:schema:create
+  - ./vendor/bin/doctrine-module odm:schema:drop
   - cd vendor/doctrine/DoctrineMongoODMModule/tests
   - phpunit

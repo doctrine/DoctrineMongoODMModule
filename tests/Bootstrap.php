@@ -14,7 +14,8 @@ while (!file_exists('config/application.config.php')) {
     chdir($dir);
 }
 
-require_once('vendor/autoload.php');
+$loader = require_once('vendor/autoload.php');
+$loader->add('DoctrineMongoODMModuleTest', __DIR__);
 
 if (is_readable(__DIR__ . '/TestConfiguration.php')) {
     require_once __DIR__ . '/TestConfiguration.php';
