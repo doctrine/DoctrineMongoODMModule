@@ -19,11 +19,12 @@ before_script:
   - cp ../DoctrineMongoODMModule/.travis/composer.json ./
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install
-  - rm -rf vendor/doctrine/DoctrineMongoODMModule
+  - rm -rf vendor/doctrine/doctrine-mongo-odm-module
   - cp -r ../DoctrineMongoODMModule vendor/doctrine/
-
+  - mv vendor/doctrine/DoctrineMongoODMModule vendor/superdweebie/doctrine-mongo-odm-module
+  
 script:
   - ./vendor/bin/doctrine-module odm:schema:create
   - ./vendor/bin/doctrine-module odm:schema:drop
-  - cd vendor/doctrine/DoctrineMongoODMModule/tests
+  - cd vendor/doctrine/doctrine-mongo-odm-module/tests
   - phpunit
