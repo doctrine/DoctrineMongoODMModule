@@ -1,5 +1,5 @@
 {
-    "name": "doctrine/DoctrineMongoODMModule",
+    "name": "doctrine/doctrine-mongo-odm-module",
     "description": "Zend Framework 2 Module that provides Doctrine MongoDB ODM functionality",
     "type": "library",
     "keywords": [
@@ -30,20 +30,22 @@
         {
             "name": "Guilherme Blanco",
             "email": "guilhermeblanco@hotmail.com"
+        },
+        {
+            "name": "Tim Roediger",
+            "email": "superdweebie@gmail.com",
+            "homepage": "http://superdweebie.com"
         }
     ],
     "require": {
         "php": ">=5.3.3",
-        "doctrine/DoctrineModule": "dev-master",
-        "doctrine/mongodb-odm": "dev-master"
+        "doctrine/doctrine-module": "master@dev",
+        "doctrine/mongodb-odm": "master@dev"
     },
 
     "autoload": {
         "psr-0": {
             "DoctrineMongoODMModule": "src/"
-        },
-        "classmap": [
-            "./"
-        ]
+        }
     }
 }
