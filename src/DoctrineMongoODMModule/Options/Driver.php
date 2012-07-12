@@ -17,28 +17,16 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace DoctrineMongoODMModule\Factory;
+namespace DoctrineMongoODMModule\Options;
 
-use Doctrine\Common\Annotations\AnnotationRegistry,
-    Doctrine\ODM\MongoDB\DocumentManager as MongoDocumentManager,
-    DoctrineMongoODMModule\Doctrine\ODM\MongoDB\Connection;
+use DoctrineModule\Options\Driver as DriverBase;
 
-/**
- * Doctrine MongoDB document manager factory.
- *
- * @license MIT
- * @link    http://www.doctrine-project.org
- * @since   0.1.0
- * @author  Kyle Spraggs <theman@spiffyjr.me>
- */
-class DocumentManager
+class Driver extends DriverBase
 {
-    public static function get(Connection $conn)
-    {
-        return MongoDocumentManager::create(
-            $conn->getInstance(),
-            $conn->getInstance()->getConfiguration(),
-            $conn->getInstance()->getEventManager()
-        );
-    }
+    /**
+     * The class name of the Driver.
+     *
+     * @var string
+     */
+    protected $class = 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver';
 }
