@@ -27,7 +27,7 @@ Installation of this module uses composer. For composer documentation, please re
      ```json
      {
          "require": {
-             "doctrine/DoctrineMongoODMModule": "dev-master"
+             "doctrine/doctrine-mongo-odm-module": "master@dev"
          }
      }
      ```
@@ -41,9 +41,11 @@ Installation of this module uses composer. For composer documentation, please re
      'DoctrineMongoODMModule',
      ```
 
-  6. drop `vendor/doctrine/DoctrineMongoODMModule/config/module.doctrine_mongodb.local.php.dist` into your application's
-     `config/autoload` directory, rename it to `module.doctrine_mongodb.local.php` and make the appropriate changes.
-     
+  6. (TODO: Create .dist config, for now just copy and rename module.config.php, and comment out what you don't change) copy `vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm.local.php.dist` into your application's
+     `config/autoload` directory, rename it to `module.doctrine-mongo-odm.local.php` and make the appropriate changes. 
+     With this config file you can configure your mongo connection, add extra annotations to register, add subscribers to
+     the event manager, add filters to the filter collection, and drivers to the driver chain.
+
   7. create directory `my/project/directory/data/DoctrineMongoODMModule/Proxy` and  
      `my/project/directory/data/DoctrineMongoODMModule/Hydrators` and make sure your application has write access to it.
 
@@ -57,22 +59,9 @@ Access the Doctrine command line as following
 ```
 
 #### Service Locator
-Access the entity manager using the following di alias:
+Access the entity manager using the following service manager alias:
 
 ```php
 <?php
-$em = $this->getServiceLocator()->get('mongo_dm');
-```
-
-#### Injection
-You can also inject the `DocumentManager` directly in your controllers/services:
-
-```php
-class MyController extends \Zend\Mvc\Controller\ActionController
-{
-    public function __construct(\Doctrine\ODM\MongoDB\DocumentManager $dm) {
-        $this->dm = $dm;
-        // now you can use the DocumentManager!
-    }
-}
+$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
 ```
