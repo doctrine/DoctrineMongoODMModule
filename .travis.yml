@@ -21,7 +21,7 @@ before_script:
   - php composer.phar install
   - rm -rf vendor/doctrine/doctrine-mongo-odm-module
   - cp -r ../DoctrineMongoODMModule vendor/doctrine/
-  - mv vendor/doctrine/DoctrineMongoODMModule vendor/superdweebie/doctrine-mongo-odm-module
+  - mv vendor/doctrine/DoctrineMongoODMModule vendor/doctrine/doctrine-mongo-odm-module
   
 script:
   - ./vendor/bin/doctrine-module odm:schema:create
