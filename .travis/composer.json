@@ -1,7 +1,7 @@
 {
     "minimum-stability": "dev",
     "require": {
-        "doctrine/doctrine-mongo-odm-module": "master@dev",
-        "zendframework/zendframework": "master@dev"
+        "doctrine/doctrine-mongo-odm-module": "dev-master",
+        "zendframework/zendframework": "dev-master"
     }
 }
