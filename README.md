@@ -41,7 +41,7 @@ Installation of this module uses composer. For composer documentation, please re
      'DoctrineMongoODMModule',
      ```
 
-  6. (TODO: Create .dist config, for now just copy and rename module.config.php, and comment out what you don't change) copy `vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm.local.php.dist` into your application's
+  6. copy `vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm.local.php.dist` into your application's
      `config/autoload` directory, rename it to `module.doctrine-mongo-odm.local.php` and make the appropriate changes. 
      With this config file you can configure your mongo connection, add extra annotations to register, add subscribers to
      the event manager, add filters to the filter collection, and drivers to the driver chain.
