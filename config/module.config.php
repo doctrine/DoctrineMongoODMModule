@@ -37,7 +37,7 @@ return array(
 
         'driver' => array(
             'odm_default' => array(
-                'class'   => 'Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain',
+                'class'   => 'Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain',
                 'drivers' => array()
             )
         ),
