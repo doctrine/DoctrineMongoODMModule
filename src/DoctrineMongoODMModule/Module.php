@@ -81,7 +81,7 @@ class Module
      *
      * @return array
      */
-    public function getServiceConfiguration()
+    public function getServiceConfig()
     {
         return array(
             'aliases' => array(
