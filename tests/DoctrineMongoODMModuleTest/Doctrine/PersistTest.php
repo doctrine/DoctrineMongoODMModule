@@ -5,8 +5,8 @@ namespace DoctrineMongoODMModuleTest\Doctrine;
 use DoctrineMongoODMModuleTest\Assets\Document\Simple;
 use DoctrineMongoODMModuleTest\BaseTest;
 
-class PersistTest extends BaseTest{
-
+class PersistTest extends BaseTest
+{
     protected function alterConfig(array $config) {
         $config['doctrine']['driver']['test'] = array(
             'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',

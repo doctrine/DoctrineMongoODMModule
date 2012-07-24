@@ -32,11 +32,11 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
 
     protected static $mvcConfig;
 
-    public function setup(){
-
+    public function setup()
+    {
         $mvcConfig = $this->getMvcConfig();
 
-        // $configuration is loaded from TestConfiguration.php (or .dist)
+        // $config is loaded from TestConfiguration.php (or .dist)
         $serviceManager = new ServiceManager(new ServiceManagerConfig($mvcConfig['service_manager']));
         $serviceManager->setService('ApplicationConfig', $mvcConfig);
         $serviceManager->setAllowOverride(true);
@@ -47,7 +47,7 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
         $moduleManager = $serviceManager->get('ModuleManager');
         $moduleManager->loadModules();
 
-        $serviceManager->setService('Configuration', $this->alterConfig($serviceManager->get('Configuration')));
+        $serviceManager->setService('Config', $this->alterConfig($serviceManager->get('Config')));
     }
 
     /**
