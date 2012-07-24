@@ -20,7 +20,7 @@
 namespace DoctrineMongoODMModuleTest;
 
 use PHPUnit_Framework_TestCase;
-use Zend\Mvc\Service\ServiceManagerConfiguration;
+use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 
 abstract class BaseTest extends PHPUnit_Framework_TestCase
@@ -37,8 +37,8 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
         $mvcConfig = $this->getMvcConfig();
 
         // $configuration is loaded from TestConfiguration.php (or .dist)
-        $serviceManager = new ServiceManager(new ServiceManagerConfiguration($mvcConfig['service_manager']));
-        $serviceManager->setService('ApplicationConfiguration', $mvcConfig);
+        $serviceManager = new ServiceManager(new ServiceManagerConfig($mvcConfig['service_manager']));
+        $serviceManager->setService('ApplicationConfig', $mvcConfig);
         $serviceManager->setAllowOverride(true);
 
         $this->serviceManager = $serviceManager;
