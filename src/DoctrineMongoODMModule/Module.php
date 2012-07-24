@@ -22,6 +22,7 @@ namespace DoctrineMongoODMModule;
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
 use Zend\EventManager\Event;
+use Zend\ModuleManager\Feature\ServiceProviderInterface;
 
 /**
  * Doctrine Module provider for Mongo DB ODM.
@@ -31,7 +32,7 @@ use Zend\EventManager\Event;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class Module
+class Module implements ServiceProviderInterface
 {
 
     /**
@@ -81,7 +82,7 @@ class Module
      *
      * @return array
      */
-    public function getServiceConfiguration()
+    public function getServiceConfig()
     {
         return array(
             'aliases' => array(
@@ -97,3 +98,4 @@ class Module
         );
     }
 }
+
