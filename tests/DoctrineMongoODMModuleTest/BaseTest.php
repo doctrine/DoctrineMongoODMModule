@@ -39,6 +39,7 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase
         // $config is loaded from TestConfiguration.php (or .dist)
         $serviceManager = new ServiceManager(new ServiceManagerConfig($mvcConfig['service_manager']));
         $serviceManager->setService('ApplicationConfig', $mvcConfig);
+        $serviceManager->setFactory('ServiceListener', 'Zend\Mvc\Service\ServiceListenerFactory');
         $serviceManager->setAllowOverride(true);
 
         $this->serviceManager = $serviceManager;
