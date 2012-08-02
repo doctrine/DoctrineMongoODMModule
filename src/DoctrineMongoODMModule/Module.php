@@ -21,7 +21,6 @@ namespace DoctrineMongoODMModule;
 
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
-use Zend\EventManager\Event;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
@@ -43,8 +42,6 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
 
     /**
      * {@inheritDoc}
-     *
-     * @param \Zend\EventManager\Event $event
      */
     public function onBootstrap(EventInterface $event)
     {
@@ -57,9 +54,9 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
 
     /**
      *
-     * @param \Zend\EventManager\Event $event
+     * @param Event $event
      */
-    public function loadCli(Event $event)
+    public function loadCli(EventInterface $event)
     {
         $cli = $event->getTarget();
         $cli->addCommands(array(
@@ -79,22 +76,20 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
 
     /**
      * {@inheritDoc}
-     *
-     * @return array
      */
     public function getAutoloaderConfig()
     {
         return array(
             AutoloaderFactory::STANDARD_AUTOLOADER => array(
-                StandardAutoloader::LOAD_NS => array(__NAMESPACE__ => __DIR__)
-            )
+                StandardAutoloader::LOAD_NS => array(
+                    __NAMESPACE__ => __DIR__,
+                ),
+            ),
         );
     }
 
     /**
      * {@inheritDoc}
-     *
-     * @return array
      */
     public function getConfig()
     {
@@ -103,8 +98,6 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
 
     /**
      * {@inheritDoc}
-     *
-     * @return array
      */
     public function getServiceConfig()
     {
