@@ -21,8 +21,13 @@ namespace DoctrineMongoODMModule;
 
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
-use Zend\EventManager\Event;
+use Zend\EventManager\EventInterface;
+use Zend\ModuleManager\Feature\BootstrapListenerInterface;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\Loader\AutoloaderFactory;
+use Zend\Loader\StandardAutoloader;
 
 /**
  * Doctrine Module provider for Mongo DB ODM.
@@ -32,14 +37,15 @@ use Zend\ModuleManager\Feature\ServiceProviderInterface;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class Module implements ServiceProviderInterface
+class Module implements BootstrapListenerInterface, AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface
 {
 
     /**
+     * {@inheritDoc}
      *
      * @param \Zend\EventManager\Event $event
      */
-    public function onBootstrap(Event $event)
+    public function onBootstrap(EventInterface $event)
     {
         $app = $event->getTarget();
         $sharedManager = $app->getEventManager()->getSharedManager();
@@ -52,7 +58,8 @@ class Module implements ServiceProviderInterface
      *
      * @param \Zend\EventManager\Event $event
      */
-    public function loadCli(Event $event){
+    public function loadCli(Event $event)
+    {
         $cli = $event->getTarget();
         $cli->addCommands(array(
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand(),
@@ -70,6 +77,21 @@ class Module implements ServiceProviderInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @return array
+     */
+    public function getAutoloaderConfig()
+    {
+        return array(
+            AutoloaderFactory::STANDARD_AUTOLOADER => array(
+                StandardAutoloader::LOAD_NS => array(__NAMESPACE__ => __DIR__)
+            )
+        );
+    }
+
+    /**
+     * {@inheritDoc}
      *
      * @return array
      */
@@ -79,6 +101,7 @@ class Module implements ServiceProviderInterface
     }
 
     /**
+     * {@inheritDoc}
      *
      * @return array
      */
