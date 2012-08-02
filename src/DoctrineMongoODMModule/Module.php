@@ -21,6 +21,7 @@ namespace DoctrineMongoODMModule;
 
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
+use Zend\EventManager\Event;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
