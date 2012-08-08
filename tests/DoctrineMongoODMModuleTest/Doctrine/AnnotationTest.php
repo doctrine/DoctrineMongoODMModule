@@ -19,7 +19,7 @@ class AnnotationTest extends BaseTest
         return $config;
     }
 
-    public function testPersist(){
+    public function testAnnotation(){
 
         $documentManager = $this->getDocumentManager();
         $metadata = $documentManager->getClassMetadata('DoctrineMongoODMModuleTest\Assets\Document\Annotation');
