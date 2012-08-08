@@ -101,14 +101,6 @@ class Configuration extends AbstractOptions
     protected $defaultDb;
 
     /**
-     * An array of extra annotation namespaces to be registered. Array should be in the
-     * form array('Annotation\Namespace\' => '/../annotation/path')
-     *
-     * @var array
-     */
-    protected $annotations = array();
-
-    /**
      * An array of filters. Array should be in the form
      * array('filterName' => 'BSON\Filter\Class')
      *
@@ -298,24 +290,6 @@ class Configuration extends AbstractOptions
      */
     public function setDefaultDb($defaultDb) {
         $this->defaultDb = (string) $defaultDb;
-        return $this;
-    }
-
-    /**
-     *
-     * @return array
-     */
-    public function getAnnotations() {
-        return $this->annotations;
-    }
-
-    /**
-     *
-     * @param array $annotations
-     * @return \DoctrineMongoODMModule\Options\Configuration
-     */
-    public function setAnnotations(array $annotations) {
-        $this->annotations = $annotations;
         return $this;
     }
 

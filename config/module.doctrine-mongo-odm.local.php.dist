@@ -30,7 +30,6 @@ return array(
 //
 //                'default_db'         => null,
 //
-//                'annotations'        => array(), // array('Annotation\Namespace\' => '/../annotation/path')
 //                'filters'            => array()  // array('filterName' => 'BSON\Filter\Class')
             )
         ),

@@ -53,9 +53,6 @@ class ConfigurationFactory extends AbstractFactory
             );
 
             AnnotationRegistry::registerFile($annotationsFile);
-
-            //Register any other annotations from options
-            AnnotationRegistry::registerAutoloadNamespaces($options->getAnnotations());
         }
 
         $config = new Configuration;
