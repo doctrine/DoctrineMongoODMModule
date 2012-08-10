@@ -90,23 +90,9 @@ class Configuration extends AbstractOptions
 
     /**
      *
-     * @var boolean
-     */
-    protected $autoloadAnnotations = true;
-
-    /**
-     *
      * @var string
      */
     protected $defaultDb;
-
-    /**
-     * An array of extra annotation namespaces to be registered. Array should be in the
-     * form array('Annotation\Namespace\' => '/../annotation/path')
-     *
-     * @var array
-     */
-    protected $annotations = array();
 
     /**
      * An array of filters. Array should be in the form
@@ -267,24 +253,6 @@ class Configuration extends AbstractOptions
 
     /**
      *
-     * @return boolean
-     */
-    public function getAutoloadAnnotations() {
-        return $this->autoloadAnnotations;
-    }
-
-    /**
-     *
-     * @param boolean $autoloadAnnotations
-     * @return \DoctrineMongoODMModule\Options\Configuration
-     */
-    public function setAutoloadAnnotations($autoloadAnnotations) {
-        $this->autoloadAnnotations = (boolean) $autoloadAnnotations;
-        return $this;
-    }
-
-    /**
-     *
      * @return string
      */
     public function getDefaultDb() {
@@ -298,24 +266,6 @@ class Configuration extends AbstractOptions
      */
     public function setDefaultDb($defaultDb) {
         $this->defaultDb = (string) $defaultDb;
-        return $this;
-    }
-
-    /**
-     *
-     * @return array
-     */
-    public function getAnnotations() {
-        return $this->annotations;
-    }
-
-    /**
-     *
-     * @param array $annotations
-     * @return \DoctrineMongoODMModule\Options\Configuration
-     */
-    public function setAnnotations(array $annotations) {
-        $this->annotations = $annotations;
         return $this;
     }
 
