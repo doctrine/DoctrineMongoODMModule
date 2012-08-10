@@ -44,17 +44,6 @@ class ConfigurationFactory extends AbstractFactory
         /** @var $options \DoctrineMongoODMModule\Options\Configuration */
         $options = $this->getOptions($serviceLocator, 'configuration');
 
-        // Register annotations
-        if ($options->getAutoloadAnnotations())
-        {
-            $annotationReflection = new \ReflectionClass('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver');
-            $annotationsFile = realpath(
-                dirname($annotationReflection->getFileName()) . '/../Annotations/DoctrineAnnotations.php'
-            );
-
-            AnnotationRegistry::registerFile($annotationsFile);
-        }
-
         $config = new Configuration;
 
         // proxies

@@ -90,12 +90,6 @@ class Configuration extends AbstractOptions
 
     /**
      *
-     * @var boolean
-     */
-    protected $autoloadAnnotations = true;
-
-    /**
-     *
      * @var string
      */
     protected $defaultDb;
@@ -254,24 +248,6 @@ class Configuration extends AbstractOptions
      */
     public function setHydratorNamespace($hydratorNamespace) {
         $this->hydratorNamespace = (string) $hydratorNamespace;
-        return $this;
-    }
-
-    /**
-     *
-     * @return boolean
-     */
-    public function getAutoloadAnnotations() {
-        return $this->autoloadAnnotations;
-    }
-
-    /**
-     *
-     * @param boolean $autoloadAnnotations
-     * @return \DoctrineMongoODMModule\Options\Configuration
-     */
-    public function setAutoloadAnnotations($autoloadAnnotations) {
-        $this->autoloadAnnotations = (boolean) $autoloadAnnotations;
         return $this;
     }
 

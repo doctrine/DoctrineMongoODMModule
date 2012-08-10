@@ -1,7 +1,6 @@
 <?php
 return array(
     'doctrine' => array(
-        'odm_autoload_annotations' => true,
 
         'connection' => array(
             'odm_default' => array(
