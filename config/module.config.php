@@ -20,11 +20,11 @@ return array(
                 'driver'             => 'odm_default',
 
                 'generate_proxies'   => true,
-                'proxy_dir'          => 'data',
+                'proxy_dir'          => 'data/DoctrineMongoODMModule/Proxy',
                 'proxy_namespace'    => 'DoctrineMongoODMModule\Proxy',
 
                 'generate_hydrators' => true,
-                'hydrator_dir'       => 'data',
+                'hydrator_dir'       => 'data/DoctrineMongoODMModule/Hydrator',
                 'hydrator_namespace' => 'DoctrineMongoODMModule\Hydrator',
 
                 'default_db'         => null,
