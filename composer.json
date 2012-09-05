@@ -1,8 +1,5 @@
 {
     "name": "doctrine/doctrine-mongo-odm-module",
-    "replace": {
-        "doctrine/DoctrineMongoODMModule": "self.version"
-    },
     "description": "Zend Framework 2 Module that provides Doctrine MongoDB ODM functionality",
     "type": "library",
     "keywords": [
@@ -43,7 +40,8 @@
     "require": {
         "php": ">=5.3.3",
         "doctrine/doctrine-module": "dev-master",
-        "doctrine/mongodb-odm": "dev-master"
+        "doctrine/mongodb-odm": "dev-master",
+        "zendframework/zendframework": "2.*"
     },
 
     "autoload": {
