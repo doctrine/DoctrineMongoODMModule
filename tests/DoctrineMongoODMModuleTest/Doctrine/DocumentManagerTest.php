@@ -3,13 +3,9 @@
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use DoctrineMongoODMModuleTest\BaseTest;
+use DoctrineMongoODMModuleTest\AbstractTest;
 
-class DocumentManagerTest extends BaseTest{
-
-    protected function alterConfig(array $config) {
-        return $config;
-    }
+class DocumentManagerTest extends AbstractTest{
 
     public function testDocumentManager(){
 
