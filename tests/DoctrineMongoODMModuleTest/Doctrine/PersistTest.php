@@ -3,22 +3,10 @@
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModuleTest\Assets\Document\Simple;
-use DoctrineMongoODMModuleTest\BaseTest;
+use DoctrineMongoODMModuleTest\AbstractTest;
 
-class PersistTest extends BaseTest
+class PersistTest extends AbstractTest
 {
-    protected function alterConfig(array $config) {
-        $config['doctrine']['driver']['test'] = array(
-            'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
-            'cache' => 'array',
-            'paths' => array(
-                __DIR__ . '/../Assets/Document'
-            )
-        );
-        $config['doctrine']['driver']['odm_default']['drivers']['DoctrineMongoODMModuleTest\Assets\Document'] = 'test';
-        $config['doctrine']['configuration']['odm_default']['default_db'] = self::DEFAULT_DB;
-        return $config;
-    }
 
     public function testPersist(){
 
