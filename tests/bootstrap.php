@@ -1,11 +1,10 @@
 <?php
-$applicationRoot = __DIR__ . '/../../../../';
 
-chdir($applicationRoot);
-
-$loader = require_once('vendor/autoload.php');
+$loader = require __DIR__.'/../vendor/autoload.php';
 $loader->add('DoctrineMongoODMModuleTest', __DIR__);
 
-$config = include(__DIR__ . '/test.application.config.php');
+Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
 
-\DoctrineMongoODMModuleTest\AbstractTest::setApplicationConfig($config);
+$config = require __DIR__ . '/test.application.config.php';
+
+DoctrineMongoODMModuleTest\AbstractTest::setApplicationConfig($config);

@@ -2,10 +2,9 @@
 
 namespace DoctrineMongoODMModuleTest;
 
-use PHPUnit_Framework_TestCase;
 use Zend\Mvc\Application;
 
-abstract class AbstractTest extends PHPUnit_Framework_TestCase
+abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $application;
