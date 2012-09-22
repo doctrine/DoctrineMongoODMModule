@@ -4,6 +4,9 @@ php:
   - 5.3
   - 5.4
 
+env:
+  - MONGO_VERSION=1.2.12
+
 before_script:
   - pecl -q install mongo-${MONGO_VERSION} && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - git submodule update --init
