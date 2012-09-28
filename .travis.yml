@@ -11,21 +11,7 @@ services: mongodb
 
 before_script:
   - pecl -q install mongo-${MONGO_VERSION} && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-  - git submodule update --init
-  - cd ..
-  - git clone git://github.com/zendframework/ZendSkeletonApplication.git
-  - cd ZendSkeletonApplication
-  - rm .gitmodules
-  - git rm --cached vendor/ZF2
-  - rm config/application.config.php && cp ../DoctrineMongoODMModule/.travis/application.config.php config/
-  - cp ../DoctrineMongoODMModule/.travis/composer.json ./
   - composer install --dev
-  - rm -rf vendor/doctrine/doctrine-mongo-odm-module
-  - cp -r ../DoctrineMongoODMModule vendor/doctrine/
-  - mv vendor/doctrine/DoctrineMongoODMModule vendor/doctrine/doctrine-mongo-odm-module
-  
+
 script:
-  - ./vendor/bin/doctrine-module odm:schema:create
-  - ./vendor/bin/doctrine-module odm:schema:drop
-  - cd vendor/doctrine/doctrine-mongo-odm-module/tests
   - phpunit
