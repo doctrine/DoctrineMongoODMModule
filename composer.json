@@ -46,7 +46,7 @@
 
     "autoload": {
         "psr-0": {
-            "DoctrineMongoODMModule": "src/"
+            "DoctrineMongoODMModule\\": "src/"
         }
     }
 }
