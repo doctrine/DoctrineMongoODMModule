@@ -54,13 +54,12 @@ return array(
             )
         ),
 
-        'authenticationadapter' => array(
+        'authentication' => array(
             'odm_default' => array(
                 'objectManager' => 'doctrine.documentmanager.odm_default',
                 'identityClass' => 'Application\Model\User',
                 'identityProperty' => 'username',
-                'credentialProperty' => 'password',
-                'credentialCallable' => 'Application\Model\User::hashPassword'
+                'credentialProperty' => 'password'
             ),
         ),
     ),
