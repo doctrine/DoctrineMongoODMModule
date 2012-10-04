@@ -106,7 +106,7 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
                 'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
             ),
             'factories' => array(
-                'doctrine.authenticationadapter.odm_default'  => new CommonService\AuthenticationAdapterFactory('odm_default'),
+                'doctrine.authenticationadapter.odm_default'  => new CommonService\Authentication\AdapterFactory('odm_default'),
                 'doctrine.connection.odm_default'      => new ODMService\ConnectionFactory('odm_default'),
                 'doctrine.configuration.odm_default'   => new ODMService\ConfigurationFactory('odm_default'),
                 'doctrine.driver.odm_default'          => new CommonService\DriverFactory('odm_default'),
