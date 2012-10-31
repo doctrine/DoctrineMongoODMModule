@@ -26,7 +26,7 @@ Installation of this module uses composer. For composer documentation, please re
 
      ```json
      {
-        "minimum-stability": "beta",
+         "minimum-stability": "beta",
          "require": {
              "doctrine/doctrine-mongo-odm-module": "dev-master"
          }
