@@ -60,7 +60,7 @@ Access the Doctrine command line as following
 ```
 
 #### Service Locator
-Access the entity manager using the following service manager alias:
+Access the document manager using the following service manager alias:
 
 ```php
 <?php
