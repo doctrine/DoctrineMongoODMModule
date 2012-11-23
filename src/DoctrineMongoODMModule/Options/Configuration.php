@@ -104,6 +104,12 @@ class Configuration extends AbstractOptions
 
     /**
      *
+     * @var mixed
+     */
+    protected $loggerCallable;
+
+    /**
+     *
      * @param string $driver
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
@@ -285,5 +291,25 @@ class Configuration extends AbstractOptions
     public function setFilters(array $filters) {
         $this->filters = $filters;
         return $this;
+    }
+
+    /**
+     *
+     * @param mixed $loggerCallable
+     * @return \DoctrineMongoODMModule\Options\Configuration
+     */
+    public function setLoggerCallable($loggerCallable)
+    {
+        $this->loggerCallable = $loggerCallable;
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getLoggerCallable()
+    {
+        return $this->loggerCallable;
     }
 }

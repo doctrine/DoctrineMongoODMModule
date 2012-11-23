@@ -46,6 +46,9 @@ class ConfigurationFactory extends AbstractFactory
 
         $config = new Configuration;
 
+        // the logger
+        $config->setLoggerCallable($options->getLoggerCallable());
+
         // proxies
         $config->setAutoGenerateProxyClasses($options->getGenerateProxies());
         $config->setProxyDir($options->getProxyDir());
