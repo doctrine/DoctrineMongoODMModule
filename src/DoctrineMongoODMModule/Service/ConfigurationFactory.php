@@ -47,9 +47,11 @@ class ConfigurationFactory extends AbstractFactory
         $config = new Configuration;
 
         // the logger with an injection of the service locator as a 2nd argument
-        $config->setLoggerCallable(function(array $log) use ($options, $serviceLocator) {
-            call_user_func_array($options->getLoggerCallable(), array($log, $serviceLocator));
-        });
+        if (is_callable($options->getLoggerCallable())) {
+            $config->setLoggerCallable(function(array $log) use ($options, $serviceLocator) {
+                    call_user_func_array($options->getLoggerCallable(), array($log, $serviceLocator));
+            });
+        }
 
         // proxies
         $config->setAutoGenerateProxyClasses($options->getGenerateProxies());
