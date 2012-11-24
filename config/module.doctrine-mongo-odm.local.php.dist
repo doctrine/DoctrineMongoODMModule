@@ -31,7 +31,8 @@ return array(
 //
 //                'filters'            => array()  // array('filterName' => 'BSON\Filter\Class'),
 //
-//                'logger_callable'    => null
+//                'logger_callable'    => function (array $log, \Zend\ServiceManager\ServiceLocatorInterface $sl) {
+//                })
             )
         ),
 
