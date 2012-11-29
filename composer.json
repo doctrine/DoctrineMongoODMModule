@@ -43,10 +43,14 @@
         "doctrine/mongodb-odm": "1.*",
         "zendframework/zendframework": "2.*"
     },
-
     "autoload": {
         "psr-0": {
             "DoctrineMongoODMModule\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
         }
     }
 }
