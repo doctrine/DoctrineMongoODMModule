@@ -29,10 +29,9 @@ return array(
 //
 //                'default_db'         => null,
 //
-//                'filters'            => array()  // array('filterName' => 'BSON\Filter\Class'),
+//                'filters'            => array(),  // array('filterName' => 'BSON\Filter\Class'),
 //
-//                'logger_callable'    => function (array $log, \Zend\ServiceManager\ServiceLocatorInterface $sl) {
-//                })
+//                'logger'             => null // 'DoctrineMongoODMModule\Logging\DebugStack'
             )
         ),
 

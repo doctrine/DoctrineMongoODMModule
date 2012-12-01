@@ -104,9 +104,9 @@ class Configuration extends AbstractOptions
 
     /**
      *
-     * @var mixed
+     * @var \DoctrineMongoODMModule\Logging\Logger
      */
-    protected $loggerCallable;
+    protected $logger;
 
     /**
      *
@@ -295,21 +295,21 @@ class Configuration extends AbstractOptions
 
     /**
      *
-     * @param mixed $loggerCallable
+     * @param \DoctrineMongoODMModule\Logging\Logger $logger
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
-    public function setLoggerCallable($loggerCallable)
+    public function setLogger($logger)
     {
-        $this->loggerCallable = $loggerCallable;
+        $this->logger = $logger;
         return $this;
     }
 
     /**
      *
-     * @return mixed
+     * @return \DoctrineMongoODMModule\Logging\Logger
      */
-    public function getLoggerCallable()
+    public function getLogger()
     {
-        return $this->loggerCallable;
+        return $this->logger;
     }
 }
