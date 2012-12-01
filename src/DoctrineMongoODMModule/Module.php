@@ -50,6 +50,14 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
 
         // Attach to helper set event and load the document manager helper.
         $sharedManager->attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
+
+        $config = $app->getServiceManager()->get('Configuration');
+        if (
+            isset($config['zenddevelopertools']['profiler']['enabled'])
+            && $config['zenddevelopertools']['profiler']['enabled']
+        ) {
+            $app->getServiceManager()->get('doctrine.mongo_logger_collector.odm_default');
+        }
     }
 
     /**
@@ -119,6 +127,7 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
                 'doctrine.driver.odm_default'          => new CommonService\DriverFactory('odm_default'),
                 'doctrine.documentmanager.odm_default' => new ODMService\DocumentManagerFactory('odm_default'),
                 'doctrine.eventmanager.odm_default'    => new CommonService\EventManagerFactory('odm_default'),
+                'doctrine.mongo_logger_collector.odm_default' => new ODMService\MongoLoggerCollectorFactory('odm_default'),
             )
         );
     }
