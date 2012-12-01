@@ -50,7 +50,7 @@ class ConnectionFactory extends AbstractFactory
         if ($options->getDbName()) {
             $connectionString .= '/' . $options->getDbName();
         }
-        return new Connection($connectionString, $options->getOptions());
+        return new Connection($connectionString, $options->getOptions(), $serviceLocator->get('doctrine.configuration.'.$this->getName()));
     }
 
     /**
