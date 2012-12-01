@@ -103,7 +103,8 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
     {
         return array(
             'invokables' => array(
-                'DoctrineMongoODMModule\Logging\DebugStack' => 'DoctrineMongoODMModule\Logging\DebugStack',
+                'DoctrineMongoODMModule\Logging\DebugStack'  => 'DoctrineMongoODMModule\Logging\DebugStack',
+                'DoctrineMongoODMModule\Logging\LoggerChain' => 'DoctrineMongoODMModule\Logging\LoggerChain',
             ),
             'aliases' => array(
                 'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
