@@ -102,6 +102,9 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
     public function getServiceConfig()
     {
         return array(
+            'invokables' => array(
+                'DoctrineMongoODMModule\Logging\DebugStack' => 'DoctrineMongoODMModule\Logging\DebugStack',
+            ),
             'aliases' => array(
                 'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
             ),
