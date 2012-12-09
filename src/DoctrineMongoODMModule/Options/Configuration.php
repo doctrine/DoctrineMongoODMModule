@@ -104,6 +104,12 @@ class Configuration extends AbstractOptions
 
     /**
      *
+     * @var \DoctrineMongoODMModule\Logging\Logger
+     */
+    protected $logger;
+
+    /**
+     *
      * @param string $driver
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
@@ -285,5 +291,25 @@ class Configuration extends AbstractOptions
     public function setFilters(array $filters) {
         $this->filters = $filters;
         return $this;
+    }
+
+    /**
+     *
+     * @param \DoctrineMongoODMModule\Logging\Logger $logger
+     * @return \DoctrineMongoODMModule\Options\Configuration
+     */
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+        return $this;
+    }
+
+    /**
+     *
+     * @return \DoctrineMongoODMModule\Logging\Logger
+     */
+    public function getLogger()
+    {
+        return $this->logger;
     }
 }
