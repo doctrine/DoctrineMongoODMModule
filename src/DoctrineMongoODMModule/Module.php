@@ -21,11 +21,14 @@ namespace DoctrineMongoODMModule;
 
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
+
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\ModuleManager\Feature\InitProviderInterface;
+use Zend\ModuleManager\ModuleManagerInterface;
 use Zend\Loader\AutoloaderFactory;
 use Zend\Loader\StandardAutoloader;
 
@@ -37,8 +40,24 @@ use Zend\Loader\StandardAutoloader;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class Module implements BootstrapListenerInterface, AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface
+class Module implements
+    BootstrapListenerInterface,
+    AutoloaderProviderInterface,
+    ConfigProviderInterface,
+    ServiceProviderInterface,
+    InitProviderInterface
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function init(ModuleManagerInterface $manager)
+    {
+        $events = $manager->getEventManager();
+        // Initialize logger collector once the profiler is initialized itself
+        $events->attach('profiler_init', function(EventInterface $e) use ($manager) {
+            $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
+        });
+    }
 
     /**
      * {@inheritDoc}
@@ -50,14 +69,6 @@ class Module implements BootstrapListenerInterface, AutoloaderProviderInterface,
 
         // Attach to helper set event and load the document manager helper.
         $sharedManager->attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
-
-        $config = $app->getServiceManager()->get('Configuration');
-        if (
-            isset($config['zenddevelopertools']['profiler']['enabled'])
-            && $config['zenddevelopertools']['profiler']['enabled']
-        ) {
-            $app->getServiceManager()->get('doctrine.mongo_logger_collector.odm_default');
-        }
     }
 
     /**
