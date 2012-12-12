@@ -48,7 +48,7 @@ Installation of this module uses composer. For composer documentation, please re
      the event manager, add filters to the filter collection, and drivers to the driver chain.
 
   7. create directory `my/project/directory/data/DoctrineMongoODMModule/Proxy` and
-     `my/project/directory/data/DoctrineMongoODMModule/Hydrators` and make sure your application has write access to it.
+     `my/project/directory/data/DoctrineMongoODMModule/Hydrator` and make sure your application has write access to it.
 
 ## Usage
 
