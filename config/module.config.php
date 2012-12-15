@@ -54,12 +54,37 @@ return array(
             )
         ),
 
+        'mongo_logger_collector' => array(
+            'odm_default' => array(),
+        ),
+
         'authentication' => array(
             'odm_default' => array(
                 'objectManager' => 'doctrine.documentmanager.odm_default',
                 'identityClass' => 'Application\Model\User',
                 'identityProperty' => 'username',
                 'credentialProperty' => 'password'
+            ),
+        ),
+    ),
+
+    // zendframework/zend-developer-tools specific settings
+
+    'view_manager' => array(
+        'template_map' => array(
+            'zend-developer-tools/toolbar/doctrine-odm' => __DIR__ . '/../view/zend-developer-tools/toolbar/doctrine-odm.phtml',
+        ),
+    ),
+
+    'zenddevelopertools' => array(
+        'profiler' => array(
+            'collectors' => array(
+                'odm_default' => 'doctrine.mongo_logger_collector.odm_default',
+            ),
+        ),
+        'toolbar' => array(
+            'entries' => array(
+                'odm_default' => 'zend-developer-tools/toolbar/doctrine-odm',
             ),
         ),
     ),
