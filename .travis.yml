@@ -19,7 +19,7 @@ before_script:
   - git rm --cached vendor/ZF2
   - rm config/application.config.php && cp ../DoctrineMongoODMModule/.travis/application.config.php config/
   - cp ../DoctrineMongoODMModule/.travis/composer.json ./
-  - composer install --dev
+  - composer install --dev --prefer-source
   - rm -rf vendor/doctrine/doctrine-mongo-odm-module
   - cp -r ../DoctrineMongoODMModule vendor/doctrine/
   - mv vendor/doctrine/DoctrineMongoODMModule vendor/doctrine/doctrine-mongo-odm-module
