@@ -110,6 +110,12 @@ class Configuration extends AbstractOptions
 
     /**
      *
+     * @var string
+     */
+    protected $classMetadataFactoryName;
+    
+    /**
+     *
      * @param string $driver
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
@@ -312,4 +318,13 @@ class Configuration extends AbstractOptions
     {
         return $this->logger;
     }
+    
+    public function getClassMetadataFactoryName() {
+        return $this->classMetadataFactoryName;
+    }
+
+    public function setClassMetadataFactoryName($classMetadataFactoryName) {
+        $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
+    }
+    
 }

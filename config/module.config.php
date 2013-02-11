@@ -30,6 +30,8 @@ return array(
                 'default_db'         => null,
 
                 'filters'            => array()  // array('filterName' => 'BSON\Filter\Class')
+                
+                //'classMetadataFactoryName' => 'ClassName'
             )
         ),
 
