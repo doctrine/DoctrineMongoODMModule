@@ -319,10 +319,18 @@ class Configuration extends AbstractOptions
         return $this->logger;
     }
     
+    /**
+     * 
+     * @return string
+     */
     public function getClassMetadataFactoryName() {
         return $this->classMetadataFactoryName;
     }
 
+    /**
+     * 
+     * @param string $classMetadataFactoryName
+     */
     public function setClassMetadataFactoryName($classMetadataFactoryName) {
         $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
     }
