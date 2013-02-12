@@ -18,7 +18,6 @@
  */
 namespace DoctrineMongoODMModule\Service;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use DoctrineModule\Service\AbstractFactory;
 use Doctrine\ODM\MongoDB\Configuration;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -73,8 +72,13 @@ class ConfigurationFactory extends AbstractFactory
             $config->addFilter($alias, $class);
         }
 
-        // finally, the driver
+        // the driver
         $config->setMetadataDriverImpl($serviceLocator->get($options->getDriver()));
+
+        // metadataFactory, if set
+        if ($factoryName = $options->getClassMetadataFactoryName()){
+            $config->setClassMetadataFactoryName($factoryName);
+        }
 
         return $config;
     }
