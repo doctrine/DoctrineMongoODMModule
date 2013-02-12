@@ -76,8 +76,7 @@ class ConfigurationFactory extends AbstractFactory
         $config->setMetadataDriverImpl($serviceLocator->get($options->getDriver()));
 
         // metadataFactory, if set
-        $factoryName = $options->getClassMetadataFactoryName();
-        if (isset($factoryName)){
+        if ($factoryName = $options->getClassMetadataFactoryName()){
             $config->setClassMetadataFactoryName($factoryName);
         }
 
