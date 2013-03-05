@@ -20,7 +20,7 @@
 namespace DoctrineMongoODMModule\Paginator\Adapter;
 
 use Zend\Paginator\Adapter\AdapterInterface;
-use \Doctrine\MongoDB\Query\Builder;
+use Doctrine\ODM\MongoDB\Cursor;
 
 /**
  * @license MIT
@@ -30,18 +30,18 @@ use \Doctrine\MongoDB\Query\Builder;
 class DoctrinePaginator implements AdapterInterface
 {
     /**
-     * @var QueryBuilder
+     * @var Doctrine\ODM\MongoDB\Cursor
      */
-    protected $queryBuilder;
+    protected $cursor;
 
     /**
      * Constructor
      *
-     * @param \Doctrine\MongoDB\Query\Builder $queryBuilder
+     * @param Doctrine\ODM\MongoDB\Cursor $cursor
      */
-    function __construct(Builder $queryBuilder)
+    function __construct(Cursor $cursor)
     {
-        $this->queryBuilder = $queryBuilder;
+        $this->cursor = $cursor;
     }
 
     /**
@@ -49,8 +49,8 @@ class DoctrinePaginator implements AdapterInterface
      */
     public function count()
     {
-        $query = clone $this->queryBuilder;
-        return $query->count()->getQuery()->execute();
+        $cursor = clone $this->cursor;
+        return $cursor->count();
     }
 
     /**
@@ -58,10 +58,10 @@ class DoctrinePaginator implements AdapterInterface
      */
     public function getItems($offset, $itemCountPerPage)
     {
-        $query = clone $this->queryBuilder;
-        $query->skip($offset);
-        $query->limit($itemCountPerPage);
-        return iterator_to_array($query->getQuery()->execute());
+        $cursor = clone $this->cursor;
+        $cursor->skip($offset);
+        $cursor->limit($itemCountPerPage);
+        return $cursor;
 
     }
 }
