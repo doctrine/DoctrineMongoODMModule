@@ -71,4 +71,22 @@ class PaginationAdapterTest extends AbstractTest
 
         $this->assertNull($documents->next());
     }
+
+    public function testGetItemsCalledTwoTimes()
+    {
+        $paginationAdapter = $this->getPaginationAdapter();
+
+        $items = $paginationAdapter->getItems(0, 5);
+
+        $items2 = $paginationAdapter->getItems(2, 5);
+        $items->next();
+        $items2->next();
+
+        $this->assertNotEquals($items->current()->getName(), $items2->current()->getName());
+        $this->assertEquals('Document 1', $items->current()->getName());
+        $this->assertEquals('Document 3', $items2->current()->getName());
+
+
+    }
+
 }

@@ -49,8 +49,7 @@ class DoctrinePaginator implements AdapterInterface
      */
     public function count()
     {
-        $cursor = clone $this->cursor;
-        return $cursor->count();
+        return $this->cursor->count();
     }
 
     /**
@@ -59,6 +58,7 @@ class DoctrinePaginator implements AdapterInterface
     public function getItems($offset, $itemCountPerPage)
     {
         $cursor = clone $this->cursor;
+        $cursor->recreate();
         $cursor->skip($offset);
         $cursor->limit($itemCountPerPage);
         return $cursor;
