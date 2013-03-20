@@ -4,13 +4,20 @@ Pagination Adapter
 #### Example:
 
 ```php
-// note: the cursor is not executed until you receive items from the pagination adapter
-$cursor            = $documentManager->getRepository('Users')->findAll();
-$paginationAdapter = DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator($cursor);
 
-// Get first 5 users. Only the first five users are fetched from MongoDB.
-$users = $paginationAdapter->getItems(0, 5);
+use Zend\Paginator\Paginator;
+use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 
-// If you call it the second time, a new query is executed on MongoDB.
-$users2 = $paginationAdapter->getItems(5, 5);
+// Create a mongo cursor
+$cursor = $documentManager->getRepository('Users')->findAll();
+
+// Create the pagination adapter
+$paginationAdapter = DoctrinePaginator($cursor);
+
+// Create the paginator itself
+$paginator = new Paginator($adapter);
+$paginator->setCurrentPageNumber(1)
+          ->setItemCountPerPage(5);
+
+// Pass it to the view, and use it like a "standard" Zend paginator
 ```
