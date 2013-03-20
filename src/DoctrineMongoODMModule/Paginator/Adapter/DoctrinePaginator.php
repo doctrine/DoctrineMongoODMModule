@@ -37,7 +37,7 @@ class DoctrinePaginator implements AdapterInterface
     /**
      * Constructor
      *
-     * @param Doctrine\ODM\MongoDB\Cursor $cursor
+     * @param Cursor $cursor
      */
     public function __construct(Cursor $cursor)
     {
@@ -58,22 +58,11 @@ class DoctrinePaginator implements AdapterInterface
     public function getItems($offset, $itemCountPerPage)
     {
         $cursor = clone $this->cursor;
+
         $cursor->recreate();
         $cursor->skip($offset);
         $cursor->limit($itemCountPerPage);
+
         return $cursor;
-
-    }
-
-    public function getCursor()
-    {
-        return $this->cursor;
-    }
-
-    public function setCursor(Cursor $cursor)
-    {
-        $this->cursor = $cursor;
-        return $this;
-
     }
 }
