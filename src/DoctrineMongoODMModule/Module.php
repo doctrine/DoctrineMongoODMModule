@@ -19,17 +19,17 @@
 
 namespace DoctrineMongoODMModule;
 
+use Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper;
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
 
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\InitProviderInterface;
 use Zend\ModuleManager\ModuleManagerInterface;
-use Zend\Loader\AutoloaderFactory;
 use Zend\Loader\StandardAutoloader;
 
 /**
@@ -37,15 +37,15 @@ use Zend\Loader\StandardAutoloader;
  *
  * @license MIT
  * @link    http://www.doctrine-project.org
- * @since   0.1.0
+ * @author  Marco Pivetta <ocramius@gmail.com>
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
 class Module implements
     BootstrapListenerInterface,
-    AutoloaderProviderInterface,
     ConfigProviderInterface,
     ServiceProviderInterface,
-    InitProviderInterface
+    InitProviderInterface,
+    DependencyIndicatorInterface
 {
     /**
      * {@inheritDoc}
@@ -53,6 +53,7 @@ class Module implements
     public function init(ModuleManagerInterface $manager)
     {
         $events = $manager->getEventManager();
+
         // Initialize logger collector once the profiler is initialized itself
         $events->attach('profiler_init', function(EventInterface $e) use ($manager) {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
@@ -64,7 +65,8 @@ class Module implements
      */
     public function onBootstrap(EventInterface $event)
     {
-        $app = $event->getTarget();
+        /* @var $app \Zend\Mvc\ApplicationInterface */
+        $app           = $event->getTarget();
         $sharedManager = $app->getEventManager()->getSharedManager();
 
         // Attach to helper set event and load the document manager helper.
@@ -72,12 +74,17 @@ class Module implements
     }
 
     /**
-     *
-     * @param Event $event
+     * @param \Zend\EventManager\EventInterface $event
      */
     public function loadCli(EventInterface $event)
     {
-        $cli = $event->getTarget();
+        /* @var $cli \Symfony\Component\Console\Application */
+        $cli             = $event->getTarget();
+        /* @var $documentManager \Doctrine\ODM\MongoDB\DocumentManager */
+        $documentManager = $event->getParam('ServiceManager')->get('doctrine.documentmanager.odm_default');
+        $documentHelper  = new DocumentManagerHelper($documentManager);
+
+        $cli->getHelperSet()->set($documentHelper, 'dm');
         $cli->addCommands(array(
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand(),
@@ -87,24 +94,6 @@ class Module implements
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
         ));
-
-        $documentManager = $event->getParam('ServiceManager')->get('doctrine.documentmanager.odm_default');
-        $documentHelper  = new \Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper($documentManager);
-        $cli->getHelperSet()->set($documentHelper, 'dm');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getAutoloaderConfig()
-    {
-        return array(
-            AutoloaderFactory::STANDARD_AUTOLOADER => array(
-                StandardAutoloader::LOAD_NS => array(
-                    __NAMESPACE__ => __DIR__,
-                ),
-            ),
-        );
     }
 
     /**
@@ -141,5 +130,13 @@ class Module implements
                 'doctrine.mongo_logger_collector.odm_default' => new ODMService\MongoLoggerCollectorFactory('odm_default'),
             )
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getModuleDependencies()
+    {
+        return array('DoctrineModule');
     }
 }
