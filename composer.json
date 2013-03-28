@@ -41,6 +41,11 @@
         "zendframework/zend-servicemanager": "~2.2",
         "zendframework/zend-stdlib": "~2.2"
     },
+    "require-dev": {
+        "phpunit/phpunit":             ">=3.7",
+        "squizlabs/php_codesniffer":   "1.4.*",
+        "zendframework/zendframework": ">=2.1"
+    },
     "autoload": {
         "psr-0": {
             "DoctrineMongoODMModule\\": "src/",
