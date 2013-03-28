@@ -37,7 +37,7 @@ if (! isset($loader)) {
 /* @var $loader \Composer\Autoload\ClassLoader */
 $loader->add('DoctrineMongoODMModuleTest\\', __DIR__);
 
-if (file_exists( __DIR__ . '/TestConfiguration.php')) {
+if (file_exists(__DIR__ . '/TestConfiguration.php')) {
     $config = require __DIR__ . '/TestConfiguration.php';
 } else {
     $config = require __DIR__ . '/TestConfiguration.php.dist';

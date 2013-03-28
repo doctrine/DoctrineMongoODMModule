@@ -10,4 +10,5 @@ use Doctrine\Common\Annotations\Annotation;
  * @Target({"PROPERTY"})
  */
 final class ExtraAnnotation extends Annotation
-{}
+{
+}

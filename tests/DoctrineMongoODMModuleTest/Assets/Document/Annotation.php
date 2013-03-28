@@ -5,8 +5,8 @@ namespace DoctrineMongoODMModuleTest\Assets\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /** @ODM\Document */
-class Annotation {
-
+class Annotation
+{
     /**
      * @ODM\Id(strategy="UUID")
      * @DoctrineMongoODMModuleTest\Assets\ExtraAnnotation
@@ -18,15 +18,18 @@ class Annotation {
      */
     protected $name;
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = (string) $name;
     }
 }
