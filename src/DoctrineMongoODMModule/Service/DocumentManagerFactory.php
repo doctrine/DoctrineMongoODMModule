@@ -36,13 +36,21 @@ class DocumentManagerFactory extends AbstractFactory
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @return \Doctrine\ODM\MongoDB\DocumentManager
-     */     
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var $options \DoctrineMongoODMModule\Options\DocumentManager */
         $options      = $this->getOptions($serviceLocator, 'documentmanager');
+
+        /* @var $connection \Doctrine\MongoDB\Connection */
         $connection   = $serviceLocator->get($options->getConnection());
+
+        /* @var $config \Doctrine\ODM\MongoDB\Configuration */
         $config       = $serviceLocator->get($options->getConfiguration());
+
+        /* @var $eventManager \Doctrine\Common\EventManager */
         $eventManager = $serviceLocator->get($options->getEventManager());
+
         return DocumentManager::create($connection, $config, $eventManager);
     }
 

@@ -58,13 +58,13 @@ class DocumentManager extends AbstractOptions
     protected $eventManager = 'odm_default';
 
     /**
-     *
-     * @param type $configuration
+     * @param string $configuration
      * @return \DoctrineMongoODMModule\Options\DocumentManager
      */
     public function setConfiguration($configuration)
     {
         $this->configuration = (string) $configuration;
+
         return $this;
     }
 
@@ -77,13 +77,13 @@ class DocumentManager extends AbstractOptions
     }
 
     /**
-     *
-     * @param type $connection
+     * @param string $connection
      * @return \DoctrineMongoODMModule\Options\DocumentManager
      */
     public function setConnection($connection)
     {
         $this->connection = (string) $connection;
+
         return $this;
     }
 
@@ -99,16 +99,17 @@ class DocumentManager extends AbstractOptions
      *
      * @return string
      */
-    public function getEventManager() {
+    public function getEventManager()
+    {
         return "doctrine.eventmanager.{$this->eventManager}";
     }
 
     /**
-     *
-     * @param type $eventManager
+     * @param string $eventManager
      * @return \DoctrineMongoODMModule\Options\DocumentManager
      */
-    public function setEventManager($eventManager) {
+    public function setEventManager($eventManager)
+    {
         $this->eventManager = (string) $eventManager;
         return $this;
     }

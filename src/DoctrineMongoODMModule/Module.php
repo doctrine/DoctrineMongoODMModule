@@ -19,10 +19,25 @@
 
 namespace DoctrineMongoODMModule;
 
+use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand;
 use Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper;
-use DoctrineModule\Service as CommonService;
-use DoctrineMongoODMModule\Service as ODMService;
 
+use DoctrineModule\Service\Authentication\AdapterFactory;
+use DoctrineModule\Service\Authentication\AuthenticationServiceFactory;
+use DoctrineModule\Service\Authentication\StorageFactory;
+
+use DoctrineModule\Service\DriverFactory;
+use DoctrineModule\Service\EventManagerFactory;
+use DoctrineMongoODMModule\Service\ConfigurationFactory;
+use DoctrineMongoODMModule\Service\ConnectionFactory;
+use DoctrineMongoODMModule\Service\DocumentManagerFactory;
+use DoctrineMongoODMModule\Service\MongoLoggerCollectorFactory;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
@@ -55,9 +70,12 @@ class Module implements
         $events = $manager->getEventManager();
 
         // Initialize logger collector once the profiler is initialized itself
-        $events->attach('profiler_init', function(EventInterface $e) use ($manager) {
-            $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
-        });
+        $events->attach(
+            'profiler_init',
+            function () use ($manager) {
+                $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
+            }
+        );
     }
 
     /**
@@ -85,15 +103,17 @@ class Module implements
         $documentHelper  = new DocumentManagerHelper($documentManager);
 
         $cli->getHelperSet()->set($documentHelper, 'dm');
-        $cli->addCommands(array(
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
-        ));
+        $cli->addCommands(
+            array(
+                new QueryCommand(),
+                new GenerateDocumentsCommand(),
+                new GenerateRepositoriesCommand(),
+                new GenerateProxiesCommand(),
+                new GenerateHydratorsCommand(),
+                new CreateCommand(),
+                new DropCommand(),
+            )
+        );
     }
 
     /**
@@ -111,23 +131,23 @@ class Module implements
     {
         return array(
             'invokables' => array(
-                'DoctrineMongoODMModule\Logging\DebugStack'  => 'DoctrineMongoODMModule\Logging\DebugStack',
-                'DoctrineMongoODMModule\Logging\LoggerChain' => 'DoctrineMongoODMModule\Logging\LoggerChain',
-                'DoctrineMongoODMModule\Logging\EchoLogger'  => 'DoctrineMongoODMModule\Logging\EchoLogger',
+                'DoctrineMongoODMModule\Logging\DebugStack'   => 'DoctrineMongoODMModule\Logging\DebugStack',
+                'DoctrineMongoODMModule\Logging\LoggerChain'  => 'DoctrineMongoODMModule\Logging\LoggerChain',
+                'DoctrineMongoODMModule\Logging\EchoLogger'   => 'DoctrineMongoODMModule\Logging\EchoLogger',
             ),
             'aliases' => array(
-                'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
+                'Doctrine\ODM\Mongo\DocumentManager'          => 'doctrine.documentmanager.odm_default',
             ),
             'factories' => array(
-                'doctrine.authenticationadapter.odm_default'  => new CommonService\Authentication\AdapterFactory('odm_default'),
-                'doctrine.authenticationstorage.odm_default'  => new CommonService\Authentication\StorageFactory('odm_default'),
-                'doctrine.authenticationservice.odm_default'  => new CommonService\Authentication\AuthenticationServiceFactory('odm_default'),
-                'doctrine.connection.odm_default'      => new ODMService\ConnectionFactory('odm_default'),
-                'doctrine.configuration.odm_default'   => new ODMService\ConfigurationFactory('odm_default'),
-                'doctrine.driver.odm_default'          => new CommonService\DriverFactory('odm_default'),
-                'doctrine.documentmanager.odm_default' => new ODMService\DocumentManagerFactory('odm_default'),
-                'doctrine.eventmanager.odm_default'    => new CommonService\EventManagerFactory('odm_default'),
-                'doctrine.mongo_logger_collector.odm_default' => new ODMService\MongoLoggerCollectorFactory('odm_default'),
+                'doctrine.authenticationadapter.odm_default'  => new AdapterFactory('odm_default'),
+                'doctrine.authenticationstorage.odm_default'  => new StorageFactory('odm_default'),
+                'doctrine.authenticationservice.odm_default'  => new AuthenticationServiceFactory('odm_default'),
+                'doctrine.connection.odm_default'             => new ConnectionFactory('odm_default'),
+                'doctrine.configuration.odm_default'          => new ConfigurationFactory('odm_default'),
+                'doctrine.driver.odm_default'                 => new DriverFactory('odm_default'),
+                'doctrine.documentmanager.odm_default'        => new DocumentManagerFactory('odm_default'),
+                'doctrine.eventmanager.odm_default'           => new EventManagerFactory('odm_default'),
+                'doctrine.mongo_logger_collector.odm_default' => new MongoLoggerCollectorFactory('odm_default'),
             )
         );
     }
