@@ -25,7 +25,6 @@ class PaginationAdapterTest extends AbstractTest
     protected function getPaginationAdapter()
     {
         $documentManager = $this->getDocumentManager();
-
         $cursor = $documentManager->createQueryBuilder(get_class(new Simple()))->getQuery()->execute();
         $cursor->sort(array('name' => 'asc'));
 
