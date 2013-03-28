@@ -72,7 +72,7 @@ class ConfigurationFactory extends AbstractFactory
         $config->setRetryQuery($options->getRetryQuery());
 
         // Register filters
-        foreach($options->getFilters() as $alias => $class){
+        foreach ($options->getFilters() as $alias => $class) {
             $config->addFilter($alias, $class);
         }
 
@@ -80,7 +80,7 @@ class ConfigurationFactory extends AbstractFactory
         $config->setMetadataDriverImpl($serviceLocator->get($options->getDriver()));
 
         // metadataFactory, if set
-        if ($factoryName = $options->getClassMetadataFactoryName()){
+        if ($factoryName = $options->getClassMetadataFactoryName()) {
             $config->setClassMetadataFactoryName($factoryName);
         }
 

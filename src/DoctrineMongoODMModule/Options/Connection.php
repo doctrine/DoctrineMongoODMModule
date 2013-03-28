@@ -97,8 +97,8 @@ class Connection extends AbstractOptions
      */
     public function setServer($server)
     {
-        $this->server = (string)$server;
-        return $this;
+
+        $this->server = (string) $server;
     }
 
     /**
@@ -118,8 +118,7 @@ class Connection extends AbstractOptions
      */
     public function setPort($port)
     {
-        $this->port = (string)$port;
-        return $this;
+        $this->port = (string) $port;
     }
 
     /**
@@ -139,8 +138,7 @@ class Connection extends AbstractOptions
      */
     public function setUser($user)
     {
-        $this->user = (string)$user;
-        return $this;
+        $this->user = (string) $user;
     }
 
     /**
@@ -160,12 +158,10 @@ class Connection extends AbstractOptions
      */
     public function setPassword($password)
     {
-        $this->password = (string)$password;
-        return $this;
+        $this->password = (string) $password;
     }
 
     /**
-     *
      * @return string
      */
     public function getDbname()
@@ -174,40 +170,16 @@ class Connection extends AbstractOptions
     }
 
     /**
-     *
      * @param string $dbname
      *
      * @return \DoctrineMongoODMModule\Options\Connection
      */
     public function setDbname($dbname)
     {
-        $this->dbname = (string)$dbname;
-        return $this;
+        $this->dbname = (string) $dbname;
     }
 
     /**
-     *
-     * @return string
-     */
-    public function getConnectionString()
-    {
-        return $this->connectionString;
-    }
-
-    /**
-     *
-     * @param string $connectionString
-     *
-     * @return \DoctrineMongoODMModule\Options\Connection
-     */
-    public function setConnectionString($connectionString)
-    {
-        $this->connectionString = (string)$connectionString;
-        return $this;
-    }
-
-    /**
-     *
      * @return array
      */
     public function getOptions()
@@ -216,7 +188,6 @@ class Connection extends AbstractOptions
     }
 
     /**
-     *
      * @param array $options
      *
      * @return \DoctrineMongoODMModule\Options\Connection
@@ -224,6 +195,5 @@ class Connection extends AbstractOptions
     public function setOptions($options)
     {
         $this->options = $options;
-        return $this;
     }
 }

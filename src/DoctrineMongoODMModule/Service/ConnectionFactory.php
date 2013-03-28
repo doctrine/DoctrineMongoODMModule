@@ -63,9 +63,11 @@ class ConnectionFactory extends AbstractFactory
             }
         }
 
-        return new Connection($connectionString, $options->getOptions(), $serviceLocator->get(
-            'doctrine.configuration.' . $this->getName()
-        ));
+        return new Connection(
+            $connectionString,
+            $options->getOptions(),
+            $serviceLocator->get('doctrine.configuration.' . $this->getName())
+        );
     }
 
     /**
