@@ -12,7 +12,7 @@ use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 $cursor = $documentManager->getRepository('Users')->findAll();
 
 // Create the pagination adapter
-$adapter = DoctrinePaginator($cursor);
+$adapter = new DoctrinePaginator($cursor);
 
 // Create the paginator itself
 $paginator = new Paginator($adapter);
