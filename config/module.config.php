@@ -31,7 +31,7 @@ return array(
                 'default_db'         => null,
 
                 'filters'            => array()  // array('filterName' => 'BSON\Filter\Class')
-                
+
                 //'classMetadataFactoryName' => 'ClassName'
             )
         ),
@@ -68,6 +68,37 @@ return array(
                 'identityProperty' => 'username',
                 'credentialProperty' => 'password'
             ),
+        ),
+    ),
+
+    // Factory mappings - used to define which factory to use to instantiate a particular doctrine
+    // service type
+    'doctrine_factories' => array(
+        'connection'                 => 'DoctrineMongoODMModule\Service\ConnectionFactory',
+        'configuration'          => 'DoctrineMongoODMModule\Service\ConfigurationFactory',
+        'documentmanager'                => 'DoctrineMongoODMModule\Service\DocumentManagerFactory',
+        'mongo_logger_collector' => 'DoctrineMongoODMModule\Service\MongoLoggerCollectorFactory',
+    ),
+
+    'service_manager' => array(
+        'invokables' => array(
+            'DoctrineMongoODMModule\Logging\DebugStack'   => 'DoctrineMongoODMModule\Logging\DebugStack',
+            'DoctrineMongoODMModule\Logging\LoggerChain'  => 'DoctrineMongoODMModule\Logging\LoggerChain',
+            'DoctrineMongoODMModule\Logging\EchoLogger'   => 'DoctrineMongoODMModule\Logging\EchoLogger',
+
+            // ODM commands
+            'doctrine.odm.query_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand',
+            'doctrine.odm.generate_documents_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand',
+            'doctrine.odm.generate_repositories_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand',
+            'doctrine.odm.generate_proxies_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand',
+            'doctrine.odm.generate_hydrators_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand',
+            'doctrine.odm.create_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand',
+            'doctrine.odm.update_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand',
+            'doctrine.odm.drop_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand',
+            'doctrine.odm.clear_cache_metadata' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\ClearCache\MetadataCommand',
+        ),
+        'factories' => array(
+            'Doctrine\ODM\Mongo\DocumentManager'          => 'DoctrineMongoODMModule\Service\DocumentManagerAliasCompatFactory',
         ),
     ),
 
