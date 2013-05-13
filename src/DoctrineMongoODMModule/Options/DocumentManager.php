@@ -37,7 +37,7 @@ class DocumentManager extends AbstractOptions
      *
      * @var string
      */
-    protected $configuration = 'odm_default';
+    protected $configuration = 'default';
 
     /**
      * Set the connection key for the Connection. Connection key
@@ -46,7 +46,7 @@ class DocumentManager extends AbstractOptions
      *
      * @var string
      */
-    protected $connection = 'odm_default';
+    protected $connection = 'default';
 
     /**
      * Set the event manager key for the event manager. Key
@@ -55,7 +55,7 @@ class DocumentManager extends AbstractOptions
      *
      * @var string
      */
-    protected $eventManager = 'odm_default';
+    protected $eventManager = 'default';
 
     /**
      * @param string $configuration
@@ -73,7 +73,7 @@ class DocumentManager extends AbstractOptions
      */
     public function getConfiguration()
     {
-        return "doctrine.configuration.{$this->configuration}";
+        return "doctrine.odm.configuration.{$this->configuration}";
     }
 
     /**
@@ -92,7 +92,7 @@ class DocumentManager extends AbstractOptions
      */
     public function getConnection()
     {
-        return "doctrine.connection.{$this->connection}";
+        return "doctrine.odm.connection.{$this->connection}";
     }
 
     /**

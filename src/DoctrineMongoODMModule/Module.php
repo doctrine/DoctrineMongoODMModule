@@ -19,33 +19,13 @@
 
 namespace DoctrineMongoODMModule;
 
-use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand;
-use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand;
-use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand;
-use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand;
-use Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand;
-use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand;
-use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand;
 use Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper;
 
-use DoctrineModule\Service\Authentication\AdapterFactory;
-use DoctrineModule\Service\Authentication\AuthenticationServiceFactory;
-use DoctrineModule\Service\Authentication\StorageFactory;
-
-use DoctrineModule\Service\DriverFactory;
-use DoctrineModule\Service\EventManagerFactory;
-use DoctrineMongoODMModule\Service\ConfigurationFactory;
-use DoctrineMongoODMModule\Service\ConnectionFactory;
-use DoctrineMongoODMModule\Service\DocumentManagerFactory;
-use DoctrineMongoODMModule\Service\MongoLoggerCollectorFactory;
 use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
-use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\InitProviderInterface;
 use Zend\ModuleManager\ModuleManagerInterface;
-use Zend\Loader\StandardAutoloader;
 
 /**
  * Doctrine Module provider for Mongo DB ODM.
@@ -56,9 +36,7 @@ use Zend\Loader\StandardAutoloader;
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
 class Module implements
-    BootstrapListenerInterface,
     ConfigProviderInterface,
-    ServiceProviderInterface,
     InitProviderInterface,
     DependencyIndicatorInterface
 {
@@ -73,47 +51,10 @@ class Module implements
         $events->attach(
             'profiler_init',
             function () use ($manager) {
-                $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
+                $manager->getEvent()->getParam('ServiceManager')->get('doctrine.odm.mongo_logger_collector.default');
             }
         );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function onBootstrap(EventInterface $event)
-    {
-        /* @var $app \Zend\Mvc\ApplicationInterface */
-        $app           = $event->getTarget();
-        $sharedManager = $app->getEventManager()->getSharedManager();
-
-        // Attach to helper set event and load the document manager helper.
-        $sharedManager->attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
-    }
-
-    /**
-     * @param \Zend\EventManager\EventInterface $event
-     */
-    public function loadCli(EventInterface $event)
-    {
-        /* @var $cli \Symfony\Component\Console\Application */
-        $cli             = $event->getTarget();
-        /* @var $documentManager \Doctrine\ODM\MongoDB\DocumentManager */
-        $documentManager = $event->getParam('ServiceManager')->get('doctrine.documentmanager.odm_default');
-        $documentHelper  = new DocumentManagerHelper($documentManager);
-
-        $cli->getHelperSet()->set($documentHelper, 'dm');
-        $cli->addCommands(
-            array(
-                new QueryCommand(),
-                new GenerateDocumentsCommand(),
-                new GenerateRepositoriesCommand(),
-                new GenerateProxiesCommand(),
-                new GenerateHydratorsCommand(),
-                new CreateCommand(),
-                new DropCommand(),
-            )
-        );
+        $events->getSharedManager()->attach('doctrine', 'loadCli.post', array($this, 'initializeConsole'));
     }
 
     /**
@@ -127,36 +68,42 @@ class Module implements
     /**
      * {@inheritDoc}
      */
-    public function getServiceConfig()
-    {
-        return array(
-            'invokables' => array(
-                'DoctrineMongoODMModule\Logging\DebugStack'   => 'DoctrineMongoODMModule\Logging\DebugStack',
-                'DoctrineMongoODMModule\Logging\LoggerChain'  => 'DoctrineMongoODMModule\Logging\LoggerChain',
-                'DoctrineMongoODMModule\Logging\EchoLogger'   => 'DoctrineMongoODMModule\Logging\EchoLogger',
-            ),
-            'aliases' => array(
-                'Doctrine\ODM\Mongo\DocumentManager'          => 'doctrine.documentmanager.odm_default',
-            ),
-            'factories' => array(
-                'doctrine.authenticationadapter.odm_default'  => new AdapterFactory('odm_default'),
-                'doctrine.authenticationstorage.odm_default'  => new StorageFactory('odm_default'),
-                'doctrine.authenticationservice.odm_default'  => new AuthenticationServiceFactory('odm_default'),
-                'doctrine.connection.odm_default'             => new ConnectionFactory('odm_default'),
-                'doctrine.configuration.odm_default'          => new ConfigurationFactory('odm_default'),
-                'doctrine.driver.odm_default'                 => new DriverFactory('odm_default'),
-                'doctrine.documentmanager.odm_default'        => new DocumentManagerFactory('odm_default'),
-                'doctrine.eventmanager.odm_default'           => new EventManagerFactory('odm_default'),
-                'doctrine.mongo_logger_collector.odm_default' => new MongoLoggerCollectorFactory('odm_default'),
-            )
-        );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getModuleDependencies()
     {
         return array('DoctrineModule');
+    }
+
+    /**
+     * Initializes the console with additional commands from the ODM
+     *
+     * @param \Zend\EventManager\EventInterface $event
+     *
+     * @return void
+     */
+    public function initializeConsole(EventInterface $event)
+    {
+        /* @var $cli \Symfony\Component\Console\Application */
+        $cli = $event->getTarget();
+        /* @var $serviceLocator \Zend\ServiceManager\ServiceLocatorInterface */
+        $serviceLocator = $event->getParam('ServiceManager');
+
+        $commands = array(
+            'doctrine.odm.query_command',
+            'doctrine.odm.generate_documents_command',
+            'doctrine.odm.generate_repositories_command',
+            'doctrine.odm.generate_proxies_command',
+            'doctrine.odm.generate_hydrators_command',
+            'doctrine.odm.create_command',
+            'doctrine.odm.update_command',
+            'doctrine.odm.drop_command',
+            'doctrine.odm.clear_cache_metadata'
+        );
+
+        $cli->addCommands(array_map(array($serviceLocator, 'get'), $commands));
+
+        /* @var $documentManager \Doctrine\ODM\MongoDB\DocumentManager */
+        $documentManager = $serviceLocator->get('doctrine.odm.documentmanager.default');
+        $documentHelper  = new DocumentManagerHelper($documentManager);
+        $cli->getHelperSet()->set($documentHelper, 'dm');
     }
 }
