@@ -33,6 +33,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ConfigurationFactory extends AbstractFactory
 {
 
+    protected $mappingType = 'odm';
+
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @return \Doctrine\ODM\MongoDB\Configuration

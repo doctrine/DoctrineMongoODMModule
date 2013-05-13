@@ -33,6 +33,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ConnectionFactory extends AbstractFactory
 {
 
+    protected $mappingType = 'odm';
+
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      *
@@ -66,7 +68,7 @@ class ConnectionFactory extends AbstractFactory
         return new Connection(
             $connectionString,
             $options->getOptions(),
-            $serviceLocator->get('doctrine.configuration.' . $this->getName())
+            $serviceLocator->get('doctrine.odm.configuration.' . $this->getName())
         );
     }
 

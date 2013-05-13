@@ -33,7 +33,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
 
     public function getDocumentManager()
     {
-        return $this->serviceManager->get('doctrine.documentmanager.odm_default');
+        return $this->serviceManager->get('doctrine.odm.documentmanager.default');
     }
 
     public function tearDown()

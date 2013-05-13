@@ -41,7 +41,7 @@ class DocumentManagerAliasCompatFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $serviceLocator->get('doctrine.documentmanager.odm_default');
+        return $serviceLocator->get('doctrine.odm.documentmanager.default');
     }
 }
 
