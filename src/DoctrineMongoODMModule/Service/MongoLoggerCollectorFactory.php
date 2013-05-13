@@ -36,19 +36,9 @@ use DoctrineMongoODMModule\Logging\LoggerChain;
  */
 class MongoLoggerCollectorFactory extends AbstractFactory
 {
-    /**
-     * @var string
-     */
-    protected $name;
 
-    /**
-     * @param $name
-     */
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
-
+    protected $mappingType = 'odm';
+    
     /**
      * {@inheritDoc}
      */

@@ -10,7 +10,7 @@ class AuthenticationStorageFactoryTest extends AbstractTest
     {
         $this->assertInstanceOf(
             'Zend\Authentication\Storage\StorageInterface',
-            $this->serviceManager->get('doctrine.authenticationstorage.odm_default')
+            $this->serviceManager->get('doctrine.authenticationstorage.default')
         );
     }
 }
