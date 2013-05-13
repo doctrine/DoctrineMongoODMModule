@@ -1,13 +1,15 @@
 <?php
 return array(
     'doctrine' => array(
-        'configuration' => array(
-            'odm_default' => array(
-                'default_db' => 'doctrineMongoODMModuleTest'
-            )
-        ),
+        'odm' => array(
+            'configuration' => array(
+                'default' => array(
+                    'default_db' => 'doctrineMongoODMModuleTest'
+                )
+            ),
+    ),
         'driver' => array(
-            'odm_default' => array(
+            'default' => array(
                 'drivers' => array(
                     'DoctrineMongoODMModuleTest\Assets\Document' => 'test'
                 )

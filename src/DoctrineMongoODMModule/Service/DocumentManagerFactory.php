@@ -24,7 +24,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory creates a mongo document manager
- * 
+ *
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @since   0.1.0
@@ -32,6 +32,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class DocumentManagerFactory extends AbstractFactory
 {
+
+    protected $mappingType = 'odm';
     
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
