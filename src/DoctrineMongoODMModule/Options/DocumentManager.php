@@ -31,31 +31,28 @@ use Zend\Stdlib\AbstractOptions;
 class DocumentManager extends AbstractOptions
 {
     /**
-     * Set the configuration key for the Configuration. Configuration key
-     * is assembled as "doctrine.configuration.{key}" and pulled from
+     * Set the configuration key for the Configuration. Pulled from
      * service locator.
      *
      * @var string
      */
-    protected $configuration = 'default';
+    protected $configuration = 'doctrine.odm.configuration.default';
 
     /**
-     * Set the connection key for the Connection. Connection key
-     * is assembled as "doctrine.connection.{key}" and pulled from
+     * Set the connection key for the Connection. Pulled from
      * service locator.
      *
      * @var string
      */
-    protected $connection = 'default';
+    protected $connection = 'doctrine.odm.connection.default';
 
     /**
-     * Set the event manager key for the event manager. Key
-     * is assembled as "doctrine.eventManager.{key} and pulled from
+     * Set the event manager key for the event manager. Pulled from
      * service locator.
      *
      * @var string
      */
-    protected $eventManager = 'default';
+    protected $eventManager = 'doctrine.eventmanager.default';
 
     /**
      * @param string $configuration
@@ -73,7 +70,7 @@ class DocumentManager extends AbstractOptions
      */
     public function getConfiguration()
     {
-        return "doctrine.odm.configuration.{$this->configuration}";
+        return $this->configuration;
     }
 
     /**
@@ -92,7 +89,7 @@ class DocumentManager extends AbstractOptions
      */
     public function getConnection()
     {
-        return "doctrine.odm.connection.{$this->connection}";
+        return $this->connection;
     }
 
     /**
@@ -101,7 +98,7 @@ class DocumentManager extends AbstractOptions
      */
     public function getEventManager()
     {
-        return "doctrine.eventmanager.{$this->eventManager}";
+        return $this->eventManager;
     }
 
     /**

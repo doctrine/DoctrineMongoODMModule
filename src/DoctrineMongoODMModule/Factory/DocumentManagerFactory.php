@@ -16,10 +16,11 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace DoctrineMongoODMModule\Service;
+namespace DoctrineMongoODMModule\Factory;
 
-use DoctrineModule\Service\AbstractFactory;
+use DoctrineModule\Factory\AbstractFactoryInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -30,39 +31,51 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class DocumentManagerFactory extends AbstractFactory
+class DocumentManagerFactory implements AbstractFactoryInterface, ServiceLocatorAwareInterface
 {
 
-    protected $mappingType = 'odm';
-    
+    const OPTIONS_CLASS = '\DoctrineMongoODMModule\Options\DocumentManager';
+
+    protected $serviceLocator;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getServiceLocator() {
+        return $this->serviceLocator;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator) {
+        $this->serviceLocator = $serviceLocator;
+    }
+
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @return \Doctrine\ODM\MongoDB\DocumentManager
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function create($options)
     {
-        /* @var $options \DoctrineMongoODMModule\Options\DocumentManager */
-        $options      = $this->getOptions($serviceLocator, 'documentmanager');
 
-        /* @var $connection \Doctrine\MongoDB\Connection */
-        $connection   = $serviceLocator->get($options->getConnection());
+        $optionsClass = self::OPTIONS_CLASS;
 
-        /* @var $config \Doctrine\ODM\MongoDB\Configuration */
-        $config       = $serviceLocator->get($options->getConfiguration());
+        if (is_array($options) || $options instanceof \Traversable){
+            $options = new $optionsClass($options);
+        } else if ( ! $options instanceof $optionsClass){
+            throw new \InvalidArgumentException();
+        }
 
-        /* @var $eventManager \Doctrine\Common\EventManager */
-        $eventManager = $serviceLocator->get($options->getEventManager());
+        return DocumentManager::create(
+            /* @var $connection \Doctrine\MongoDB\Connection */
+            $this->serviceLocator->get($options->getConnection()),
 
-        return DocumentManager::create($connection, $config, $eventManager);
-    }
+            /* @var $config \Doctrine\ODM\MongoDB\Configuration */
+            $this->serviceLocator->get($options->getConfiguration()),
 
-    /**
-     * Get the class name of the options associated with this factory.
-     *
-     * @return string
-     */
-    public function getOptionsClass()
-    {
-        return 'DoctrineMongoODMModule\Options\DocumentManager';
+            /* @var $eventManager \Doctrine\Common\EventManager */
+            $this->serviceLocator->get($options->getEventManager())
+        );
     }
 }

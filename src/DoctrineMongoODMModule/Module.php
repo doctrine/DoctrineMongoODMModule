@@ -51,7 +51,7 @@ class Module implements
         $events->attach(
             'profiler_init',
             function () use ($manager) {
-                $manager->getEvent()->getParam('ServiceManager')->get('doctrine.odm.mongo_logger_collector.default');
+                $manager->getEvent()->getParam('ServiceManager')->get('doctrine.odm.mongologgercollector.default');
             }
         );
         $events->getSharedManager()->attach('doctrine', 'loadCli.post', array($this, 'initializeConsole'));

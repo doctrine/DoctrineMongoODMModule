@@ -113,7 +113,7 @@ class Configuration extends AbstractOptions
      * @var string
      */
     protected $classMetadataFactoryName;
-    
+
     /**
      *
      * @param string $driver
@@ -130,7 +130,7 @@ class Configuration extends AbstractOptions
      */
     public function getDriver()
     {
-        return "doctrine.driver.{$this->driver}";
+        return $this->driver;
     }
 
     /**
@@ -168,7 +168,7 @@ class Configuration extends AbstractOptions
      */
     public function getMetadataCache()
     {
-        return "doctrine.cache.{$this->metadataCache}";
+        return $this->metadataCache;
     }
 
     /**
@@ -327,7 +327,7 @@ class Configuration extends AbstractOptions
     {
         return $this->logger;
     }
-    
+
     /**
      * @return string
      */
