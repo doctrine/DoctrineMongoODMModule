@@ -16,11 +16,10 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace DoctrineMongoODMModule\Service;
+namespace DoctrineMongoODMModule\Factory;
 
+use DoctrineModule\Factory\AbstractFactoryInterface;
 use Doctrine\MongoDB\Connection;
-use DoctrineModule\Service\AbstractFactory;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory creates a mongo connection
@@ -30,20 +29,23 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class ConnectionFactory extends AbstractFactory
+class ConnectionFactory implements AbstractFactoryInterface
 {
 
-    protected $mappingType = 'odm';
+    const OPTIONS_CLASS = '\DoctrineMongoODMModule\Options\Connection';
 
     /**
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     *
      * @return \Doctrine\MongoDB\Connection
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function create($options)
     {
-        /** @var $options \DoctrineMongoODMModule\Options\Connection */
-        $options = $this->getOptions($serviceLocator, 'connection');
+        $optionsClass = self::OPTIONS_CLASS;
+
+        if (is_array($options) || $options instanceof \Traversable){
+            $options = new $optionsClass($options);
+        } else if ( ! $options instanceof $optionsClass){
+            throw new \InvalidArgumentException();
+        }
 
         $connectionString = $options->getConnectionString();
 
@@ -67,18 +69,8 @@ class ConnectionFactory extends AbstractFactory
 
         return new Connection(
             $connectionString,
-            $options->getOptions(),
-            $serviceLocator->get('doctrine.odm.configuration.' . $this->getName())
+            $options->getOptions()
         );
     }
 
-    /**
-     * Get the class name of the options associated with this factory.
-     *
-     * @return string
-     */
-    public function getOptionsClass()
-    {
-        return 'DoctrineMongoODMModule\Options\Connection';
-    }
 }

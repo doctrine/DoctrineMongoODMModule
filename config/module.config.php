@@ -14,9 +14,9 @@ return array(
             ),
             'configuration' => array(
                 'default' => array(
-                    'metadata_cache'     => 'array',
+                    'metadata_cache'     => 'doctrine.cache.array',
 
-                    'driver'             => 'default',
+                    'driver'             => 'doctrine.driver.default',
 
                     'generate_proxies'   => true,
                     'proxy_dir'          => 'data/DoctrineMongoODMModule/Proxy',
@@ -35,12 +35,12 @@ return array(
             ),
             'documentmanager' => array(
                 'default' => array(
-                    'connection'    => 'default',
-                    'configuration' => 'default',
-                    'eventmanager' => 'default'
+                    'connection'    => 'doctrine.odm.connection.default',
+                    'configuration' => 'doctrine.odm.configuration.default',
+                    'eventmanager'  => 'doctrine.eventmanager.default'
                 )
             ),
-            'mongo_logger_collector' => array(
+            'mongologgercollector' => array(
                 'default' => array(),
             ),
         ),
@@ -59,23 +59,20 @@ return array(
         ),
 
         'authentication' => array(
-            'default' => array(
-                'objectManager' => 'doctrine.odm.documentmanager.default',
-                'identityClass' => 'Application\Model\User',
-                'identityProperty' => 'username',
-                'credentialProperty' => 'password'
+            'adapter' => array(
+                'default' => array(
+                    'object_manager' => 'doctrine.odm.documentmanager.default',
+                    'identity_class' => 'Application\Model\User',
+                    'identity_property' => 'username',
+                    'credential_property' => 'password'
+                )
             ),
-        ),
-    ),
-
-    // Factory mappings - used to define which factory to use to instantiate a particular doctrine
-    // service type
-    'doctrine_factories' => array(
-        'odm' => array(
-            'connection'             => 'DoctrineMongoODMModule\Service\ConnectionFactory',
-            'configuration'          => 'DoctrineMongoODMModule\Service\ConfigurationFactory',
-            'documentmanager'        => 'DoctrineMongoODMModule\Service\DocumentManagerFactory',
-            'mongo_logger_collector' => 'DoctrineMongoODMModule\Service\MongoLoggerCollectorFactory',
+            'storage' => array(
+                'default' => array(
+                    'object_manager' => 'doctrine.odm.documentmanager.default',
+                    'identity_class' => 'Application\Model\User',
+                )
+            ),
         )
     ),
 
@@ -84,6 +81,11 @@ return array(
             'DoctrineMongoODMModule\Logging\DebugStack'   => 'DoctrineMongoODMModule\Logging\DebugStack',
             'DoctrineMongoODMModule\Logging\LoggerChain'  => 'DoctrineMongoODMModule\Logging\LoggerChain',
             'DoctrineMongoODMModule\Logging\EchoLogger'   => 'DoctrineMongoODMModule\Logging\EchoLogger',
+
+            'doctrine.factory.odm.connection'             => 'DoctrineMongoODMModule\Factory\ConnectionFactory',
+            'doctrine.factory.odm.configuration'          => 'DoctrineMongoODMModule\Factory\ConfigurationFactory',
+            'doctrine.factory.odm.documentmanager'        => 'DoctrineMongoODMModule\Factory\DocumentManagerFactory',
+            'doctrine.factory.odm.mongologgercollector'   => 'DoctrineMongoODMModule\Factory\MongoLoggerCollectorFactory',
 
             // ODM commands
             'doctrine.odm.query_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand',
@@ -95,9 +97,6 @@ return array(
             'doctrine.odm.update_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand',
             'doctrine.odm.drop_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand',
             'doctrine.odm.clear_cache_metadata' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\ClearCache\MetadataCommand',
-        ),
-        'factories' => array(
-            'Doctrine\ODM\Mongo\DocumentManager'          => 'DoctrineMongoODMModule\Service\DocumentManagerAliasCompatFactory',
         ),
     ),
 
@@ -112,7 +111,7 @@ return array(
     'zenddevelopertools' => array(
         'profiler' => array(
             'collectors' => array(
-                'odm.default' => 'doctrine.odm.mongo_logger_collector.default',
+                'odm.default' => 'doctrine.odm.mongologgercollector.default',
             ),
         ),
         'toolbar' => array(

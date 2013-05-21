@@ -13,12 +13,12 @@ return array(
         'driver' => array(
             'default' => array(
                 'drivers' => array(
-                    'DoctrineMongoODMModuleTest\Assets\Document' => 'test'
+                    'DoctrineMongoODMModuleTest\Assets\Document' => 'doctrine.driver.test'
                 )
             ),
             'test' => array(
                 'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
+                'cache' => 'doctrine.cache.array',
                 'paths' => array(
                     __DIR__ . '/Assets/Document'
                 )
