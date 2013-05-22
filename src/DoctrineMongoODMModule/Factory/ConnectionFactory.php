@@ -41,9 +41,9 @@ class ConnectionFactory implements AbstractFactoryInterface
     {
         $optionsClass = self::OPTIONS_CLASS;
 
-        if (is_array($options) || $options instanceof \Traversable){
+        if (is_array($options) || $options instanceof \Traversable) {
             $options = new $optionsClass($options);
-        } else if ( ! $options instanceof $optionsClass){
+        } elseif (! $options instanceof $optionsClass) {
             throw new \InvalidArgumentException();
         }
 
