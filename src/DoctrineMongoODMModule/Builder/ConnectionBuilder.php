@@ -16,35 +16,32 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace DoctrineMongoODMModule\Factory;
+namespace DoctrineMongoODMModule\Builder;
 
-use DoctrineModule\Factory\AbstractFactoryInterface;
+use DoctrineModule\Builder\BuilderInterface;
+use DoctrineModule\Exception;
+use DoctrineMongoODMModule\Options\ConnectionOptions;
 use Doctrine\MongoDB\Connection;
 
 /**
- * Factory creates a mongo connection
+ * Builder creates a mongo connection
  *
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class ConnectionFactory implements AbstractFactoryInterface
+class ConnectionBuilder implements BuilderInterface
 {
-
-    const OPTIONS_CLASS = '\DoctrineMongoODMModule\Options\Connection';
-
     /**
      * @return \Doctrine\MongoDB\Connection
      */
-    public function create($options)
+    public function build($options)
     {
-        $optionsClass = self::OPTIONS_CLASS;
-
         if (is_array($options) || $options instanceof \Traversable) {
-            $options = new $optionsClass($options);
-        } elseif (! $options instanceof $optionsClass) {
-            throw new \InvalidArgumentException();
+            $options = new ConnectionOptions($options);
+        } elseif (! $options instanceof ConnectionOptions) {
+            throw new Exception\InvalidArgumentException();
         }
 
         $connectionString = 'mongodb://';

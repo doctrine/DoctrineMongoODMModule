@@ -28,7 +28,7 @@ use Zend\Stdlib\AbstractOptions;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class Connection extends AbstractOptions
+class ConnectionOptions extends AbstractOptions
 {
 
     /**

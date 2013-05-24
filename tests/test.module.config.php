@@ -4,10 +4,12 @@ return array(
         'odm' => array(
             'configuration' => array(
                 'default' => array(
-                    'default_db' => 'doctrineMongoODMModuleTest'
+                    'default_db'   => 'doctrineMongoODMModuleTest',
+                    'proxy_dir'    => __DIR__ . '/proxy',
+                    'hydrator_dir' => __DIR__ . '/hydrator',
                 )
             ),
-    ),
+        ),
         'driver' => array(
             'default' => array(
                 'drivers' => array(

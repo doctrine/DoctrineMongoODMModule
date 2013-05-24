@@ -28,7 +28,7 @@ use Zend\Stdlib\AbstractOptions;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class DocumentManager extends AbstractOptions
+class DocumentManagerOptions extends AbstractOptions
 {
     /**
      * Set the configuration key for the Configuration. Pulled from

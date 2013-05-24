@@ -27,7 +27,7 @@ use Zend\Stdlib\AbstractOptions;
  * @license MIT
  * @link    http://www.doctrine-project.org/
  */
-class MongoLoggerCollector extends AbstractOptions
+class MongoLoggerCollectorOptions extends AbstractOptions
 {
     /**
      * @var string name to be assigned to the collector
