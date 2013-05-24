@@ -49,7 +49,7 @@ class DoctrinePaginator implements AdapterInterface
      */
     public function count()
     {
-        return $this->cursor->count();
+        return $this->cursor->count(true);
     }
 
     /**
@@ -62,7 +62,6 @@ class DoctrinePaginator implements AdapterInterface
         $cursor->recreate();
         $cursor->skip($offset);
         $cursor->limit($itemCountPerPage);
-
-        return $cursor;
+        return new FoundItemCursor($cursor);
     }
 }
