@@ -16,26 +16,29 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace DoctrineMongoODMModule\Factory;
+namespace DoctrineMongoODMModule\Builder;
 
-use DoctrineModule\Factory\AbstractFactoryInterface;
+use DoctrineModule\Builder\BuilderInterface;
+use DoctrineModule\Exception;
+use DoctrineMongoODMModule\Options\DocumentManagerOptions;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Factory creates a mongo document manager
+ * Builder creates a mongo document manager
  *
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class DocumentManagerFactory implements AbstractFactoryInterface, ServiceLocatorAwareInterface
+class DocumentManagerBuilder implements BuilderInterface, ServiceLocatorAwareInterface
 {
-
-    const OPTIONS_CLASS = '\DoctrineMongoODMModule\Options\DocumentManager';
-
+    /**
+     *
+     * @var ServiceLocatorInterface
+     */
     protected $serviceLocator;
 
     /**
@@ -58,15 +61,12 @@ class DocumentManagerFactory implements AbstractFactoryInterface, ServiceLocator
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @return \Doctrine\ODM\MongoDB\DocumentManager
      */
-    public function create($options)
+    public function build($options)
     {
-
-        $optionsClass = self::OPTIONS_CLASS;
-
         if (is_array($options) || $options instanceof \Traversable) {
-            $options = new $optionsClass($options);
-        } elseif (! $options instanceof $optionsClass) {
-            throw new \InvalidArgumentException();
+            $options = new DocumentManagerOptions($options);
+        } elseif (! $options instanceof DocumentManagerOptions) {
+            throw new Exception\InvalidArgumentException();
         }
 
         return DocumentManager::create(

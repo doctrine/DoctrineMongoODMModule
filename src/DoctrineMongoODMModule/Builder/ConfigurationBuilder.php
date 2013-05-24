@@ -16,26 +16,28 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace DoctrineMongoODMModule\Factory;
+namespace DoctrineMongoODMModule\Builder;
 
-use DoctrineModule\Factory\AbstractFactoryInterface;
+use DoctrineModule\Builder\BuilderInterface;
+use DoctrineModule\Exception;
+use DoctrineMongoODMModule\Options\ConfigurationOptions;
 use Doctrine\ODM\MongoDB\Configuration;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Factory to create MongoDB configuration object.
+ * Builder to create MongoDB configuration object.
  *
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class ConfigurationFactory implements AbstractFactoryInterface, ServiceLocatorAwareInterface
+class ConfigurationBuilder implements BuilderInterface, ServiceLocatorAwareInterface
 {
-
-    const OPTIONS_CLASS = '\DoctrineMongoODMModule\Options\Configuration';
-
+    /**
+     * @var ServiceLocatorInterface
+     */
     protected $serviceLocator;
 
     /**
@@ -54,15 +56,12 @@ class ConfigurationFactory implements AbstractFactoryInterface, ServiceLocatorAw
         $this->serviceLocator = $serviceLocator;
     }
 
-    public function create($options)
+    public function build($options)
     {
-
-        $optionsClass = self::OPTIONS_CLASS;
-
         if (is_array($options) || $options instanceof \Traversable) {
-            $options = new $optionsClass($options);
-        } elseif (! $options instanceof $optionsClass) {
-            throw new \InvalidArgumentException();
+            $options = new ConfigurationOptions($options);
+        } elseif (! $options instanceof ConfigurationOptions) {
+            throw new Exception\InvalidArgumentException();
         }
 
         $config = new Configuration;

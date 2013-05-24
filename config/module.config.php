@@ -77,15 +77,18 @@ return array(
     ),
 
     'service_manager' => array(
+        'alias' => array(
+            'doctrine.objectmanager.default' => 'doctrine.odm.documentmanager.default'
+        ),
         'invokables' => array(
             'DoctrineMongoODMModule\Logging\DebugStack'   => 'DoctrineMongoODMModule\Logging\DebugStack',
             'DoctrineMongoODMModule\Logging\LoggerChain'  => 'DoctrineMongoODMModule\Logging\LoggerChain',
             'DoctrineMongoODMModule\Logging\EchoLogger'   => 'DoctrineMongoODMModule\Logging\EchoLogger',
 
-            'doctrine.factory.odm.connection'             => 'DoctrineMongoODMModule\Factory\ConnectionFactory',
-            'doctrine.factory.odm.configuration'          => 'DoctrineMongoODMModule\Factory\ConfigurationFactory',
-            'doctrine.factory.odm.documentmanager'        => 'DoctrineMongoODMModule\Factory\DocumentManagerFactory',
-            'doctrine.factory.odm.mongologgercollector'   => 'DoctrineMongoODMModule\Factory\MongoLoggerCollectorFactory',
+            'doctrine.builder.odm.connection'             => 'DoctrineMongoODMModule\Builder\ConnectionBuilder',
+            'doctrine.builder.odm.configuration'          => 'DoctrineMongoODMModule\Builder\ConfigurationBuilder',
+            'doctrine.builder.odm.documentmanager'        => 'DoctrineMongoODMModule\Builder\DocumentManagerBuilder',
+            'doctrine.builder.odm.mongologgercollector'   => 'DoctrineMongoODMModule\Builder\MongoLoggerCollectorBuilder',
 
             // ODM commands
             'doctrine.odm.query_command' => 'Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand',
