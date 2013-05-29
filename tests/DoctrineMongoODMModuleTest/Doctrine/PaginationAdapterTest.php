@@ -25,7 +25,7 @@ class PaginationAdapterTest extends AbstractTest
         $documentManager = $this->getDocumentManager();
 
         $cursor = $documentManager->getRepository(get_class(new Simple()))->findAll();
-        $cursor->sort(array('Name', 'asc'));
+        $cursor->sort(array('name' => 'asc'));
 
         return new DoctrinePaginator($cursor);
     }
@@ -39,7 +39,7 @@ class PaginationAdapterTest extends AbstractTest
 
         for ($i = 1; $i <= $this->numberOfItems; $i++) {
             $document = new Simple();
-            $document->setName("Document $i");
+            $document->setName(sprintf('Document %02d', $i));
             $documentManager->persist($document);
         }
         $documentManager->flush();
@@ -51,42 +51,45 @@ class PaginationAdapterTest extends AbstractTest
         $this->assertEquals($this->numberOfItems, $paginationAdapter->count());
     }
 
-    public function testGetFiveItemsAtOffsetZero()
+    public function testGetItemsReturnsACursor()
     {
         $paginationAdapter = $this->getPaginationAdapter();
-        $documents         = $paginationAdapter->getItems(0, 5);
+        $cursor = $paginationAdapter->getItems(0, 1);
 
-        for ($i = 1; $i <= 5; $i++) {
-            $documents->next();
-            $this->assertEquals("Document $i", $documents->current()->getName());
-        }
-
-        $this->assertNull($documents->next());
+        $this->assertInstanceOf('Doctrine\ODM\MongoDB\Cursor', $cursor);
     }
 
-    public function testGetLastItemAtOffsetNineteen()
+    public function testGetItemsWithFirstFive()
     {
         $paginationAdapter = $this->getPaginationAdapter();
+        $cursor = $paginationAdapter->getItems(0, 5);
+        $documents = iterator_to_array($cursor, false);
 
-        $documents = $paginationAdapter->getItems($this->numberOfItems - 1, 5);
-        $documents->next();
+        for ($i = 0; $i < 5; $i++) {
+            $this->assertEquals(sprintf('Document %02d', $i + 1), $documents[$i]->getName());
+        }
 
-        $this->assertEquals('Document ' . $this->numberOfItems, $documents->current()->getName());
-        $this->assertNull($documents->next());
+        $this->assertCount(5, $documents);
+    }
+
+    public function testGetItemsWithLastItem()
+    {
+        $paginationAdapter = $this->getPaginationAdapter();
+        $cursor = $paginationAdapter->getItems($this->numberOfItems - 1, 5);
+        $documents = iterator_to_array($cursor, false);
+
+        $this->assertEquals(sprintf('Document %02d', $this->numberOfItems), $documents[0]->getName());
+        $this->assertCount(1, $documents);
     }
 
     public function testGetItemsCalledTwoTimes()
     {
         $paginationAdapter = $this->getPaginationAdapter();
 
-        $items = $paginationAdapter->getItems(0, 5);
-        $items->next();
+        $document1 = current(iterator_to_array($paginationAdapter->getItems(0, 1)));
+        $document2 = current(iterator_to_array($paginationAdapter->getItems(1, 1)));
 
-        $items2 = $paginationAdapter->getItems(2, 5);
-        $items2->next();
-
-        $this->assertNotEquals($items->current()->getName(), $items2->current()->getName());
-        $this->assertEquals('Document 1', $items->current()->getName());
-        $this->assertEquals('Document 3', $items2->current()->getName());
+        $this->assertEquals('Document 01', $document1->getName());
+        $this->assertEquals('Document 02', $document2->getName());
     }
 }
