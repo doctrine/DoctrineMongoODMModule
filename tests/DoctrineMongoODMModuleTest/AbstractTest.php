@@ -7,15 +7,21 @@ use Zend\Mvc\Application;
 
 abstract class AbstractTest extends PHPUnit_Framework_TestCase
 {
-
+    /**
+     * @var \Zend\Mvc\ApplicationInterface
+     */
     protected $application;
+
+    /**
+     * @var \Zend\ServiceManager\ServiceManager
+     */
     protected $serviceManager;
 
 
     protected static $applicationConfig;
 
-    public function setup(){
-
+    public function setup()
+    {
         $this->application = Application::init(self::$applicationConfig);
         $this->serviceManager = $this->application->getServiceManager();
     }
@@ -32,7 +38,12 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $collections = $this->getDocumentManager()->getConnection()->selectDatabase('doctrineMongoODMModuleTest')->listCollections();
+        $collections = $this
+            ->getDocumentManager()
+            ->getConnection()
+            ->selectDatabase('doctrineMongoODMModuleTest')
+            ->listCollections();
+
         foreach ($collections as $collection) {
             $collection->remove(array(), array('safe' => true));
         }

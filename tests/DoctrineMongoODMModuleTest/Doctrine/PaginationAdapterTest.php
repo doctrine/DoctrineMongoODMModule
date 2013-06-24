@@ -10,6 +10,8 @@ use DoctrineMongoODMModuleTest\Assets\Document\Simple;
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @author  Roman Konz <roman@konz.me>
+ *
+ * @covers \DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator
  */
 class PaginationAdapterTest extends AbstractTest
 {
@@ -23,9 +25,9 @@ class PaginationAdapterTest extends AbstractTest
     protected function getPaginationAdapter()
     {
         $documentManager = $this->getDocumentManager();
+        $cursor          = $documentManager->getRepository(get_class(new Simple()))->findAll();
 
-        $cursor = $documentManager->getRepository(get_class(new Simple()))->findAll();
-        $cursor->sort(array('name' => 'asc'));
+        $cursor->sort(array('Name', 'asc'));
 
         return new DoctrinePaginator($cursor);
     }
