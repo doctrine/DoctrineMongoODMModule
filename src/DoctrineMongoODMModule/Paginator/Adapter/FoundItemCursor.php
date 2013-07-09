@@ -65,14 +65,6 @@ class FoundItemCursor extends Cursor
     }
     
     /**
-     * Clones the wrapped cursor 
-     */
-    public function __clone()
-    {
-        $this->cursor = clone $this->cursor;
-    }
-    
-    /**
      * {@inheritdoc }
      */
     public function getConnection()
