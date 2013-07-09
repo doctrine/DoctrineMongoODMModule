@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,52 +18,28 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace DoctrineMongoODMModule\Paginator\Adapter;
+namespace DoctrineMongoODMModule\Paginator;
 
-use Zend\Paginator\Adapter\AdapterInterface;
-use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\MongoDB\Cursor;
+use Zend\Paginator\Paginator as ZendPaginator;
 
-/**
- * @license MIT
- * @link    http://www.doctrine-project.org/
- * @author  Roman Konz <roman@konz.me>
- */
-class DoctrinePaginator implements AdapterInterface
+class Paginator extends ZendPaginator
 {
     /**
-     * @var Doctrine\ODM\MongoDB\Cursor
-     */
-    protected $cursor;
-
-    /**
-     * Constructor
+     * Returns the number of items in a collection.
+     * Will count only "found items" in a Mongo Cursor
      *
-     * @param Cursor $cursor
+     * @param  mixed $items Items
+     * @return int
      */
-    public function __construct(Cursor $cursor)
+    public function getItemCount($items)
     {
-        $this->cursor = $cursor;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function count()
-    {
-        return $this->cursor->count();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getItems($offset, $itemCountPerPage)
-    {
-        $cursor = clone $this->cursor;
-
-        $cursor->recreate();
-        $cursor->skip($offset);
-        $cursor->limit($itemCountPerPage);
-
-        return $cursor;
+        $itemCount = 0;
+        if ($items instanceof Cursor){
+            $itemCount = $items->count(true);
+        } else {
+            $itemCount = parent::getItemCount($items);
+        }
+        return $itemCount;
     }
 }
