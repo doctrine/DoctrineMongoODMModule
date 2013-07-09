@@ -57,11 +57,11 @@ class PaginationAdapterTest extends AbstractTest
         $documents         = $paginationAdapter->getItems(0, 5);
 
         for ($i = 1; $i <= 5; $i++) {
-            $documents->next();
-            $this->assertEquals("Document $i", $documents->current()->getName());
+            $this->assertEquals("Document $i", current($documents)->getName());
+            next($documents);
         }
 
-        $this->assertNull($documents->next());
+        $this->assertEquals(false, next($documents));
     }
 
     public function testGetLastItemAtOffsetNineteen()
@@ -69,10 +69,9 @@ class PaginationAdapterTest extends AbstractTest
         $paginationAdapter = $this->getPaginationAdapter();
 
         $documents = $paginationAdapter->getItems($this->numberOfItems - 1, 5);
-        $documents->next();
 
-        $this->assertEquals('Document ' . $this->numberOfItems, $documents->current()->getName());
-        $this->assertNull($documents->next());
+        $this->assertEquals('Document ' . $this->numberOfItems, current($documents)->getName());
+        $this->assertEquals(false, next($documents));
     }
 
     public function testGetItemsCalledTwoTimes()
@@ -80,13 +79,11 @@ class PaginationAdapterTest extends AbstractTest
         $paginationAdapter = $this->getPaginationAdapter();
 
         $items = $paginationAdapter->getItems(0, 5);
-        $items->next();
 
         $items2 = $paginationAdapter->getItems(2, 5);
-        $items2->next();
 
-        $this->assertNotEquals($items->current()->getName(), $items2->current()->getName());
-        $this->assertEquals('Document 1', $items->current()->getName());
-        $this->assertEquals('Document 3', $items2->current()->getName());
+        $this->assertNotEquals(current($items)->getName(), current($items2)->getName());
+        $this->assertEquals('Document 1', current($items)->getName());
+        $this->assertEquals('Document 3', current($items2)->getName());
     }
 }
