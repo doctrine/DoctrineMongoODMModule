@@ -2,7 +2,7 @@
 
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
-use DoctrineMongoODMModule\Paginator\Paginator;
+use Zend\Paginator\Paginator;
 use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 use DoctrineMongoODMModuleTest\AbstractTest;
 use DoctrineMongoODMModuleTest\Assets\Document\Simple;
