@@ -30,7 +30,7 @@ use Doctrine\ODM\MongoDB\Cursor;
 class DoctrinePaginator implements AdapterInterface
 {
     /**
-     * @var DoctrineMongoODMModule\Paginator\Adapter\FoundItemCursor
+     * @var Doctrine\ODM\MongoDB\Cursor
      */
     protected $cursor;
 
@@ -41,17 +41,15 @@ class DoctrinePaginator implements AdapterInterface
      */
     public function __construct(Cursor $cursor)
     {
-        $this->cursor = new FoundItemCursor($cursor);
+        $this->cursor = $cursor;
     }
 
     /**
-     * This should return the total count, so it counts the wrapped cursor.
-     * 
-     * @return int
+     * {@inheritDoc}
      */
     public function count()
     {
-        return $this->cursor->getCursor()->count();
+        return $this->cursor->count(true);
     }
 
     /**
@@ -64,6 +62,6 @@ class DoctrinePaginator implements AdapterInterface
         $cursor->recreate();
         $cursor->skip($offset);
         $cursor->limit($itemCountPerPage);
-        return $cursor;
+        return new FoundItemCursor($cursor);
     }
 }

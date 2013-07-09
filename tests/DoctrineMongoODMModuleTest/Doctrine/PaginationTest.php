@@ -59,13 +59,4 @@ class PaginationTest extends AbstractTest
         
         $this->assertEquals(10, $pages->lastItemNumber);
     }
-    
-    public function testGetTotalItemCount()
-    {
-        $paginationAdapter = $this->getPaginationAdapter();
-        $paginator = $this->getPaginator($paginationAdapter);
-        $pages = $paginator->getPages();
-        
-        $this->assertEquals(20, $pages->totalItemCount);
-    }
 }
