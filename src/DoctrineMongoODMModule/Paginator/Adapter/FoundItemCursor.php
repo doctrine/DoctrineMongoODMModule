@@ -18,17 +18,14 @@
  * <http://www.doctrine-project.org>.
  */
 
+/**
+ * Decorator for Doctrine\MongoDB\Cursor, this will return "found item" count by default
+ */
+
 namespace DoctrineMongoODMModule\Paginator\Adapter;
 
 use Doctrine\MongoDB\Cursor;
 
-/**
- * @license MIT
- * @link    http://www.doctrine-project.org/
- * @author  Chris Levy <chrisianlevy@yahoo.co.uk>
- * 
- * Decorator for Doctrine\MongoDB\Cursor, this will return "found item" count by default
- */
 class FoundItemCursor extends Cursor
 {
     /**
@@ -47,14 +44,6 @@ class FoundItemCursor extends Cursor
     }
     
     /**
-     * Return the Cursor being wrapped
-     */
-    public function getCursor()
-    {
-        return $this->cursor;
-    }
-    
-    /**
      * Returns the number of "found" items in a cursor
      *
      * @return int
@@ -64,277 +53,188 @@ class FoundItemCursor extends Cursor
         return $this->cursor->count(true);
     }
     
-    /**
-     * {@inheritdoc }
-     */
     public function getConnection()
     {
         return $this->cursor->getConnection();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function getCollection()
     {
         return $this->cursor->getCollection();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function getQuery()
     {
         return $this->cursor->getQuery();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function getFields()
     {
         return $this->cursor->getFields();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function recreate()
     {
         $this->cursor->recreate();
     }
 
     /**
-     * {@inheritdoc }
+     * Returns the MongoCursor instance being wrapped.
+     *
+     * @return MongoCursor $mongoCursor The MongoCursor instance being wrapped.
      */
     public function getMongoCursor()
     {
         return $this->cursor->getMongoCursor();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function current()
     {
         return $this->cursor->current();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function key()
     {
         return $this->cursor->key();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function dead()
     {
         return $this->cursor->dead();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function explain()
     {
         return $this->cursor->explain();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function fields(array $f)
     {
         $this->cursor->fields($f);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function getNext()
     {
         return $this->cursor->next();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function hasNext()
     {
         return $this->cursor->hasNext();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function hint(array $keyPattern)
     {
         $this->cursor->hint($keyPattern);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function immortal($liveForever = true)
     {
         $this->cursor->immortal($liveForever);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function info()
     {
         return $this->cursor->info();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function rewind()
     {
         return $this->cursor->rewind();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function next()
     {
         return $this->cursor->next();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function reset()
     {
         return $this->cursor->reset();
     }   
 
-    /**
-     * {@inheritdoc }
-     */
     public function addOption($key, $value)
     {
         $this->cursor->addOption($key, $value);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function batchSize($num)
     {
         $this->cursor->batchSize($num);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function limit($num)
     {
         $this->cursor->limit($num);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function skip($num)
     {
         $this->cursor->skip($num);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function slaveOkay($ok = true)
     {
         $this->cursor->slaveOkay($ok);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function setMongoCursorSlaveOkay($ok)
     {
         $this->cursor->setMongoCursorSlaveOkay($ok);
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function snapshot()
     {
         $this->cursor->snapshot();
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function sort($fields)
     {
         $this->cursor->sort($fields);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function tailable($tail = true)
     {
         $this->cursor->tailable($tail);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function timeout($ms)
     {
         $this->cursor->timeout($ms);
         return $this;
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function valid()
     {
         return $this->cursor->valid();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     public function toArray($useKeys = true)
     {
         return $this->cursor->toArray($useKeys);
     }
 
     /**
-     * {@inheritdoc }
+     * Get the first single result from the cursor.
+     *
+     * @return array $document  The single document.
      */
     public function getSingleResult()
     {
         return $this->cursor->getSingleResult();
     }
 
-    /**
-     * {@inheritdoc }
-     */
     protected function retry(\Closure $retry, $recreate = false)
     {
         return $this->cursor->retry($retry, $recreate);
