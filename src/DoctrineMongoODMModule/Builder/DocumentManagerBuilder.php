@@ -70,17 +70,11 @@ class DocumentManagerBuilder implements BuilderInterface, ServiceLocatorAwareInt
         }
 
         return DocumentManager::create(
-            /*
-             * @var $connection \Doctrine\MongoDB\Connection
-             */
+            /* @var $connection \Doctrine\MongoDB\Connection */
             $this->serviceLocator->get($options->getConnection()),
-            /*
-             * @var $config \Doctrine\ODM\MongoDB\Configuration
-             */
+            /* @var $config \Doctrine\ODM\MongoDB\Configuration */
             $this->serviceLocator->get($options->getConfiguration()),
-            /*
-             * @var $eventManager \Doctrine\Common\EventManager
-             */
+            /* @var $eventManager \Doctrine\Common\EventManager */
             $this->serviceLocator->get($options->getEventManager())
         );
     }
