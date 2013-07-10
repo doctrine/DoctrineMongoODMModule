@@ -28,43 +28,40 @@ use Zend\Stdlib\AbstractOptions;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class DocumentManager extends AbstractOptions
+class DocumentManagerOptions extends AbstractOptions
 {
     /**
-     * Set the configuration key for the Configuration. Configuration key
-     * is assembled as "doctrine.configuration.{key}" and pulled from
+     * Set the configuration key for the Configuration. Pulled from
      * service locator.
      *
      * @var string
      */
-    protected $configuration = 'odm_default';
+    protected $configuration = 'doctrine.odm.configuration.default';
 
     /**
-     * Set the connection key for the Connection. Connection key
-     * is assembled as "doctrine.connection.{key}" and pulled from
+     * Set the connection key for the Connection. Pulled from
      * service locator.
      *
      * @var string
      */
-    protected $connection = 'odm_default';
+    protected $connection = 'doctrine.odm.connection.default';
 
     /**
-     * Set the event manager key for the event manager. Key
-     * is assembled as "doctrine.eventManager.{key} and pulled from
+     * Set the event manager key for the event manager. Pulled from
      * service locator.
      *
      * @var string
      */
-    protected $eventManager = 'odm_default';
+    protected $eventManager = 'doctrine.eventmanager.default';
 
     /**
-     *
-     * @param type $configuration
+     * @param string $configuration
      * @return \DoctrineMongoODMModule\Options\DocumentManager
      */
     public function setConfiguration($configuration)
     {
         $this->configuration = (string) $configuration;
+
         return $this;
     }
 
@@ -73,17 +70,17 @@ class DocumentManager extends AbstractOptions
      */
     public function getConfiguration()
     {
-        return "doctrine.configuration.{$this->configuration}";
+        return $this->configuration;
     }
 
     /**
-     *
-     * @param type $connection
+     * @param string $connection
      * @return \DoctrineMongoODMModule\Options\DocumentManager
      */
     public function setConnection($connection)
     {
         $this->connection = (string) $connection;
+
         return $this;
     }
 
@@ -92,23 +89,24 @@ class DocumentManager extends AbstractOptions
      */
     public function getConnection()
     {
-        return "doctrine.connection.{$this->connection}";
+        return $this->connection;
     }
 
     /**
      *
      * @return string
      */
-    public function getEventManager() {
-        return "doctrine.eventmanager.{$this->eventManager}";
+    public function getEventManager()
+    {
+        return $this->eventManager;
     }
 
     /**
-     *
-     * @param type $eventManager
+     * @param string $eventManager
      * @return \DoctrineMongoODMModule\Options\DocumentManager
      */
-    public function setEventManager($eventManager) {
+    public function setEventManager($eventManager)
+    {
         $this->eventManager = (string) $eventManager;
         return $this;
     }

@@ -28,7 +28,7 @@ use Zend\Stdlib\AbstractOptions;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class Connection extends AbstractOptions
+class ConnectionOptions extends AbstractOptions
 {
 
     /**
@@ -77,7 +77,8 @@ class Connection extends AbstractOptions
      *
      * @return string
      */
-    public function getServer() {
+    public function getServer()
+    {
         return $this->server;
     }
 
@@ -86,7 +87,8 @@ class Connection extends AbstractOptions
      * @param string $server
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setServer($server) {
+    public function setServer($server)
+    {
         $this->server = (string) $server;
         return $this;
     }
@@ -95,7 +97,8 @@ class Connection extends AbstractOptions
      *
      * @return string
      */
-    public function getPort() {
+    public function getPort()
+    {
         return $this->port;
     }
 
@@ -104,7 +107,8 @@ class Connection extends AbstractOptions
      * @param string $port
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setPort($port) {
+    public function setPort($port)
+    {
         $this->port = (string) $port;
         return $this;
     }
@@ -113,7 +117,8 @@ class Connection extends AbstractOptions
      *
      * @return string
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
@@ -122,8 +127,10 @@ class Connection extends AbstractOptions
      * @param string $user
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setUser($user) {
+    public function setUser($user)
+    {
         $this->user = (string) $user;
+
         return $this;
     }
 
@@ -131,7 +138,8 @@ class Connection extends AbstractOptions
      *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
@@ -140,44 +148,49 @@ class Connection extends AbstractOptions
      * @param string $password
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = (string) $password;
         return $this;
     }
 
     /**
-     *
      * @return string
      */
-    public function getDbname() {
+    public function getDbname()
+    {
         return $this->dbname;
     }
 
     /**
-     *
      * @param string $dbname
+     *
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setDbname($dbname) {
+    public function setDbname($dbname)
+    {
         $this->dbname = (string) $dbname;
+
         return $this;
     }
 
     /**
-     *
      * @return array
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         return $this->options;
     }
 
     /**
-     *
      * @param array $options
+     *
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setOptions($options) {
+    public function setOptions($options)
+    {
         $this->options = $options;
+
         return $this;
     }
 }

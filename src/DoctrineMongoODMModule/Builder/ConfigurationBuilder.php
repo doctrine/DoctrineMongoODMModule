@@ -16,38 +16,59 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace DoctrineMongoODMModule\Service;
+namespace DoctrineMongoODMModule\Builder;
 
-use DoctrineModule\Service\AbstractFactory;
+use DoctrineModule\Builder\BuilderInterface;
+use DoctrineModule\Exception;
+use DoctrineMongoODMModule\Options\ConfigurationOptions;
 use Doctrine\ODM\MongoDB\Configuration;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Factory to create MongoDB configuration object.
+ * Builder to create MongoDB configuration object.
  *
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class ConfigurationFactory extends AbstractFactory
+class ConfigurationBuilder implements BuilderInterface, ServiceLocatorAwareInterface
 {
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceLocator;
 
     /**
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     * @return \Doctrine\ODM\MongoDB\Configuration
-     * @throws \Exception
+     * {@inheritDoc}
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function getServiceLocator()
     {
-        /** @var $options \DoctrineMongoODMModule\Options\Configuration */
-        $options = $this->getOptions($serviceLocator, 'configuration');
+        return $this->serviceLocator;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+    }
+
+    public function build($options)
+    {
+        if (is_array($options) || $options instanceof \Traversable) {
+            $options = new ConfigurationOptions($options);
+        } elseif (! $options instanceof ConfigurationOptions) {
+            throw new Exception\InvalidArgumentException();
+        }
 
         $config = new Configuration;
 
         // logger
         if ($options->getLogger()) {
-            $logger = $serviceLocator->get($options->getLogger());
+            $logger = $this->serviceLocator->get($options->getLogger());
             $config->setLoggerCallable(array($logger, 'log'));
         }
 
@@ -65,26 +86,21 @@ class ConfigurationFactory extends AbstractFactory
         $config->setDefaultDB($options->getDefaultDb());
 
         // caching
-        $config->setMetadataCacheImpl($serviceLocator->get($options->getMetadataCache()));
+        $config->setMetadataCacheImpl($this->serviceLocator->get($options->getMetadataCache()));
 
         // Register filters
-        foreach($options->getFilters() as $alias => $class){
+        foreach ($options->getFilters() as $alias => $class) {
             $config->addFilter($alias, $class);
         }
 
         // the driver
-        $config->setMetadataDriverImpl($serviceLocator->get($options->getDriver()));
+        $config->setMetadataDriverImpl($this->serviceLocator->get($options->getDriver()));
 
         // metadataFactory, if set
-        if ($factoryName = $options->getClassMetadataFactoryName()){
+        if ($factoryName = $options->getClassMetadataFactoryName()) {
             $config->setClassMetadataFactoryName($factoryName);
         }
 
         return $config;
-    }
-
-    public function getOptionsClass()
-    {
-        return 'DoctrineMongoODMModule\Options\Configuration';
     }
 }

@@ -27,12 +27,12 @@ use Zend\Stdlib\AbstractOptions;
  * @license MIT
  * @link    http://www.doctrine-project.org/
  */
-class MongoLoggerCollector extends AbstractOptions
+class MongoLoggerCollectorOptions extends AbstractOptions
 {
     /**
      * @var string name to be assigned to the collector
      */
-    protected $name = 'odm_default';
+    protected $name = 'odm.default';
 
     /**
      * @var string|null service name of the configuration where the logger has to be put
@@ -77,7 +77,7 @@ class MongoLoggerCollector extends AbstractOptions
      */
     public function getConfiguration()
     {
-        return $this->configuration ? $this->configuration : 'doctrine.configuration.odm_default';
+        return $this->configuration ? $this->configuration : 'doctrine.odm.configuration.default';
     }
 
     /**

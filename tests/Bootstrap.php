@@ -13,26 +13,36 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * and is licensed under the MIT license.
  */
-namespace DoctrineMongoODMModule\Logging;
 
-/**
- * A logger that logs to the standard output using echo/var_dump.
- *
- * @license MIT
- * @link    www.doctrine-project.org
- */
-class EchoLogger implements Logger
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function log(array $logs)
-    {
-        if ($logs) {
-            var_dump($logs);
-        }
+use DoctrineMongoODMModuleTest\AbstractTest;
+
+ini_set('error_reporting', E_ALL);
+
+$files = array(__DIR__ . '/../vendor/autoload.php', __DIR__ . '/../../../autoload.php');
+
+foreach ($files as $file) {
+    if (file_exists($file)) {
+        $loader = require $file;
+
+        break;
     }
 }
+
+if (! isset($loader)) {
+    throw new RuntimeException('vendor/autoload.php could not be found. Did you run `php composer.phar install`?');
+}
+
+/* @var $loader \Composer\Autoload\ClassLoader */
+$loader->add('DoctrineMongoODMModuleTest\\', __DIR__);
+
+if (file_exists(__DIR__ . '/TestConfiguration.php')) {
+    $config = require __DIR__ . '/TestConfiguration.php';
+} else {
+    $config = require __DIR__ . '/TestConfiguration.php.dist';
+}
+
+AbstractTest::setApplicationConfig($config);
+
+unset($files, $file, $loader, $config);

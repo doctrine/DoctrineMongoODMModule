@@ -16,31 +16,33 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace DoctrineMongoODMModule\Service;
+namespace DoctrineMongoODMModule\Builder;
 
-use DoctrineModule\Service\AbstractFactory;
+use DoctrineModule\Builder\BuilderInterface;
+use DoctrineModule\Exception;
+use DoctrineMongoODMModule\Options\ConnectionOptions;
 use Doctrine\MongoDB\Connection;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Factory creates a mongo connection
+ * Builder creates a mongo connection
  *
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class ConnectionFactory extends AbstractFactory
+class ConnectionBuilder implements BuilderInterface
 {
-
     /**
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @return \Doctrine\MongoDB\Connection
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function build($options)
     {
-        /** @var $options \DoctrineMongoODMModule\Options\Connection */
-        $options = $this->getOptions($serviceLocator, 'connection');
+        if (is_array($options) || $options instanceof \Traversable) {
+            $options = new ConnectionOptions($options);
+        } elseif (! $options instanceof ConnectionOptions) {
+            throw new Exception\InvalidArgumentException();
+        }
 
         $connectionString = 'mongodb://';
         if ($options->getUser() && $options->getPassword()) {
@@ -50,16 +52,9 @@ class ConnectionFactory extends AbstractFactory
         if ($options->getDbName()) {
             $connectionString .= '/' . $options->getDbName();
         }
-        return new Connection($connectionString, $options->getOptions(), $serviceLocator->get('doctrine.configuration.'.$this->getName()));
-    }
-
-    /**
-     * Get the class name of the options associated with this factory.
-     *
-     * @return string
-     */
-    public function getOptionsClass()
-    {
-        return 'DoctrineMongoODMModule\Options\Connection';
+        return new Connection(
+            $connectionString,
+            $options->getOptions()
+        );
     }
 }
