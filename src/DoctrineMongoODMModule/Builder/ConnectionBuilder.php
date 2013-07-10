@@ -69,5 +69,4 @@ class ConnectionBuilder implements BuilderInterface
             $options->getOptions()
         );
     }
-
 }
