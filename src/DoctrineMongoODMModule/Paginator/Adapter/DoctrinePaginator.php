@@ -62,7 +62,7 @@ class DoctrinePaginator implements AdapterInterface
         $cursor->recreate();
         $cursor->skip($offset);
         $cursor->limit($itemCountPerPage);
-
-        return $cursor;
+        // Return array version so that counting is correct
+        return $cursor->toArray();
     }
 }
