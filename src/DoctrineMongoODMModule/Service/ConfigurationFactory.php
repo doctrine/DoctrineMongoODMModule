@@ -67,6 +67,10 @@ class ConfigurationFactory extends AbstractFactory
         // caching
         $config->setMetadataCacheImpl($serviceLocator->get($options->getMetadataCache()));
 
+        // retries
+        $config->setRetryConnect($options->getRetryConnect());
+        $config->setRetryQuery($options->getRetryQuery());
+
         // Register filters
         foreach($options->getFilters() as $alias => $class){
             $config->addFilter($alias, $class);
