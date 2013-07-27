@@ -3,7 +3,9 @@ return array(
     'doctrine' => array(
         'configuration' => array(
             'odm_default' => array(
-                'default_db' => 'doctrineMongoODMModuleTest'
+                'default_db' => 'doctrineMongoODMModuleTest',
+                'retryConnect' => 123,
+                'retryQuery' => 456
             )
         ),
         'driver' => array(

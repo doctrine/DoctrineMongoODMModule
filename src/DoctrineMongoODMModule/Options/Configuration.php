@@ -113,7 +113,21 @@ class Configuration extends AbstractOptions
      * @var string
      */
     protected $classMetadataFactoryName;
-    
+
+    /**
+     * Number of times to attempt to connect if an exception is encountered
+     *
+     * @var int
+     */
+    protected $retryConnect = 0;
+
+    /**
+     * Number of times to attempt a query if an exception is encountered
+     *
+     * @var int
+     */
+    protected $retryQuery = 0;
+
     /**
      *
      * @param string $driver
@@ -334,5 +348,40 @@ class Configuration extends AbstractOptions
     public function setClassMetadataFactoryName($classMetadataFactoryName) {
         $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
     }
-    
+
+    /**
+     * @param int $retryConnect
+     * @return \DoctrineMongoODMModule\Options\Configuration
+     */
+    public function setRetryConnect($retryConnect)
+    {
+        $this->retryConnect = (int) $retryConnect;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRetryConnect()
+    {
+        return $this->retryConnect;
+    }
+
+    /**
+     * @param int $retryQuery
+     * @return \DoctrineMongoODMModule\Options\Configuration
+     */
+    public function setRetryQuery($retryQuery)
+    {
+        $this->retryQuery = (int) $retryQuery;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRetryQuery()
+    {
+        return $this->retryQuery;
+    }
 }
