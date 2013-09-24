@@ -42,14 +42,19 @@ class ConnectionFactory extends AbstractFactory
         /** @var $options \DoctrineMongoODMModule\Options\Connection */
         $options = $this->getOptions($serviceLocator, 'connection');
 
-        $connectionString = 'mongodb://';
-        if ($options->getUser() && $options->getPassword()) {
-            $connectionString .= $options->getUser() . ':' . $options->getPassword() . '@';
+        if ($options->getConnectionString()) {
+            $connectionString = $options->getConnectionString();
+        }else{
+            $connectionString = 'mongodb://';
+            if ($options->getUser() && $options->getPassword()) {
+                $connectionString .= $options->getUser() . ':' . $options->getPassword() . '@';
+            }
+            $connectionString .= $options->getServer() . ':' . $options->getPort();
+            if ($options->getDbName()) {
+                $connectionString .= '/' . $options->getDbName();
+            }
         }
-        $connectionString .= $options->getServer() . ':' . $options->getPort();
-        if ($options->getDbName()) {
-            $connectionString .= '/' . $options->getDbName();
-        }
+
         return new Connection($connectionString, $options->getOptions(), $serviceLocator->get('doctrine.configuration.'.$this->getName()));
     }
 

@@ -67,6 +67,13 @@ class Connection extends AbstractOptions
     protected $dbname = null;
 
     /**
+     * If you want to provide a custom connection string
+     *
+     * @var string
+     */
+    protected $connectionString = null;
+
+    /**
      * Further connection options defined by mongodb-odm
      *
      * @var array
@@ -160,6 +167,24 @@ class Connection extends AbstractOptions
      */
     public function setDbname($dbname) {
         $this->dbname = (string) $dbname;
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getConnectionString() {
+        return $this->connectionString;
+    }
+
+    /**
+     *
+     * @param string $connectionString
+     * @return \DoctrineMongoODMModule\Options\Connection
+     */
+    public function setConnectionString($connectionString) {
+        $this->connectionString = (string) $connectionString;
         return $this;
     }
 
