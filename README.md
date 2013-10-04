@@ -66,3 +66,18 @@ Access the document manager using the following service manager alias:
 <?php
 $dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
 ```
+
+#### Configuration
+##### Connection section
+
+Either `server` or `connectionString` option has to be set.
+
+| Name        | Default    |Description |
+|-------------|------------|------------|
+| server      |'localhost' | IP of mongod instance
+| port        | 27017      | mongod port
+| connectionString        | null      | If the connection string is specified, it will overwrite other connection options (`server`,`port`,`user`,`password`,`dbname`). Still, the connection will respect the settings passed in `options` array.
+| user        | null        | If set, the client will try to authenticate with given username and password
+| password    | null        | If set, the client will try to authenticate with given username and password
+| dbname      | null        | If dbname is not specified, "admin" will be used.
+| options     | array()     | Array with connection options. More detailed description in http://www.php.net/manual/en/mongoclient.construct.php
