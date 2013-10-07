@@ -4,12 +4,13 @@ return array(
 
         'connection' => array(
             'odm_default' => array(
-                'server'    => 'localhost',
-                'port'      => '27017',
-                'user'      => null,
-                'password'  => null,
-                'dbname'    => null,
-                'options'   => array()
+                'server'           => 'localhost',
+                'port'             => '27017',
+                'connectionString' => null,
+                'user'             => null,
+                'password'         => null,
+                'dbname'           => null,
+                'options'          => array()
             ),
         ),
 

@@ -18,8 +18,8 @@
  */
 namespace DoctrineMongoODMModule\Service;
 
-use DoctrineModule\Service\AbstractFactory;
 use Doctrine\MongoDB\Connection;
+use DoctrineModule\Service\AbstractFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -35,6 +35,7 @@ class ConnectionFactory extends AbstractFactory
 
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     *
      * @return \Doctrine\MongoDB\Connection
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
@@ -42,15 +43,29 @@ class ConnectionFactory extends AbstractFactory
         /** @var $options \DoctrineMongoODMModule\Options\Connection */
         $options = $this->getOptions($serviceLocator, 'connection');
 
-        $connectionString = 'mongodb://';
-        if ($options->getUser() && $options->getPassword()) {
-            $connectionString .= $options->getUser() . ':' . $options->getPassword() . '@';
+        $connectionString = $options->getConnectionString();
+
+        if (null === $connectionString) {
+            $connectionString = 'mongodb://';
+
+            $user     = $options->getUser();
+            $password = $options->getPassword();
+            $dbName   = $options->getDbName();
+
+            if ($user && $password) {
+                $connectionString .= $user . ':' . $password . '@';
+            }
+
+            $connectionString .= $options->getServer() . ':' . $options->getPort();
+
+            if ($dbName) {
+                $connectionString .= '/' . $dbName;
+            }
         }
-        $connectionString .= $options->getServer() . ':' . $options->getPort();
-        if ($options->getDbName()) {
-            $connectionString .= '/' . $options->getDbName();
-        }
-        return new Connection($connectionString, $options->getOptions(), $serviceLocator->get('doctrine.configuration.'.$this->getName()));
+
+        return new Connection($connectionString, $options->getOptions(), $serviceLocator->get(
+            'doctrine.configuration.' . $this->getName()
+        ));
     }
 
     /**
