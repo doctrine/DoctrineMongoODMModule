@@ -2,8 +2,15 @@
 
 namespace DoctrineMongoODMModuleTest\Service;
 
+use DoctrineMongoODMModule\Service\ConnectionFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
 
+/**
+ * Class ConnectionFactoryTest
+ *
+ * @author  Hennadiy Verkh <hv@verkh.de>
+ * @covers  \DoctrineMongoODMModule\Service\ConnectionFactory
+ */
 class ConnectionFactoryTest extends AbstractTest
 {
     private $configuration = array();
@@ -15,7 +22,7 @@ class ConnectionFactoryTest extends AbstractTest
         parent::setup();
         $this->serviceManager->setAllowOverride(true);
         $this->configuration     = $this->serviceManager->get('Configuration');
-        $this->connectionFactory = new \DoctrineMongoODMModule\Service\ConnectionFactory('odm_default');
+        $this->connectionFactory = new ConnectionFactory('odm_default');
     }
 
     public function testConnectionStringOverwritesOtherConnectionSettings()
