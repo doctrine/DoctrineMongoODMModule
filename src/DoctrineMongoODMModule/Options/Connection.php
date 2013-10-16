@@ -67,6 +67,13 @@ class Connection extends AbstractOptions
     protected $dbname = null;
 
     /**
+     * If you want to provide a custom connection string
+     *
+     * @var string
+     */
+    protected $connectionString = null;
+
+    /**
      * Further connection options defined by mongodb-odm
      *
      * @var array
@@ -77,17 +84,20 @@ class Connection extends AbstractOptions
      *
      * @return string
      */
-    public function getServer() {
+    public function getServer()
+    {
         return $this->server;
     }
 
     /**
      *
      * @param string $server
+     *
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setServer($server) {
-        $this->server = (string) $server;
+    public function setServer($server)
+    {
+        $this->server = (string)$server;
         return $this;
     }
 
@@ -95,17 +105,20 @@ class Connection extends AbstractOptions
      *
      * @return string
      */
-    public function getPort() {
+    public function getPort()
+    {
         return $this->port;
     }
 
     /**
      *
      * @param string $port
+     *
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setPort($port) {
-        $this->port = (string) $port;
+    public function setPort($port)
+    {
+        $this->port = (string)$port;
         return $this;
     }
 
@@ -113,17 +126,20 @@ class Connection extends AbstractOptions
      *
      * @return string
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
     /**
      *
      * @param string $user
+     *
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setUser($user) {
-        $this->user = (string) $user;
+    public function setUser($user)
+    {
+        $this->user = (string)$user;
         return $this;
     }
 
@@ -131,17 +147,20 @@ class Connection extends AbstractOptions
      *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
     /**
      *
      * @param string $password
+     *
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setPassword($password) {
-        $this->password = (string) $password;
+    public function setPassword($password)
+    {
+        $this->password = (string)$password;
         return $this;
     }
 
@@ -149,17 +168,41 @@ class Connection extends AbstractOptions
      *
      * @return string
      */
-    public function getDbname() {
+    public function getDbname()
+    {
         return $this->dbname;
     }
 
     /**
      *
      * @param string $dbname
+     *
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setDbname($dbname) {
-        $this->dbname = (string) $dbname;
+    public function setDbname($dbname)
+    {
+        $this->dbname = (string)$dbname;
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getConnectionString()
+    {
+        return $this->connectionString;
+    }
+
+    /**
+     *
+     * @param string $connectionString
+     *
+     * @return \DoctrineMongoODMModule\Options\Connection
+     */
+    public function setConnectionString($connectionString)
+    {
+        $this->connectionString = (string)$connectionString;
         return $this;
     }
 
@@ -167,16 +210,19 @@ class Connection extends AbstractOptions
      *
      * @return array
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         return $this->options;
     }
 
     /**
      *
      * @param array $options
+     *
      * @return \DoctrineMongoODMModule\Options\Connection
      */
-    public function setOptions($options) {
+    public function setOptions($options)
+    {
         $this->options = $options;
         return $this;
     }
