@@ -45,7 +45,7 @@ class ConnectionFactory extends AbstractFactory
 
         $connectionString = $options->getConnectionString();
 
-        if (null === $connectionString) {
+        if (empty($connectionString)) {
             $connectionString = 'mongodb://';
 
             $user     = $options->getUser();
