@@ -22,6 +22,7 @@ namespace DoctrineMongoODMModule;
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
 
+use Symfony\Component\Console\Input\ArgvInput;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
@@ -88,7 +89,11 @@ class Module implements
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
         ));
 
-        $documentManager = $event->getParam('ServiceManager')->get('doctrine.documentmanager.odm_default');
+        $arguments = new ArgvInput();
+        $documentManagerName = $arguments->getParameterOption('--documentmanager');
+        $documentManagerName = !empty($documentManagerName) ? $documentManagerName : 'odm_default';
+
+        $documentManager = $event->getParam('ServiceManager')->get('doctrine.documentmanager.' . $documentManagerName);
         $documentHelper  = new \Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper($documentManager);
         $cli->getHelperSet()->set($documentHelper, 'dm');
     }
