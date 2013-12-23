@@ -89,7 +89,7 @@ class Module implements
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
         );
 
-        foreach ($commands as &$command) {
+        foreach ($commands as $command) {
             $command->getDefinition()->addOption(
                 new InputOption(
                     'documentmanager', null, InputOption::VALUE_OPTIONAL,
