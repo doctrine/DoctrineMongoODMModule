@@ -22,6 +22,8 @@ namespace DoctrineMongoODMModule;
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
 
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputOption;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
@@ -77,8 +79,7 @@ class Module implements
      */
     public function loadCli(EventInterface $event)
     {
-        $cli = $event->getTarget();
-        $cli->addCommands(array(
+        $commands = array(
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand(),
@@ -86,9 +87,25 @@ class Module implements
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
-        ));
+        );
 
-        $documentManager = $event->getParam('ServiceManager')->get('doctrine.documentmanager.odm_default');
+        foreach ($commands as $command) {
+            $command->getDefinition()->addOption(
+                new InputOption(
+                    'documentmanager', null, InputOption::VALUE_OPTIONAL,
+                    'The name of the documentmanager to use. If none is provided, it will use odm_default.'
+                )
+            );
+        }
+
+        $cli = $event->getTarget();
+        $cli->addCommands($commands);
+
+        $arguments = new ArgvInput();
+        $documentManagerName = $arguments->getParameterOption('--documentmanager');
+        $documentManagerName = !empty($documentManagerName) ? $documentManagerName : 'odm_default';
+
+        $documentManager = $event->getParam('ServiceManager')->get('doctrine.documentmanager.' . $documentManagerName);
         $documentHelper  = new \Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper($documentManager);
         $cli->getHelperSet()->set($documentHelper, 'dm');
     }
