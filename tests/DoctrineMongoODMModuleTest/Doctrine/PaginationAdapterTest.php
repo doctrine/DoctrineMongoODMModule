@@ -24,7 +24,7 @@ class PaginationAdapterTest extends AbstractTest
     {
         $documentManager = $this->getDocumentManager();
 
-        $cursor = $documentManager->getRepository(get_class(new Simple()))->findAll();
+        $cursor = $documentManager->createQueryBuilder(get_class(new Simple()))->getQuery()->execute();
         $cursor->sort(array('name' => 'asc'));
 
         return new DoctrinePaginator($cursor);
