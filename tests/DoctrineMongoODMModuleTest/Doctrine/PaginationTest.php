@@ -11,6 +11,8 @@ use Zend\Paginator\Paginator;
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @author  Chris Levy <chrisianlevy@yahoo.co.uk>
+ *
+ * @covers \DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator
  */
 class PaginationTest extends AbstractTest
 {
@@ -33,7 +35,7 @@ class PaginationTest extends AbstractTest
     {
         parent::setUp();
 
-        $documentManager     = $this->getDocumentManager();
+        $documentManager = $this->getDocumentManager();
 
         for ($i = 1; $i <= 20; $i++) {
             $document = new Simple();
