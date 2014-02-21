@@ -9,6 +9,7 @@ quickly and easily. The following features are intended to work out of the box:
   - Multiple document managers
   - Multiple connections
   - Support for using existing `Mongo` connections
+  - Doctrine Cli support
 
 ## Requirements
 [Zend Framework 2 Application Skeleton](http://www.github.com/zendframework/ZendSkeletonApplication) (or compatible
