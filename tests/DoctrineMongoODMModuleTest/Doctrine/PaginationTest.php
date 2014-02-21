@@ -2,10 +2,10 @@
 
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
-use Zend\Paginator\Paginator;
 use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 use DoctrineMongoODMModuleTest\AbstractTest;
 use DoctrineMongoODMModuleTest\Assets\Document\Simple;
+use Zend\Paginator\Paginator;
 
 /**
  * @license MIT
@@ -14,36 +14,28 @@ use DoctrineMongoODMModuleTest\Assets\Document\Simple;
  */
 class PaginationTest extends AbstractTest
 {
-    /**
-     * number of items generated in tests
-     *
-     * @var int
-     */
-    protected $numberOfItems;
-
     protected function getPaginationAdapter()
     {
         $documentManager = $this->getDocumentManager();
 
-        $cursor = $documentManager->getRepository(get_class(new Simple()))->findAll();
+        $cursor = $documentManager->createQueryBuilder(get_class(new Simple()))->getQuery()->execute();
         $cursor->sort(array('Name', 'asc'));
 
         return new DoctrinePaginator($cursor);
     }
-    
-    protected function getPaginator(DoctrinePaginator $adaptor)
+
+    protected function getPaginator(DoctrinePaginator $adapter)
     {
-        return new Paginator($adaptor);
+        return new Paginator($adapter);
     }
 
-    public function setup()
+    public function setUp()
     {
-        parent::setup();
+        parent::setUp();
 
-        $this->numberOfItems = 20;
         $documentManager     = $this->getDocumentManager();
 
-        for ($i = 1; $i <= $this->numberOfItems; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $document = new Simple();
             $document->setName("Document $i");
             $documentManager->persist($document);
@@ -56,7 +48,7 @@ class PaginationTest extends AbstractTest
         $paginationAdapter = $this->getPaginationAdapter();
         $paginator = $this->getPaginator($paginationAdapter);
         $pages = $paginator->getPages();
-        
+
         $this->assertEquals(10, $pages->lastItemNumber);
     }
 }
