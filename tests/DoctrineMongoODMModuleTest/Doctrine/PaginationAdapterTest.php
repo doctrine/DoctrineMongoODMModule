@@ -10,6 +10,8 @@ use DoctrineMongoODMModuleTest\Assets\Document\Simple;
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @author  Roman Konz <roman@konz.me>
+ *
+ * @covers \DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator
  */
 class PaginationAdapterTest extends AbstractTest
 {
@@ -51,34 +53,24 @@ class PaginationAdapterTest extends AbstractTest
         $this->assertEquals($this->numberOfItems, $paginationAdapter->count());
     }
 
-    public function testGetItemsReturnsACursor()
-    {
-        $paginationAdapter = $this->getPaginationAdapter();
-        $cursor = $paginationAdapter->getItems(0, 1);
-
-        $this->assertInstanceOf('Doctrine\ODM\MongoDB\Cursor', $cursor);
-    }
-
     public function testGetItemsWithFirstFive()
     {
         $paginationAdapter = $this->getPaginationAdapter();
-        $cursor = $paginationAdapter->getItems(0, 5);
-        $documents = iterator_to_array($cursor, false);
-
-        for ($i = 0; $i < 5; $i++) {
-            $this->assertEquals(sprintf('Document %02d', $i + 1), $documents[$i]->getName());
-        }
+        $documents = $paginationAdapter->getItems(0, 5);
 
         $this->assertCount(5, $documents);
+        for ($i = 1; $i <= 5; $i++) {
+            $this->assertEquals(sprintf('Document %02d', $i), current($documents)->getName());
+            next($documents);
+        }
     }
 
     public function testGetItemsWithLastItem()
     {
         $paginationAdapter = $this->getPaginationAdapter();
-        $cursor = $paginationAdapter->getItems($this->numberOfItems - 1, 5);
-        $documents = iterator_to_array($cursor, false);
+        $documents = $paginationAdapter->getItems($this->numberOfItems - 1, 5);
 
-        $this->assertEquals(sprintf('Document %02d', $this->numberOfItems), $documents[0]->getName());
+        $this->assertEquals(sprintf('Document %02d', $this->numberOfItems), current($documents)->getName());
         $this->assertCount(1, $documents);
     }
 
@@ -86,8 +78,8 @@ class PaginationAdapterTest extends AbstractTest
     {
         $paginationAdapter = $this->getPaginationAdapter();
 
-        $document1 = current(iterator_to_array($paginationAdapter->getItems(0, 1)));
-        $document2 = current(iterator_to_array($paginationAdapter->getItems(1, 1)));
+        $document1 = current($paginationAdapter->getItems(0, 1));
+        $document2 = current($paginationAdapter->getItems(1, 1));
 
         $this->assertEquals('Document 01', $document1->getName());
         $this->assertEquals('Document 02', $document2->getName());
