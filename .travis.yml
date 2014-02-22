@@ -20,4 +20,4 @@ script:
   # - ./vendor/bin/doctrine-module odm:schema:drop
   - ./vendor/bin/phpunit --coverage-clover ./build/clover.xml
   - php build/coverage-checker.php build/clover.xml 24
-  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
+  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/DoctrineMongoODMModuleTest/

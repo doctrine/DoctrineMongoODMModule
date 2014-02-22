@@ -102,11 +102,13 @@ class Module implements
 
         $cli->addCommands(
             array_map(
-                function($i) use ($serviceLocator) {
+                function ($i) use ($serviceLocator) {
                     $command = $serviceLocator->get($i);
                     $command->getDefinition()->addOption(
                         new InputOption(
-                            'documentmanager', null, InputOption::VALUE_OPTIONAL,
+                            'documentmanager',
+                            null,
+                            InputOption::VALUE_OPTIONAL,
                             'The name of the documentmanager to use. If none is provided, it will use odm_default.'
                         )
                     );

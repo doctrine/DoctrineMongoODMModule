@@ -9,7 +9,8 @@ use Zend\EventManager\Event;
 
 class ModuleTest extends PHPUnit_Framework_TestCase
 {
-    protected function getMockServiceManager(){
+    protected function getMockServiceManager()
+    {
         $serviceManager = $this->getMock('Zend\ServiceManager\ServiceManager');
 
         $commandNames = array(
@@ -38,7 +39,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
             ->method('getDefinition')
             ->will($this->returnValue($definition));
 
-        foreach ($commandNames as $commandName){
+        foreach ($commandNames as $commandName) {
             $serviceManager->expects($this->at($i))
                 ->method('get')
                 ->with($commandName)
