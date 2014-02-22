@@ -179,6 +179,25 @@ class ConnectionOptions extends AbstractOptions
         $this->dbname = (string) $dbname;
     }
 
+
+    /**
+     *
+     * @return string
+     */
+    public function getConnectionString()
+    {
+        return $this->connectionString;
+    }
+
+    /**
+     *
+     * @param string $connectionString
+     */
+    public function setConnectionString($connectionString)
+    {
+        $this->connectionString = (string)$connectionString;
+    }
+
     /**
      * @return array
      */
