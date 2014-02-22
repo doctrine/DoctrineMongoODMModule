@@ -20,7 +20,8 @@
 namespace DoctrineMongoODMModule;
 
 use Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper;
-
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputOption;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
@@ -99,10 +100,29 @@ class Module implements
             'doctrine.odm.clear_cache_metadata'
         );
 
-        $cli->addCommands(array_map(array($serviceLocator, 'get'), $commands));
+        $cli->addCommands(
+            array_map(
+                function($i) use ($serviceLocator) {
+                    $command = $serviceLocator->get($i);
+                    $command->getDefinition()->addOption(
+                        new InputOption(
+                            'documentmanager', null, InputOption::VALUE_OPTIONAL,
+                            'The name of the documentmanager to use. If none is provided, it will use odm_default.'
+                        )
+                    );
+                    return $command;
+                },
+                $commands
+            )
+        );
+
+        $arguments = new ArgvInput();
+        if (!($documentManagerName = $arguments->getParameterOption('--documentmanager'))) {
+            $documentManagerName = 'default';
+        }
 
         /* @var $documentManager \Doctrine\ODM\MongoDB\DocumentManager */
-        $documentManager = $serviceLocator->get('doctrine.odm.documentmanager.default');
+        $documentManager = $serviceLocator->get('doctrine.documentmanager.odm.' . $documentManagerName);
         $documentHelper  = new DocumentManagerHelper($documentManager);
         $cli->getHelperSet()->set($documentHelper, 'dm');
     }
