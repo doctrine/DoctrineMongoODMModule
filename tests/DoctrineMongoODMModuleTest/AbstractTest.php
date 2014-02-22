@@ -20,7 +20,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
 
     protected static $applicationConfig;
 
-    public function setup()
+    public function setUp()
     {
         $this->application = Application::init(self::$applicationConfig);
         $this->serviceManager = $this->application->getServiceManager();

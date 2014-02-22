@@ -122,7 +122,7 @@ class Module implements
         }
 
         /* @var $documentManager \Doctrine\ODM\MongoDB\DocumentManager */
-        $documentManager = $serviceLocator->get('doctrine.documentmanager.odm.' . $documentManagerName);
+        $documentManager = $serviceLocator->get('doctrine.odm.documentmanager.' . $documentManagerName);
         $documentHelper  = new DocumentManagerHelper($documentManager);
         $cli->getHelperSet()->set($documentHelper, 'dm');
     }

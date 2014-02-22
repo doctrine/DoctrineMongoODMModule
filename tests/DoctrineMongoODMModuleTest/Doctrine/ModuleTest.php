@@ -58,7 +58,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
         list($serviceManager, $i) = $this->getMockServiceManager();
         $serviceManager->expects($this->at($i))
             ->method('get')
-            ->with('doctrine.documentmanager.odm.default')
+            ->with('doctrine.odm.documentmanager.default')
             ->will($this->returnValue($documentManager));
 
         $application = new Application();
@@ -81,7 +81,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
         list($serviceManager, $i) = $this->getMockServiceManager();
         $serviceManager->expects($this->at($i))
             ->method('get')
-            ->with('doctrine.documentmanager.odm.some_other_name')
+            ->with('doctrine.odm.documentmanager.some_other_name')
             ->will($this->returnValue($documentManager));
 
         $application = new Application();

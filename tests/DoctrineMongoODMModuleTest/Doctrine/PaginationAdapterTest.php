@@ -31,9 +31,9 @@ class PaginationAdapterTest extends AbstractTest
         return new DoctrinePaginator($cursor);
     }
 
-    public function setup()
+    public function setUp()
     {
-        parent::setup();
+        parent::setUp();
 
         $this->numberOfItems = 20;
         $documentManager     = $this->getDocumentManager();
