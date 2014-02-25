@@ -19,14 +19,14 @@
 
 namespace DoctrineMongoODMModule\Service;
 
-use DoctrineModule\Service\AbstractFactory;
-
-use Zend\ServiceManager\ServiceLocatorInterface;
-
+use DoctrineModule\Builder\BuilderInterface;
+use DoctrineModule\Exception;
 use DoctrineMongoODMModule\Collector\MongoLoggerCollector;
-
+use DoctrineMongoODMModule\Options\MongoLoggerCollectorOptions;
 use DoctrineMongoODMModule\Logging\DebugStack;
 use DoctrineMongoODMModule\Logging\LoggerChain;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Mongo Logger Configuration ServiceManager factory
@@ -34,37 +34,50 @@ use DoctrineMongoODMModule\Logging\LoggerChain;
  * @license MIT
  * @link    http://www.doctrine-project.org/
  */
-class MongoLoggerCollectorFactory extends AbstractFactory
+class MongoLoggerCollectorBuilder implements BuilderInterface, ServiceLocatorAwareInterface
 {
-    /**
-     * @var string
-     */
-    protected $name;
 
     /**
-     * @param $name
+     *
+     * @var ServiceLocatorInterface
      */
-    public function __construct($name)
+    protected $serviceLocator;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getServiceLocator()
     {
-        $this->name = $name;
+        return $this->serviceLocator;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
-        /** @var $options \DoctrineMongoODMModule\Options\MongoLoggerCollector */
-        $options = $this->getOptions($serviceLocator, 'mongo_logger_collector');
+        $this->serviceLocator = $serviceLocator;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function build($options)
+    {
+        if (is_array($options) || $options instanceof \Traversable) {
+            $options = new MongoLoggerCollectorOptions($options);
+        } elseif (! $options instanceof MongoLoggerCollectorOptions) {
+            throw new Exception\InvalidArgumentException();
+        }
 
         if ($options->getMongoLogger()) {
-            $debugStackLogger = $serviceLocator->get($options->getMongoLogger());
+            $debugStackLogger = $this->serviceLocator->get($options->getMongoLogger());
         } else {
             $debugStackLogger = new DebugStack();
         }
 
         /** @var $options \Doctrine\ODM\MongoDB\Configuration */
-        $configuration = $serviceLocator->get($options->getConfiguration());
+        $configuration = $this->serviceLocator->get($options->getConfiguration());
 
         if (null !== $configuration->getLoggerCallable()) {
             $logger = new LoggerChain();
@@ -77,13 +90,5 @@ class MongoLoggerCollectorFactory extends AbstractFactory
         }
 
         return new MongoLoggerCollector($debugStackLogger, $options->getName());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getOptionsClass()
-    {
-        return 'DoctrineMongoODMModule\Options\MongoLoggerCollector';
     }
 }

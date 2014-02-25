@@ -25,16 +25,15 @@ class PaginationAdapterTest extends AbstractTest
     protected function getPaginationAdapter()
     {
         $documentManager = $this->getDocumentManager();
-
         $cursor = $documentManager->createQueryBuilder(get_class(new Simple()))->getQuery()->execute();
         $cursor->sort(array('name' => 'asc'));
 
         return new DoctrinePaginator($cursor);
     }
 
-    public function setup()
+    public function setUp()
     {
-        parent::setup();
+        parent::setUp();
 
         $this->numberOfItems = 20;
         $documentManager     = $this->getDocumentManager();

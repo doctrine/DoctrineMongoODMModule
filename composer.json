@@ -1,7 +1,9 @@
 {
-    "name": "doctrine/doctrine-mongo-odm-module",
+    "name":        "doctrine/doctrine-mongo-odm-module",
     "description": "Zend Framework 2 Module that provides Doctrine MongoDB ODM functionality",
-    "type": "library",
+    "type":        "library",
+    "homepage":    "http://www.doctrine-project.org/",
+    "license":     "MIT",
     "keywords": [
         "doctrine",
         "odm",
@@ -9,8 +11,6 @@
         "module",
         "zf2"
     ],
-    "homepage": "http://www.doctrine-project.org/",
-    "license": "MIT",
     "authors": [
         {
             "name": "Kyle Spraggs",
@@ -23,11 +23,6 @@
             "homepage": "http://marco-pivetta.com/"
         },
         {
-            "name": "Evan Coury",
-            "email": "me@evancoury.com",
-            "homepage": "http://blog.evan.pro/"
-        },
-        {
             "name": "Guilherme Blanco",
             "email": "guilhermeblanco@hotmail.com"
         },
@@ -37,18 +32,24 @@
             "homepage": "http://superdweebie.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "doctrine/doctrine-module": "0.8.*",
+        "doctrine/doctrine-module": "1.0.*@dev",
         "doctrine/mongodb-odm": "~1.0.0-beta9@dev",
-        "zendframework/zend-mvc": "2.*",
-        "zendframework/zend-servicemanager": "2.*",
-        "zendframework/zend-stdlib": "2.*"
+        "zendframework/zend-mvc": "~2.2",
+        "zendframework/zend-servicemanager": "~2.2",
+        "zendframework/zend-stdlib": "~2.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit":                    ">=3.7",
+        "squizlabs/php_codesniffer":          "1.4.*",
+        "zendframework/zendframework":        ">=2.2",
+        "zendframework/zend-developer-tools": "*"
     },
     "autoload": {
         "psr-0": {
-            "DoctrineMongoODMModule\\": "src/",
-            "DoctrineMongoODMModuleTest\\": "tests/"
+            "DoctrineMongoODMModule\\": "src/"
         }
     },
     "extra": {

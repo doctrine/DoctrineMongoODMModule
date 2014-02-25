@@ -7,20 +7,18 @@ use DoctrineMongoODMModuleTest\AbstractTest;
 
 class PersistTest extends AbstractTest
 {
-
-    public function testPersist(){
-
+    public function testPersist()
+    {
         $documentManager = $this->getDocumentManager();
+        $simple          = new Simple();
 
-        $simple = new Simple();
         $simple->setName('lucy');
-
         $documentManager->persist($simple);
         $documentManager->flush();
-        $id = $simple->getId();
 
+        $id         = $simple->getId();
         $repository = $documentManager->getRepository(get_class($simple));
-        $simple = $repository->find($id);
+        $simple     = $repository->find($id);
 
         $this->assertEquals('lucy', $simple->getName());
     }
