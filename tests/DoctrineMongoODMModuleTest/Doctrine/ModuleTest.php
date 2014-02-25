@@ -47,7 +47,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
             $i++;
         }
 
-        return [$serviceManager, $i];
+        return array($serviceManager, $i);
     }
 
     public function testOdmDefaultIsUsedAsTheDocumentManagerIfNoneIsProvided()
