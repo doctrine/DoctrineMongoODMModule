@@ -8,4 +8,6 @@ $loader->add('DoctrineMongoODMModuleTest', __DIR__);
 
 $config = include(__DIR__ . '/test.application.config.php');
 
+
+\DoctrineMongoODMModuleTest\Doctrine\Util\ServiceManagerFactory::setConfig($config);
 \DoctrineMongoODMModuleTest\AbstractTest::setApplicationConfig($config);
