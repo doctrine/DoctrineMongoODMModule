@@ -18,13 +18,13 @@ class ConnectionBuilderTest extends AbstractTest
     {
         $connectionString = 'mongodb://localhost:27017';
         $connectionOptions = new ConnectionOptions(
-            [
+            array(
                 'connection_string' => $connectionString,
                 'server'           => 'unreachable',
                 'port'             => '10000',
                 'user'             => 'test fails if used',
                 'password'         => 'test fails if used'
-            ]
+            )
         );
 
         $builder = new ConnectionBuilder;
@@ -38,9 +38,9 @@ class ConnectionBuilderTest extends AbstractTest
         $unreachablePort  = 56000;
         $connectionString = "mongodb://localhost:$unreachablePort,localhost:27017";
         $connectionOptions = new ConnectionOptions(
-            [
+            array(
                 'connection_string' => $connectionString,
-            ]
+            )
         );
 
         $builder = new ConnectionBuilder;
@@ -53,9 +53,9 @@ class ConnectionBuilderTest extends AbstractTest
     {
         $connectionString = 'mongodb:///tmp/mongodb-27017.sock';
         $connectionOptions = new ConnectionOptions(
-            [
+            array(
                 'connection_string' => $connectionString,
-            ]
+            )
         );
 
         $builder = new ConnectionBuilder;
