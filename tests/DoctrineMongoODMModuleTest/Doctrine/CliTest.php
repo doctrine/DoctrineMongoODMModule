@@ -26,7 +26,7 @@ use DoctrineMongoODMModuleTest\AbstractTest;
  *
  * @license MIT
  * @link    http://www.doctrine-project.org/
- * @author  Marco Pivetta <ocramius@gmail.com>
+ * @author  Adam Homsi <adam.homsi@gmail.com>
  */
 class CliTest extends PHPUnit_Framework_TestCase
 {
@@ -111,7 +111,6 @@ class CliTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand',
             $this->cli->get('odm:schema:drop')
-        );
-        
+        ); 
     }
 }

@@ -27,7 +27,7 @@ use Zend\Mvc\Service\ServiceManagerConfig;
  *
  * @license MIT
  * @link    http://www.doctrine-project.org/
- * @author  Marco Pivetta <ocramius@gmail.com>
+ * @author  Adam Homsi <adam.homsi@gmail.com>
  */
 class ServiceManagerFactory
 {
@@ -62,7 +62,6 @@ class ServiceManagerFactory
         /** @var $moduleManager \Zend\ModuleManager\ModuleManager */
         $moduleManager = $serviceManager->get('ModuleManager');
         $moduleManager->loadModules();
-        //$serviceManager->setAllowOverride(true);
         return $serviceManager;
     }
 }
