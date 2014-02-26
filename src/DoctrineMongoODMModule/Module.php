@@ -59,6 +59,7 @@ class Module implements
         $events->attach('profiler_init', function(EventInterface $e) use ($manager) {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
+        $events->getSharedManager()->  attach('doctrine', 'loadCli.post', array($this, 'loadCli'));              
     }
 
     /**
@@ -66,11 +67,7 @@ class Module implements
      */
     public function onBootstrap(EventInterface $event)
     {
-        $app = $event->getTarget();
-        $sharedManager = $app->getEventManager()->getSharedManager();
 
-        // Attach to helper set event and load the document manager helper.
-        $sharedManager->attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
     }
 
     /**
