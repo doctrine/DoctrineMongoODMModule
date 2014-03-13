@@ -80,4 +80,82 @@ class ConnectionFactoryTest extends AbstractTest
 
         $this->assertEquals($connectionString, $connection->getServer());
     }
+
+    public function testDbNameShouldSetDefaultDB()
+    {
+        $dbName  = 'foo_db';
+        $connectionConfig = array(
+            'odm_default' => array(
+                'dbname' => $dbName,
+            )
+        );
+
+        $this->configuration['doctrine']['connection'] = $connectionConfig;
+        $this->serviceManager->setService('Configuration', $this->configuration);
+
+        $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
+        $configuration->setDefaultDB(null);
+        $this->connectionFactory->createService($this->serviceManager);
+
+        $this->assertEquals($dbName, $configuration->getDefaultDB());
+    }
+
+    public function testDbNameShouldNotOverrideExplicitDefaultDB()
+    {
+        $defaultDB  = 'foo_db';
+        $connectionConfig = array(
+            'odm_default' => array(
+                'dbname' => 'test fails if this is defaultDB',
+            )
+        );
+
+        $this->configuration['doctrine']['connection'] = $connectionConfig;
+        $this->serviceManager->setService('Configuration', $this->configuration);
+
+        $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
+        $configuration->setDefaultDB($defaultDB);
+        $this->connectionFactory->createService($this->serviceManager);
+
+        $this->assertEquals($defaultDB, $configuration->getDefaultDB());
+    }
+
+    public function testConnectionStringShouldSetDefaultDB()
+    {
+        $dbName  = 'foo_db';
+        $connectionString = "mongodb://localhost:27017/$dbName";
+        $connectionConfig = array(
+            'odm_default' => array(
+                'connectionString' => $connectionString,
+            )
+        );
+
+        $this->configuration['doctrine']['connection'] = $connectionConfig;
+        $this->serviceManager->setService('Configuration', $this->configuration);
+
+        $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
+        $configuration->setDefaultDB(null);
+        $this->connectionFactory->createService($this->serviceManager);
+
+        $this->assertEquals($dbName, $configuration->getDefaultDB());
+    }
+
+    public function testConnectionStringWithOptionsShouldSetDefaultDB()
+    {
+        $dbName  = 'foo_db';
+        $connectionString = "mongodb://localhost:27017/$dbName?bar=baz";
+        $connectionConfig = array(
+            'odm_default' => array(
+                'connectionString' => $connectionString,
+            )
+        );
+
+        $this->configuration['doctrine']['connection'] = $connectionConfig;
+        $this->serviceManager->setService('Configuration', $this->configuration);
+
+        $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
+        $configuration->setDefaultDB(null);
+        $this->connectionFactory->createService($this->serviceManager);
+
+        $this->assertEquals($dbName, $configuration->getDefaultDB());
+    }
 }
