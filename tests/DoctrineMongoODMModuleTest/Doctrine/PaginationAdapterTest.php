@@ -84,4 +84,14 @@ class PaginationAdapterTest extends AbstractTest
         $this->assertEquals('Document 01', $document1->getName());
         $this->assertEquals('Document 02', $document2->getName());
     }
+
+    public function testItemsAreKeyedAsSequentialIntegers()
+    {
+        $paginationAdapter = $this->getPaginationAdapter();
+        $items = $paginationAdapter->getItems(0, $paginationAdapter->count());
+
+        for ($i = 0; $i < $paginationAdapter->count(); $i++) {
+            $this->assertArrayHasKey($i, $items);
+        }
+    }
 }
