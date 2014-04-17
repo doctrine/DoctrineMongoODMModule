@@ -80,5 +80,5 @@ Either `server` or `connectionString` option has to be set.
 | connectionString        | null      | If the connection string is specified, it will overwrite other connection options (`server`,`port`,`user`,`password`,`dbname`). Still, the connection will respect the settings passed in `options` array.
 | user        | null        | If set, the client will try to authenticate with given username and password
 | password    | null        | If set, the client will try to authenticate with given username and password
-| dbname      | null        | If dbname is not specified, "admin" will be used.
+| dbname      | null        | If dbname is not specified, "admin" will be used for authentication. Also, specifiing dbname affecs the defaultDB configuration option, if that's not specified explicitly.
 | options     | array()     | Array with connection options. More detailed description in http://www.php.net/manual/en/mongoclient.construct.php

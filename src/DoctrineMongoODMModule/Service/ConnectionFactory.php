@@ -44,6 +44,7 @@ class ConnectionFactory extends AbstractFactory
         $options = $this->getOptions($serviceLocator, 'connection');
 
         $connectionString = $options->getConnectionString();
+        $dbName = null;
 
         if (empty($connectionString)) {
             $connectionString = 'mongodb://';
@@ -61,11 +62,29 @@ class ConnectionFactory extends AbstractFactory
             if ($dbName) {
                 $connectionString .= '/' . $dbName;
             }
+
+        } else {
+            // parse dbName from the connectionString
+            $dbStart = strpos($connectionString, '/', 11);
+            if (false !== $dbStart) {
+                $dbEnd = strpos($connectionString, '?');
+                $dbName = substr(
+                    $connectionString,
+                    $dbStart + 1,
+                    $dbEnd ? ($dbEnd - $dbStart - 1) : PHP_INT_MAX
+                );
+            }
         }
 
-        return new Connection($connectionString, $options->getOptions(), $serviceLocator->get(
-            'doctrine.configuration.' . $this->getName()
-        ));
+        /** @var $configuration \Doctrine\ODM\MongoDB\Configuration */
+        $configuration = $serviceLocator->get('doctrine.configuration.' . $this->getName());
+
+        // Set defaultDB to $dbName, if it's not defined in configuration
+        if (null === $configuration->getDefaultDB()) {
+            $configuration->setDefaultDB($dbName);
+        }
+
+        return new Connection($connectionString, $options->getOptions(), $configuration);
     }
 
     /**
