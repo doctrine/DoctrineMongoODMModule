@@ -9,7 +9,9 @@ use Zend\Paginator\Paginator;
 use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 
 // Create a mongo cursor
-$cursor = $documentManager->getRepository('Users')->findAll();
+$cursor = $documentManager->createQueryBuilder('User')
+                          ->getQuery()
+                          ->execute();
 
 // Create the pagination adapter
 $adapter = new DoctrinePaginator($cursor);
