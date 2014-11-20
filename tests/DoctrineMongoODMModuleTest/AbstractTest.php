@@ -34,7 +34,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
     {
         $collections = $this->getDocumentManager()->getConnection()->selectDatabase('doctrineMongoODMModuleTest')->listCollections();
         foreach ($collections as $collection) {
-            $collection->remove(array(), array('safe' => true));
+            $collection->remove(array(), array('w' => 1));
         }
     }
 }
