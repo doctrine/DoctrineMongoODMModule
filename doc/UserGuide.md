@@ -57,13 +57,13 @@ Open `doctrine-odm-tutorial/configs/application.config.php` in your editor and a
 Copy `vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm.local.php.dist` into your application's
 `config/autoload` directory, rename it to `module.doctrine-mongo-odm.local.php` and make the appropriate changes.
      
-Create directory `my/project/directory/data/DoctrineMongoODMModule/Proxy` and
-`my/project/directory/data/DoctrineMongoODMModule/Hydrator` and make sure your application has write access to it.
+Create the directories `my/project/directory/data/DoctrineMongoODMModule/Proxy` and
+`my/project/directory/data/DoctrineMongoODMModule/Hydrator` and make sure your application has write access to them.
 
 Configure your Application module
 ---------------------------------
 
-Open ´module/Application/config/module.config.php` and add the namespace on top of the file:
+Open `module/Application/config/module.config.php` and add the namespace to the top of the file:
 
 ```php
 <?php
@@ -98,7 +98,7 @@ return [
 Create a managed document class
 -----------------------
 
-Create your first doctrine odm managed document class in `module/Application/src/Application/Document/Message.php`:
+Create your first Doctrine ODM managed document class in `module/Application/src/Application/Document/Message.php`:
 
 ```php
 <?php
@@ -147,7 +147,7 @@ class Message
 Test the newly created document
 -------------------------------
 
-To test your doctrine odm configuration, replace the indexAction in 
+To test your Doctrine ODM configuration, replace the indexAction in 
 `module/Application/src/Application/Controller/IndexController.php`:
 
 ```php
