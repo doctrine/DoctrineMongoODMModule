@@ -45,6 +45,9 @@
         "zendframework/zend-servicemanager": "2.*",
         "zendframework/zend-stdlib": "2.*"
     },
+    "require-dev": {
+        "zendframework/zendframework": "2.*"
+    },
     "autoload": {
         "psr-0": {
             "DoctrineMongoODMModule\\": "src/",
