@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'modules' => array(
         'DoctrineModule',
@@ -6,10 +7,10 @@ return array(
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
-            'vendor/doctrine/doctrine-mongo-odm-module/tests/test.module.config.php',
+            __DIR__ . '/test.module.config.php',
         ),
         'module_paths' => array(
-            './vendor',
+            '../vendor',
         ),
     ),
 );

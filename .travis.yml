@@ -3,26 +3,17 @@ language: php
 php:
   - 5.3
   - 5.4
+  - 5.5
+  - 5.6
 
 services: mongodb
 
 before_script:
   - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - git submodule update --init
-  - cd ..
-  - git clone git://github.com/zendframework/ZendSkeletonApplication.git
-  - cd ZendSkeletonApplication
-  - rm .gitmodules
-  - git rm --cached vendor/ZF2
-  - rm config/application.config.php && cp ../DoctrineMongoODMModule/.travis/application.config.php config/
-  - cp ../DoctrineMongoODMModule/.travis/composer.json ./
   - composer install --dev --prefer-source
-  - rm -rf vendor/doctrine/doctrine-mongo-odm-module
-  - cp -r ../DoctrineMongoODMModule vendor/doctrine/
-  - mv vendor/doctrine/DoctrineMongoODMModule vendor/doctrine/doctrine-mongo-odm-module
-  
+
 script:
   - ./vendor/bin/doctrine-module odm:schema:create
   - ./vendor/bin/doctrine-module odm:schema:drop
-  - cd vendor/doctrine/doctrine-mongo-odm-module/tests
+  - cd tests
   - phpunit
