@@ -39,7 +39,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "doctrine/doctrine-module": "0.8.*",
+        "doctrine/doctrine-module": "0.9.*",
         "doctrine/mongodb-odm": "~1.0.0-beta9@dev",
         "zendframework/zend-mvc": "2.*",
         "zendframework/zend-servicemanager": "2.*",
@@ -48,6 +48,7 @@
     "require-dev": {
         "zendframework/zendframework": "2.*"
     },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
             "DoctrineMongoODMModule\\": "src/",
