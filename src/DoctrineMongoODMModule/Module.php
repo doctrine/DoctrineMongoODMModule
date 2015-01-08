@@ -59,7 +59,7 @@ class Module implements
         $events->attach('profiler_init', function(EventInterface $e) use ($manager) {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
-        $events->getSharedManager()->  attach('doctrine', 'loadCli.post', array($this, 'loadCli'));              
+        $events->getSharedManager()->  attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
     }
 
     /**
@@ -82,6 +82,7 @@ class Module implements
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand(),
+            new \Doctrine\ODM\MongoDB\Tools\Console\Command\ClearCache\MetadataCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand(),
             new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
         );
