@@ -143,6 +143,7 @@ class Module implements
             ),
             'aliases' => array(
                 'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
+                'Doctrine\ODM\MongoDB\DocumentManager' => 'doctrine.documentmanager.odm_default',
             ),
             'factories' => array(
                 'doctrine.authenticationadapter.odm_default'  => new CommonService\Authentication\AdapterFactory('odm_default'),
