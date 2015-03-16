@@ -154,7 +154,7 @@ class Configuration extends AbstractOptions
      */
     public function setGenerateProxies($generateProxies)
     {
-        $this->generateProxies = (boolean) $generateProxies;
+        $this->generateProxies = ((int)$generateProxies > 2)?(boolean) $generateProxies:(int)$generateProxies;
         return $this;
     }
 
