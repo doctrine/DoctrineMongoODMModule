@@ -40,7 +40,7 @@
     "require": {
         "php": ">=5.3.3",
         "doctrine/doctrine-module": "0.9.*",
-        "doctrine/mongodb-odm": "~1.0.0-beta9@dev",
+        "doctrine/mongodb-odm": "1.0.*@dev",
         "zendframework/zend-mvc": "2.*",
         "zendframework/zend-servicemanager": "2.*",
         "zendframework/zend-stdlib": "2.*"
