@@ -18,18 +18,24 @@
 
 namespace DoctrineMongoODMModule\Service;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
-class DoctrineObjectHydratorFactory implements FactoryInterface
+use Zend\Stdlib\Hydrator\HydratorPluginManager;
+
+class DoctrineObjectHydratorFactory
 {
     /**
-     * {@inheritDoc}
+     * @param HydratorPluginManager $hydratorPluginManager
+     * @return DoctrineObject
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(HydratorPluginManager $hydratorPluginManager)
     {
-        $parentLocator = $serviceLocator->getServiceLocator();
-        return new DoctrineObject($parentLocator->get('doctrine.documentmanager.odm_default'));
+        $serviceLocator = $hydratorPluginManager->getServiceLocator();
+
+        /** @var DocumentManager $documentManager */
+        $documentManager = $serviceLocator->get('doctrine.documentmanager.odm_default');
+
+        return new DoctrineObject($documentManager);
     }
 }
