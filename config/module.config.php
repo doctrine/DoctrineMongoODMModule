@@ -70,6 +70,12 @@ return array(
             ),
         ),
     ),
+    
+    'hydrators' => array(
+        'factories' => array(
+            'DoctrineModule\Stdlib\Hydrator\DoctrineObject' => 'DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory'
+        )
+    ),
 
     // zendframework/zend-developer-tools specific settings
 
