@@ -2,31 +2,28 @@
 
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\Hydrator\HydratorPluginManager;
 
 class DoctrineObjectHydratorFactoryTest extends TestCase
 {
     public function testReturnsHydratorInstance()
     {
-        $serviceLocatorInterface = $this->getMock(ServiceLocatorInterface::class);
+        $serviceLocatorInterface = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
 
         $serviceLocatorInterface
             ->expects($this->once())
             ->method('get')
             ->with('doctrine.documentmanager.odm_default')
             ->willReturn(
-                $this->getMockBuilder(DocumentManager::class)
+                $this->getMockBuilder('Doctrine\ODM\MongoDB\DocumentManager')
                      ->disableOriginalConstructor()
                      ->getMock()
             );
 
         /** @var HydratorPluginManager $hydratorPluginManager */
-        $hydratorPluginManager = $this->getMock(HydratorPluginManager::class);
+        $hydratorPluginManager = $this->getMock('Zend\Stdlib\Hydrator\HydratorPluginManager');
 
         $hydratorPluginManager
             ->expects($this->once())
@@ -39,6 +36,6 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
         $factory  = new DoctrineObjectHydratorFactory();
         $hydrator = $factory($hydratorPluginManager);
 
-        $this->assertInstanceOf(DoctrineObject::class, $hydrator);
+        $this->assertInstanceOf('DoctrineModule\Stdlib\Hydrator\DoctrineObject', $hydrator);
     }
 }
