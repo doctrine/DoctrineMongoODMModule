@@ -18,9 +18,9 @@
  */
 namespace DoctrineMongoODMModule\Service;
 
-use Doctrine\ODM\MongoDB\Types\Type;
 use DoctrineModule\Service\AbstractFactory;
 use Doctrine\ODM\MongoDB\Configuration;
+use Doctrine\ODM\MongoDB\Types\Type;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
