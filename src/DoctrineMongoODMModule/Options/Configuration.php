@@ -129,6 +129,14 @@ class Configuration extends AbstractOptions
     protected $retryQuery = 0;
 
     /**
+     * Keys must be the name of the type identifier and value is
+     * the class name of the Type
+     *
+     * @var array
+     */
+    protected $types = array();
+
+    /**
      *
      * @param string $driver
      * @return \DoctrineMongoODMModule\Options\Configuration
@@ -383,5 +391,21 @@ class Configuration extends AbstractOptions
     public function getRetryQuery()
     {
         return $this->retryQuery;
+    }
+
+    /**
+     * @param array $types
+     */
+    public function setTypes(array $types)
+    {
+        $this->types = $types;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTypes()
+    {
+        return $this->types;
     }
 }

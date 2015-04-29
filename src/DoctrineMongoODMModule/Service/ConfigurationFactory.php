@@ -18,6 +18,7 @@
  */
 namespace DoctrineMongoODMModule\Service;
 
+use Doctrine\ODM\MongoDB\Types\Type;
 use DoctrineModule\Service\AbstractFactory;
 use Doctrine\ODM\MongoDB\Configuration;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -82,6 +83,15 @@ class ConfigurationFactory extends AbstractFactory
         // metadataFactory, if set
         if ($factoryName = $options->getClassMetadataFactoryName()){
             $config->setClassMetadataFactoryName($factoryName);
+        }
+
+        // custom types
+        foreach ($options->getTypes() as $name => $class) {
+            if (Type::hasType($name)) {
+                Type::overrideType($name, $class);
+            } else {
+                Type::addType($name, $class);
+            }
         }
 
         return $config;
