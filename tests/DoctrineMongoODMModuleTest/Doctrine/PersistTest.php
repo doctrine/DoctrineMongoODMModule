@@ -24,8 +24,8 @@ use DoctrineMongoODMModuleTest\AbstractTest;
 class PersistTest extends AbstractTest
 {
 
-    public function testPersist(){
-
+    public function testPersist()
+    {
         $documentManager = $this->getDocumentManager();
 
         $simple = new Simple();

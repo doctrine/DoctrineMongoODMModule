@@ -27,11 +27,10 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
     protected $application;
     protected $serviceManager;
 
-
     protected static $applicationConfig;
 
-    public function setup(){
-
+    public function setup()
+    {
         $this->application = Application::init(self::$applicationConfig);
         $this->serviceManager = $this->application->getServiceManager();
     }
@@ -48,7 +47,8 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $collections = $this->getDocumentManager()->getConnection()->selectDatabase('doctrineMongoODMModuleTest')->listCollections();
+        $connection = $this->getDocumentManager()->getConnection();
+        $collections = $connection->selectDatabase('doctrineMongoODMModuleTest')->listCollections();
         foreach ($collections as $collection) {
             $collection->remove(array(), array('w' => 1));
         }

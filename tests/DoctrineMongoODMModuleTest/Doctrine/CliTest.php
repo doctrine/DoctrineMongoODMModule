@@ -1,6 +1,5 @@
 <?php
-/*
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+/* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
  * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
@@ -19,7 +18,6 @@
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use PHPUnit_Framework_TestCase;
-use DoctrineMongoODMModuleTest\AbstractTest;
 
 /**
  * Tests used to verify that command line functionality is active
@@ -36,15 +34,15 @@ class CliTest extends PHPUnit_Framework_TestCase
     protected $cli;
 
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var \Doctrine\ODM\MongoDB\DocumentManager
      */
-    protected $entityManager;
+    protected $documentManager;
 
     /**
      * {@inheritDoc}
      */
     public function setUp()
-    { 
+    {
         $serviceManager     = \DoctrineMongoODMModuleTest\Doctrine\Util\ServiceManagerFactory::getServiceManager();
 
         /* @var $sharedEventManager \Zend\EventManager\SharedEventManagerInterface */
@@ -65,7 +63,7 @@ class CliTest extends PHPUnit_Framework_TestCase
         );
 
         $application->bootstrap();
-        $this->entityManager = $serviceManager->get('doctrine.documentmanager.odm_default');
+        $this->documentManager = $serviceManager->get('doctrine.documentmanager.odm_default');
         $this->cli           = $serviceManager->get('doctrine.cli');
 
         $this->assertSame(1, $invocations);
@@ -79,11 +77,11 @@ class CliTest extends PHPUnit_Framework_TestCase
         $dmHelper = $helperSet->get('dm');
 
         $this->assertInstanceOf('\Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper', $dmHelper);
-        $this->assertSame($this->entityManager, $dmHelper->getDocumentManager());
+        $this->assertSame($this->documentManager, $dmHelper->getDocumentManager());
     }
 
     public function testValidCommands()
-    {       
+    {
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand',
             $this->cli->get('odm:generate:documents')
@@ -111,6 +109,6 @@ class CliTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand',
             $this->cli->get('odm:schema:drop')
-        ); 
+        );
     }
 }
