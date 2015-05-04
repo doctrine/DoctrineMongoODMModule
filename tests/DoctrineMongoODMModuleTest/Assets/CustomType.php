@@ -16,39 +16,14 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace DoctrineMongoODMModuleTest\Doctrine;
+namespace DoctrineMongoODMModuleTest\Assets;
 
-use Doctrine\ODM\MongoDB\Configuration;
-use PHPUnit_Framework_TestCase;
+use Doctrine\ODM\MongoDB\Types\IntType;
 
-class ConfigurationTest extends PHPUnit_Framework_TestCase
+/**
+ * Class CustomType
+ * @package DoctrineMongoODMModuleTest\Assets
+ */
+class CustomType extends IntType
 {
-    public function testDefaultRetryConnectIsZero()
-    {
-        $this->assertSame(0, $this->configuration->getRetryConnect());
-    }
-
-    public function testDefaultRetryQueryIsZero()
-    {
-        $this->assertSame(0, $this->configuration->getRetryQuery());
-    }
-
-    public function testSettingRetryConnectValue()
-    {
-        $this->configuration->setRetryConnect(111);
-        $this->assertSame(111, $this->configuration->getRetryConnect());
-    }
-
-    public function testSettingRetryQueryValue()
-    {
-        $this->configuration->setRetryQuery(222);
-        $this->assertSame(222, $this->configuration->getRetryQuery());
-    }
-
-    public function setUp()
-    {
-        $this->configuration = new Configuration();
-    }
-
-    protected $configuration = null;
 }

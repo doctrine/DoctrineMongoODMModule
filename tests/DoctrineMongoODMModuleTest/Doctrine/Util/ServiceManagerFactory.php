@@ -16,7 +16,6 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
-
 namespace DoctrineMongoODMModuleTest\Doctrine\Util;
 
 use Zend\ServiceManager\ServiceManager;
