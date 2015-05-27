@@ -287,7 +287,7 @@ class Configuration extends AbstractOptions
 
     /**
      *
-     * @return string
+     * @return string|null
      */
     public function getDefaultDb() {
         return $this->defaultDb;
@@ -295,11 +295,16 @@ class Configuration extends AbstractOptions
 
     /**
      *
-     * @param string $defaultDb
+     * @param string|null $defaultDb
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
     public function setDefaultDb($defaultDb) {
-        $this->defaultDb = (string) $defaultDb;
+        if($defaultDb === null){
+            $this->defaultDb = $defaultDb;
+        }
+        else{
+            $this->defaultDb = (string) $defaultDb;
+        }
         return $this;
     }
 
