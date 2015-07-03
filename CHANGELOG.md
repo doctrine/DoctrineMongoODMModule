@@ -1,4 +1,11 @@
 # Changelog
+
+## Version 0.9.0
+- [#125](https://github.com/doctrine/DoctrineMongoODMModule/pull/125) Drop PHP 5.3 support
+- [#124](https://github.com/doctrine/DoctrineMongoODMModule/pull/124) Add DoctrineObject factory for DocumentManager
+- [#128](https://github.com/doctrine/DoctrineMongoODMModule/pull/128) allow adding custom types via module config
+- [#135](https://github.com/doctrine/DoctrineMongoODMModule/pull/135) Stable composer configuration
+
 ## Version 0.8.2
 
 - [#108](https://github.com/doctrine/DoctrineMongoODMModule/pull/108) updated paginator documentation
