@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.9.1
+- [#140](https://github.com/doctrine/DoctrineMongoODMModule/pull/140) Fixed #139 add minimum stabiliy dev for mongodb-odm
+
 ## Version 0.9.0
 - [#125](https://github.com/doctrine/DoctrineMongoODMModule/pull/125) Drop PHP 5.3 support
 - [#124](https://github.com/doctrine/DoctrineMongoODMModule/pull/124) Add DoctrineObject factory for DocumentManager
