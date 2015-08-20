@@ -107,6 +107,10 @@ class CliTest extends PHPUnit_Framework_TestCase
             $this->cli->get('odm:schema:create')
         );
         $this->assertInstanceOf(
+            'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand',
+            $this->cli->get('odm:schema:update')
+        );
+        $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand',
             $this->cli->get('odm:schema:drop')
         );
