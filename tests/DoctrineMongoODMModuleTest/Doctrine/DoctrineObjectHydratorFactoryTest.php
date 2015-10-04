@@ -20,7 +20,7 @@ namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
-use Zend\Stdlib\Hydrator\HydratorPluginManager;
+use Zend\Hydrator\HydratorPluginManager;
 
 class DoctrineObjectHydratorFactoryTest extends TestCase
 {
@@ -39,7 +39,7 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
             );
 
         /** @var HydratorPluginManager $hydratorPluginManager */
-        $hydratorPluginManager = $this->getMock('Zend\Stdlib\Hydrator\HydratorPluginManager');
+        $hydratorPluginManager = $this->getMock('Zend\Hydrator\HydratorPluginManager');
 
         $hydratorPluginManager
             ->expects($this->once())
