@@ -41,7 +41,7 @@
         "php": ">=5.5",
         "doctrine/doctrine-module": "~0.8",
         "doctrine/mongodb-odm": "1.0.*@dev",
-        "zendframework/zend-hydrator": "2.*",
+        "zendframework/zend-hydrator": "1.*",
         "zendframework/zend-mvc": "2.*",
         "zendframework/zend-servicemanager": "2.*",
         "zendframework/zend-stdlib": "2.*"
