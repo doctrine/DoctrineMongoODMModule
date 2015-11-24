@@ -20,6 +20,7 @@
 namespace DoctrineMongoODMModule\Paginator\Adapter;
 
 use Zend\Paginator\Adapter\AdapterInterface;
+use Doctrine\MongoDB\EagerCursor;
 use Doctrine\ODM\MongoDB\Cursor;
 
 /**
@@ -30,7 +31,7 @@ use Doctrine\ODM\MongoDB\Cursor;
 class DoctrinePaginator implements AdapterInterface
 {
     /**
-     * @var Doctrine\ODM\MongoDB\Cursor
+     * @var Cursor
      */
     protected $cursor;
 
@@ -49,6 +50,11 @@ class DoctrinePaginator implements AdapterInterface
      */
     public function count()
     {
+        // Avoid using EagerCursor::count as this stores a collection without limits to memory
+        if ($this->cursor->getBaseCursor() instanceof EagerCursor) {
+            return $this->cursor->getBaseCursor()->getCursor()->count();
+        }
+
         return $this->cursor->count();
     }
 
