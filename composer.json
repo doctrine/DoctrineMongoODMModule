@@ -46,11 +46,16 @@
         "zendframework/zend-stdlib": "2.*"
     },
     "require-dev": {
-        "zendframework/zendframework": "2.*"
+        "zendframework/zendframework": "2.*",
+        "phpunit/phpunit": "~4.8 || ~5.0"
     },
     "autoload": {
         "psr-0": {
-            "DoctrineMongoODMModule\\": "src/",
+            "DoctrineMongoODMModule\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
             "DoctrineMongoODMModuleTest\\": "tests/"
         }
     }
