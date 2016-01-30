@@ -9,11 +9,11 @@ services: mongodb
 
 before_script:
   - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - composer install --dev --prefer-source
+  - composer install --prefer-source
 
 script:
   - cd tests
   - cp test.application.config.php ../config/application.config.php
   - ../vendor/bin/doctrine-module odm:schema:create
   - ../vendor/bin/doctrine-module odm:schema:drop
-  - phpunit
+  - ../vendor/bin/phpunit

@@ -39,19 +39,23 @@
     ],
     "require": {
         "php": ">=5.4",
-        "doctrine/doctrine-module": "~0.8",
-        "doctrine/mongodb-odm": "1.0.*@dev",
+        "doctrine/doctrine-module": "~1.0",
+        "doctrine/mongodb-odm": "~1.0",
         "zendframework/zend-mvc": "2.*",
         "zendframework/zend-servicemanager": "2.*",
         "zendframework/zend-stdlib": "2.*"
     },
-    "minimum-stability": "dev",
     "require-dev": {
-        "zendframework/zendframework": "2.*"
+        "zendframework/zendframework": "2.*",
+        "phpunit/phpunit": "~4.8 || ~5.0"
     },
     "autoload": {
         "psr-0": {
-            "DoctrineMongoODMModule\\": "src/",
+            "DoctrineMongoODMModule\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
             "DoctrineMongoODMModuleTest\\": "tests/"
         }
     }
