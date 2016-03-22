@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.10.0
+
+- [#146](https://github.com/doctrine/DoctrineMongoODMModule/pull/146) Support for `odm:schema:update` command
+- [#153](https://github.com/doctrine/DoctrineMongoODMModule/pull/153) Update to stable package versions
+- [#133](https://github.com/doctrine/DoctrineMongoODMModule/pull/133) Allows null value as DefaultDb
+- [#155](https://github.com/doctrine/DoctrineMongoODMModule/pull/155) Fix pagination count with eager cursors
+- [#156](https://github.com/doctrine/DoctrineMongoODMModule/pull/156) Remove support for old PHP versions
+- [#160](https://github.com/doctrine/DoctrineMongoODMModule/pull/160) Fixed Zend\Mvc 2.7 compatibility
+
 ## Version 0.9.1
 - [#140](https://github.com/doctrine/DoctrineMongoODMModule/pull/140) Fixed #139 add minimum stabiliy dev for mongodb-odm
 
