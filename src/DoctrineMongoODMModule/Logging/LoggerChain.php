@@ -26,7 +26,7 @@ namespace DoctrineMongoODMModule\Logging;
  */
 class LoggerChain implements Logger
 {
-    private $loggers = array();
+    private $loggers = [];
 
     /**
      * Adds a logger in the chain

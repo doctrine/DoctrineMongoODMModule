@@ -66,7 +66,7 @@ class CliTest extends PHPUnit_Framework_TestCase
         $this->documentManager = $serviceManager->get('doctrine.documentmanager.odm_default');
         $this->cli           = $serviceManager->get('doctrine.cli');
 
-        $this->assertSame(1, $invocations);
+        self::assertSame(1, $invocations);
     }
 
     public function testValidHelpers()
@@ -76,41 +76,41 @@ class CliTest extends PHPUnit_Framework_TestCase
         /* @var $dmHelper \Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper */
         $dmHelper = $helperSet->get('dm');
 
-        $this->assertInstanceOf('\Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper', $dmHelper);
-        $this->assertSame($this->documentManager, $dmHelper->getDocumentManager());
+        self::assertInstanceOf('\Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper', $dmHelper);
+        self::assertSame($this->documentManager, $dmHelper->getDocumentManager());
     }
 
     public function testValidCommands()
     {
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand',
             $this->cli->get('odm:generate:documents')
         );
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand',
             $this->cli->get('odm:generate:hydrators')
         );
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand',
             $this->cli->get('odm:generate:proxies')
         );
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand',
             $this->cli->get('odm:generate:repositories')
         );
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand',
             $this->cli->get('odm:query')
         );
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand',
             $this->cli->get('odm:schema:create')
         );
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand',
             $this->cli->get('odm:schema:update')
         );
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand',
             $this->cli->get('odm:schema:drop')
         );

@@ -27,14 +27,14 @@ class ConfigurationFactoryTest extends AbstractTest
     {
         $config = $this->getDocumentManager()->getConfiguration();
 
-        $this->assertSame(123, $config->getRetryConnect());
+        self::assertSame(123, $config->getRetryConnect());
     }
 
     public function testRetryQueryValueIsSetFromConfigurationOptions()
     {
         $config = $this->getDocumentManager()->getConfiguration();
 
-        $this->assertSame(456, $config->getRetryQuery());
+        self::assertSame(456, $config->getRetryQuery());
     }
 
     public function testCreation()
@@ -44,16 +44,16 @@ class ConfigurationFactoryTest extends AbstractTest
         $mappingDriver = $this->getMockForAbstractClass('Doctrine\Common\Persistence\Mapping\Driver\MappingDriver');
 
         $serviceLocator = $this->getMockForAbstractClass('Zend\ServiceManager\ServiceLocatorInterface');
-        $serviceLocator->expects($this->exactly(4))->method('get')->withConsecutive(
-            array('Configuration'),
-            array('stubbed_logger'),
-            array('doctrine.cache.stubbed_metadatacache'),
-            array('doctrine.driver.stubbed_driver')
+        $serviceLocator->expects(self::exactly(4))->method('get')->withConsecutive(
+            ['Configuration'],
+            ['stubbed_logger'],
+            ['doctrine.cache.stubbed_metadatacache'],
+            ['doctrine.driver.stubbed_driver']
         )->willReturnOnConsecutiveCalls(
-            array(
-                'doctrine' => array(
-                    'configuration' => array(
-                        'odm_test' => array(
+            [
+                'doctrine' => [
+                    'configuration' => [
+                        'odm_test' => [
                             'logger'             => 'stubbed_logger',
                             'metadata_cache'     => 'stubbed_metadatacache',
                             'driver'             => 'stubbed_driver',
@@ -64,16 +64,16 @@ class ConfigurationFactoryTest extends AbstractTest
                             'hydrator_dir'       => 'data/DoctrineMongoODMModule/Hydrator',
                             'hydrator_namespace' => 'DoctrineMongoODMModule\Hydrator',
                             'default_db'         => 'default_db',
-                            'filters'            => array(),  // array('filterName' => 'BSON\Filter\Class')
+                            'filters'            => [],  // array('filterName' => 'BSON\Filter\Class')
                             // custom types
-                            'types'              => array(
+                            'types'              => [
                                 'CustomType' => 'DoctrineMongoODMModuleTest\Assets\CustomType'
-                            ),
+                            ],
                             'classMetadataFactoryName' => 'stdClass'
-                        )
-                    )
-                )
-            ),
+                        ]
+                    ]
+                ]
+            ],
             $logger,
             $metadataCache,
             $mappingDriver
@@ -82,11 +82,11 @@ class ConfigurationFactoryTest extends AbstractTest
         $factory = new ConfigurationFactory('odm_test');
         $config = $factory->createService($serviceLocator);
 
-        $this->assertInstanceOf('Doctrine\ODM\MongoDB\Configuration', $config);
-        $this->assertNotNull($config->getLoggerCallable());
-        $this->assertSame($metadataCache, $config->getMetadataCacheImpl());
-        $this->assertSame($mappingDriver, $config->getMetadataDriverImpl());
-        $this->assertInstanceOf(
+        self::assertInstanceOf('Doctrine\ODM\MongoDB\Configuration', $config);
+        self::assertNotNull($config->getLoggerCallable());
+        self::assertSame($metadataCache, $config->getMetadataCacheImpl());
+        self::assertSame($mappingDriver, $config->getMetadataDriverImpl());
+        self::assertInstanceOf(
             'DoctrineMongoODMModuleTest\Assets\CustomType',
             \Doctrine\ODM\MongoDB\Types\Type::getType('CustomType')
         );
