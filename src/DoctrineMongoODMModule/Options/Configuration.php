@@ -99,7 +99,7 @@ class Configuration extends AbstractOptions
      *
      * @var array
      */
-    protected $filters = array();
+    protected $filters = [];
 
     /**
      *
@@ -133,7 +133,7 @@ class Configuration extends AbstractOptions
      *
      * @var array
      */
-    protected $types = array();
+    protected $types = [];
 
     /**
      *

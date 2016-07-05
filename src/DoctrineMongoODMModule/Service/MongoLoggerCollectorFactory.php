@@ -74,9 +74,9 @@ class MongoLoggerCollectorFactory extends AbstractFactory
             $logger->addLogger($debugStackLogger);
             $callable = $configuration->getLoggerCallable();
             $logger->addLogger($callable[0]);
-            $configuration->setLoggerCallable(array($logger, 'log'));
+            $configuration->setLoggerCallable([$logger, 'log']);
         } else {
-            $configuration->setLoggerCallable(array($debugStackLogger, 'log'));
+            $configuration->setLoggerCallable([$debugStackLogger, 'log']);
         }
 
         return new MongoLoggerCollector($debugStackLogger, $options->getName());

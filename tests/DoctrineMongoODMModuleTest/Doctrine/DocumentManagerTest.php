@@ -27,6 +27,6 @@ class DocumentManagerTest extends AbstractTest
     {
         $documentManager = $this->getDocumentManager();
 
-        $this->assertTrue($documentManager instanceof DocumentManager);
+        self::assertTrue($documentManager instanceof DocumentManager);
     }
 }

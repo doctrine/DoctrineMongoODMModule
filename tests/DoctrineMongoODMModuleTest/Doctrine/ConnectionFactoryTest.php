@@ -30,9 +30,9 @@ use DoctrineMongoODMModuleTest\AbstractTest;
  */
 class ConnectionFactoryTest extends AbstractTest
 {
-    private $configuration = array();
+    private $configuration = [];
 
-    private $connectionFactory = array();
+    private $connectionFactory = [];
 
     public function setup()
     {
@@ -45,67 +45,67 @@ class ConnectionFactoryTest extends AbstractTest
     public function testConnectionStringOverwritesOtherConnectionSettings()
     {
         $connectionString = 'mongodb://localhost:27017';
-        $connectionConfig = array(
-            'odm_default' => array(
+        $connectionConfig = [
+            'odm_default' => [
                 'server'           => 'unreachable',
                 'port'             => '10000',
                 'connectionString' => $connectionString,
                 'user'             => 'test fails if used',
                 'password'         => 'test fails if used',
-            )
-        );
+            ]
+        ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('Configuration', $this->configuration);
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($connectionString, $connection->getServer());
+        self::assertEquals($connectionString, $connection->getServer());
     }
 
     public function testConnectionStringShouldAllowMultipleHosts()
     {
         $unreachablePort  = 56000;
         $connectionString = "mongodb://localhost:$unreachablePort,localhost:27017";
-        $connectionConfig = array(
-            'odm_default' => array(
+        $connectionConfig = [
+            'odm_default' => [
                 'connectionString' => $connectionString,
-            )
-        );
+            ]
+        ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('Configuration', $this->configuration);
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($connectionString, $connection->getServer());
+        self::assertEquals($connectionString, $connection->getServer());
     }
 
     public function testConnectionStringShouldAllowUnixSockets()
     {
         $connectionString = 'mongodb:///tmp/mongodb-27017.sock';
-        $connectionConfig = array(
-            'odm_default' => array(
+        $connectionConfig = [
+            'odm_default' => [
                 'connectionString' => $connectionString,
-            )
-        );
+            ]
+        ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('Configuration', $this->configuration);
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($connectionString, $connection->getServer());
+        self::assertEquals($connectionString, $connection->getServer());
     }
 
     public function testDbNameShouldSetDefaultDB()
     {
         $dbName  = 'foo_db';
-        $connectionConfig = array(
-            'odm_default' => array(
+        $connectionConfig = [
+            'odm_default' => [
                 'dbname' => $dbName,
-            )
-        );
+            ]
+        ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('Configuration', $this->configuration);
@@ -114,17 +114,17 @@ class ConnectionFactoryTest extends AbstractTest
         $configuration->setDefaultDB(null);
         $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($dbName, $configuration->getDefaultDB());
+        self::assertEquals($dbName, $configuration->getDefaultDB());
     }
 
     public function testDbNameShouldNotOverrideExplicitDefaultDB()
     {
         $defaultDB  = 'foo_db';
-        $connectionConfig = array(
-            'odm_default' => array(
+        $connectionConfig = [
+            'odm_default' => [
                 'dbname' => 'test fails if this is defaultDB',
-            )
-        );
+            ]
+        ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('Configuration', $this->configuration);
@@ -133,18 +133,18 @@ class ConnectionFactoryTest extends AbstractTest
         $configuration->setDefaultDB($defaultDB);
         $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($defaultDB, $configuration->getDefaultDB());
+        self::assertEquals($defaultDB, $configuration->getDefaultDB());
     }
 
     public function testConnectionStringShouldSetDefaultDB()
     {
         $dbName  = 'foo_db';
         $connectionString = "mongodb://localhost:27017/$dbName";
-        $connectionConfig = array(
-            'odm_default' => array(
+        $connectionConfig = [
+            'odm_default' => [
                 'connectionString' => $connectionString,
-            )
-        );
+            ]
+        ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('Configuration', $this->configuration);
@@ -153,18 +153,18 @@ class ConnectionFactoryTest extends AbstractTest
         $configuration->setDefaultDB(null);
         $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($dbName, $configuration->getDefaultDB());
+        self::assertEquals($dbName, $configuration->getDefaultDB());
     }
 
     public function testConnectionStringWithOptionsShouldSetDefaultDB()
     {
         $dbName  = 'foo_db';
         $connectionString = "mongodb://localhost:27017/$dbName";
-        $connectionConfig = array(
-            'odm_default' => array(
+        $connectionConfig = [
+            'odm_default' => [
                 'connectionString' => $connectionString,
-            )
-        );
+            ]
+        ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('Configuration', $this->configuration);
@@ -173,7 +173,7 @@ class ConnectionFactoryTest extends AbstractTest
         $configuration->setDefaultDB(null);
         $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($dbName, $configuration->getDefaultDB());
+        self::assertEquals($dbName, $configuration->getDefaultDB());
     }
 
     public function testShouldSetEventManager()
