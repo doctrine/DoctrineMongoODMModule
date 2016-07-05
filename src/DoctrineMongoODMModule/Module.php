@@ -19,13 +19,12 @@
 
 namespace DoctrineMongoODMModule;
 
+use Doctrine\ODM\MongoDB\Tools\Console\Command;
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
-
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputOption;
 use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
@@ -42,8 +41,7 @@ use Zend\Loader\StandardAutoloader;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-class Module implements
-    BootstrapListenerInterface,
+final class Module implements
     AutoloaderProviderInterface,
     ConfigProviderInterface,
     ServiceProviderInterface,
@@ -63,35 +61,29 @@ class Module implements
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function onBootstrap(EventInterface $event)
-    {
-
-    }
-
-    /**
-     *
-     * @param Event $event
+     * @param EventInterface $event
      */
     public function loadCli(EventInterface $event)
     {
-        $commands = array(
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\ClearCache\MetadataCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
-        );
+        $commands = [
+            new Command\QueryCommand,
+            new Command\GenerateDocumentsCommand,
+            new Command\GenerateRepositoriesCommand,
+            new Command\GenerateProxiesCommand,
+            new Command\GenerateHydratorsCommand,
+            new Command\GeneratePersistentCollectionsCommand,
+            new Command\ClearCache\MetadataCommand,
+            new Command\Schema\CreateCommand,
+            new Command\Schema\UpdateCommand,
+            new Command\Schema\DropCommand,
+        ];
 
         foreach ($commands as $command) {
             $command->getDefinition()->addOption(
                 new InputOption(
-                    'documentmanager', null, InputOption::VALUE_OPTIONAL,
+                    'documentmanager',
+                    null,
+                    InputOption::VALUE_OPTIONAL,
                     'The name of the documentmanager to use. If none is provided, it will use odm_default.'
                 )
             );

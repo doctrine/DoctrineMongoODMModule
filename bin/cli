@@ -1,0 +1,7 @@
+#!/usr/bin/env php
+<?php
+// This can be used just to empirically test the command line environment is working correctly.
+
+require_once __DIR__ . '/../tests/Bootstrap.php';
+
+DoctrineMongoODMModuleTest\Doctrine\Util\ServiceManagerFactory::getServiceManager()->get('doctrine.cli')->run();
