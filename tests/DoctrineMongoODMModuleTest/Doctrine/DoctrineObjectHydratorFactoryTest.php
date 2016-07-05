@@ -29,7 +29,7 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
         $serviceLocatorInterface = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
 
         $serviceLocatorInterface
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('doctrine.documentmanager.odm_default')
             ->willReturn(
@@ -42,7 +42,7 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
         $hydratorPluginManager = $this->getMock('Zend\Stdlib\Hydrator\HydratorPluginManager');
 
         $hydratorPluginManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getServiceLocator')
             ->willReturn(
                 $serviceLocatorInterface
@@ -52,6 +52,6 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
         $factory  = new DoctrineObjectHydratorFactory();
         $hydrator = $factory($hydratorPluginManager);
 
-        $this->assertInstanceOf('DoctrineModule\Stdlib\Hydrator\DoctrineObject', $hydrator);
+        self::assertInstanceOf('DoctrineModule\Stdlib\Hydrator\DoctrineObject', $hydrator);
     }
 }

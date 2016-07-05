@@ -27,7 +27,7 @@ namespace DoctrineMongoODMModule\Logging;
 class DebugStack implements Logger
 {
     /** @var array $queries Executed queries. */
-    public $queries = array();
+    public $queries = [];
 
     /** @var boolean $enabled If Debug Stack is enabled (log queries) or not. */
     public $enabled = true;
