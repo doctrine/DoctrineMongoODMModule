@@ -62,6 +62,19 @@ class ConfigurationFactory extends AbstractFactory
         $config->setHydratorDir($options->getHydratorDir());
         $config->setHydratorNamespace($options->getHydratorNamespace());
 
+        // persistent collections
+        $config->setAutoGeneratePersistentCollectionClasses($options->getGeneratePersistentCollections());
+        $config->setPersistentCollectionDir($options->getPersistentCollectionDir());
+        $config->setPersistentCollectionNamespace($options->getPersistentCollectionNamespace());
+
+        if ($options->getPersistentCollectionFactory()) {
+            $config->setPersistentCollectionFactory($container->get($options->getPersistentCollectionFactory()));
+        }
+
+        if ($options->getPersistentCollectionGenerator()) {
+            $config->setPersistentCollectionGenerator($container->get($options->getPersistentCollectionGenerator()));
+        }
+
         // default db
         $config->setDefaultDB($options->getDefaultDb());
 
