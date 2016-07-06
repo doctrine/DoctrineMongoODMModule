@@ -21,12 +21,12 @@ namespace DoctrineMongoODMModuleTest\Doctrine;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use DoctrineMongoODMModuleTest\AbstractTest;
 
-class DocumentManagerTest extends AbstractTest
+final class DocumentManagerTest extends AbstractTest
 {
     public function testDocumentManager()
     {
         $documentManager = $this->getDocumentManager();
 
-        self::assertTrue($documentManager instanceof DocumentManager);
+        self::assertInstanceOf(DocumentManager::class, $documentManager);
     }
 }

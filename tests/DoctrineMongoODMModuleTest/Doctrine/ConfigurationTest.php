@@ -18,11 +18,18 @@
  */
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
-use Doctrine\ODM\MongoDB\Configuration;
-use PHPUnit_Framework_TestCase;
+use DoctrineMongoODMModule\Options\Configuration;
 
-class ConfigurationTest extends PHPUnit_Framework_TestCase
+final class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var Configuration */
+    private $configuration;
+
+    protected function setUp()
+    {
+        $this->configuration = new Configuration;
+    }
+
     public function testDefaultRetryConnectIsZero()
     {
         self::assertSame(0, $this->configuration->getRetryConnect());
@@ -44,11 +51,4 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
         $this->configuration->setRetryQuery(222);
         self::assertSame(222, $this->configuration->getRetryQuery());
     }
-
-    public function setUp()
-    {
-        $this->configuration = new Configuration();
-    }
-
-    protected $configuration = null;
 }
