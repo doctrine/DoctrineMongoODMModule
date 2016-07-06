@@ -1,4 +1,7 @@
 <?php
+use Doctrine\Common\Proxy\AbstractProxyFactory;
+use Doctrine\ODM\MongoDB\Configuration;
+
 return array(
     'doctrine' => array(
 
@@ -20,11 +23,11 @@ return array(
 
                 'driver'             => 'odm_default',
 
-                'generate_proxies'   => true,
+                'generate_proxies'   => AbstractProxyFactory::AUTOGENERATE_ALWAYS,
                 'proxy_dir'          => 'data/DoctrineMongoODMModule/Proxy',
                 'proxy_namespace'    => 'DoctrineMongoODMModule\Proxy',
 
-                'generate_hydrators' => true,
+                'generate_hydrators' => Configuration::AUTOGENERATE_ALWAYS,
                 'hydrator_dir'       => 'data/DoctrineMongoODMModule/Hydrator',
                 'hydrator_namespace' => 'DoctrineMongoODMModule\Hydrator',
 
@@ -34,7 +37,7 @@ return array(
 
                 // custom types
                 'types'              => array()
-                
+
                 //'classMetadataFactoryName' => 'ClassName'
             )
         ),
@@ -73,7 +76,7 @@ return array(
             ),
         ),
     ),
-    
+
     'hydrators' => array(
         'factories' => array(
             'DoctrineModule\Stdlib\Hydrator\DoctrineObject' => 'DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory'
