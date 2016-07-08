@@ -21,7 +21,6 @@ namespace DoctrineMongoODMModuleTest\Assets;
 use Doctrine\Common\Annotations\Annotation;
 
 /**
- *
  * @Annotation
  * @Target({"PROPERTY"})
  */

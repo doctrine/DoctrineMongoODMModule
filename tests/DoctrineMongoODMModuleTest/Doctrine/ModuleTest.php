@@ -19,49 +19,48 @@
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModule\Module;
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Application;
 use Zend\EventManager\Event;
 
-class ModuleTest extends PHPUnit_Framework_TestCase
+final class ModuleTest extends \PHPUnit_Framework_TestCase
 {
     public function testOdmDefaultIsUsedAsTheDocumentManagerIfNoneIsProvided()
     {
-        $documentManager = $this->getMockbuilder('Doctrine\ODM\MongoDB\DocumentManager')
+        $documentManager = $this->getMockBuilder('Doctrine\ODM\MongoDB\DocumentManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $serviceManager = $this->getMock('Zend\ServiceManager\ServiceManager');
-        $serviceManager->expects($this->once())
+        $serviceManager = $this->getMockBuilder('Zend\ServiceManager\ServiceManager')->getMock();
+        $serviceManager->expects(self::once())
             ->method('get')
             ->with('doctrine.documentmanager.odm_default')
-            ->will($this->returnValue($documentManager));
+            ->will(self::returnValue($documentManager));
 
         $application = new Application();
-        $event = new Event('loadCli.post', $application, array('ServiceManager' => $serviceManager));
+        $event = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
 
         $module = new Module();
         $module->loadCli($event);
 
-        $this->assertSame($documentManager, $application->getHelperSet()->get('documentManager')->getDocumentManager());
+        self::assertSame($documentManager, $application->getHelperSet()->get('documentManager')->getDocumentManager());
     }
 
     public function testDocumentManagerUsedCanBeSpecifiedInCommandLineArgument()
     {
         $argvBackup = $_SERVER['argv'];
 
-        $documentManager = $this->getMockbuilder('Doctrine\ODM\MongoDB\DocumentManager')
+        $documentManager = $this->getMockBuilder('Doctrine\ODM\MongoDB\DocumentManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $serviceManager = $this->getMock('Zend\ServiceManager\ServiceManager');
-        $serviceManager->expects($this->once())
+        $serviceManager = $this->getMockBuilder('Zend\ServiceManager\ServiceManager')->getMock();
+        $serviceManager->expects(self::once())
             ->method('get')
             ->with('doctrine.documentmanager.some_other_name')
-            ->will($this->returnValue($documentManager));
+            ->will(self::returnValue($documentManager));
 
         $application = new Application();
-        $event = new Event('loadCli.post', $application, array('ServiceManager' => $serviceManager));
+        $event = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
 
         $_SERVER['argv'][] = '--documentmanager=some_other_name';
 
@@ -70,6 +69,6 @@ class ModuleTest extends PHPUnit_Framework_TestCase
 
         $_SERVER['argv'] = $argvBackup;
 
-        $this->assertSame($documentManager, $application->getHelperSet()->get('documentManager')->getDocumentManager());
+        self::assertSame($documentManager, $application->getHelperSet()->get('documentManager')->getDocumentManager());
     }
 }

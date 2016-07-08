@@ -18,13 +18,16 @@
  */
 namespace DoctrineMongoODMModuleTest;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use PHPUnit_Framework_TestCase;
 use Zend\Mvc\Application;
+use Zend\ServiceManager\ServiceManager;
 
 abstract class AbstractTest extends PHPUnit_Framework_TestCase
 {
-
     protected $application;
+    
+    /** @var ServiceManager */
     protected $serviceManager;
 
     protected static $applicationConfig;
@@ -40,6 +43,9 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         self::$applicationConfig = $applicationConfig;
     }
 
+    /**
+     * @return DocumentManager
+     */
     public function getDocumentManager()
     {
         return $this->serviceManager->get('doctrine.documentmanager.odm_default');
@@ -50,7 +56,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         $connection = $this->getDocumentManager()->getConnection();
         $collections = $connection->selectDatabase('doctrineMongoODMModuleTest')->listCollections();
         foreach ($collections as $collection) {
-            $collection->remove(array(), array('w' => 1));
+            $collection->remove([], ['w' => 1]);
         }
     }
 }
