@@ -56,10 +56,10 @@ class Module implements
     {
         $events = $manager->getEventManager();
         // Initialize logger collector once the profiler is initialized itself
-        $events->attach('profiler_init', function(EventInterface $e) use ($manager) {
+        $events->attach('profiler_init', function (EventInterface $e) use ($manager) {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
-        $events->getSharedManager()->  attach('doctrine', 'loadCli.post', [$this, 'loadCli']);
+        $events->getSharedManager()->attach('doctrine', 'loadCli.post', [$this, 'loadCli']);
     }
 
     /**

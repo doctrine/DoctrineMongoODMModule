@@ -19,19 +19,18 @@
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModule\Module;
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Application;
 use Zend\EventManager\Event;
 
-class ModuleTest extends PHPUnit_Framework_TestCase
+final class ModuleTest extends \PHPUnit_Framework_TestCase
 {
     public function testOdmDefaultIsUsedAsTheDocumentManagerIfNoneIsProvided()
     {
-        $documentManager = $this->getMockbuilder('Doctrine\ODM\MongoDB\DocumentManager')
+        $documentManager = $this->getMockBuilder('Doctrine\ODM\MongoDB\DocumentManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $serviceManager = $this->getMock('Zend\ServiceManager\ServiceManager');
+        $serviceManager = $this->getMockBuilder('Zend\ServiceManager\ServiceManager')->getMock();
         $serviceManager->expects(self::once())
             ->method('get')
             ->with('doctrine.documentmanager.odm_default')
@@ -50,11 +49,11 @@ class ModuleTest extends PHPUnit_Framework_TestCase
     {
         $argvBackup = $_SERVER['argv'];
 
-        $documentManager = $this->getMockbuilder('Doctrine\ODM\MongoDB\DocumentManager')
+        $documentManager = $this->getMockBuilder('Doctrine\ODM\MongoDB\DocumentManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $serviceManager = $this->getMock('Zend\ServiceManager\ServiceManager');
+        $serviceManager = $this->getMockBuilder('Zend\ServiceManager\ServiceManager')->getMock();
         $serviceManager->expects(self::once())
             ->method('get')
             ->with('doctrine.documentmanager.some_other_name')

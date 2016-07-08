@@ -18,15 +18,14 @@
  */
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
 use Zend\Stdlib\Hydrator\HydratorPluginManager;
 
-class DoctrineObjectHydratorFactoryTest extends TestCase
+final class DoctrineObjectHydratorFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testReturnsHydratorInstance()
     {
-        $serviceLocatorInterface = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocatorInterface = $this->getMockBuilder('Zend\ServiceManager\ServiceLocatorInterface')->getMock();
 
         $serviceLocatorInterface
             ->expects(self::once())
@@ -38,8 +37,8 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
                      ->getMock()
             );
 
-        /** @var HydratorPluginManager $hydratorPluginManager */
-        $hydratorPluginManager = $this->getMock('Zend\Stdlib\Hydrator\HydratorPluginManager');
+        /** @var HydratorPluginManager|\PHPUnit_Framework_MockObject_MockObject $hydratorPluginManager */
+        $hydratorPluginManager = $this->getMockBuilder('Zend\Stdlib\Hydrator\HydratorPluginManager')->getMock();
 
         $hydratorPluginManager
             ->expects(self::once())

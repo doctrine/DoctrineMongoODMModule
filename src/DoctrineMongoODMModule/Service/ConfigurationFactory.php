@@ -33,7 +33,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class ConfigurationFactory extends AbstractFactory
 {
-
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @return \Doctrine\ODM\MongoDB\Configuration
