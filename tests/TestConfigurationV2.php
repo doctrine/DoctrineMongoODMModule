@@ -7,7 +7,7 @@ return array(
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
-            __DIR__ . '/test.module.config.php',
+            __DIR__ . '/testing.config.php',
         ),
         'module_paths' => array(
             '../vendor',

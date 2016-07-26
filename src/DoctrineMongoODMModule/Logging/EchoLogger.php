@@ -33,6 +33,6 @@ class EchoLogger implements Logger
     {
         if ($logs) {
             var_dump($logs);
-    	}
+        }
     }
 }

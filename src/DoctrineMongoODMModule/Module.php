@@ -56,7 +56,7 @@ class Module implements
     {
         $events = $manager->getEventManager();
         // Initialize logger collector once the profiler is initialized itself
-        $events->attach('profiler_init', function(EventInterface $e) use ($manager) {
+        $events->attach('profiler_init', function (EventInterface $e) use ($manager) {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
         $events->getSharedManager()->  attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
@@ -67,11 +67,9 @@ class Module implements
      */
     public function onBootstrap(EventInterface $event)
     {
-
     }
 
     /**
-     *
      * @param Event $event
      */
     public function loadCli(EventInterface $event)
@@ -91,7 +89,9 @@ class Module implements
         foreach ($commands as $command) {
             $command->getDefinition()->addOption(
                 new InputOption(
-                    'documentmanager', null, InputOption::VALUE_OPTIONAL,
+                    'documentmanager',
+                    null,
+                    InputOption::VALUE_OPTIONAL,
                     'The name of the documentmanager to use. If none is provided, it will use odm_default.'
                 )
             );
@@ -146,6 +146,7 @@ class Module implements
                 'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
             ),
             'factories' => array(
+                // @codingStandardsIgnoreStart
                 'doctrine.authenticationadapter.odm_default'  => new CommonService\Authentication\AdapterFactory('odm_default'),
                 'doctrine.authenticationstorage.odm_default'  => new CommonService\Authentication\StorageFactory('odm_default'),
                 'doctrine.authenticationservice.odm_default'  => new CommonService\Authentication\AuthenticationServiceFactory('odm_default'),
@@ -155,6 +156,7 @@ class Module implements
                 'doctrine.documentmanager.odm_default' => new ODMService\DocumentManagerFactory('odm_default'),
                 'doctrine.eventmanager.odm_default'    => new CommonService\EventManagerFactory('odm_default'),
                 'doctrine.mongo_logger_collector.odm_default' => new ODMService\MongoLoggerCollectorFactory('odm_default'),
+                // @codingStandardsIgnoreEnd
             )
         );
     }

@@ -18,13 +18,14 @@
  */
 namespace DoctrineMongoODMModule\Service;
 
-use DoctrineModule\Service\AbstractFactory;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use DoctrineModule\Service\AbstractFactory;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory creates a mongo document manager
- * 
+ *
  * @license MIT
  * @link    http://www.doctrine-project.org/
  * @since   0.1.0
@@ -32,18 +33,23 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class DocumentManagerFactory extends AbstractFactory
 {
-    
     /**
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     * @return \Doctrine\ODM\MongoDB\DocumentManager
-     */     
-    public function createService(ServiceLocatorInterface $serviceLocator)
+     * {@inheritDoc}
+     *
+     * @return DocumentManager
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $options      = $this->getOptions($serviceLocator, 'documentmanager');
-        $connection   = $serviceLocator->get($options->getConnection());
-        $config       = $serviceLocator->get($options->getConfiguration());
-        $eventManager = $serviceLocator->get($options->getEventManager());
+        $options      = $this->getOptions($container, 'documentmanager');
+        $connection   = $container->get($options->getConnection());
+        $config       = $container->get($options->getConfiguration());
+        $eventManager = $container->get($options->getEventManager());
         return DocumentManager::create($connection, $config, $eventManager);
+    }
+
+    public function createService(ServiceLocatorInterface $container)
+    {
+        return $this($container, DocumentManager::class);
     }
 
     /**

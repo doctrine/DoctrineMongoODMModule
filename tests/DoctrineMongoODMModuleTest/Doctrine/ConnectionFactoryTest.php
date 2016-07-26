@@ -158,7 +158,7 @@ class ConnectionFactoryTest extends AbstractTest
     public function testConnectionStringWithOptionsShouldSetDefaultDB()
     {
         $dbName  = 'foo_db';
-        $connectionString = "mongodb://localhost:27017/$dbName?bar=baz";
+        $connectionString = "mongodb://localhost:27017/$dbName";
         $connectionConfig = array(
             'odm_default' => array(
                 'connectionString' => $connectionString,

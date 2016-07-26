@@ -99,7 +99,8 @@ class DocumentManager extends AbstractOptions
      *
      * @return string
      */
-    public function getEventManager() {
+    public function getEventManager()
+    {
         return "doctrine.eventmanager.{$this->eventManager}";
     }
 
@@ -108,7 +109,8 @@ class DocumentManager extends AbstractOptions
      * @param type $eventManager
      * @return \DoctrineMongoODMModule\Options\DocumentManager
      */
-    public function setEventManager($eventManager) {
+    public function setEventManager($eventManager)
+    {
         $this->eventManager = (string) $eventManager;
         return $this;
     }
