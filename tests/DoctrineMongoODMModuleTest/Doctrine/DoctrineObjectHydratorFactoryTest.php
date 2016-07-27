@@ -20,7 +20,6 @@ namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
-use Zend\Hydrator\HydratorPluginManager;
 
 class DoctrineObjectHydratorFactoryTest extends TestCase
 {
@@ -41,20 +40,8 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
                      ->getMock()
             );
 
-        /** @var HydratorPluginManager $hydratorPluginManager */
-        $hydratorPluginManager = $this->getMockBuilder('Zend\Hydrator\HydratorPluginManager')
-                                      ->disableOriginalConstructor()
-                                      ->getMock();
-
-        $hydratorPluginManager
-            ->expects($this->once())
-            ->method('getServiceLocator')
-            ->willReturn(
-                $serviceLocatorInterface
-            );
-
         $factory  = new DoctrineObjectHydratorFactory();
-        $hydrator = $factory($hydratorPluginManager);
+        $hydrator = $factory($serviceLocatorInterface);
 
         $this->assertInstanceOf('DoctrineModule\Stdlib\Hydrator\DoctrineObject', $hydrator);
     }
