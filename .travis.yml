@@ -40,20 +40,6 @@ matrix:
       env:
         - DEPS=latest
         - MONGO_DRIVER=mongodb
-    - php: nightly
-      env:
-        - DEPS=lowest
-        - MONGO_DRIVER=mongodb
-    - php: nightly
-      env:
-        - DEPS=locked
-        - MONGO_DRIVER=mongodb
-    - php: nightly
-      env:
-        - DEPS=latest
-        - MONGO_DRIVER=mongodb
-  allow_failures:
-    - php: nightly
 
 services: mongodb
 
