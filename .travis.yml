@@ -9,7 +9,7 @@ cache:
 
 env:
   global:
-    - COMPOSER_ARGS="--no-interaction --ignore-platform-reqs"
+    - COMPOSER_ARGS="--no-interaction"
     - ADAPTER_DEPS="alcaeus/mongo-php-adapter"
     - LATEST_DEPS="zendframework/zend-mvc-console"
     - MONGO_DRIVER=mongo
@@ -48,7 +48,7 @@ before_install:
 
 install:
   - yes '' | pecl -q install -f $MONGO_DRIVER
-  - if [[ $MONGO_DRIVER == 'mongodb' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS ; fi
+  - if [[ $MONGO_DRIVER == 'mongodb' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS --ignore-platform-reqs ; fi
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer require --dev --no-update $COMPOSER_ARGS $LATEST_DEPS ; fi
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
