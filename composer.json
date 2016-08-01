@@ -37,15 +37,9 @@
             "homepage": "http://superdweebie.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/webimpress/DoctrineModule"
-        }
-    ],
     "require": {
         "php":                               "~5.6 || ~7.0",
-        "doctrine/doctrine-module":          "dev-feature/zf3compat",
+        "doctrine/doctrine-module":          "dev-master",
         "doctrine/mongodb-odm":              "^1.1",
         "zendframework/zend-mvc":            "^2.7.10 || ^3.0.2",
         "zendframework/zend-servicemanager": "^2.7.6 || ^3.1.1",
