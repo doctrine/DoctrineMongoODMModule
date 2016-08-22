@@ -37,6 +37,11 @@
             "homepage": "http://superdweebie.com"
         }
     ],
+    "extra": {
+        "zf": {
+            "module": "DoctrineMongoODMModule"
+        }
+    },
     "require": {
         "php":                               "^5.6 || ^7.0",
         "doctrine/doctrine-module":          "dev-master",
