@@ -23,21 +23,13 @@ use Zend\Mvc\Application;
 
 abstract class AbstractTest extends PHPUnit_Framework_TestCase
 {
-
     protected $application;
     protected $serviceManager;
 
-    protected static $applicationConfig;
-
-    public function setup()
+    public function setUp()
     {
-        $this->application = Application::init(self::$applicationConfig);
+        $this->application = Application::init(ServiceManagerFactory::getConfiguration());
         $this->serviceManager = $this->application->getServiceManager();
-    }
-
-    public static function setApplicationConfig($applicationConfig)
-    {
-        self::$applicationConfig = $applicationConfig;
     }
 
     public function getDocumentManager()

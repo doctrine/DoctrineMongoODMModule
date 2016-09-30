@@ -18,40 +18,54 @@
  */
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
-use Zend\Stdlib\Hydrator\HydratorPluginManager;
+use Zend\Hydrator\HydratorPluginManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class DoctrineObjectHydratorFactoryTest extends TestCase
 {
-    public function testReturnsHydratorInstance()
-    {
-        $serviceLocatorInterface = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+    /** @var ServiceLocatorInterface|\PHPUnit_Framework_MockObject_MockObject */
+    protected $services;
 
-        $serviceLocatorInterface
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->services = $this->getMock(ServiceLocatorInterface::class);
+
+        $this->services
             ->expects($this->once())
             ->method('get')
             ->with('doctrine.documentmanager.odm_default')
-            ->willReturn(
-                $this->getMockBuilder('Doctrine\ODM\MongoDB\DocumentManager')
-                     ->disableOriginalConstructor()
-                     ->getMock()
-            );
+            ->willReturn($this->prophesize(DocumentManager::class)->reveal());
+    }
 
+    public function testReturnsHydratorInstance()
+    {
+        $factory  = new DoctrineObjectHydratorFactory();
+        $hydrator = $factory($this->services, DoctrineObject::class);
+
+        $this->assertInstanceOf(DoctrineObject::class, $hydrator);
+    }
+
+    public function testReturnsHydratorInstanceV2()
+    {
         /** @var HydratorPluginManager $hydratorPluginManager */
-        $hydratorPluginManager = $this->getMock('Zend\Stdlib\Hydrator\HydratorPluginManager');
+        $hydratorPluginManager = $this->getMockBuilder(HydratorPluginManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $hydratorPluginManager
             ->expects($this->once())
             ->method('getServiceLocator')
-            ->willReturn(
-                $serviceLocatorInterface
-            );
-
+            ->willReturn($this->services);
 
         $factory  = new DoctrineObjectHydratorFactory();
-        $hydrator = $factory($hydratorPluginManager);
+        $hydrator = $factory->createService($hydratorPluginManager);
 
-        $this->assertInstanceOf('DoctrineModule\Stdlib\Hydrator\DoctrineObject', $hydrator);
+        $this->assertInstanceOf(DoctrineObject::class, $hydrator);
     }
 }

@@ -30,7 +30,6 @@ use Zend\Stdlib\AbstractOptions;
  */
 class Configuration extends AbstractOptions
 {
-
     /**
      * Set the cache key for the metadata cache. Cache key
      * is assembled as "doctrine.cache.{key}" and pulled from
@@ -235,7 +234,8 @@ class Configuration extends AbstractOptions
      *
      * @return boolean
      */
-    public function getGenerateHydrators() {
+    public function getGenerateHydrators()
+    {
         return $this->generateHydrators;
     }
 
@@ -244,7 +244,8 @@ class Configuration extends AbstractOptions
      * @param boolean $generateHydrators
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
-    public function setGenerateHydrators($generateHydrators) {
+    public function setGenerateHydrators($generateHydrators)
+    {
         $this->generateHydrators = (boolean) $generateHydrators;
         return $this;
     }
@@ -253,7 +254,8 @@ class Configuration extends AbstractOptions
      *
      * @return string
      */
-    public function getHydratorDir() {
+    public function getHydratorDir()
+    {
         return $this->hydratorDir;
     }
 
@@ -262,7 +264,8 @@ class Configuration extends AbstractOptions
      * @param string $hydratorDir
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
-    public function setHydratorDir($hydratorDir) {
+    public function setHydratorDir($hydratorDir)
+    {
         $this->hydratorDir = (string) $hydratorDir;
         return $this;
     }
@@ -271,7 +274,8 @@ class Configuration extends AbstractOptions
      *
      * @return string
      */
-    public function getHydratorNamespace() {
+    public function getHydratorNamespace()
+    {
         return $this->hydratorNamespace;
     }
 
@@ -280,7 +284,8 @@ class Configuration extends AbstractOptions
      * @param string $hydratorNamespace
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
-    public function setHydratorNamespace($hydratorNamespace) {
+    public function setHydratorNamespace($hydratorNamespace)
+    {
         $this->hydratorNamespace = (string) $hydratorNamespace;
         return $this;
     }
@@ -289,7 +294,8 @@ class Configuration extends AbstractOptions
      *
      * @return string|null
      */
-    public function getDefaultDb() {
+    public function getDefaultDb()
+    {
         return $this->defaultDb;
     }
 
@@ -298,11 +304,11 @@ class Configuration extends AbstractOptions
      * @param string|null $defaultDb
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
-    public function setDefaultDb($defaultDb) {
-        if($defaultDb === null){
+    public function setDefaultDb($defaultDb)
+    {
+        if ($defaultDb === null) {
             $this->defaultDb = $defaultDb;
-        }
-        else{
+        } else {
             $this->defaultDb = (string) $defaultDb;
         }
         return $this;
@@ -312,7 +318,8 @@ class Configuration extends AbstractOptions
      *
      * @return array
      */
-    public function getFilters() {
+    public function getFilters()
+    {
         return $this->filters;
     }
 
@@ -321,7 +328,8 @@ class Configuration extends AbstractOptions
      * @param array $filters
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
-    public function setFilters(array $filters) {
+    public function setFilters(array $filters)
+    {
         $this->filters = $filters;
         return $this;
     }
@@ -338,7 +346,6 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     *
      * @return \DoctrineMongoODMModule\Logging\Logger
      */
     public function getLogger()
@@ -347,18 +354,18 @@ class Configuration extends AbstractOptions
     }
     
     /**
-     * 
      * @return string
      */
-    public function getClassMetadataFactoryName() {
+    public function getClassMetadataFactoryName()
+    {
         return $this->classMetadataFactoryName;
     }
 
     /**
-     * 
      * @param string $classMetadataFactoryName
      */
-    public function setClassMetadataFactoryName($classMetadataFactoryName) {
+    public function setClassMetadataFactoryName($classMetadataFactoryName)
+    {
         $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
     }
 

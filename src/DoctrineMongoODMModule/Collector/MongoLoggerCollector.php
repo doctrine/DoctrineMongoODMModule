@@ -18,7 +18,6 @@
  */
 namespace DoctrineMongoODMModule\Collector;
 
-
 use ZendDeveloperTools\Collector\CollectorInterface;
 use ZendDeveloperTools\Collector\AutoHideInterface;
 

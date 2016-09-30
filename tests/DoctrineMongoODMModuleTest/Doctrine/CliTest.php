@@ -17,6 +17,7 @@
  */
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
+use DoctrineMongoODMModuleTest\ServiceManagerFactory;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -43,7 +44,7 @@ class CliTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $serviceManager     = \DoctrineMongoODMModuleTest\Doctrine\Util\ServiceManagerFactory::getServiceManager();
+        $serviceManager     = ServiceManagerFactory::getServiceManager();
 
         /* @var $sharedEventManager \Zend\EventManager\SharedEventManagerInterface */
         $sharedEventManager = $serviceManager->get('SharedEventManager');

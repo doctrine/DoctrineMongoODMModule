@@ -44,4 +44,3 @@ class DebugStack implements Logger
         }
     }
 }
-
