@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.11.0
+
+- [#161](https://github.com/docrine/DoctrineMongoODMModule/pull/161) Add PHP 7 to the build matrix
+- [#168](https://github.com/docrine/DoctrineMongoODMModule/pull/168)ZF3 compatibility
+- [#172](https://github.com/docrine/DoctrineMongoODMModule/pull/172) Require stable version of DoctrineModule 1.2.0 instead of dev-master
+
 ## Version 0.10.0
 
 - [#146](https://github.com/doctrine/DoctrineMongoODMModule/pull/146) Support for `odm:schema:update` command
