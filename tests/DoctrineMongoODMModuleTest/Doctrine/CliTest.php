@@ -100,6 +100,10 @@ class CliTest extends PHPUnit_Framework_TestCase
             $this->cli->get('odm:generate:repositories')
         );
         $this->assertInstanceOf(
+            'Doctrine\ODM\MongoDB\Tools\Console\Command\GeneratePersistentCollectionsCommand',
+            $this->cli->get('odm:generate:persistent-collections')
+        );
+        $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand',
             $this->cli->get('odm:query')
         );
