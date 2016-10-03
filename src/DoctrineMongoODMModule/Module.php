@@ -41,7 +41,7 @@ use Zend\Loader\StandardAutoloader;
  * @since   0.1.0
  * @author  Tim Roediger <superdweebie@gmail.com>
  */
-final class Module implements
+class Module implements
     AutoloaderProviderInterface,
     ConfigProviderInterface,
     ServiceProviderInterface,
@@ -54,7 +54,7 @@ final class Module implements
     {
         $events = $manager->getEventManager();
         // Initialize logger collector once the profiler is initialized itself
-        $events->attach('profiler_init', function(EventInterface $e) use ($manager) {
+        $events->attach('profiler_init', function (EventInterface $e) use ($manager) {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
         $events->getSharedManager()->  attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
@@ -138,6 +138,7 @@ final class Module implements
                 'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
             ),
             'factories' => array(
+                // @codingStandardsIgnoreStart
                 'doctrine.authenticationadapter.odm_default'  => new CommonService\Authentication\AdapterFactory('odm_default'),
                 'doctrine.authenticationstorage.odm_default'  => new CommonService\Authentication\StorageFactory('odm_default'),
                 'doctrine.authenticationservice.odm_default'  => new CommonService\Authentication\AuthenticationServiceFactory('odm_default'),
@@ -147,6 +148,7 @@ final class Module implements
                 'doctrine.documentmanager.odm_default' => new ODMService\DocumentManagerFactory('odm_default'),
                 'doctrine.eventmanager.odm_default'    => new CommonService\EventManagerFactory('odm_default'),
                 'doctrine.mongo_logger_collector.odm_default' => new ODMService\MongoLoggerCollectorFactory('odm_default'),
+                // @codingStandardsIgnoreEnd
             )
         );
     }

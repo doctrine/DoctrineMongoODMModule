@@ -20,6 +20,7 @@ namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\MongoDB\Connection;
 use DoctrineModule\Service\AbstractFactory;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -32,16 +33,15 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class ConnectionFactory extends AbstractFactory
 {
-
     /**
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * {@inheritDoc}
      *
-     * @return \Doctrine\MongoDB\Connection
+     * @return Connection
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /** @var $options \DoctrineMongoODMModule\Options\Connection */
-        $options = $this->getOptions($serviceLocator, 'connection');
+        $options = $this->getOptions($container, 'connection');
 
         $connectionString = $options->getConnectionString();
         $dbName = null;
@@ -62,7 +62,6 @@ class ConnectionFactory extends AbstractFactory
             if ($dbName) {
                 $connectionString .= '/' . $dbName;
             }
-
         } else {
             // parse dbName from the connectionString
             $dbStart = strpos($connectionString, '/', 11);
@@ -77,7 +76,7 @@ class ConnectionFactory extends AbstractFactory
         }
 
         /** @var $configuration \Doctrine\ODM\MongoDB\Configuration */
-        $configuration = $serviceLocator->get('doctrine.configuration.' . $this->getName());
+        $configuration = $container->get('doctrine.configuration.' . $this->getName());
 
         // Set defaultDB to $dbName, if it's not defined in configuration
         if (null === $configuration->getDefaultDB()) {
@@ -85,6 +84,11 @@ class ConnectionFactory extends AbstractFactory
         }
 
         return new Connection($connectionString, $options->getOptions(), $configuration);
+    }
+
+    public function createService(ServiceLocatorInterface $container)
+    {
+        return $this($container, Connection::class);
     }
 
     /**

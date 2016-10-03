@@ -1,26 +1,63 @@
+sudo: false
+
 language: php
 
-php:
-  - 5.6
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - vendor
 
 env:
-  - MONGO_DRIVER=mongo
+  global:
+    - COMPOSER_ARGS="--no-interaction"
+    - ADAPTER_DEPS="alcaeus/mongo-php-adapter"
+    - LATEST_DEPS="zendframework/zend-mvc-console"
+    - MONGO_DRIVER=mongo
 
 matrix:
+  fast_finish: true
   include:
-    - php: 7.0
-      env: ADAPTER_VERSION="^1.0.0" MONGO_DRIVER=mongodb
+    - php: 5.6
+      env:
+        - DEPS=lowest
+    - php: 5.6
+      env:
+        - DEPS=locked
+        - TEST_COVERAGE=true
+    - php: 5.6
+      env:
+        - DEPS=latest
+    - php: 7
+      env:
+        - DEPS=lowest
+        - MONGO_DRIVER=mongodb
+    - php: 7
+      env:
+        - DEPS=locked
+        - CS_CHECK=true
+        - MONGO_DRIVER=mongodb
+    - php: 7
+      env:
+        - DEPS=latest
+        - MONGO_DRIVER=mongodb
 
 services: mongodb
 
-before_script:
+before_install:
+  - travis_retry composer self-update
+
+install:
   - yes '' | pecl -q install -f $MONGO_DRIVER
-  - if [ "x${ADAPTER_VERSION}" != "x" ]; then composer require "alcaeus/mongo-php-adapter=${ADAPTER_VERSION}" --ignore-platform-reqs; fi
-  - composer install --prefer-source
+  - if [[ $MONGO_DRIVER == 'mongodb' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS --ignore-platform-reqs ; fi
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer require --dev --no-update $COMPOSER_ARGS $LATEST_DEPS ; fi
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
+  - travis_retry composer install $COMPOSER_ARGS
+  - composer show
 
 script:
-  - cd tests
-  - cp test.application.config.php ../config/application.config.php
-  - ../vendor/bin/doctrine-module odm:schema:create
-  - ../vendor/bin/doctrine-module odm:schema:drop
-  - ../vendor/bin/phpunit
+  - if [[ $DEPS == 'latest' ]]; then cp ./tests/TestConfigurationV3.php ./config/application.config.php ; else cp ./tests/TestConfigurationV2.php ./config/application.config.php ; fi
+  - ./vendor/bin/doctrine-module odm:schema:create
+  - ./vendor/bin/doctrine-module odm:schema:drop
+  - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; else ./vendor/bin/phpunit ; fi
+  - if [[ $CHECK_CS == 'true' ]]; then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi

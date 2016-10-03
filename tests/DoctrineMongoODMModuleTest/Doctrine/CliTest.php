@@ -26,6 +26,7 @@ use Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand;
 use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand;
 use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand;
 use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand;
+use DoctrineMongoODMModuleTest\ServiceManagerFactory;
 
 /**
  * Tests used to verify that command line functionality is active
@@ -51,7 +52,7 @@ final class CliTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $serviceManager     = \DoctrineMongoODMModuleTest\Doctrine\Util\ServiceManagerFactory::getServiceManager();
+        $serviceManager     = ServiceManagerFactory::getServiceManager();
 
         /* @var $application \Zend\Mvc\Application */
         $application        = $serviceManager->get('Application');
