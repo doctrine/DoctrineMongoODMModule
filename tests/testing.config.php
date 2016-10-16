@@ -1,26 +1,26 @@
 <?php
-return array(
-    'doctrine' => array(
-        'configuration' => array(
-            'odm_default' => array(
+return [
+    'doctrine' => [
+        'configuration' => [
+            'odm_default' => [
                 'default_db' => 'doctrineMongoODMModuleTest',
                 'retryConnect' => 123,
-                'retryQuery' => 456
-            )
-        ),
-        'driver' => array(
-            'odm_default' => array(
-                'drivers' => array(
-                    'DoctrineMongoODMModuleTest\Assets\Document' => 'test'
-                )
-            ),
-            'test' => array(
+                'retryQuery' => 456,
+            ],
+        ],
+        'driver' => [
+            'odm_default' => [
+                'drivers' => [
+                    'DoctrineMongoODMModuleTest\Assets\Document' => 'test',
+                ],
+            ],
+            'test' => [
                 'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(
-                    __DIR__ . '/Assets/Document'
-                )
-            )
-        )
-    )
-);
+                'paths' => [
+                    __DIR__ . '/Assets/Document',
+                ],
+            ],
+        ],
+    ],
+];

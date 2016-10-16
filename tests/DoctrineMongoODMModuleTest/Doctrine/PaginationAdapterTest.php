@@ -43,7 +43,7 @@ class PaginationAdapterTest extends AbstractTest
         $documentManager = $this->getDocumentManager();
 
         $cursor = $documentManager->createQueryBuilder(get_class(new Simple()))->getQuery()->execute();
-        $cursor->sort(array('name' => 'asc'));
+        $cursor->sort(['name' => 'asc']);
 
         return new DoctrinePaginator($cursor);
     }
@@ -75,7 +75,7 @@ class PaginationAdapterTest extends AbstractTest
 
         // Prepare an adapter with a limit already set. EagerCursors don't support $foundOnly = false
         $cursor = $documentManager->createQueryBuilder(Simple::class)->eagerCursor(true)->getQuery()->execute();
-        $cursor->sort(array('name' => 'asc'))->limit(5);
+        $cursor->sort(['name' => 'asc'])->limit(5);
 
         $paginationAdapter = new DoctrinePaginator($cursor);
 

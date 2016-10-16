@@ -49,7 +49,7 @@ class ConfigurationFactory extends AbstractFactory
         // logger
         if ($options->getLogger()) {
             $logger = $container->get($options->getLogger());
-            $config->setLoggerCallable(array($logger, 'log'));
+            $config->setLoggerCallable([$logger, 'log']);
         }
 
         // proxies

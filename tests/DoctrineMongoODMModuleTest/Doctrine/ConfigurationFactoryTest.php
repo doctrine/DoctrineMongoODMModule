@@ -45,15 +45,15 @@ class ConfigurationFactoryTest extends AbstractTest
 
         $serviceLocator = $this->getMockForAbstractClass('Zend\ServiceManager\ServiceLocatorInterface');
         $serviceLocator->expects($this->exactly(4))->method('get')->withConsecutive(
-            array('Configuration'),
-            array('stubbed_logger'),
-            array('doctrine.cache.stubbed_metadatacache'),
-            array('doctrine.driver.stubbed_driver')
+            ['Configuration'],
+            ['stubbed_logger'],
+            ['doctrine.cache.stubbed_metadatacache'],
+            ['doctrine.driver.stubbed_driver']
         )->willReturnOnConsecutiveCalls(
-            array(
-                'doctrine' => array(
-                    'configuration' => array(
-                        'odm_test' => array(
+            [
+                'doctrine' => [
+                    'configuration' => [
+                        'odm_test' => [
                             'logger'             => 'stubbed_logger',
                             'metadata_cache'     => 'stubbed_metadatacache',
                             'driver'             => 'stubbed_driver',
@@ -64,16 +64,16 @@ class ConfigurationFactoryTest extends AbstractTest
                             'hydrator_dir'       => 'data/DoctrineMongoODMModule/Hydrator',
                             'hydrator_namespace' => 'DoctrineMongoODMModule\Hydrator',
                             'default_db'         => 'default_db',
-                            'filters'            => array(),  // array('filterName' => 'BSON\Filter\Class')
+                            'filters'            => [],  // ['filterName' => 'BSON\Filter\Class']
                             // custom types
-                            'types'              => array(
-                                'CustomType' => 'DoctrineMongoODMModuleTest\Assets\CustomType'
-                            ),
-                            'classMetadataFactoryName' => 'stdClass'
-                        )
-                    )
-                )
-            ),
+                            'types'              => [
+                                'CustomType' => 'DoctrineMongoODMModuleTest\Assets\CustomType',
+                            ],
+                            'classMetadataFactoryName' => 'stdClass',
+                        ],
+                    ],
+                ],
+            ],
             $logger,
             $metadataCache,
             $mappingDriver
