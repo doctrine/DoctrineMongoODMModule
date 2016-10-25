@@ -114,6 +114,12 @@ class Configuration extends AbstractOptions
     protected $classMetadataFactoryName;
 
     /**
+     *
+     * @var string
+     */
+    protected $repositoryFactory;
+
+    /**
      * Number of times to attempt to connect if an exception is encountered
      *
      * @var int
@@ -419,5 +425,21 @@ class Configuration extends AbstractOptions
     public function getTypes()
     {
         return $this->types;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRepositoryFactory() {
+        return $this->repositoryFactory;
+    }
+
+    /**
+     * @param string $repositoryFactory
+     * @return \DoctrineMongoODMModule\Options\Configuration
+     */
+    public function setRepositoryFactory($repositoryFactory) {
+        $this->repositoryFactory = (string) $repositoryFactory;
+        return $this;
     }
 }

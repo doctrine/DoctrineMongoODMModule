@@ -85,6 +85,11 @@ class ConfigurationFactory extends AbstractFactory
             $config->setClassMetadataFactoryName($factoryName);
         }
 
+        // respositoryFactory, if set
+        if ($repositoryFactory = $options->getRepositoryFactory()){
+            $config->setRepositoryFactory($container->get($repositoryFactory));
+        }
+
         // custom types
         foreach ($options->getTypes() as $name => $class) {
             if (Type::hasType($name)) {
