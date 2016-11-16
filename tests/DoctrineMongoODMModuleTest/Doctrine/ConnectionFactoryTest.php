@@ -18,6 +18,7 @@
  */
 namespace DoctrineMongoODMModuleTest\Service;
 
+use DoctrineModule\Service\EventManagerFactory;
 use DoctrineMongoODMModule\Service\ConnectionFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
 
@@ -173,5 +174,26 @@ class ConnectionFactoryTest extends AbstractTest
         $this->connectionFactory->createService($this->serviceManager);
 
         $this->assertEquals($dbName, $configuration->getDefaultDB());
+    }
+
+    public function testShouldSetEventManager()
+    {
+        $eventManagerConfig = [
+            'odm_default' => [
+                'subscribers' => [
+                ],
+            ]
+        ];
+
+        $this->configuration['doctrine']['eventmanager'] = $eventManagerConfig;
+        $this->serviceManager->setService('Configuration', $this->configuration);
+
+        $eventManagerFactory = new EventManagerFactory('odm_default');
+        $eventManager = $eventManagerFactory->createService($this->serviceManager);
+        $this->serviceManager->setService('doctrine.eventmanager.odm_default', $eventManager);
+
+        $connection = $this->connectionFactory->createService($this->serviceManager);
+
+        self::assertSame($eventManager, $connection->getEventManager());
     }
 }

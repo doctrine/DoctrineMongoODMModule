@@ -83,7 +83,10 @@ class ConnectionFactory extends AbstractFactory
             $configuration->setDefaultDB($dbName);
         }
 
-        return new Connection($connectionString, $options->getOptions(), $configuration);
+        /** @var $configuration \Doctrine\Common\EventManager */
+        $eventManager = $container->get('doctrine.eventmanager.' . $this->getName());
+
+        return new Connection($connectionString, $options->getOptions(), $configuration, $eventManager);
     }
 
     public function createService(ServiceLocatorInterface $container)
