@@ -118,7 +118,7 @@ class Message
     protected $id;
 
     /**
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $text;
 
