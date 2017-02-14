@@ -68,11 +68,11 @@ class ConfigurationFactory extends AbstractFactory
         $config->setPersistentCollectionNamespace($options->getPersistentCollectionNamespace());
 
         $options->getPersistentCollectionFactory() && $config->setPersistentCollectionFactory(
-            $serviceLocator->get($options->getPersistentCollectionFactory())
+            $container->get($options->getPersistentCollectionFactory())
         );
 
         $options->getPersistentCollectionGenerator() && $config->setPersistentCollectionGenerator(
-            $serviceLocator->get($options->getPersistentCollectionGenerator())
+            $container->get($options->getPersistentCollectionGenerator())
         );
 
         // default db
