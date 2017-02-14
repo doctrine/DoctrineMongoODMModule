@@ -117,13 +117,11 @@ class Configuration extends AbstractOptions
     protected $persistentCollectionGenerator;
 
     /**
-     *
      * @var string
      */
     protected $driver;
 
     /**
-     *
      * @var string
      */
     protected $defaultDb;
@@ -137,13 +135,11 @@ class Configuration extends AbstractOptions
     protected $filters = [];
 
     /**
-     *
      * @var \DoctrineMongoODMModule\Logging\Logger
      */
     protected $logger;
 
     /**
-     *
      * @var string
      */
     protected $classMetadataFactoryName;
@@ -191,13 +187,8 @@ class Configuration extends AbstractOptions
 
     /**
      *
-<<<<<<< HEAD
      * @param boolean|int $generateProxies
-     * @return \DoctrineMongoODMModule\Options\Configuration
-=======
-     * @param boolean $generateProxies
      * @return $this
->>>>>>> Added support for custom collections in configuration and accompanying tests.
      */
     public function setGenerateProxies($generateProxies)
     {
@@ -271,7 +262,6 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     *
      * @return boolean
      */
     public function getGenerateHydrators()
@@ -280,9 +270,9 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     *
      * @param boolean|int $generateHydrators
-     * @return \DoctrineMongoODMModule\Options\Configuration
+     *
+     * @return $this
      */
     public function setGenerateHydrators($generateHydrators)
     {
@@ -300,8 +290,8 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     *
      * @param string $hydratorDir
+     *
      * @return $this
      */
     public function setHydratorDir($hydratorDir)
@@ -320,8 +310,8 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     *
      * @param string $hydratorNamespace
+     *
      * @return $this
      */
     public function setHydratorNamespace($hydratorNamespace)
@@ -465,8 +455,8 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     *
      * @param array $filters
+     *
      * @return $this
      */
     public function setFilters(array $filters)
@@ -476,8 +466,8 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     *
      * @param \DoctrineMongoODMModule\Logging\Logger $logger
+     *
      * @return $this
      */
     public function setLogger($logger)
@@ -495,10 +485,6 @@ class Configuration extends AbstractOptions
     }
 
     /**
-<<<<<<< HEAD
-=======
-     *
->>>>>>> Added support for custom collections in configuration and accompanying tests.
      * @return string
      */
     public function getClassMetadataFactoryName()
@@ -507,10 +493,6 @@ class Configuration extends AbstractOptions
     }
 
     /**
-<<<<<<< HEAD
-=======
-     *
->>>>>>> Added support for custom collections in configuration and accompanying tests.
      * @param string $classMetadataFactoryName
      */
     public function setClassMetadataFactoryName($classMetadataFactoryName)
