@@ -18,8 +18,10 @@
  */
 namespace DoctrineMongoODMModuleTest\Service;
 
+use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Service\ConfigurationFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
+use DoctrineMongoODMModuleTest\Assets\CustomRepositoryFactory;
 
 class ConfigurationFactoryTest extends AbstractTest
 {
@@ -42,13 +44,15 @@ class ConfigurationFactoryTest extends AbstractTest
         $logger        = $this->getMockForAbstractClass('DoctrineMongoODMModule\Logging\Logger');
         $metadataCache = $this->getMockForAbstractClass('Doctrine\Common\Cache\Cache');
         $mappingDriver = $this->getMockForAbstractClass('Doctrine\Common\Persistence\Mapping\Driver\MappingDriver');
+        $repoFactory = new CustomRepositoryFactory();
 
         $serviceLocator = $this->getMockForAbstractClass('Zend\ServiceManager\ServiceLocatorInterface');
-        $serviceLocator->expects($this->exactly(4))->method('get')->withConsecutive(
+        $serviceLocator->expects($this->exactly(5))->method('get')->withConsecutive(
             array('Configuration'),
             array('stubbed_logger'),
             array('doctrine.cache.stubbed_metadatacache'),
-            array('doctrine.driver.stubbed_driver')
+            array('doctrine.driver.stubbed_driver'),
+            array('DoctrineMongoODMModuleTest\Assets\CustomRepositoryFactory')
         )->willReturnOnConsecutiveCalls(
             array(
                 'doctrine' => array(
@@ -69,17 +73,21 @@ class ConfigurationFactoryTest extends AbstractTest
                             'types'              => array(
                                 'CustomType' => 'DoctrineMongoODMModuleTest\Assets\CustomType'
                             ),
-                            'classMetadataFactoryName' => 'stdClass'
+                            'classMetadataFactoryName' => 'stdClass',
+                            'repositoryFactory' => 'DoctrineMongoODMModuleTest\Assets\CustomRepositoryFactory',
                         )
                     )
                 )
             ),
             $logger,
             $metadataCache,
-            $mappingDriver
+            $mappingDriver,
+            $repoFactory
         );
 
         $factory = new ConfigurationFactory('odm_test');
+
+        /** @var Configuration $config */
         $config = $factory->createService($serviceLocator);
 
         $this->assertInstanceOf('Doctrine\ODM\MongoDB\Configuration', $config);
@@ -89,6 +97,11 @@ class ConfigurationFactoryTest extends AbstractTest
         $this->assertInstanceOf(
             'DoctrineMongoODMModuleTest\Assets\CustomType',
             \Doctrine\ODM\MongoDB\Types\Type::getType('CustomType')
+        );
+
+        $this->assertInstanceOf(
+            'DoctrineMongoODMModuleTest\Assets\CustomRepositoryFactory',
+            $config->getRepositoryFactory()
         );
     }
 }

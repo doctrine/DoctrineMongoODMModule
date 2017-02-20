@@ -86,7 +86,7 @@ class ConfigurationFactory extends AbstractFactory
         }
 
         // respositoryFactory, if set
-        if ($repositoryFactory = $options->getRepositoryFactory()){
+        if ($repositoryFactory = $options->getRepositoryFactory()) {
             $config->setRepositoryFactory($container->get($repositoryFactory));
         }
 

@@ -430,7 +430,8 @@ class Configuration extends AbstractOptions
     /**
      * @return string
      */
-    public function getRepositoryFactory() {
+    public function getRepositoryFactory()
+    {
         return $this->repositoryFactory;
     }
 
@@ -438,7 +439,8 @@ class Configuration extends AbstractOptions
      * @param string $repositoryFactory
      * @return \DoctrineMongoODMModule\Options\Configuration
      */
-    public function setRepositoryFactory($repositoryFactory) {
+    public function setRepositoryFactory($repositoryFactory)
+    {
         $this->repositoryFactory = (string) $repositoryFactory;
         return $this;
     }
