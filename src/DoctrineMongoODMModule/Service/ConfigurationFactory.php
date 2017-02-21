@@ -49,7 +49,7 @@ class ConfigurationFactory extends AbstractFactory
         // logger
         if ($options->getLogger()) {
             $logger = $container->get($options->getLogger());
-            $config->setLoggerCallable(array($logger, 'log'));
+            $config->setLoggerCallable([$logger, 'log']);
         }
 
         // proxies
@@ -61,6 +61,19 @@ class ConfigurationFactory extends AbstractFactory
         $config->setAutoGenerateHydratorClasses($options->getGenerateHydrators());
         $config->setHydratorDir($options->getHydratorDir());
         $config->setHydratorNamespace($options->getHydratorNamespace());
+
+        // persistent collections
+        $config->setAutoGeneratePersistentCollectionClasses($options->getGeneratePersistentCollections());
+        $config->setPersistentCollectionDir($options->getPersistentCollectionDir());
+        $config->setPersistentCollectionNamespace($options->getPersistentCollectionNamespace());
+
+        $options->getPersistentCollectionFactory() && $config->setPersistentCollectionFactory(
+            $container->get($options->getPersistentCollectionFactory())
+        );
+
+        $options->getPersistentCollectionGenerator() && $config->setPersistentCollectionGenerator(
+            $container->get($options->getPersistentCollectionGenerator())
+        );
 
         // default db
         $config->setDefaultDB($options->getDefaultDb());
@@ -104,6 +117,6 @@ class ConfigurationFactory extends AbstractFactory
 
     public function getOptionsClass()
     {
-        return 'DoctrineMongoODMModule\Options\Configuration';
+        return Configuration::class;
     }
 }

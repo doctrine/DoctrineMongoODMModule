@@ -37,7 +37,7 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
         $this->services = $this->getMock(ServiceLocatorInterface::class);
 
         $this->services
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('doctrine.documentmanager.odm_default')
             ->willReturn($this->prophesize(DocumentManager::class)->reveal());
@@ -59,13 +59,13 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
             ->getMock();
 
         $hydratorPluginManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getServiceLocator')
             ->willReturn($this->services);
 
         $factory  = new DoctrineObjectHydratorFactory();
         $hydrator = $factory->createService($hydratorPluginManager);
 
-        $this->assertInstanceOf(DoctrineObject::class, $hydrator);
+        self::assertInstanceOf(DoctrineObject::class, $hydrator);
     }
 }

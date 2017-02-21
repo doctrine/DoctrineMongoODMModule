@@ -37,7 +37,7 @@ class PaginationTest extends AbstractTest
         $documentManager = $this->getDocumentManager();
 
         $cursor = $documentManager->createQueryBuilder(get_class(new Simple()))->getQuery()->execute();
-        $cursor->sort(array('Name', 'asc'));
+        $cursor->sort(['Name', 'asc']);
 
         return new DoctrinePaginator($cursor);
     }
@@ -67,6 +67,6 @@ class PaginationTest extends AbstractTest
         $paginator = $this->getPaginator($paginationAdapter);
         $pages = $paginator->getPages();
 
-        $this->assertEquals(10, $pages->lastItemNumber);
+        self::assertEquals(10, $pages->lastItemNumber);
     }
 }
