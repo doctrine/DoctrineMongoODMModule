@@ -1,21 +1,21 @@
 <?php
-return array(
-    'doctrine' => array(
+return [
+    'doctrine' => [
 
-        'connection' => array(
-            'odm_default' => array(
+        'connection' => [
+            'odm_default' => [
 //                'server'           => 'localhost',
 //                'port'             => '27017',
 //                'connectionString' => null,
 //                'user'             => null,
 //                'password'         => null,
 //                'dbname'           => null,
-//                'options'          => array()
-            ),
-        ),
+//                'options'          => [],
+            ],
+        ],
 
-        'configuration' => array(
-            'odm_default' => array(
+        'configuration' => [
+            'odm_default' => [
 //                'metadata_cache'     => 'array',
 //
 //                'driver'             => 'odm_default',
@@ -30,30 +30,30 @@ return array(
 //
 //                'default_db'         => null,
 //
-//                'filters'            => array(),  // array('filterName' => 'BSON\Filter\Class'),
+//                'filters'            => [],  // ['filterName' => 'BSON\Filter\Class'],
 //
-//                'logger'             => null // 'DoctrineMongoODMModule\Logging\DebugStack'
-            )
-        ),
+//                'logger'             => null, // 'DoctrineMongoODMModule\Logging\DebugStack'
+            ],
+        ],
 
-        'driver' => array(
-            'odm_default' => array(
-//                'drivers' => array()
-            )
-        ),
+        'driver' => [
+            'odm_default' => [
+//                'drivers' => [],
+            ],
+        ],
 
-        'documentmanager' => array(
-            'odm_default' => array(
+        'documentmanager' => [
+            'odm_default' => [
 //                'connection'    => 'odm_default',
 //                'configuration' => 'odm_default',
-//                'eventmanager' => 'odm_default'
-            )
-        ),
+//                'eventmanager'  => 'odm_default',
+            ],
+        ],
 
-        'eventmanager' => array(
-            'odm_default' => array(
-                'subscribers' => array()
-            )
-        ),
-    ),
-);
+        'eventmanager' => [
+            'odm_default' => [
+                'subscribers' => [],
+            ],
+        ],
+    ],
+];

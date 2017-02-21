@@ -1,13 +1,13 @@
 User Guide
 ==========
 
-This guide helps you to create a Zend Framework 2 application with Doctrine Mongo ODM integration. If you're new to Zend
-Framework 2, please read the [ZF2 user guide](http://framework.zend.com/manual/2.3/en/user-guide/overview.html) before you 
+This guide helps you to create a Zend Framework application with Doctrine Mongo ODM integration. If you're new to Zend
+Framework, please read the [ZF2 user guide](http://framework.zend.com/manual/2.3/en/user-guide/overview.html) before you
 continue.
 
 Install Composer
 ----------------
-install composer via `curl -s http://getcomposer.org/installer | php` 
+Install composer via `curl -s http://getcomposer.org/installer | php`
 (on windows, download http://getcomposer.org/installer and execute it with PHP)
 
 ZF2 Skeleton Application
@@ -16,7 +16,7 @@ ZF2 Skeleton Application
 Create a new Skeleton application with Composer:
 
 ```bash
-$ php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" \
+$ composer create-project -sdev --repository-url="https://packages.zendframework.com" \
     zendframework/skeleton-application doctrine-odm-tutorial
 ```
 
@@ -28,11 +28,11 @@ $ cd doctrine-odm-tutorial
 $ php -S 0.0.0.0:8080 -t public/ public/index.php
 ```
 
-For detailed instructions on installing the Zend Framework 2 Skeleton Application follow 
+For detailed instructions on installing the Zend Framework Skeleton Application follow
 [this link](https://github.com/zendframework/ZendSkeletonApplication).
 
-Install Doctrine Mongo ODM Module 
------------------------------------------
+Install Doctrine Mongo ODM Module
+---------------------------------
 
 Add the DoctrineODMModule to your requirements in `composer.json`:
 
@@ -46,7 +46,7 @@ Add the DoctrineODMModule to your requirements in `composer.json`:
 ```
 Now run `php composer.phar update` to fetch doctrine-odm-module.
 
-Open `doctrine-odm-tutorial/configs/application.config.php` in your editor and add following keys to your `modules` 
+Open `doctrine-odm-tutorial/configs/application.config.php` in your editor and add following keys to your `modules`
 (in this order)
 
 ```php
@@ -56,7 +56,7 @@ Open `doctrine-odm-tutorial/configs/application.config.php` in your editor and a
 
 Copy `vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm.local.php.dist` into your application's
 `config/autoload` directory, rename it to `module.doctrine-mongo-odm.local.php` and make the appropriate changes.
-     
+
 Create the directories `my/project/directory/data/DoctrineMongoODMModule/Proxy` and
 `my/project/directory/data/DoctrineMongoODMModule/Hydrator` and make sure your application has write access to them.
 
@@ -76,22 +76,22 @@ Add this to the configuration array:
 ```php
 return [
     // ...
-    
+
     // to register classes in the "/Document" folder of any module,
     // you can copy&paste this block to a module config without modifying it.
     'doctrine' => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [
                 'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
-                'paths' => [__DIR__ . '/../src/' . __NAMESPACE__ . '/Document']
+                'paths' => [__DIR__ . '/../src/' . __NAMESPACE__ . '/Document'],
             ],
             'odm_default' => [
                 'drivers' => [
-                    __NAMESPACE__ . '\Document' => __NAMESPACE__ . '_driver'
-                ]
-            ]
-        ]
-    ]
+                    __NAMESPACE__ . '\Document' => __NAMESPACE__ . '_driver',
+                ],
+            ],
+        ],
+    ],
 ];
 ```
 
@@ -101,8 +101,6 @@ Create a managed document class
 Create your first Doctrine ODM managed document class in `module/Application/src/Application/Document/Message.php`:
 
 ```php
-<?php
-
 namespace Application\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -147,7 +145,7 @@ class Message
 Test the newly created document
 -------------------------------
 
-To test your Doctrine ODM configuration, replace the indexAction in 
+To test your Doctrine ODM configuration, replace the indexAction in
 `module/Application/src/Application/Controller/IndexController.php`:
 
 ```php

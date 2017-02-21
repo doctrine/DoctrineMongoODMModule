@@ -95,11 +95,11 @@ class Configuration extends AbstractOptions
 
     /**
      * An array of filters. Array should be in the form
-     * array('filterName' => 'BSON\Filter\Class')
+     * ['filterName' => 'BSON\Filter\Class']
      *
      * @var array
      */
-    protected $filters = array();
+    protected $filters = [];
 
     /**
      *
@@ -133,7 +133,7 @@ class Configuration extends AbstractOptions
      *
      * @var array
      */
-    protected $types = array();
+    protected $types = [];
 
     /**
      *
