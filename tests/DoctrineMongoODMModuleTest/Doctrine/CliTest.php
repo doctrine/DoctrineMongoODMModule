@@ -17,8 +17,16 @@
  */
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
+use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\GeneratePersistentCollectionsCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand;
+use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand;
 use DoctrineMongoODMModuleTest\ServiceManagerFactory;
-use PHPUnit_Framework_TestCase;
 
 /**
  * Tests used to verify that command line functionality is active
@@ -27,7 +35,7 @@ use PHPUnit_Framework_TestCase;
  * @link    http://www.doctrine-project.org/
  * @author  Adam Homsi <adam.homsi@gmail.com>
  */
-class CliTest extends PHPUnit_Framework_TestCase
+final class CliTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Symfony\Component\Console\Application
@@ -46,20 +54,15 @@ class CliTest extends PHPUnit_Framework_TestCase
     {
         $serviceManager     = ServiceManagerFactory::getServiceManager();
 
-        /* @var $sharedEventManager \Zend\EventManager\SharedEventManagerInterface */
-        $sharedEventManager = $serviceManager->get('SharedEventManager');
-
         /* @var $application \Zend\Mvc\Application */
         $application        = $serviceManager->get('Application');
         $invocations        = 0;
 
-        $sharedEventManager = $application->getEventManager()->getSharedManager();
-
-        $sharedEventManager->attach(
+        $application->getEventManager()->getSharedManager()->attach(
             'doctrine',
             'loadCli.post',
             function () use (&$invocations) {
-                $invocations += 1;
+                ++$invocations;
             }
         );
 
@@ -83,37 +86,17 @@ class CliTest extends PHPUnit_Framework_TestCase
 
     public function testValidCommands()
     {
-        $this->assertInstanceOf(
-            'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand',
-            $this->cli->get('odm:generate:documents')
+        self::assertInstanceOf(GenerateDocumentsCommand::class, $this->cli->get('odm:generate:documents'));
+        self::assertInstanceOf(GenerateHydratorsCommand::class, $this->cli->get('odm:generate:hydrators'));
+        self::assertInstanceOf(GenerateProxiesCommand::class, $this->cli->get('odm:generate:proxies'));
+        self::assertInstanceOf(GenerateRepositoriesCommand::class, $this->cli->get('odm:generate:repositories'));
+        self::assertInstanceOf(
+            GeneratePersistentCollectionsCommand::class,
+            $this->cli->get('odm:generate:persistent-collections')
         );
-        $this->assertInstanceOf(
-            'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand',
-            $this->cli->get('odm:generate:hydrators')
-        );
-        $this->assertInstanceOf(
-            'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand',
-            $this->cli->get('odm:generate:proxies')
-        );
-        $this->assertInstanceOf(
-            'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand',
-            $this->cli->get('odm:generate:repositories')
-        );
-        $this->assertInstanceOf(
-            'Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand',
-            $this->cli->get('odm:query')
-        );
-        $this->assertInstanceOf(
-            'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand',
-            $this->cli->get('odm:schema:create')
-        );
-        $this->assertInstanceOf(
-            'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand',
-            $this->cli->get('odm:schema:update')
-        );
-        $this->assertInstanceOf(
-            'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand',
-            $this->cli->get('odm:schema:drop')
-        );
+        self::assertInstanceOf(QueryCommand::class, $this->cli->get('odm:query'));
+        self::assertInstanceOf(CreateCommand::class, $this->cli->get('odm:schema:create'));
+        self::assertInstanceOf(UpdateCommand::class, $this->cli->get('odm:schema:update'));
+        self::assertInstanceOf(DropCommand::class, $this->cli->get('odm:schema:drop'));
     }
 }
