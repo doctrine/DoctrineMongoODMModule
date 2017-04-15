@@ -144,7 +144,8 @@ class Module implements
                 'DoctrineMongoODMModule\Logging\EchoLogger'  => 'DoctrineMongoODMModule\Logging\EchoLogger',
             ),
             'aliases' => array(
-                'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
+                'Doctrine\ODM\Mongo\DocumentManager'        => 'doctrine.documentmanager.odm_default',
+                'Zend\Authentication\AuthenticationService' => 'doctrine.authenticationservice.odm_default'
             ),
             'factories' => array(
                 // @codingStandardsIgnoreStart
