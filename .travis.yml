@@ -40,6 +40,19 @@ matrix:
       env:
         - DEPS=latest
         - MONGO_DRIVER=mongodb
+    - php: 7.1
+      env:
+        - DEPS=lowest
+        - MONGO_DRIVER=mongodb
+    - php: 7.1
+      env:
+        - DEPS=locked
+        - CS_CHECK=true
+        - MONGO_DRIVER=mongodb
+    - php: 7.1
+      env:
+        - DEPS=latest
+        - MONGO_DRIVER=mongodb
 
 services: mongodb
 
