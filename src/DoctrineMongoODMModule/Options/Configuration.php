@@ -160,14 +160,14 @@ class Configuration extends AbstractOptions
      *
      * @var int
      */
-    protected $retryConnect = 0;
+    protected $retryConnect = 3;
 
     /**
      * Number of times to attempt a query if an exception is encountered
      *
      * @var int
      */
-    protected $retryQuery = 0;
+    protected $retryQuery = 3;
 
     /**
      * Keys must be the name of the type identifier and value is
