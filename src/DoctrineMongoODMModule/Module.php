@@ -60,7 +60,7 @@ class Module implements
         $events->attach('profiler_init', function (EventInterface $e) use ($manager) {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
-        $events->getSharedManager()->  attach('doctrine', 'loadCli.post', [$this, 'loadCli']);
+        $events->getSharedManager()->attach('doctrine', 'loadCli.post', [$this, 'loadCli']);
     }
 
     /**
@@ -104,7 +104,7 @@ class Module implements
 
         $arguments = new ArgvInput();
         $documentManagerName = $arguments->getParameterOption('--documentmanager');
-        $documentManagerName = !empty($documentManagerName) ? $documentManagerName : 'odm_default';
+        $documentManagerName = ! empty($documentManagerName) ? $documentManagerName : 'odm_default';
 
         $documentManager = $event->getParam('ServiceManager')->get('doctrine.documentmanager.' . $documentManagerName);
         $documentHelper  = new \Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper($documentManager);
