@@ -20,8 +20,8 @@ namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
-use PHPUnit_Framework_TestCase as TestCase;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -34,7 +34,7 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->services = $this->getMock(ServiceLocatorInterface::class);
+        $this->services = $this->createMock(ServiceLocatorInterface::class);
 
         $this->services
             ->expects($this->once())

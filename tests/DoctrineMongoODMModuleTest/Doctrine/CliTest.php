@@ -18,7 +18,7 @@
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModuleTest\ServiceManagerFactory;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests used to verify that command line functionality is active
@@ -27,7 +27,7 @@ use PHPUnit_Framework_TestCase;
  * @link    http://www.doctrine-project.org/
  * @author  Adam Homsi <adam.homsi@gmail.com>
  */
-class CliTest extends PHPUnit_Framework_TestCase
+class CliTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Console\Application

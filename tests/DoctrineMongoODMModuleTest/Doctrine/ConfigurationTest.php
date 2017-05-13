@@ -19,8 +19,9 @@
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModule\Options\Configuration;
+use PHPUnit\Framework\TestCase;
 
-final class ConfigurationTest extends \PHPUnit_Framework_TestCase
+final class ConfigurationTest extends TestCase
 {
     /** @var Configuration */
     private $configuration;
