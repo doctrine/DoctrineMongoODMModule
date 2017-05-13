@@ -38,7 +38,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($documentManager));
 
         $application = new Application();
-        $event = new Event('loadCli.post', $application, array('ServiceManager' => $serviceManager));
+        $event = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
 
         $module = new Module();
         $module->loadCli($event);
@@ -61,7 +61,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($documentManager));
 
         $application = new Application();
-        $event = new Event('loadCli.post', $application, array('ServiceManager' => $serviceManager));
+        $event = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
 
         $_SERVER['argv'][] = '--documentmanager=some_other_name';
 

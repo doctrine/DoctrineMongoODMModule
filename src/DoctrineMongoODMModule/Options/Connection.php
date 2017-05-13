@@ -78,7 +78,7 @@ class Connection extends AbstractOptions
      *
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      *

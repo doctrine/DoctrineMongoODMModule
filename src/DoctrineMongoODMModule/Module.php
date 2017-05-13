@@ -60,7 +60,7 @@ class Module implements
         $events->attach('profiler_init', function (EventInterface $e) use ($manager) {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
-        $events->getSharedManager()->  attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
+        $events->getSharedManager()->  attach('doctrine', 'loadCli.post', [$this, 'loadCli']);
     }
 
     /**
@@ -75,7 +75,7 @@ class Module implements
      */
     public function loadCli(EventInterface $event)
     {
-        $commands = array(
+        $commands = [
             new Command\QueryCommand(),
             new Command\GenerateDocumentsCommand(),
             new Command\GenerateRepositoriesCommand(),
@@ -86,7 +86,7 @@ class Module implements
             new Command\Schema\CreateCommand(),
             new Command\Schema\UpdateCommand(),
             new Command\Schema\DropCommand(),
-        );
+        ];
 
         foreach ($commands as $command) {
             $command->getDefinition()->addOption(
@@ -116,13 +116,13 @@ class Module implements
      */
     public function getAutoloaderConfig()
     {
-        return array(
-            AutoloaderFactory::STANDARD_AUTOLOADER => array(
-                StandardAutoloader::LOAD_NS => array(
+        return [
+            AutoloaderFactory::STANDARD_AUTOLOADER => [
+                StandardAutoloader::LOAD_NS => [
                     __NAMESPACE__ => __DIR__,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -138,16 +138,16 @@ class Module implements
      */
     public function getServiceConfig()
     {
-        return array(
-            'invokables' => array(
+        return [
+            'invokables' => [
                 Logging\DebugStack::class  => Logging\DebugStack::class,
                 Logging\LoggerChain::class => Logging\LoggerChain::class,
                 Logging\EchoLogger::class  => Logging\EchoLogger::class,
-            ),
-            'aliases' => array(
+            ],
+            'aliases' => [
                 DocumentManager::class => 'doctrine.documentmanager.odm_default',
-            ),
-            'factories' => array(
+            ],
+            'factories' => [
                 // @codingStandardsIgnoreStart
                 'doctrine.authenticationadapter.odm_default'  => new CommonService\Authentication\AdapterFactory('odm_default'),
                 'doctrine.authenticationstorage.odm_default'  => new CommonService\Authentication\StorageFactory('odm_default'),
@@ -159,7 +159,7 @@ class Module implements
                 'doctrine.eventmanager.odm_default'    => new CommonService\EventManagerFactory('odm_default'),
                 'doctrine.mongo_logger_collector.odm_default' => new ODMService\MongoLoggerCollectorFactory('odm_default'),
                 // @codingStandardsIgnoreEnd
-            )
-        );
+            ]
+        ];
     }
 }

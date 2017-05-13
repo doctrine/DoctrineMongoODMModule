@@ -1,7 +1,7 @@
 <?php
 
-return array(
-    'modules' => array(
+return [
+    'modules' => [
         'Zend\Cache',
         'Zend\Form',
         'Zend\Hydrator',
@@ -11,13 +11,13 @@ return array(
         'Zend\Validator',
         'DoctrineModule',
         'DoctrineMongoODMModule',
-    ),
-    'module_listener_options' => array(
-        'config_glob_paths'    => array(
+    ],
+    'module_listener_options' => [
+        'config_glob_paths'    => [
             __DIR__ . '/testing.config.php',
-        ),
-        'module_paths' => array(
+        ],
+        'module_paths' => [
             '../vendor',
-        ),
-    ),
-);
+        ],
+    ],
+];

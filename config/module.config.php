@@ -2,23 +2,22 @@
 use Doctrine\Common\Proxy\AbstractProxyFactory;
 use Doctrine\ODM\MongoDB\Configuration;
 
-return array(
-    'doctrine' => array(
-
-        'connection' => array(
-            'odm_default' => array(
+return [
+    'doctrine' => [
+        'connection' => [
+            'odm_default' => [
                 'server'           => 'localhost',
                 'port'             => '27017',
                 'connectionString' => null,
                 'user'             => null,
                 'password'         => null,
                 'dbname'           => null,
-                'options'          => array()
-            ),
-        ),
+                'options'          => []
+            ],
+        ],
 
-        'configuration' => array(
-            'odm_default' => array(
+        'configuration' => [
+            'odm_default' => [
                 'metadata_cache'     => 'array',
 
                 'driver'             => 'odm_default',
@@ -39,74 +38,74 @@ return array(
 
                 'default_db'         => null,
 
-                'filters'            => array(),  // array('filterName' => 'BSON\Filter\Class')
+                'filters'            => [],  // array('filterName' => 'BSON\Filter\Class')
 
                 // custom types
-                'types'              => array()
+                'types'              => []
 
                 //'classMetadataFactoryName' => 'ClassName'
-            )
-        ),
+            ]
+        ],
 
-        'driver' => array(
-            'odm_default' => array(
+        'driver' => [
+            'odm_default' => [
                 'class'   => 'Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain',
-                'drivers' => array()
-            )
-        ),
+                'drivers' => []
+            ]
+        ],
 
-        'documentmanager' => array(
-            'odm_default' => array(
+        'documentmanager' => [
+            'odm_default' => [
                 'connection'    => 'odm_default',
                 'configuration' => 'odm_default',
                 'eventmanager' => 'odm_default'
-            )
-        ),
+            ]
+        ],
 
-        'eventmanager' => array(
-            'odm_default' => array(
-                'subscribers' => array()
-            )
-        ),
+        'eventmanager' => [
+            'odm_default' => [
+                'subscribers' => []
+            ]
+        ],
 
-        'mongo_logger_collector' => array(
-            'odm_default' => array(),
-        ),
+        'mongo_logger_collector' => [
+            'odm_default' => [],
+        ],
 
-        'authentication' => array(
-            'odm_default' => array(
+        'authentication' => [
+            'odm_default' => [
                 'objectManager' => 'doctrine.documentmanager.odm_default',
                 'identityClass' => 'Application\Model\User',
                 'identityProperty' => 'username',
                 'credentialProperty' => 'password'
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
 
-    'hydrators' => array(
-        'factories' => array(
+    'hydrators' => [
+        'factories' => [
             'DoctrineModule\Stdlib\Hydrator\DoctrineObject' => 'DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory'
-        )
-    ),
+        ]
+    ],
 
     // zendframework/zend-developer-tools specific settings
 
-    'view_manager' => array(
-        'template_map' => array(
+    'view_manager' => [
+        'template_map' => [
             'zend-developer-tools/toolbar/doctrine-odm' => __DIR__ . '/../view/zend-developer-tools/toolbar/doctrine-odm.phtml',
-        ),
-    ),
+        ],
+    ],
 
-    'zenddevelopertools' => array(
-        'profiler' => array(
-            'collectors' => array(
+    'zenddevelopertools' => [
+        'profiler' => [
+            'collectors' => [
                 'odm_default' => 'doctrine.mongo_logger_collector.odm_default',
-            ),
-        ),
-        'toolbar' => array(
-            'entries' => array(
+            ],
+        ],
+        'toolbar' => [
+            'entries' => [
                 'odm_default' => 'zend-developer-tools/toolbar/doctrine-odm',
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];
