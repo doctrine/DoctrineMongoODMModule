@@ -11,7 +11,6 @@ env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - ADAPTER_DEPS="alcaeus/mongo-php-adapter"
-    - LATEST_DEPS="zendframework/zend-mvc-console"
     - MONGO_DRIVER=mongo
 
 matrix:
@@ -62,14 +61,13 @@ before_install:
 install:
   - yes '' | pecl -q install -f $MONGO_DRIVER
   - if [[ $MONGO_DRIVER == 'mongodb' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS --ignore-platform-reqs ; fi
-  - if [[ $DEPS == 'latest' ]]; then travis_retry composer require --dev --no-update $COMPOSER_ARGS $LATEST_DEPS ; fi
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - travis_retry composer install $COMPOSER_ARGS
   - composer show
 
 script:
-  - if [[ $DEPS == 'latest' ]]; then cp ./tests/TestConfigurationV3.php ./config/application.config.php ; else cp ./tests/TestConfigurationV2.php ./config/application.config.php ; fi
+  - if [[ $DEPS == 'lowest' ]]; then cp ./tests/TestConfigurationV2.php ./config/application.config.php ; else cp ./tests/TestConfigurationV3.php ./config/application.config.php ; fi
   - ./vendor/bin/doctrine-module odm:schema:create
   - ./vendor/bin/doctrine-module odm:schema:drop
   - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; else ./vendor/bin/phpunit ; fi
