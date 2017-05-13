@@ -19,9 +19,10 @@
 
 namespace DoctrineMongoODMModule;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Tools\Console\Command;
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
-
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputOption;
 use Zend\EventManager\EventInterface;
@@ -59,7 +60,7 @@ class Module implements
         $events->attach('profiler_init', function (EventInterface $e) use ($manager) {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
-        $events->getSharedManager()->  attach('doctrine', 'loadCli.post', array($this, 'loadCli'));
+        $events->getSharedManager()->  attach('doctrine', 'loadCli.post', [$this, 'loadCli']);
     }
 
     /**
@@ -74,18 +75,18 @@ class Module implements
      */
     public function loadCli(EventInterface $event)
     {
-        $commands = array(
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GeneratePersistentCollectionsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\ClearCache\MetadataCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
-        );
+        $commands = [
+            new Command\QueryCommand(),
+            new Command\GenerateDocumentsCommand(),
+            new Command\GenerateRepositoriesCommand(),
+            new Command\GenerateProxiesCommand(),
+            new Command\GenerateHydratorsCommand(),
+            new Command\GeneratePersistentCollectionsCommand(),
+            new Command\ClearCache\MetadataCommand(),
+            new Command\Schema\CreateCommand(),
+            new Command\Schema\UpdateCommand(),
+            new Command\Schema\DropCommand(),
+        ];
 
         foreach ($commands as $command) {
             $command->getDefinition()->addOption(
@@ -115,13 +116,13 @@ class Module implements
      */
     public function getAutoloaderConfig()
     {
-        return array(
-            AutoloaderFactory::STANDARD_AUTOLOADER => array(
-                StandardAutoloader::LOAD_NS => array(
+        return [
+            AutoloaderFactory::STANDARD_AUTOLOADER => [
+                StandardAutoloader::LOAD_NS => [
                     __NAMESPACE__ => __DIR__,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -137,16 +138,16 @@ class Module implements
      */
     public function getServiceConfig()
     {
-        return array(
-            'invokables' => array(
-                'DoctrineMongoODMModule\Logging\DebugStack'  => 'DoctrineMongoODMModule\Logging\DebugStack',
-                'DoctrineMongoODMModule\Logging\LoggerChain' => 'DoctrineMongoODMModule\Logging\LoggerChain',
-                'DoctrineMongoODMModule\Logging\EchoLogger'  => 'DoctrineMongoODMModule\Logging\EchoLogger',
-            ),
-            'aliases' => array(
-                'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
-            ),
-            'factories' => array(
+        return [
+            'invokables' => [
+                Logging\DebugStack::class  => Logging\DebugStack::class,
+                Logging\LoggerChain::class => Logging\LoggerChain::class,
+                Logging\EchoLogger::class  => Logging\EchoLogger::class,
+            ],
+            'aliases' => [
+                DocumentManager::class => 'doctrine.documentmanager.odm_default',
+            ],
+            'factories' => [
                 // @codingStandardsIgnoreStart
                 'doctrine.authenticationadapter.odm_default'  => new CommonService\Authentication\AdapterFactory('odm_default'),
                 'doctrine.authenticationstorage.odm_default'  => new CommonService\Authentication\StorageFactory('odm_default'),
@@ -158,7 +159,7 @@ class Module implements
                 'doctrine.eventmanager.odm_default'    => new CommonService\EventManagerFactory('odm_default'),
                 'doctrine.mongo_logger_collector.odm_default' => new ODMService\MongoLoggerCollectorFactory('odm_default'),
                 // @codingStandardsIgnoreEnd
-            )
-        );
+            ]
+        ];
     }
 }

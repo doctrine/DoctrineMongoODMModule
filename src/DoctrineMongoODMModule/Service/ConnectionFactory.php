@@ -19,6 +19,7 @@
 namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\MongoDB\Connection;
+use DoctrineMongoODMModule\Options;
 use DoctrineModule\Service\AbstractFactory;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -40,7 +41,7 @@ class ConnectionFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var $options \DoctrineMongoODMModule\Options\Connection */
+        /** @var $options Options\Connection */
         $options = $this->getOptions($container, 'connection');
 
         $connectionString = $options->getConnectionString();
@@ -101,6 +102,6 @@ class ConnectionFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'DoctrineMongoODMModule\Options\Connection';
+        return Options\Connection::class;
     }
 }

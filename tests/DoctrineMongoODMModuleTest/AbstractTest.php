@@ -18,10 +18,10 @@
  */
 namespace DoctrineMongoODMModuleTest;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Mvc\Application;
 
-abstract class AbstractTest extends PHPUnit_Framework_TestCase
+abstract class AbstractTest extends TestCase
 {
     protected $application;
     protected $serviceManager;
@@ -39,10 +39,13 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $connection = $this->getDocumentManager()->getConnection();
-        $collections = $connection->selectDatabase('doctrineMongoODMModuleTest')->listCollections();
-        foreach ($collections as $collection) {
-            $collection->remove(array(), array('w' => 1));
+        try {
+            $connection = $this->getDocumentManager()->getConnection();
+            $collections = $connection->selectDatabase('doctrineMongoODMModuleTest')->listCollections();
+            foreach ($collections as $collection) {
+                $collection->remove([], ['w' => 1]);
+            }
+        } catch (\MongoException $e) {
         }
     }
 }
