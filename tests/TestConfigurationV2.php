@@ -2,6 +2,7 @@
 
 return [
     'modules' => [
+        'Zend\Router',
         'DoctrineModule',
         'DoctrineMongoODMModule',
     ],

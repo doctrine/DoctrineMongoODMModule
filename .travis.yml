@@ -65,6 +65,7 @@ install:
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - travis_retry composer install $COMPOSER_ARGS
   - composer show
+  - if ! nc -z localhost 27017; then sudo service mongod start; fi
 
 script:
   - if [[ $DEPS == 'lowest' ]]; then cp ./tests/TestConfigurationV2.php ./config/application.config.php ; else cp ./tests/TestConfigurationV3.php ./config/application.config.php ; fi
