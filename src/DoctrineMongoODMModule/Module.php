@@ -19,9 +19,10 @@
 
 namespace DoctrineMongoODMModule;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Tools\Console\Command;
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
-
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputOption;
 use Zend\EventManager\EventInterface;
@@ -75,16 +76,16 @@ class Module implements
     public function loadCli(EventInterface $event)
     {
         $commands = array(
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateRepositoriesCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\GeneratePersistentCollectionsCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\ClearCache\MetadataCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand(),
-            new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
+            new Command\QueryCommand(),
+            new Command\GenerateDocumentsCommand(),
+            new Command\GenerateRepositoriesCommand(),
+            new Command\GenerateProxiesCommand(),
+            new Command\GenerateHydratorsCommand(),
+            new Command\GeneratePersistentCollectionsCommand(),
+            new Command\ClearCache\MetadataCommand(),
+            new Command\Schema\CreateCommand(),
+            new Command\Schema\UpdateCommand(),
+            new Command\Schema\DropCommand(),
         );
 
         foreach ($commands as $command) {
@@ -139,12 +140,12 @@ class Module implements
     {
         return array(
             'invokables' => array(
-                'DoctrineMongoODMModule\Logging\DebugStack'  => 'DoctrineMongoODMModule\Logging\DebugStack',
-                'DoctrineMongoODMModule\Logging\LoggerChain' => 'DoctrineMongoODMModule\Logging\LoggerChain',
-                'DoctrineMongoODMModule\Logging\EchoLogger'  => 'DoctrineMongoODMModule\Logging\EchoLogger',
+                Logging\DebugStack::class  => Logging\DebugStack::class,
+                Logging\LoggerChain::class => Logging\LoggerChain::class,
+                Logging\EchoLogger::class  => Logging\EchoLogger::class,
             ),
             'aliases' => array(
-                'Doctrine\ODM\Mongo\DocumentManager' => 'doctrine.documentmanager.odm_default',
+                DocumentManager::class => 'doctrine.documentmanager.odm_default',
             ),
             'factories' => array(
                 // @codingStandardsIgnoreStart
