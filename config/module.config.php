@@ -1,6 +1,7 @@
 <?php
 use Doctrine\Common\Proxy\AbstractProxyFactory;
 use Doctrine\ODM\MongoDB\Configuration;
+use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
 
 return [
     'doctrine' => [
@@ -84,7 +85,7 @@ return [
 
     'hydrators' => [
         'factories' => [
-            'DoctrineModule\Stdlib\Hydrator\DoctrineObject' => 'DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory'
+            'DoctrineModule\Stdlib\Hydrator\DoctrineObject' => DoctrineObjectHydratorFactory::class
         ]
     ],
 

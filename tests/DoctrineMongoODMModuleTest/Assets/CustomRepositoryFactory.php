@@ -37,6 +37,5 @@ class CustomRepositoryFactory implements RepositoryFactory
      */
     public function getRepository(DocumentManager $documentManager, $documentName)
     {
-
     }
 }
