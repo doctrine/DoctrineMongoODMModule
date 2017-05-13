@@ -20,14 +20,12 @@
 namespace DoctrineMongoODMModule\Service;
 
 use DoctrineModule\Service\AbstractFactory;
-
-use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-
 use DoctrineMongoODMModule\Collector\MongoLoggerCollector;
-
 use DoctrineMongoODMModule\Logging\DebugStack;
 use DoctrineMongoODMModule\Logging\LoggerChain;
+use DoctrineMongoODMModule\Options;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Mongo Logger Configuration ServiceManager factory
@@ -57,7 +55,7 @@ class MongoLoggerCollectorFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var $options \DoctrineMongoODMModule\Options\MongoLoggerCollector */
+        /** @var $options Options\MongoLoggerCollector */
         $options = $this->getOptions($container, 'mongo_logger_collector');
 
         if ($options->getMongoLogger()) {
@@ -92,6 +90,6 @@ class MongoLoggerCollectorFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'DoctrineMongoODMModule\Options\MongoLoggerCollector';
+        return Options\MongoLoggerCollector::class;
     }
 }

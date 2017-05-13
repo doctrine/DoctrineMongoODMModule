@@ -19,6 +19,7 @@
 namespace DoctrineMongoODMModule\Service;
 
 use DoctrineModule\Service\AbstractFactory;
+use DoctrineMongoODMModule\Options;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\Types\Type;
 use Interop\Container\ContainerInterface;
@@ -41,7 +42,7 @@ class ConfigurationFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var $options \DoctrineMongoODMModule\Options\Configuration */
+        /** @var $options Options\Configuration */
         $options = $this->getOptions($container, 'configuration');
 
         $config = new Configuration;
@@ -122,6 +123,6 @@ class ConfigurationFactory extends AbstractFactory
 
     public function getOptionsClass()
     {
-        return 'DoctrineMongoODMModule\Options\Configuration';
+        return Options\Configuration::class;
     }
 }

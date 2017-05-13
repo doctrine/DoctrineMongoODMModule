@@ -20,6 +20,7 @@ namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use DoctrineModule\Service\AbstractFactory;
+use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -59,6 +60,6 @@ class DocumentManagerFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'DoctrineMongoODMModule\Options\DocumentManager';
+        return Options\DocumentManager::class;
     }
 }
