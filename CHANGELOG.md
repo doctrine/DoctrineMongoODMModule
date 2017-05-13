@@ -1,9 +1,19 @@
 # Changelog
 
+## Version 1.0.0
+
+- [#159](https://github.com/docrine/DoctrineMongoODMModule/pull/159) Add support for hydrator and proxy generation strategies
+- [#178](https://github.com/docrine/DoctrineMongoODMModule/pull/178) Make code examples PHP 7 compatible
+- [#177](https://github.com/docrine/DoctrineMongoODMModule/pull/177) Injecting event manager to allow listeners to trigger correctly
+- [#176](https://github.com/docrine/DoctrineMongoODMModule/pull/176) Allow configuration of repository factory
+- [#181](https://github.com/docrine/DoctrineMongoODMModule/pull/181) Custom collection support
+- [#182](https://github.com/docrine/DoctrineMongoODMModule/pull/182) Test PHP 7.1 on travis
+- [#184](https://github.com/docrine/DoctrineMongoODMModule/pull/184) Code cleanup
+
 ## Version 0.11.0
 
 - [#161](https://github.com/docrine/DoctrineMongoODMModule/pull/161) Add PHP 7 to the build matrix
-- [#168](https://github.com/docrine/DoctrineMongoODMModule/pull/168)ZF3 compatibility
+- [#168](https://github.com/docrine/DoctrineMongoODMModule/pull/168) ZF3 compatibility
 - [#172](https://github.com/docrine/DoctrineMongoODMModule/pull/172) Require stable version of DoctrineModule 1.2.0 instead of dev-master
 
 ## Version 0.10.0
