@@ -2,3 +2,4 @@ vendor/
 .idea/
 phpunit.xml
 phpcs.xml
+docker/data

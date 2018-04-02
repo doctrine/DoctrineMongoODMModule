@@ -1,0 +1,17 @@
+FROM php:7.1-fpm
+RUN apt-get update
+RUN apt-get --yes install vim
+RUN apt-get --yes install git
+RUN apt-get --yes install zip
+RUN apt-get --yes install mongodb-clients
+RUN git clone https://github.com/xdebug/xdebug /usr/src/php/ext/xdebug
+RUN docker-php-ext-install xdebug 
+RUN apt-get update && apt-get install -y zlib1g-dev libicu-dev g++
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install intl
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php
+RUN php -r "unlink('composer-setup.php');"
+RUN mv composer.phar /bin/composer
