@@ -205,8 +205,8 @@ class Configuration extends AbstractOptions
     {
         if (is_bool($generateProxies)) {
             $generateProxies = $generateProxies ?
-            AbstractProxyFactory::AUTOGENERATE_ALWAYS :
-            AbstractProxyFactory::AUTOGENERATE_NEVER;
+                AbstractProxyFactory::AUTOGENERATE_ALWAYS :
+                AbstractProxyFactory::AUTOGENERATE_NEVER;
         }
 
         $this->generateProxies = $generateProxies;

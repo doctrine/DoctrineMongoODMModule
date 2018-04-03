@@ -94,7 +94,7 @@ return [
     'view_manager' => [
         'template_map' => [
             'zend-developer-tools/toolbar/doctrine-odm'
-        => __DIR__ . '/../view/zend-developer-tools/toolbar/doctrine-odm.phtml',
+                => __DIR__ . '/../view/zend-developer-tools/toolbar/doctrine-odm.phtml',
         ],
     ],
 
