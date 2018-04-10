@@ -60,7 +60,7 @@ before_install:
 
 install:
   - yes '' | pecl -q install -f $MONGO_DRIVER
-  - if [[ $MONGO_DRIVER == 'mongodb' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS --ignore-platform-reqs ; fi
+  - if [[ $MONGO_DRIVER == 'mongodb' ]]; then travis_retry composer config "platform.ext-mongo" "1.6.16" && composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS ; fi
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - travis_retry composer install $COMPOSER_ARGS
