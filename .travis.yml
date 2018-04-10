@@ -72,4 +72,4 @@ script:
   - ./vendor/bin/doctrine-module odm:schema:create
   - ./vendor/bin/doctrine-module odm:schema:drop
   - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; else ./vendor/bin/phpunit ; fi
-  - if [[ $CHECK_CS == 'true' ]]; then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
+  - if [[ $CS_CHECK == 'true' ]]; then ./vendor/bin/phpcs ; fi
