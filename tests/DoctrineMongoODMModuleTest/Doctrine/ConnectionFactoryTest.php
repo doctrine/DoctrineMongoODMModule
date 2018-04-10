@@ -25,6 +25,24 @@ class ConnectionFactoryTest extends AbstractTest
         $this->connectionFactory = new ConnectionFactory('odm_default');
     }
 
+    public function testUsernameAndPasswordShouldBePassedAsOptions()
+    {
+        $connectionString = 'mongodb://localhost:27017';
+        $connectionConfig = [
+            'odm_default' => [
+                'server'           => 'localhost',
+                'port'             => '27017',
+                'user'             => 'username',
+                'password'         => 'p@ssw@rd-with-@-character',
+            ]
+        ];
+        $this->configuration['doctrine']['connection'] = $connectionConfig;
+        $this->serviceManager->setService('Configuration', $this->configuration);
+
+        $connection = $this->connectionFactory->createService($this->serviceManager);
+        $this->assertEquals($connectionString, $connection->getServer());
+    }
+
     public function testConnectionStringOverwritesOtherConnectionSettings()
     {
         $connectionString = 'mongodb://localhost:27017';

@@ -31,17 +31,9 @@ class ConnectionFactory extends AbstractFactory
         $dbName = null;
 
         if (empty($connectionString)) {
-            $connectionString = 'mongodb://';
+            $connectionString = 'mongodb://' . $options->getServer() . ':' . $options->getPort();
 
-            $user     = $options->getUser();
-            $password = $options->getPassword();
-            $dbName   = $options->getDbName();
-
-            if ($user && $password) {
-                $connectionString .= $user . ':' . $password . '@';
-            }
-
-            $connectionString .= $options->getServer() . ':' . $options->getPort();
+            $dbName = $options->getDbName();
 
             if ($dbName) {
                 $connectionString .= '/' . $dbName;
