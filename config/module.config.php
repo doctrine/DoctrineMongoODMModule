@@ -7,8 +7,8 @@ return [
     'doctrine' => [
         'connection' => [
             'odm_default' => [
-                'server'           => 'localhost',
-                'port'             => '27017',
+                'server'           => getenv('MONGO_HOST') ?? 'localhost',
+                'port'             => getenv('MONGO_PORT') ?? '27017',
                 'connectionString' => null,
                 'user'             => null,
                 'password'         => null,
