@@ -28,7 +28,7 @@ class ConnectionFactoryTest extends AbstractTest
     public function testConnectionStringOverwritesOtherConnectionSettings()
     {
         $mongoHost = getenv('MONGO_HOST') ?: 'localhost';
-        $mongoPort = getenv('MONGO_PORT') ?? '27017';
+        $mongoPort = getenv('MONGO_PORT') ?: '27017';
         $connectionString = 'mongodb://' . $mongoHost . ':' . $mongoPort;
         $connectionConfig = [
             'odm_default' => [
