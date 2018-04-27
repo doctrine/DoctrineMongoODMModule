@@ -8,34 +8,26 @@ env:
 
 matrix:
   include:
-    - php: 5.6
+    - php: 7.1
       env:
         - DEPS=lowest
-    - php: 5.6
+    - php: 7.1
       env:
         - DEPS=locked
+        - CS_CHECK=true
         - TEST_COVERAGE=true
-    - php: 5.6
+    - php: 7.1
       env:
         - DEPS=latest
-    - php: 7
+    - php: 7.2
       env:
         - DEPS=lowest
-    - php: 7
+    - php: 7.2
       env:
         - DEPS=locked
         - CS_CHECK=true
-    - php: 7
-      env:
-        - DEPS=latest
-    - php: 7.1
-      env:
-        - DEPS=lowest
-    - php: 7.1
-      env:
-        - DEPS=locked
-        - CS_CHECK=true
-    - php: 7.1
+        - TEST_COVERAGE=true
+    - php: 7.2
       env:
         - DEPS=latest
 
@@ -53,7 +45,7 @@ install:
   - if [[ $LEGACY_DEPS != '' ]]; then composer update $COMPOSER_ARGS --with-dependencies $LEGACY_DEPS ; fi
   - if [[ $DEPS == 'latest' ]]; then composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
-  - if [[ $TRAVIS_PHP_VERSION != "5.6" ]] ; then composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS ; fi
+  - composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS
   - stty cols 120 && composer show
 
 script:
