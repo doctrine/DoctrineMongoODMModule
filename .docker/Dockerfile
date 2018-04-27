@@ -16,7 +16,7 @@ RUN set -o pipefail && curl -sS https://getcomposer.org/installer | php -- --ins
 RUN if [ ${PHP_VERSION:0:3} == "5.6" ] ; then \
         pecl install mongo && docker-php-ext-enable mongo ; \
     else \
-        pecl install mongodb && docker-php-ext-enable mongodb ; \
+        /bin/bash -lc "pecl install mongodb" && docker-php-ext-enable mongodb ; \
     fi
 RUN if [ ${XDEBUG} == "1" ] ; then pecl install xdebug && docker-php-ext-enable xdebug ; fi
 RUN composer config --global "platform.ext-mongo" "1.999" ;
