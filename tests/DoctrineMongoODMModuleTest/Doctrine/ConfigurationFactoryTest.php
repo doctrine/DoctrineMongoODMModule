@@ -57,7 +57,7 @@ final class ConfigurationFactoryTest extends AbstractTest
             $persistentCollectionGenerator = $this->getMockForAbstractClass(PersistentCollectionGenerator::class)
         );
         $serviceLocator->setService(
-            'Configuration',
+            'config',
             [
                 'doctrine' => [
                     'configuration' => [

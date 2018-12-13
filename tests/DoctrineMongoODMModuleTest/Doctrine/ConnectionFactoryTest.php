@@ -21,7 +21,7 @@ class ConnectionFactoryTest extends AbstractTest
     {
         parent::setup();
         $this->serviceManager->setAllowOverride(true);
-        $this->configuration     = $this->serviceManager->get('Configuration');
+        $this->configuration     = $this->serviceManager->get('config');
         $this->connectionFactory = new ConnectionFactory('odm_default');
     }
 
@@ -39,7 +39,7 @@ class ConnectionFactoryTest extends AbstractTest
         ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
-        $this->serviceManager->setService('Configuration', $this->configuration);
+        $this->serviceManager->setService('config', $this->configuration);
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
@@ -57,7 +57,7 @@ class ConnectionFactoryTest extends AbstractTest
         ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
-        $this->serviceManager->setService('Configuration', $this->configuration);
+        $this->serviceManager->setService('config', $this->configuration);
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
@@ -74,7 +74,7 @@ class ConnectionFactoryTest extends AbstractTest
         ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
-        $this->serviceManager->setService('Configuration', $this->configuration);
+        $this->serviceManager->setService('config', $this->configuration);
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
@@ -91,7 +91,7 @@ class ConnectionFactoryTest extends AbstractTest
         ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
-        $this->serviceManager->setService('Configuration', $this->configuration);
+        $this->serviceManager->setService('config', $this->configuration);
 
         $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
         $configuration->setDefaultDB(null);
@@ -110,7 +110,7 @@ class ConnectionFactoryTest extends AbstractTest
         ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
-        $this->serviceManager->setService('Configuration', $this->configuration);
+        $this->serviceManager->setService('config', $this->configuration);
 
         $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
         $configuration->setDefaultDB($defaultDB);
@@ -130,7 +130,7 @@ class ConnectionFactoryTest extends AbstractTest
         ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
-        $this->serviceManager->setService('Configuration', $this->configuration);
+        $this->serviceManager->setService('config', $this->configuration);
 
         $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
         $configuration->setDefaultDB(null);
@@ -150,7 +150,7 @@ class ConnectionFactoryTest extends AbstractTest
         ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
-        $this->serviceManager->setService('Configuration', $this->configuration);
+        $this->serviceManager->setService('config', $this->configuration);
 
         $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
         $configuration->setDefaultDB(null);
@@ -169,7 +169,7 @@ class ConnectionFactoryTest extends AbstractTest
         ];
 
         $this->configuration['doctrine']['eventmanager'] = $eventManagerConfig;
-        $this->serviceManager->setService('Configuration', $this->configuration);
+        $this->serviceManager->setService('config', $this->configuration);
 
         $eventManagerFactory = new EventManagerFactory('odm_default');
         $eventManager = $eventManagerFactory->createService($this->serviceManager);

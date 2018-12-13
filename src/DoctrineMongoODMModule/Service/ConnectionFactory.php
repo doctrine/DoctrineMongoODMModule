@@ -3,7 +3,6 @@ namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\MongoDB\Connection;
 use DoctrineMongoODMModule\Options;
-use DoctrineModule\Service\AbstractFactory;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 

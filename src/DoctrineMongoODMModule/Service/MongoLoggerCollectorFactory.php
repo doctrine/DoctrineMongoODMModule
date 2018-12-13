@@ -2,7 +2,6 @@
 
 namespace DoctrineMongoODMModule\Service;
 
-use DoctrineModule\Service\AbstractFactory;
 use DoctrineMongoODMModule\Collector\MongoLoggerCollector;
 use DoctrineMongoODMModule\Logging\DebugStack;
 use DoctrineMongoODMModule\Logging\LoggerChain;

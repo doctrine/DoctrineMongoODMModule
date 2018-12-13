@@ -2,7 +2,6 @@
 namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use DoctrineModule\Service\AbstractFactory;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
