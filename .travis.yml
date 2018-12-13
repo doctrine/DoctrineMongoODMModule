@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 cache:
@@ -49,6 +47,30 @@ matrix:
         - CS_CHECK=true
         - MONGO_DRIVER=mongodb
     - php: 7.1
+      env:
+        - DEPS=latest
+        - MONGO_DRIVER=mongodb
+    - php: 7.2
+      env:
+        - DEPS=lowest
+        - MONGO_DRIVER=mongodb
+    - php: 7.2
+      env:
+        - DEPS=locked
+        - MONGO_DRIVER=mongodb
+    - php: 7.2
+      env:
+        - DEPS=latest
+        - MONGO_DRIVER=mongodb
+    - php: 7.3
+      env:
+        - DEPS=lowest
+        - MONGO_DRIVER=mongodb
+    - php: 7.3
+      env:
+        - DEPS=locked
+        - MONGO_DRIVER=mongodb
+    - php: 7.3
       env:
         - DEPS=latest
         - MONGO_DRIVER=mongodb
