@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 1.1.0
+
+- [#206](https://github.com/docrine/DoctrineMongoODMModule/pull/206) Drop PHP 5.6 and 7.0 support
+- [#206](https://github.com/docrine/DoctrineMongoODMModule/pull/206) Add PHP 7.3 support
+- [#206](https://github.com/docrine/DoctrineMongoODMModule/pull/206) Add DoctrineModule ^2.1 support, while retaining compatibility with previous version
+
 ## Version 1.0.0
 
 - [#159](https://github.com/docrine/DoctrineMongoODMModule/pull/159) Add support for hydrator and proxy generation strategies
