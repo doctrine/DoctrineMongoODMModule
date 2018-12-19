@@ -9,71 +9,38 @@ env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - ADAPTER_DEPS="alcaeus/mongo-php-adapter"
-    - MONGO_DRIVER=mongo
 
 matrix:
   fast_finish: true
   include:
-    - php: 5.6
-      env:
-        - DEPS=lowest
-    - php: 5.6
-      env:
-        - DEPS=locked
-        - TEST_COVERAGE=true
-    - php: 5.6
-      env:
-        - DEPS=latest
-    - php: 7
-      env:
-        - DEPS=lowest
-        - MONGO_DRIVER=mongodb
-    - php: 7
-      env:
-        - DEPS=locked
-        - CS_CHECK=true
-        - MONGO_DRIVER=mongodb
-    - php: 7
-      env:
-        - DEPS=latest
-        - MONGO_DRIVER=mongodb
     - php: 7.1
       env:
         - DEPS=lowest
-        - MONGO_DRIVER=mongodb
     - php: 7.1
       env:
         - DEPS=locked
         - CS_CHECK=true
-        - MONGO_DRIVER=mongodb
     - php: 7.1
       env:
         - DEPS=latest
-        - MONGO_DRIVER=mongodb
     - php: 7.2
       env:
         - DEPS=lowest
-        - MONGO_DRIVER=mongodb
     - php: 7.2
       env:
         - DEPS=locked
-        - MONGO_DRIVER=mongodb
     - php: 7.2
       env:
         - DEPS=latest
-        - MONGO_DRIVER=mongodb
     - php: 7.3
       env:
         - DEPS=lowest
-        - MONGO_DRIVER=mongodb
     - php: 7.3
       env:
         - DEPS=locked
-        - MONGO_DRIVER=mongodb
     - php: 7.3
       env:
         - DEPS=latest
-        - MONGO_DRIVER=mongodb
 
 services: mongodb
 
@@ -81,8 +48,8 @@ before_install:
   - travis_retry composer self-update
 
 install:
-  - yes '' | pecl -q install -f $MONGO_DRIVER
-  - if [[ $MONGO_DRIVER == 'mongodb' ]]; then travis_retry composer config "platform.ext-mongo" "1.6.16" && composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS ; fi
+  - yes '' | pecl -q install -f mongodb
+  - travis_retry composer config "platform.ext-mongo" "1.6.16" && composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - travis_retry composer install $COMPOSER_ARGS
