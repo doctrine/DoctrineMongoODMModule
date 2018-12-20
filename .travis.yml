@@ -9,6 +9,7 @@ env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - ADAPTER_DEPS="alcaeus/mongo-php-adapter"
+    - LOWEST_DEPS_REMOVE="zendframework/zend-mvc-console"
 
 matrix:
   fast_finish: true
@@ -46,6 +47,7 @@ services: mongodb
 
 before_install:
   - travis_retry composer self-update
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer remove $COMPOSER_ARGS --no-update --dev $LOWEST_DEPS_REMOVE ; fi
 
 install:
   - yes '' | pecl -q install -f mongodb
