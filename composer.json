@@ -32,7 +32,7 @@
         "php": "^7.1",
         "doctrine/doctrine-module": "^1.2 || 2.1.7",
         "doctrine/mongodb-odm": "^1.1",
-        "zendframework/zend-mvc": "^2.7.10 || ^3.0.1",
+        "zendframework/zend-mvc": "^2.7.15 || ^3.0.1",
         "zendframework/zend-servicemanager": "^2.7.6 || ^3.1",
         "zendframework/zend-stdlib": "^3.2.1",
         "zendframework/zend-hydrator": "^2.2"
