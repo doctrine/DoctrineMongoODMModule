@@ -1,7 +1,6 @@
 <?php
 namespace DoctrineMongoODMModule\Service;
 
-use DoctrineModule\Service\AbstractFactory;
 use DoctrineMongoODMModule\Options;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\Types\Type;
