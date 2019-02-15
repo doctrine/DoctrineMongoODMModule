@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6064bef894411514fa36ad2db2e15d29",
+    "content-hash": "8521b6690a5a725ccabf68edae633439",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -330,16 +330,16 @@
         },
         {
             "name": "doctrine/doctrine-module",
-            "version": "2.1.7",
+            "version": "2.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineModule.git",
-                "reference": "66addcc57bb30c5ba44542428537048f8b6b5b71"
+                "reference": "c8ce08e9fa67de928bad306b3fe798fb6683bfea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/66addcc57bb30c5ba44542428537048f8b6b5b71",
-                "reference": "66addcc57bb30c5ba44542428537048f8b6b5b71",
+                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/c8ce08e9fa67de928bad306b3fe798fb6683bfea",
+                "reference": "c8ce08e9fa67de928bad306b3fe798fb6683bfea",
                 "shasum": ""
             },
             "require": {
@@ -358,7 +358,7 @@
                 "zendframework/zend-validator": "^2.10"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.5 || ^7.0",
+                "phpunit/phpunit": "^7.5.2",
                 "predis/predis": "^1.1",
                 "squizlabs/php_codesniffer": "^2.7",
                 "zendframework/zend-i18n": "^2.7",
@@ -380,6 +380,7 @@
             "type": "library",
             "extra": {
                 "zf": {
+                    "config-provider": "DoctrineModule\\ConfigProvider",
                     "module": "DoctrineModule"
                 },
                 "branch-alias": {
@@ -426,7 +427,7 @@
                 "module",
                 "zf"
             ],
-            "time": "2018-11-02T01:56:49+00:00"
+            "time": "2019-01-26T07:36:48+00:00"
         },
         {
             "name": "doctrine/event-manager",
