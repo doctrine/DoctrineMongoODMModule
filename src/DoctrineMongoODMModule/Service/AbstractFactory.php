@@ -2,8 +2,8 @@
 
 namespace DoctrineMongoODMModule\Service;
 
-use Interop\Container\ContainerInterface;
 use DoctrineModule\Service\AbstractFactory as DoctrineModuleAbstractFactory;
+use Interop\Container\ContainerInterface;
 use RuntimeException;
 
 abstract class AbstractFactory extends DoctrineModuleAbstractFactory

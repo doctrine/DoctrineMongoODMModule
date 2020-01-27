@@ -31,7 +31,7 @@ class PaginationAdapterTest extends AbstractTest
         return new DoctrinePaginator($cursor);
     }
 
-    public function setup()
+    protected function setUp() : void
     {
         parent::setup();
 

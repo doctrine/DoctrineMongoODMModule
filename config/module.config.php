@@ -85,19 +85,20 @@ return [
 
     'hydrators' => [
         'factories' => [
-            'DoctrineModule\Stdlib\Hydrator\DoctrineObject' => DoctrineObjectHydratorFactory::class
+            'Doctrine\Laminas\Hydrator\DoctrineObject' => DoctrineObjectHydratorFactory::class
         ]
     ],
 
-    // zendframework/zend-developer-tools specific settings
+    // laminas/laminas-developer-tools specific settings
 
     'view_manager' => [
         'template_map' => [
-            'zend-developer-tools/toolbar/doctrine-odm' => __DIR__ . '/../view/zend-developer-tools/toolbar/doctrine-odm.phtml',
+            'laminas-developer-tools/toolbar/doctrine-odm'
+                => __DIR__ . '/../view/laminas-developer-tools/toolbar/doctrine-odm.phtml',
         ],
     ],
 
-    'zenddevelopertools' => [
+    'laminas-developer-tools' => [
         'profiler' => [
             'collectors' => [
                 'odm_default' => 'doctrine.mongo_logger_collector.odm_default',
@@ -105,7 +106,7 @@ return [
         ],
         'toolbar' => [
             'entries' => [
-                'odm_default' => 'zend-developer-tools/toolbar/doctrine-odm',
+                'odm_default' => 'laminas-developer-tools/toolbar/doctrine-odm',
             ],
         ],
     ],

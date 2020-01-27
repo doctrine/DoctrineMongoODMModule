@@ -2,9 +2,9 @@
 
 namespace DoctrineMongoODMModule\Paginator\Adapter;
 
-use Zend\Paginator\Adapter\AdapterInterface;
 use Doctrine\MongoDB\EagerCursor;
 use Doctrine\ODM\MongoDB\Cursor;
+use Laminas\Paginator\Adapter\AdapterInterface;
 
 /**
  * @license MIT

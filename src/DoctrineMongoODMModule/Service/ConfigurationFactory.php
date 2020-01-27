@@ -1,11 +1,11 @@
 <?php
 namespace DoctrineMongoODMModule\Service;
 
-use DoctrineMongoODMModule\Options;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\Types\Type;
+use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory to create MongoDB configuration object.

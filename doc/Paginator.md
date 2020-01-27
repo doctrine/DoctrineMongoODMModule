@@ -5,7 +5,7 @@ Pagination Adapter
 
 ```php
 
-use Zend\Paginator\Paginator;
+use Laminas\Paginator\Paginator;
 use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 
 // Create a mongo cursor

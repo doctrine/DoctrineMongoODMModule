@@ -4,7 +4,7 @@ namespace DoctrineMongoODMModule\Service;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory creates a mongo document manager

@@ -9,27 +9,17 @@ env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - ADAPTER_DEPS="alcaeus/mongo-php-adapter"
-    - LOWEST_DEPS_REMOVE="zendframework/zend-mvc-console"
 
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
+    - php: 7.2
       env:
         - DEPS=lowest
-    - php: 7.1
+    - php: 7.2
       env:
         - DEPS=locked
         - CS_CHECK=true
-    - php: 7.1
-      env:
-        - DEPS=latest
-    - php: 7.2
-      env:
-        - DEPS=lowest
-    - php: 7.2
-      env:
-        - DEPS=locked
     - php: 7.2
       env:
         - DEPS=latest
@@ -40,14 +30,19 @@ matrix:
       env:
         - DEPS=locked
     - php: 7.3
+      env:
+        - DEPS=latest
+    - php: 7.4
+      env:
+        - DEPS=lowest
+    - php: 7.4
+      env:
+        - DEPS=locked
+    - php: 7.4
       env:
         - DEPS=latest
 
 services: mongodb
-
-before_install:
-  - travis_retry composer self-update
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer remove $COMPOSER_ARGS --no-update --dev $LOWEST_DEPS_REMOVE ; fi
 
 install:
   - yes '' | pecl -q install -f mongodb
@@ -59,7 +54,7 @@ install:
   - if ! nc -z localhost 27017; then sudo service mongod start; fi
 
 script:
-  - if [[ $DEPS == 'lowest' ]]; then cp ./tests/TestConfigurationV2.php ./config/application.config.php ; else cp ./tests/TestConfigurationV3.php ./config/application.config.php ; fi
+  - cp ./tests/TestConfiguration.php ./config/application.config.php
   - ./vendor/bin/doctrine-module odm:schema:create
   - ./vendor/bin/doctrine-module odm:schema:drop
   - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; else ./vendor/bin/phpunit ; fi
