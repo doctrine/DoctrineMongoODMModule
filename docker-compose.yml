@@ -11,7 +11,7 @@ services:
     volumes:
       - ./:/docker
       - ./docker/php.ini:/usr/local/etc/php/php.ini
-    links:
+    depends_on:
       - mongo
 
   mongo:
