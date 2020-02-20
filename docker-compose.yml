@@ -11,6 +11,8 @@ services:
     volumes:
       - ./:/docker
       - ./docker/php.ini:/usr/local/etc/php/php.ini
+    links:
+      - mongo
 
   mongo:
     image: mongo:latest
