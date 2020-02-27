@@ -81,3 +81,27 @@ Either `server` or `connectionString` option has to be set.
 | password    | null        | If set, the client will try to authenticate with given username and password
 | dbname      | null        | If dbname is not specified, "admin" will be used for authentication. Also, specifiing dbname affecs the defaultDB configuration option, if that's not specified explicitly.
 | options     | array()     | Array with connection options. More detailed description in http://www.php.net/manual/en/mongoclient.construct.php
+
+
+Development
+-----------
+
+Unit tests rely on a mongo installation so all unit tests are ran through 
+docker.  To run all unit tests execute:
+
+```
+docker-compose run --rm php composer test
+```
+
+Running unit tests with code coverage requires you build the docker
+composer with XDEBUG=1
+
+```
+docker-compose build --build-arg XDEBUG=1
+```
+
+then run the unit tests as 
+
+```
+docker-compose run --rm php composer test-coverage
+```

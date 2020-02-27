@@ -1,3 +1,4 @@
+sudo: false
 language: php
 
 cache:
@@ -42,25 +43,46 @@ matrix:
     - php: 7.3
       env:
         - DEPS=latest
-
-services: mongodb
+    - php: 7.4
+      env:
+        - DEPS=lowest
+    - php: 7.4
+      env:
+        - DEPS=locked
+    - php: 7.4
+      env:
+        - DEPS=latest
 
 before_install:
   - travis_retry composer self-update
+  - shopt -s expand_aliases
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer remove $COMPOSER_ARGS --no-update --dev $LOWEST_DEPS_REMOVE ; fi
+  - alias composer="travis_retry docker-compose run --rm php composer"
+  - alias php="travis_retry docker-compose run -e TRAVIS -e TRAVIS_JOB_ID --rm php php"
+  - docker-compose build --build-arg PHP_VERSION=${TRAVIS_PHP_VERSION} --build-arg XDEBUG=${TEST_COVERAGE:+1} --no-cache php
+  - composer --version
+  - php -v
+  - php -m
 
 install:
-  - yes '' | pecl -q install -f mongodb
+  - composer install $COMPOSER_ARGS --ignore-platform-reqs
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer config "platform.ext-mongo" "1.6.16" && composer update $COMPOSER_ARGS ; fi
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer config "platform.ext-mongo" "1.6.16" && composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
+
   - travis_retry composer config "platform.ext-mongo" "1.6.16" && composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS
-  - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
-  - travis_retry composer install $COMPOSER_ARGS
-  - composer show
-  - if ! nc -z localhost 27017; then sudo service mongod start; fi
+  - travis_retry composer config "platform.ext-mongo" "1.6.16" && composer install $COMPOSER_ARGS
+  - stty cols 120 && composer show
 
 script:
   - if [[ $DEPS == 'lowest' ]]; then cp ./tests/TestConfigurationV2.php ./config/application.config.php ; else cp ./tests/TestConfigurationV3.php ./config/application.config.php ; fi
-  - ./vendor/bin/doctrine-module odm:schema:create
-  - ./vendor/bin/doctrine-module odm:schema:drop
-  - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; else ./vendor/bin/phpunit ; fi
-  - if [[ $CHECK_CS == 'true' ]]; then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
+  - docker-compose run --rm php ./vendor/bin/doctrine-module odm:schema:create
+  - docker-compose run --rm php ./vendor/bin/doctrine-module odm:schema:drop
+  - docker-compose run --rm php composer test
+  - if [[ $TEST_COVERAGE == 'true' ]]; then docker-compose run --rm php ./vendor/bin/phpunit --coverage-clover clover.xml ; else docker-compose run --rm php ./vendor/bin/phpunit ; fi
+  - if [[ $CHECK_CS == 'true' ]]; then docker-compose run --rm php ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
+
+after_script:
+  - if [[ $TEST_COVERAGE == 'true' ]]; then php vendor/bin/php-coveralls -v ; fi
+
+notifications:
+  email: false

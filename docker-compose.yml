@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        - PHP_VERSION=${PHP_VERSION:-7.1}
+        - XDEBUG=${XDEBUG:-0}
+    volumes:
+      - ./:/docker
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest

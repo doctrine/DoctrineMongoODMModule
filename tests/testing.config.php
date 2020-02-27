@@ -8,6 +8,11 @@ return [
                 'retryQuery' => 456
             ]
         ],
+        'connection' => [
+            'odm_default' => [
+                'server' => 'mongo',
+            ],
+        ],
         'driver' => [
             'odm_default' => [
                 'drivers' => [
