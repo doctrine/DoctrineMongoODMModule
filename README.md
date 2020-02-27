@@ -12,13 +12,13 @@ quickly and easily. The following features are intended to work out of the box:
   - Doctrine Cli support
 
 ## Requirements
-[Zend Framework 2 Application Skeleton](http://www.github.com/zendframework/ZendSkeletonApplication) (or compatible
+[Laminas MVC Skeleton Application](https://www.github.com/laminas/laminas-mvc-skeleton) (or compatible
 architecture)
 
 ## Installation
 
 Installation of this module uses composer. For composer documentation, please refer to
-[getcomposer.org](http://getcomposer.org/).
+[getcomposer.org](https://getcomposer.org/).
 
 #### Installation steps
 

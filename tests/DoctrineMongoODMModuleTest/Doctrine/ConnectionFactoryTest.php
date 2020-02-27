@@ -17,7 +17,7 @@ class ConnectionFactoryTest extends AbstractTest
 
     private $connectionFactory = [];
 
-    public function setup()
+    protected function setUp() : void
     {
         parent::setup();
         $this->serviceManager->setAllowOverride(true);

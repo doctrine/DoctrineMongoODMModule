@@ -1,9 +1,8 @@
 <?php
 namespace DoctrineMongoODMModuleTest;
 
-use Zend\Mvc\Application;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Utility used to retrieve a freshly bootstrapped application's service manager
@@ -19,12 +18,7 @@ class ServiceManagerFactory
      */
     public static function getConfiguration()
     {
-        $r = new \ReflectionClass(Application::class);
-        $requiredParams = $r->getConstructor()->getNumberOfRequiredParameters();
-
-        $configFile = $requiredParams == 1 ? 'TestConfigurationV3.php' : 'TestConfigurationV2.php';
-
-        return include __DIR__ . '/../' . $configFile;
+        return include __DIR__ . '/../TestConfiguration.php';
     }
 
     /**
@@ -43,7 +37,7 @@ class ServiceManagerFactory
         $serviceManagerConfig->configureServiceManager($serviceManager);
         $serviceManager->setService('ApplicationConfig', $configuration);
 
-        /** @var $moduleManager \Zend\ModuleManager\ModuleManager */
+        /** @var $moduleManager \Laminas\ModuleManager\ModuleManager */
         $moduleManager = $serviceManager->get('ModuleManager');
         $moduleManager->loadModules();
 

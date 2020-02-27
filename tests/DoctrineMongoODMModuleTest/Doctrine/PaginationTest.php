@@ -4,7 +4,7 @@ namespace DoctrineMongoODMModuleTest\Doctrine;
 use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 use DoctrineMongoODMModuleTest\AbstractTest;
 use DoctrineMongoODMModuleTest\Assets\Document\Simple;
-use Zend\Paginator\Paginator;
+use Laminas\Paginator\Paginator;
 
 /**
  * @license MIT
@@ -30,7 +30,7 @@ class PaginationTest extends AbstractTest
         return new Paginator($adapter);
     }
 
-    public function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 

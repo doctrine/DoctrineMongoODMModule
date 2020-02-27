@@ -1,15 +1,13 @@
 <?php
 namespace DoctrineMongoODMModule\Collector;
 
-use ZendDeveloperTools\Collector\CollectorInterface;
-use ZendDeveloperTools\Collector\AutoHideInterface;
-
-use Zend\Mvc\MvcEvent;
-
 use DoctrineMongoODMModule\Logging\DebugStack;
+use Laminas\DeveloperTools\Collector\AutoHideInterface;
+use Laminas\DeveloperTools\Collector\CollectorInterface;
+use Laminas\Mvc\MvcEvent;
 
 /**
- * Collector to be used in ZendDeveloperTools to record and display Mongo
+ * Collector to be used in Laminas\DeveloperTools to record and display Mongo
  * queries
  *
  * @license MIT

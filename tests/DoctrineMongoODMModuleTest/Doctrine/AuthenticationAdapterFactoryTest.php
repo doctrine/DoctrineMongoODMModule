@@ -9,6 +9,6 @@ class AuthenticationAdapterFactoryTest extends AbstractTest
     {
 
         $adapter = $this->serviceManager->get('doctrine.authenticationadapter.odm_default');
-        $this->assertInstanceOf('Zend\Authentication\Adapter\AdapterInterface', $adapter);
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\AdapterInterface', $adapter);
     }
 }

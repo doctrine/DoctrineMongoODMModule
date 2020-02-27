@@ -1,15 +1,15 @@
 <?php
 namespace DoctrineMongoODMModuleTest;
 
+use Laminas\Mvc\Application;
 use PHPUnit\Framework\TestCase;
-use Zend\Mvc\Application;
 
 abstract class AbstractTest extends TestCase
 {
     protected $application;
     protected $serviceManager;
 
-    public function setUp()
+    protected function setUp() : void
     {
         $this->application = Application::init(ServiceManagerFactory::getConfiguration());
         $this->serviceManager = $this->application->getServiceManager();
@@ -20,7 +20,7 @@ abstract class AbstractTest extends TestCase
         return $this->serviceManager->get('doctrine.documentmanager.odm_default');
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         try {
             $connection = $this->getDocumentManager()->getConnection();

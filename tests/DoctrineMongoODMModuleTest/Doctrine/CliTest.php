@@ -42,14 +42,14 @@ class CliTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp() : void
     {
         $serviceManager     = ServiceManagerFactory::getServiceManager();
 
-        /* @var $sharedEventManager \Zend\EventManager\SharedEventManagerInterface */
+        /* @var $sharedEventManager \Laminas\EventManager\SharedEventManagerInterface */
         $sharedEventManager = $serviceManager->get('SharedEventManager');
 
-        /* @var $application \Zend\Mvc\Application */
+        /* @var $application \Laminas\Mvc\Application */
         $application        = $serviceManager->get('Application');
         $invocations        = 0;
 

@@ -2,9 +2,9 @@
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModule\Module;
+use Laminas\EventManager\Event;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
-use Zend\EventManager\Event;
 
 class ModuleTest extends TestCase
 {
@@ -14,7 +14,7 @@ class ModuleTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $serviceManager = $this->createMock('Zend\ServiceManager\ServiceManager');
+        $serviceManager = $this->createMock('Laminas\ServiceManager\ServiceManager');
         $serviceManager->expects($this->once())
             ->method('get')
             ->with('doctrine.documentmanager.odm_default')
@@ -37,7 +37,7 @@ class ModuleTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $serviceManager = $this->createMock('Zend\ServiceManager\ServiceManager');
+        $serviceManager = $this->createMock('Laminas\ServiceManager\ServiceManager');
         $serviceManager->expects($this->once())
             ->method('get')
             ->with('doctrine.documentmanager.some_other_name')

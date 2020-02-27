@@ -2,7 +2,7 @@
 namespace DoctrineMongoODMModule\Options;
 
 use Doctrine\Common\Proxy\AbstractProxyFactory;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Configuration options for doctrine mongo
@@ -187,7 +187,9 @@ class Configuration extends AbstractOptions
     public function setGenerateProxies($generateProxies)
     {
         if (is_bool($generateProxies)) {
-            $generateProxies = $generateProxies ? AbstractProxyFactory::AUTOGENERATE_ALWAYS : AbstractProxyFactory::AUTOGENERATE_NEVER;
+            $generateProxies = $generateProxies
+                ? AbstractProxyFactory::AUTOGENERATE_ALWAYS
+                : AbstractProxyFactory::AUTOGENERATE_NEVER;
         }
 
         $this->generateProxies = $generateProxies;

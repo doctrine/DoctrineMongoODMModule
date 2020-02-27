@@ -1,7 +1,7 @@
 <?php
 namespace DoctrineMongoODMModule\Options;
 
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Connection options for doctrine mongo

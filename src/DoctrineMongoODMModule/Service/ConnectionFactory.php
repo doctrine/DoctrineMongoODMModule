@@ -4,7 +4,7 @@ namespace DoctrineMongoODMModule\Service;
 use Doctrine\MongoDB\Connection;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory creates a mongo connection

@@ -9,7 +9,7 @@ final class ConfigurationTest extends TestCase
     /** @var Configuration */
     private $configuration;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->configuration = new Configuration;
     }

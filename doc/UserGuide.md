@@ -1,8 +1,8 @@
 User Guide
 ==========
 
-This guide helps you to create a Zend Framework 2 application with Doctrine Mongo ODM integration. If you're new to Zend
-Framework 2, please read the [ZF2 user guide](http://framework.zend.com/manual/2.3/en/user-guide/overview.html) before you 
+This guide helps you to create a Laminas application with Doctrine Mongo ODM integration.
+If you're new to Laminas, please read the [Laminas documentation](https://docs.laminas.dev/) before you 
 continue.
 
 Install Composer
@@ -16,35 +16,28 @@ ZF2 Skeleton Application
 Create a new Skeleton application with Composer:
 
 ```bash
-$ php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" \
-    zendframework/skeleton-application doctrine-odm-tutorial
+$ composer create-project laminas/laminas-mvc-skeleton doctrine-odm-tutorial
 ```
 
-Grab a coffee and wait for composer to finish installing your new ZF2 Application. Now you can start up your application
-with the php built-in web server:
+Grab a coffee and wait for composer to finish installing your new Laminas Application.
+Now you can start up your application with the php built-in web server:
 
 ```bash
 $ cd doctrine-odm-tutorial
 $ php -S 0.0.0.0:8080 -t public/ public/index.php
 ```
 
-For detailed instructions on installing the Zend Framework 2 Skeleton Application follow 
-[this link](https://github.com/zendframework/ZendSkeletonApplication).
+For detailed instructions on installing the Laminas MVC Skeleton Application follow 
+[this link](https://github.com/laminas/laminas-mvc-skeleton).
 
 Install Doctrine Mongo ODM Module 
------------------------------------------
+---------------------------------
 
-Add the DoctrineODMModule to your requirements in `composer.json`:
+Install DoctrineODMModule :
 
-```json
-{
-    "minimum-stability": "alpha",
-    "require": {
-        "doctrine/doctrine-mongo-odm-module": "dev-master"
-    }
-}
+```bash
+$ composer require doctrine/doctrine-mongo-odm-module
 ```
-Now run `php composer.phar update` to fetch doctrine-odm-module.
 
 Open `doctrine-odm-tutorial/configs/application.config.php` in your editor and add following keys to your `modules` 
 (in this order)
@@ -96,7 +89,7 @@ return [
 ```
 
 Create a managed document class
------------------------
+-------------------------------
 
 Create your first Doctrine ODM managed document class in `module/Application/src/Application/Document/Message.php`:
 

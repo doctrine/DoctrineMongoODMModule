@@ -10,27 +10,17 @@ env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - ADAPTER_DEPS="alcaeus/mongo-php-adapter"
-    - LOWEST_DEPS_REMOVE="zendframework/zend-mvc-console"
 
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
+    - php: 7.2
       env:
         - DEPS=lowest
-    - php: 7.1
+    - php: 7.2
       env:
         - DEPS=locked
         - CS_CHECK=true
-    - php: 7.1
-      env:
-        - DEPS=latest
-    - php: 7.2
-      env:
-        - DEPS=lowest
-    - php: 7.2
-      env:
-        - DEPS=locked
     - php: 7.2
       env:
         - DEPS=latest
@@ -52,17 +42,15 @@ matrix:
     - php: 7.4
       env:
         - DEPS=latest
-
-before_install:
-  - travis_retry composer self-update
-  - shopt -s expand_aliases
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer remove $COMPOSER_ARGS --no-update --dev $LOWEST_DEPS_REMOVE ; fi
-  - alias composer="travis_retry docker-compose run --rm php composer"
-  - alias php="travis_retry docker-compose run -e TRAVIS -e TRAVIS_JOB_ID --rm php php"
-  - docker-compose build --build-arg PHP_VERSION=${TRAVIS_PHP_VERSION} --build-arg XDEBUG=${TEST_COVERAGE:+1} --no-cache php
-  - composer --version
-  - php -v
-  - php -m
+    - php: 7.4
+      env:
+        - DEPS=lowest
+    - php: 7.4
+      env:
+        - DEPS=locked
+    - php: 7.4
+      env:
+        - DEPS=latest
 
 install:
   - composer install $COMPOSER_ARGS --ignore-platform-reqs
@@ -74,15 +62,8 @@ install:
   - stty cols 120 && composer show
 
 script:
-  - if [[ $DEPS == 'lowest' ]]; then cp ./tests/TestConfigurationV2.php ./config/application.config.php ; else cp ./tests/TestConfigurationV3.php ./config/application.config.php ; fi
-  - docker-compose run --rm php ./vendor/bin/doctrine-module odm:schema:create
-  - docker-compose run --rm php ./vendor/bin/doctrine-module odm:schema:drop
-  - docker-compose run --rm php composer test
-  - if [[ $TEST_COVERAGE == 'true' ]]; then docker-compose run --rm php ./vendor/bin/phpunit --coverage-clover clover.xml ; else docker-compose run --rm php ./vendor/bin/phpunit ; fi
-  - if [[ $CHECK_CS == 'true' ]]; then docker-compose run --rm php ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
-
-after_script:
-  - if [[ $TEST_COVERAGE == 'true' ]]; then php vendor/bin/php-coveralls -v ; fi
-
-notifications:
-  email: false
+  - cp ./tests/TestConfiguration.php ./config/application.config.php
+  - ./vendor/bin/doctrine-module odm:schema:create
+  - ./vendor/bin/doctrine-module odm:schema:drop
+  - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; else ./vendor/bin/phpunit ; fi
+  - if [[ $CHECK_CS == 'true' ]]; then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
