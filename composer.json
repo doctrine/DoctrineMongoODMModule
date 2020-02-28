@@ -1,6 +1,6 @@
 {
     "name": "doctrine/doctrine-mongo-odm-module",
-    "description": "Laminas Module that provides Doctrine MongoDB ODM functionality",
+    "description": "Laminas Module which provides Doctrine MongoDB ODM functionality",
     "keywords": [
         "doctrine",
         "odm",
@@ -48,9 +48,6 @@
             "module": "DoctrineMongoODMModule"
         }
     },
-    "config": {
-        "sort-packages": true
-    },
     "require": {
         "php": "^7.2",
         "doctrine/doctrine-module": "^3.0",
@@ -96,6 +93,7 @@
         "update-dev": "composer update"
     },
     "config": {
+        "sort-packages": true,
         "platform": {
             "ext-mongo": "1.6.16"
         }
