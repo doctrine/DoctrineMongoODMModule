@@ -31,11 +31,11 @@ install:
   - php --info
   - composer install $COMPOSER_ARGS --ignore-platform-reqs
   - if [[ $LEGACY_DEPS != '' ]]; then composer update $COMPOSER_ARGS --with-dependencies $LEGACY_DEPS ; fi
-  - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
+  - if [[ $DEPS == 'latest' ]]; then composer update $COMPOSER_ARGS ; fi
+  - if [[ $DEPS == 'lowest' ]]; then composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
-  - travis_retry composer require --dev $COMPOSER_ARGS 
-  - travis_retry composer install $COMPOSER_ARGS
+  - composer require --dev $COMPOSER_ARGS 
+  - composer install $COMPOSER_ARGS
   - stty cols 120 && composer show
   - composer show
 
