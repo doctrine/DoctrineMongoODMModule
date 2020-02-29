@@ -3,3 +3,4 @@ vendor/
 .idea/
 phpunit.xml
 phpcs.xml
+build
