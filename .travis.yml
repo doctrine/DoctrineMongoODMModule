@@ -21,6 +21,7 @@ matrix:
       env:
         - DEPS=locked
         - CS_CHECK=true
+        - TEST_COVERAGE=true
     - php: 7.2
       env:
         - DEPS=latest
@@ -68,8 +69,8 @@ install:
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer config "platform.ext-mongo" "1.6.16" && composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer config "platform.ext-mongo" "1.6.16" && composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
-  - travis_retry composer config "platform.ext-mongo" "1.6.16" && composer require --dev $COMPOSER_ARGS 
-  - travis_retry composer config "platform.ext-mongo" "1.6.16" && composer install $COMPOSER_ARGS
+  - travis_retry composer composer require --dev $COMPOSER_ARGS 
+  - travis_retry composer composer install $COMPOSER_ARGS
   - stty cols 120 && composer show
   - composer show
 

@@ -11,13 +11,13 @@ RUN apk add --no-cache \
     bash \
     g++ \
     git \
-    icu-libs \
-    libintl \
     icu \
     icu-dev \
+    icu-libs \
+    libintl \
     libxml2-dev \
-    openssl-dev \
-    make
+    make \
+    openssl-dev
     
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
