@@ -38,6 +38,10 @@
         {
             "name": "Andreas Braun",
             "email": "alcaeus@alcaeus.org"
+        },
+        {
+            "name": "Tom H Anderson",
+            "email": "tom.h.anderson@gmail.com"
         }
     ],
     "extra": {
@@ -50,6 +54,7 @@
     },
     "require": {
         "php": "^7.2",
+        "alcaeus/mongo-php-adapter": "^1.1",
         "doctrine/doctrine-module": "^3.0",
         "doctrine/mongodb-odm": "^1.1",
         "laminas/laminas-hydrator": "^3.0.2",
@@ -58,7 +63,6 @@
         "laminas/laminas-stdlib": "^3.2.1"
     },
     "require-dev": {
-        "alcaeus/mongo-php-adapter": "^1.1",
         "laminas/laminas-console": "^2.8",
         "laminas/laminas-i18n": "^2.10.1",
         "laminas/laminas-log": "^2.12",
