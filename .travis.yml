@@ -9,7 +9,7 @@ cache:
 env:
   global:
     - COMPOSER_ARGS="--no-interaction"
-    - ADAPTER_DEPS="alcaeus/mongo-php-adapter"
+    - COVERAGE_DEPS="php-coveralls/php-coveralls"
 
 matrix:
   fast_finish: true
@@ -21,6 +21,7 @@ matrix:
       env:
         - DEPS=locked
         - CS_CHECK=true
+        - TEST_COVERAGE=true
     - php: 7.2
       env:
         - DEPS=latest
@@ -52,18 +53,32 @@ matrix:
       env:
         - DEPS=latest
 
-install:
-  - composer install $COMPOSER_ARGS --ignore-platform-reqs
-  - if [[ $DEPS == 'latest' ]]; then travis_retry composer config "platform.ext-mongo" "1.6.16" && composer update $COMPOSER_ARGS ; fi
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer config "platform.ext-mongo" "1.6.16" && composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
+before_install:
+  - shopt -s expand_aliases
+  - alias composer="travis_retry docker-compose run --rm php composer"
+  - alias php="travis_retry docker-compose run -e TRAVIS -e TRAVIS_JOB_ID --rm php php"
+  - docker-compose build --build-arg PHP_VERSION=${TRAVIS_PHP_VERSION} --build-arg XDEBUG=${TEST_COVERAGE:+1} --no-cache php
+  - composer --version
+  - php -v
+  - php -m
 
-  - travis_retry composer config "platform.ext-mongo" "1.6.16" && composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS
-  - travis_retry composer config "platform.ext-mongo" "1.6.16" && composer install $COMPOSER_ARGS
+install:
+  - php --info
+  - composer install $COMPOSER_ARGS --ignore-platform-reqs
+  - if [[ $DEPS == 'latest' ]]; then composer update $COMPOSER_ARGS ; fi
+  - if [[ $DEPS == 'lowest' ]]; then composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
+  - if $TEST_COVERAGE; then composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
+  - composer require --dev $COMPOSER_ARGS 
+  - composer install $COMPOSER_ARGS
   - stty cols 120 && composer show
+  - composer show
 
 script:
   - cp ./tests/TestConfiguration.php ./config/application.config.php
   - ./vendor/bin/doctrine-module odm:schema:create
   - ./vendor/bin/doctrine-module odm:schema:drop
-  - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; else ./vendor/bin/phpunit ; fi
-  - if [[ $CHECK_CS == 'true' ]]; then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
+  - if $TEST_COVERAGE; then php vendor/bin/phpunit --coverage-clover build/logs/clover.xml ; else php vendor/bin/phpunit ; fi
+  - if $CHECK_CS; then php vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
+
+after_script:
+  - if $TEST_COVERAGE; then php vendor/bin/php-coveralls -v ; fi

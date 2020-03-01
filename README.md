@@ -1,8 +1,8 @@
-# Doctrine MongoDB ODM Module for Zend Framework 2
+# Doctrine MongoDB ODM Module for Laminas
 
 Master: [![Build Status](https://secure.travis-ci.org/doctrine/DoctrineMongoODMModule.png?branch=master)](http://travis-ci.org/doctrine/DoctrineMongoODMModule)
 
-The DoctrineMongoODMModule integrates Doctrine 2 MongoDB ODM with Zend Framework 2
+The DoctrineMongoODMModule integrates Doctrine 2 MongoDB ODM with Laminas
 quickly and easily. The following features are intended to work out of the box:
 
   - MongoDB support
@@ -12,6 +12,7 @@ quickly and easily. The following features are intended to work out of the box:
   - Doctrine Cli support
 
 ## Requirements
+
 [Laminas MVC Skeleton Application](https://www.github.com/laminas/laminas-mvc-skeleton) (or compatible
 architecture)
 
@@ -28,7 +29,7 @@ Installation of this module uses composer. For composer documentation, please re
      ```json
      {
          "require": {
-             "doctrine/doctrine-mongo-odm-module": "^1.0"
+             "doctrine/doctrine-mongo-odm-module": "^2.0"
          }
      }
      ```
