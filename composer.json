@@ -81,7 +81,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "DoctrineMongoODMModuleTest\\": "tests/DoctrineMongoODMModuleTest/"
+            "DoctrineMongoODMModuleTest\\": "test/DoctrineMongoODMModuleTest/"
         }
     },
     "scripts": {

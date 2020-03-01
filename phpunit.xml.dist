@@ -10,7 +10,7 @@
     </logging>
     <testsuites>
         <testsuite name="DoctrineMongoODMModule Test Suite">
-            <directory>./tests/DoctrineMongoODMModuleTest/</directory>
+            <directory>./test/DoctrineMongoODMModuleTest/</directory>
         </testsuite>
     </testsuites>
 
