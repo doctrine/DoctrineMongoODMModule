@@ -77,7 +77,7 @@ script:
   - cp ./tests/TestConfiguration.php ./config/application.config.php
   - ./vendor/bin/doctrine-module odm:schema:create
   - ./vendor/bin/doctrine-module odm:schema:drop
-  - if [[ $TEST_COVERAGE == 'true' ]]; then php vendor/bin/phpunit --coverage-clover build/logs/clover.xml ; else php vendor/bin/phpunit ; fi
+  - if $TEST_COVERAGE; then php vendor/bin/phpunit --coverage-clover build/logs/clover.xml ; else php vendor/bin/phpunit ; fi
   - if $CHECK_CS; then php vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
 
 after_script:
