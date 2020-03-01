@@ -81,4 +81,4 @@ script:
   - if $CHECK_CS; then php vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
 
 after_script:
-  - if [[ $TEST_COVERAGE == 'true' ]]; then php vendor/bin/php-coveralls -v ; fi
+  - if $TEST_COVERAGE; then php vendor/bin/php-coveralls -v ; fi
