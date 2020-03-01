@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use Doctrine\Laminas\Hydrator\DoctrineObject;
@@ -6,10 +9,11 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 
 class DoctrineObjectHydratorFactoryTest extends TestCase
 {
-    /** @var ServiceLocatorInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ServiceLocatorInterface|PHPUnit_Framework_MockObject_MockObject */
     protected $services;
 
     protected function setUp() : void
@@ -25,7 +29,7 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
             ->willReturn($this->prophesize(DocumentManager::class)->reveal());
     }
 
-    public function testReturnsHydratorInstance()
+    public function testReturnsHydratorInstance() : void
     {
         $factory  = new DoctrineObjectHydratorFactory();
         $hydrator = $factory($this->services, DoctrineObject::class);

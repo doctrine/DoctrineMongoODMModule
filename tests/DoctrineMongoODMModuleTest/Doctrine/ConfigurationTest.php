@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModule\Options\Configuration;
@@ -11,26 +14,26 @@ final class ConfigurationTest extends TestCase
 
     protected function setUp() : void
     {
-        $this->configuration = new Configuration;
+        $this->configuration = new Configuration();
     }
 
-    public function testDefaultRetryConnectIsZero()
+    public function testDefaultRetryConnectIsZero() : void
     {
         $this->assertSame(0, $this->configuration->getRetryConnect());
     }
 
-    public function testDefaultRetryQueryIsZero()
+    public function testDefaultRetryQueryIsZero() : void
     {
         $this->assertSame(0, $this->configuration->getRetryQuery());
     }
 
-    public function testSettingRetryConnectValue()
+    public function testSettingRetryConnectValue() : void
     {
         $this->configuration->setRetryConnect(111);
         $this->assertSame(111, $this->configuration->getRetryConnect());
     }
 
-    public function testSettingRetryQueryValue()
+    public function testSettingRetryQueryValue() : void
     {
         $this->configuration->setRetryQuery(222);
         $this->assertSame(222, $this->configuration->getRetryQuery());

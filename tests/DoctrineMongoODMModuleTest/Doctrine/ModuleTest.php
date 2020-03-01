@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModule\Module;
@@ -8,7 +11,7 @@ use Symfony\Component\Console\Application;
 
 class ModuleTest extends TestCase
 {
-    public function testOdmDefaultIsUsedAsTheDocumentManagerIfNoneIsProvided()
+    public function testOdmDefaultIsUsedAsTheDocumentManagerIfNoneIsProvided() : void
     {
         $documentManager = $this->getMockbuilder('Doctrine\ODM\MongoDB\DocumentManager')
             ->disableOriginalConstructor()
@@ -21,7 +24,7 @@ class ModuleTest extends TestCase
             ->will($this->returnValue($documentManager));
 
         $application = new Application();
-        $event = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
+        $event       = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
 
         $module = new Module();
         $module->loadCli($event);
@@ -29,7 +32,7 @@ class ModuleTest extends TestCase
         $this->assertSame($documentManager, $application->getHelperSet()->get('documentManager')->getDocumentManager());
     }
 
-    public function testDocumentManagerUsedCanBeSpecifiedInCommandLineArgument()
+    public function testDocumentManagerUsedCanBeSpecifiedInCommandLineArgument() : void
     {
         $argvBackup = $_SERVER['argv'];
 
@@ -44,7 +47,7 @@ class ModuleTest extends TestCase
             ->will($this->returnValue($documentManager));
 
         $application = new Application();
-        $event = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
+        $event       = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
 
         $_SERVER['argv'][] = '--documentmanager=some_other_name';
 

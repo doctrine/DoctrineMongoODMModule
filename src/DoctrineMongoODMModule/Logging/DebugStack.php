@@ -1,20 +1,23 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Logging;
 
 /**
  * Includes executed queries in a Debug Stack
  *
- * @license MIT
  * @link    www.doctrine-project.org
  */
 class DebugStack implements Logger
 {
-    /** @var array $queries Executed queries. */
+    /** @var mixed[] $queries Executed queries. */
     public $queries = [];
 
-    /** @var boolean $enabled If Debug Stack is enabled (log queries) or not. */
+    /** @var bool $enabled If Debug Stack is enabled (log queries) or not. */
     public $enabled = true;
 
+    /** @var mixed $currentQuery */
     protected $currentQuery = 0;
 
     /**
@@ -22,8 +25,10 @@ class DebugStack implements Logger
      */
     public function log(array $logs)
     {
-        if ($this->enabled) {
-            $this->queries[++$this->currentQuery] = $logs;
+        if (! $this->enabled) {
+            return;
         }
+
+        $this->queries[++$this->currentQuery] = $logs;
     }
 }

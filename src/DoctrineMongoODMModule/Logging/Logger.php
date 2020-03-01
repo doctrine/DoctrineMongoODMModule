@@ -1,10 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Logging;
 
 /**
  * Interface for loggers.
  *
- * @license MIT
  * @link    www.doctrine-project.org
  */
 interface Logger
@@ -12,8 +14,7 @@ interface Logger
     /**
      * Logs a SQL statement somewhere.
      *
-     * @param array $logs The logs explaining the query
-     * @return void
+     * @param mixed[] $logs The logs explaining the query
      */
-    public function log(array $logs);
+    public function log(array $logs) : void;
 }

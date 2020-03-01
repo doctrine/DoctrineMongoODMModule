@@ -1,22 +1,23 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Logging;
 
 /**
  * Chains multiple Logger
  *
- * @license MIT
  * @link    www.doctrine-project.org
  */
 class LoggerChain implements Logger
 {
+    /** @var mixed[] $loggers */
     private $loggers = [];
 
     /**
      * Adds a logger in the chain
-     *
-     * @param Logger $logger
      */
-    public function addLogger(Logger $logger)
+    public function addLogger(Logger $logger) : void
     {
         $this->loggers[] = $logger;
     }

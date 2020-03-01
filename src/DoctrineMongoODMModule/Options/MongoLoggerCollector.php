@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Options;
 
 use Laminas\Stdlib\AbstractOptions;
@@ -7,76 +9,54 @@ use Laminas\Stdlib\AbstractOptions;
 /**
  * Configuration options for a collector
  *
- * @license MIT
  * @link    http://www.doctrine-project.org/
  */
 class MongoLoggerCollector extends AbstractOptions
 {
-    /**
-     * @var string name to be assigned to the collector
-     */
+    /** @var string name to be assigned to the collector */
     protected $name = 'odm_default';
 
-    /**
-     * @var string|null service name of the configuration where the logger has to be put
-     */
+    /** @var string|null service name of the configuration where the logger has to be put */
     protected $configuration;
 
-    /**
-     * @var string|null service name of the Logger to be used
-     */
+    /** @var string|null service name of the Logger to be used */
     protected $mongoLogger;
 
-    /**
-     * @param string $name
-     */
-    public function setName($name)
+    public function setName(string $name) : void
     {
         $this->name = (string) $name;
     }
 
     /**
      * Name of the collector
-     *
-     * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $configuration
-     */
-    public function setConfiguration($configuration)
+    public function setConfiguration(?string $configuration) : void
     {
         $this->configuration = $configuration ? (string) $configuration : null;
     }
 
     /**
      * Configuration service name (where to set the logger)
-     *
-     * @return string
      */
-    public function getConfiguration()
+    public function getConfiguration() : string
     {
         return $this->configuration ? $this->configuration : 'doctrine.configuration.odm_default';
     }
 
-    /**
-     * @param string|null $mongoLogger
-     */
-    public function setMongoLogger($mongoLogger)
+    public function setMongoLogger(?string $mongoLogger) : void
     {
         $this->mongoLogger = $mongoLogger ? (string) $mongoLogger : null;
     }
 
     /**
      * Logger service name
-     *
-     * @return string|null
      */
-    public function getMongoLogger()
+    public function getMongoLogger() : ?string
     {
         return $this->mongoLogger;
     }

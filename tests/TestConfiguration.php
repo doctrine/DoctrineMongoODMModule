@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'modules' => [
         'Laminas\Cache',
@@ -16,8 +18,6 @@ return [
         'config_glob_paths'    => [
             __DIR__ . '/testing.config.php',
         ],
-        'module_paths' => [
-            '../vendor',
-        ],
+        'module_paths' => ['../vendor'],
     ],
 ];
