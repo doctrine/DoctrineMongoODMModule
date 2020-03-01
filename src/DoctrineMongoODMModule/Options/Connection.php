@@ -67,7 +67,7 @@ class Connection extends AbstractOptions
         return $this->server;
     }
 
-    public function setServer(string $server) : Connection
+    public function setServer(?string $server) : Connection
     {
         $this->server = (string) $server;
 
@@ -79,31 +79,31 @@ class Connection extends AbstractOptions
         return $this->port;
     }
 
-    public function setPort(string $port) : Connection
+    public function setPort(?string $port) : Connection
     {
         $this->port = (string) $port;
 
         return $this;
     }
 
-    public function getUser() : string
+    public function getUser() : ?string
     {
         return $this->user;
     }
 
-    public function setUser(string $user) : Connection
+    public function setUser(?string $user) : Connection
     {
         $this->user = (string) $user;
 
         return $this;
     }
 
-    public function getPassword() : string
+    public function getPassword() : ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password) : Connection
+    public function setPassword(?string $password) : self
     {
         $this->password = (string) $password;
 
@@ -115,19 +115,19 @@ class Connection extends AbstractOptions
         return $this->dbname;
     }
 
-    public function setDbname(string $dbname) : Connection
+    public function setDbname(?string $dbname) : Connection
     {
         $this->dbname = (string) $dbname;
 
         return $this;
     }
 
-    public function getConnectionString() : string
+    public function getConnectionString() : ?string
     {
         return $this->connectionString;
     }
 
-    public function setConnectionString(string $connectionString) : Connection
+    public function setConnectionString(?string $connectionString) : Connection
     {
         $this->connectionString = (string) $connectionString;
 

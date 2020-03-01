@@ -14,7 +14,11 @@ use function sprintf;
 abstract class AbstractFactory extends DoctrineModuleAbstractFactory
 {
 // phpcs:enable SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
-    public function getOptions(ContainerInterface $container, string $key, ?string $name = null) : AbstractOptions
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOptions(ContainerInterface $container, $key, $name = null) : AbstractOptions
     {
         if ($name === null) {
             $name = $this->getName();
@@ -22,7 +26,7 @@ abstract class AbstractFactory extends DoctrineModuleAbstractFactory
 
         $options     = $container->get('config');
         $options     = $options['doctrine'];
-        $mappingType = $this->getMappingType()
+        $mappingType = $this->getMappingType();
 
         if ($mappingType) {
             $options = $options[$mappingType];

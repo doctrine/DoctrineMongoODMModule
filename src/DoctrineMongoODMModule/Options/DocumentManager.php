@@ -40,7 +40,10 @@ class DocumentManager extends AbstractOptions
      */
     protected $eventManager = 'odm_default';
 
-    public function setConfiguration(type $configuration) : DocumentManager
+    /**
+     * @param mixed $configuration
+     */
+    public function setConfiguration($configuration) : self
     {
         $this->configuration = (string) $configuration;
 
@@ -52,7 +55,10 @@ class DocumentManager extends AbstractOptions
         return 'doctrine.configuration.' . $this->configuration;
     }
 
-    public function setConnection(type $connection) : DocumentManager
+    /**
+     * @param mixed $connection
+     */
+    public function setConnection($connection) : self
     {
         $this->connection = (string) $connection;
 
@@ -69,7 +75,10 @@ class DocumentManager extends AbstractOptions
         return 'doctrine.eventmanager.' . $this->eventManager;
     }
 
-    public function setEventManager(type $eventManager) : DocumentManager
+    /**
+     * @param mixed $eventManager
+     */
+    public function setEventManager($eventManager) : self
     {
         $this->eventManager = (string) $eventManager;
 

@@ -233,10 +233,7 @@ class Configuration extends AbstractOptions
         return $this->generateHydrators;
     }
 
-    /**
-     * @param bool|int $generateHydrators
-     */
-    public function setGenerateHydrators($generateHydrators) : Configuration
+    public function setGenerateHydrators(bool $generateHydrators) : Configuration
     {
         $this->generateHydrators = $generateHydrators;
 
@@ -343,7 +340,7 @@ class Configuration extends AbstractOptions
     /**
      * @return $this
      */
-    public function setPersistentCollectionGenerator(string $persistentCollectionGenerator)
+    public function setPersistentCollectionGenerator(?string $persistentCollectionGenerator)
     {
         $this->persistentCollectionGenerator = (string) $persistentCollectionGenerator;
 
@@ -390,26 +387,29 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     * @return $this
+     * @param string|Logger $logger
      */
-    public function setLogger(Logger $logger)
+    public function setLogger($logger) : self
     {
         $this->logger = $logger;
 
         return $this;
     }
 
-    public function getLogger() : Logger
+    /**
+     * @return mixed
+     */
+    public function getLogger()
     {
         return $this->logger;
     }
 
-    public function getClassMetadataFactoryName() : string
+    public function getClassMetadataFactoryName() : ?string
     {
         return $this->classMetadataFactoryName;
     }
 
-    public function setClassMetadataFactoryName(string $classMetadataFactoryName) : void
+    public function setClassMetadataFactoryName(?string $classMetadataFactoryName) : void
     {
         $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
     }
@@ -460,12 +460,12 @@ class Configuration extends AbstractOptions
         return $this->types;
     }
 
-    public function getRepositoryFactory() : string
+    public function getRepositoryFactory() : ?string
     {
         return $this->repositoryFactory;
     }
 
-    public function setRepositoryFactory(string $repositoryFactory) : Configuration
+    public function setRepositoryFactory(?string $repositoryFactory) : Configuration
     {
         $this->repositoryFactory = (string) $repositoryFactory;
 
