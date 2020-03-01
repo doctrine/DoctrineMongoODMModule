@@ -1,16 +1,18 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Options;
 
 use Doctrine\Common\Proxy\AbstractProxyFactory;
+use DoctrineMongoODMModule\Logging\Logger;
 use Laminas\Stdlib\AbstractOptions;
+use function is_bool;
 
 /**
  * Configuration options for doctrine mongo
  *
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @since   0.1.0
- * @author  Tim Roediger <superdweebie@gmail.com>
  */
 class Configuration extends AbstractOptions
 {
@@ -47,7 +49,7 @@ class Configuration extends AbstractOptions
     /**
      * Automatic generation of hydrators (disable for production!)
      *
-     * @var boolean
+     * @var bool
      */
     protected $generateHydrators = true;
 
@@ -100,42 +102,27 @@ class Configuration extends AbstractOptions
      */
     protected $persistentCollectionGenerator;
 
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     protected $driver;
 
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     protected $defaultDb;
 
     /**
      * An array of filters. Array should be in the form
      * array('filterName' => 'BSON\Filter\Class')
      *
-     * @var array
+     * @var mixed[]
      */
     protected $filters = [];
 
-    /**
-     *
-     * @var \DoctrineMongoODMModule\Logging\Logger
-     */
+    /** @var Logger */
     protected $logger;
 
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     protected $classMetadataFactoryName;
 
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     protected $repositoryFactory;
 
     /**
@@ -156,35 +143,29 @@ class Configuration extends AbstractOptions
      * Keys must be the name of the type identifier and value is
      * the class name of the Type
      *
-     * @var array
+     * @var mixed[]
      */
     protected $types = [];
 
     /**
-     *
-     * @param string $driver
      * @return $this
      */
-    public function setDriver($driver)
+    public function setDriver(string $driver)
     {
         $this->driver = (string) $driver;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDriver()
+    public function getDriver() : string
     {
-        return "doctrine.driver.{$this->driver}";
+        return 'doctrine.driver.' . $this->driver;
     }
 
     /**
-     *
-     * @param int $generateProxies
      * @return $this
      */
-    public function setGenerateProxies($generateProxies)
+    public function setGenerateProxies(int $generateProxies)
     {
         if (is_bool($generateProxies)) {
             $generateProxies = $generateProxies
@@ -193,249 +174,191 @@ class Configuration extends AbstractOptions
         }
 
         $this->generateProxies = $generateProxies;
+
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getGenerateProxies()
+    public function getGenerateProxies() : int
     {
         return $this->generateProxies;
     }
 
     /**
-     *
-     * @param string $metadataCache
      * @return $this
      */
-    public function setMetadataCache($metadataCache)
+    public function setMetadataCache(string $metadataCache)
     {
         $this->metadataCache = (string) $metadataCache;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getMetadataCache()
+    public function getMetadataCache() : string
     {
-        return "doctrine.cache.{$this->metadataCache}";
+        return 'doctrine.cache.' . $this->metadataCache;
     }
 
     /**
-     *
-     * @param string $proxyDir
      * @return $this
      */
-    public function setProxyDir($proxyDir)
+    public function setProxyDir(string $proxyDir)
     {
         $this->proxyDir = (string) $proxyDir;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getProxyDir()
+    public function getProxyDir() : string
     {
         return $this->proxyDir;
     }
 
     /**
-     *
-     * @param string $proxyNamespace
      * @return $this
      */
-    public function setProxyNamespace($proxyNamespace)
+    public function setProxyNamespace(string $proxyNamespace)
     {
         $this->proxyNamespace = (string) $proxyNamespace;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getProxyNamespace()
+    public function getProxyNamespace() : string
     {
         return $this->proxyNamespace;
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function getGenerateHydrators()
+    public function getGenerateHydrators() : bool
     {
         return $this->generateHydrators;
     }
 
     /**
-     *
-     * @param boolean|int $generateHydrators
-     * @return \DoctrineMongoODMModule\Options\Configuration
+     * @param bool|int $generateHydrators
      */
-    public function setGenerateHydrators($generateHydrators)
+    public function setGenerateHydrators($generateHydrators) : Configuration
     {
         $this->generateHydrators = $generateHydrators;
+
         return $this;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getHydratorDir()
+    public function getHydratorDir() : string
     {
         return $this->hydratorDir;
     }
 
     /**
-     *
-     * @param string $hydratorDir
      * @return $this
      */
-    public function setHydratorDir($hydratorDir)
+    public function setHydratorDir(string $hydratorDir)
     {
         $this->hydratorDir = (string) $hydratorDir;
+
         return $this;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getHydratorNamespace()
+    public function getHydratorNamespace() : string
     {
         return $this->hydratorNamespace;
     }
 
     /**
-     *
-     * @param string $hydratorNamespace
      * @return $this
      */
-    public function setHydratorNamespace($hydratorNamespace)
+    public function setHydratorNamespace(string $hydratorNamespace)
     {
         $this->hydratorNamespace = (string) $hydratorNamespace;
+
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getGeneratePersistentCollections()
+    public function getGeneratePersistentCollections() : int
     {
         return $this->generatePersistentCollections;
     }
 
     /**
-     * @param int $generatePersistentCollections
-     *
      * @return $this
      */
-    public function setGeneratePersistentCollections($generatePersistentCollections)
+    public function setGeneratePersistentCollections(int $generatePersistentCollections)
     {
-        $this->generatePersistentCollections = (int)$generatePersistentCollections;
+        $this->generatePersistentCollections = (int) $generatePersistentCollections;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getPersistentCollectionDir()
+    public function getPersistentCollectionDir() : string
     {
         return $this->persistentCollectionDir;
     }
 
     /**
-     * @param string $persistentCollectionDir
-     *
      * @return $this
      */
-    public function setPersistentCollectionDir($persistentCollectionDir)
+    public function setPersistentCollectionDir(string $persistentCollectionDir)
     {
-        $this->persistentCollectionDir = (string)$persistentCollectionDir;
+        $this->persistentCollectionDir = (string) $persistentCollectionDir;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getPersistentCollectionNamespace()
+    public function getPersistentCollectionNamespace() : string
     {
         return $this->persistentCollectionNamespace;
     }
 
     /**
-     * @param string $persistentCollectionNamespace
-     *
      * @return $this
      */
-    public function setPersistentCollectionNamespace($persistentCollectionNamespace)
+    public function setPersistentCollectionNamespace(string $persistentCollectionNamespace)
     {
-        $this->persistentCollectionNamespace = (string)$persistentCollectionNamespace;
+        $this->persistentCollectionNamespace = (string) $persistentCollectionNamespace;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getPersistentCollectionFactory()
+    public function getPersistentCollectionFactory() : string
     {
         return $this->persistentCollectionFactory;
     }
 
     /**
-     * @param $persistentCollectionFactory
+     * @param mixed $persistentCollectionFactory
      *
      * @return $this
      */
     public function setPersistentCollectionFactory($persistentCollectionFactory)
     {
-        $this->persistentCollectionFactory = (string)$persistentCollectionFactory;
+        $this->persistentCollectionFactory = (string) $persistentCollectionFactory;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getPersistentCollectionGenerator()
+    public function getPersistentCollectionGenerator() : string
     {
         return $this->persistentCollectionGenerator;
     }
 
     /**
-     * @param string $persistentCollectionGenerator
-     *
      * @return $this
      */
-    public function setPersistentCollectionGenerator($persistentCollectionGenerator)
+    public function setPersistentCollectionGenerator(string $persistentCollectionGenerator)
     {
-        $this->persistentCollectionGenerator = (string)$persistentCollectionGenerator;
+        $this->persistentCollectionGenerator = (string) $persistentCollectionGenerator;
 
         return $this;
     }
 
-    /**
-     *
-     * @return string|null
-     */
-    public function getDefaultDb()
+    public function getDefaultDb() : ?string
     {
         return $this->defaultDb;
     }
 
     /**
-     *
-     * @param string|null $defaultDb
      * @return $this
      */
-    public function setDefaultDb($defaultDb)
+    public function setDefaultDb(?string $defaultDb)
     {
         if ($defaultDb === null) {
             $this->defaultDb = $defaultDb;
@@ -447,127 +370,105 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     *
-     * @return array
+     * @return mixed[]
      */
-    public function getFilters()
+    public function getFilters() : array
     {
         return $this->filters;
     }
 
     /**
+     * @param mixed[] $filters
      *
-     * @param array $filters
      * @return $this
      */
     public function setFilters(array $filters)
     {
         $this->filters = $filters;
+
         return $this;
     }
 
     /**
-     *
-     * @param \DoctrineMongoODMModule\Logging\Logger $logger
      * @return $this
      */
-    public function setLogger($logger)
+    public function setLogger(Logger $logger)
     {
         $this->logger = $logger;
+
         return $this;
     }
 
-    /**
-     * @return \DoctrineMongoODMModule\Logging\Logger
-     */
-    public function getLogger()
+    public function getLogger() : Logger
     {
         return $this->logger;
     }
 
-    /**
-     * @return string
-     */
-    public function getClassMetadataFactoryName()
+    public function getClassMetadataFactoryName() : string
     {
         return $this->classMetadataFactoryName;
     }
 
-    /**
-     * @param string $classMetadataFactoryName
-     */
-    public function setClassMetadataFactoryName($classMetadataFactoryName)
+    public function setClassMetadataFactoryName(string $classMetadataFactoryName) : void
     {
         $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
     }
 
     /**
-     * @param int $retryConnect
      * @return $this
      */
-    public function setRetryConnect($retryConnect)
+    public function setRetryConnect(int $retryConnect)
     {
         $this->retryConnect = (int) $retryConnect;
+
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getRetryConnect()
+    public function getRetryConnect() : int
     {
         return $this->retryConnect;
     }
 
     /**
-     * @param int $retryQuery
      * @return $this
      */
-    public function setRetryQuery($retryQuery)
+    public function setRetryQuery(int $retryQuery)
     {
         $this->retryQuery = (int) $retryQuery;
+
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getRetryQuery()
+    public function getRetryQuery() : int
     {
         return $this->retryQuery;
     }
 
     /**
-     * @param array $types
+     * @param mixed[] $types
      */
-    public function setTypes(array $types)
+    public function setTypes(array $types) : void
     {
         $this->types = $types;
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
-    public function getTypes()
+    public function getTypes() : array
     {
         return $this->types;
     }
 
-    /**
-     * @return string
-     */
-    public function getRepositoryFactory()
+    public function getRepositoryFactory() : string
     {
         return $this->repositoryFactory;
     }
 
-    /**
-     * @param string $repositoryFactory
-     * @return \DoctrineMongoODMModule\Options\Configuration
-     */
-    public function setRepositoryFactory($repositoryFactory)
+    public function setRepositoryFactory(string $repositoryFactory) : Configuration
     {
         $this->repositoryFactory = (string) $repositoryFactory;
+
         return $this;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Options;
 
 use Laminas\Stdlib\AbstractOptions;
@@ -6,10 +9,7 @@ use Laminas\Stdlib\AbstractOptions;
 /**
  * Document manager options for doctrine mongo
  *
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @since   0.1.0
- * @author  Tim Roediger <superdweebie@gmail.com>
  */
 class DocumentManager extends AbstractOptions
 {
@@ -40,61 +40,39 @@ class DocumentManager extends AbstractOptions
      */
     protected $eventManager = 'odm_default';
 
-    /**
-     *
-     * @param type $configuration
-     * @return \DoctrineMongoODMModule\Options\DocumentManager
-     */
-    public function setConfiguration($configuration)
+    public function setConfiguration(type $configuration) : DocumentManager
     {
         $this->configuration = (string) $configuration;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getConfiguration()
+    public function getConfiguration() : string
     {
-        return "doctrine.configuration.{$this->configuration}";
+        return 'doctrine.configuration.' . $this->configuration;
     }
 
-    /**
-     *
-     * @param type $connection
-     * @return \DoctrineMongoODMModule\Options\DocumentManager
-     */
-    public function setConnection($connection)
+    public function setConnection(type $connection) : DocumentManager
     {
         $this->connection = (string) $connection;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getConnection()
+    public function getConnection() : string
     {
-        return "doctrine.connection.{$this->connection}";
+        return 'doctrine.connection.' . $this->connection;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getEventManager()
+    public function getEventManager() : string
     {
-        return "doctrine.eventmanager.{$this->eventManager}";
+        return 'doctrine.eventmanager.' . $this->eventManager;
     }
 
-    /**
-     *
-     * @param type $eventManager
-     * @return \DoctrineMongoODMModule\Options\DocumentManager
-     */
-    public function setEventManager($eventManager)
+    public function setEventManager(type $eventManager) : DocumentManager
     {
         $this->eventManager = (string) $eventManager;
+
         return $this;
     }
 }

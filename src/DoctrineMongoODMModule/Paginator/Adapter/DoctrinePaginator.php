@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Paginator\Adapter;
 
 use Doctrine\MongoDB\EagerCursor;
@@ -7,21 +9,15 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Laminas\Paginator\Adapter\AdapterInterface;
 
 /**
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @author  Roman Konz <roman@konz.me>
  */
 class DoctrinePaginator implements AdapterInterface
 {
-    /**
-     * @var Cursor
-     */
+    /** @var Cursor */
     protected $cursor;
 
     /**
      * Constructor
-     *
-     * @param Cursor $cursor
      */
     public function __construct(Cursor $cursor)
     {
@@ -51,6 +47,7 @@ class DoctrinePaginator implements AdapterInterface
         $cursor->recreate();
         $cursor->skip($offset);
         $cursor->limit($itemCountPerPage);
+
         // Return array version so that counting is correct
         return $cursor->toArray(false);
     }

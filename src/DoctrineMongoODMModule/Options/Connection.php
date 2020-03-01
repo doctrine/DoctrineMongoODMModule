@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Options;
 
 use Laminas\Stdlib\AbstractOptions;
@@ -6,14 +9,10 @@ use Laminas\Stdlib\AbstractOptions;
 /**
  * Connection options for doctrine mongo
  *
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @since   0.1.0
- * @author  Tim Roediger <superdweebie@gmail.com>
  */
 class Connection extends AbstractOptions
 {
-
     /**
      * The server with the mongo instance you want to connect to
      *
@@ -59,154 +58,97 @@ class Connection extends AbstractOptions
     /**
      * Further connection options defined by mongodb-odm
      *
-     * @var array
+     * @var mixed[]
      */
     protected $options = [];
 
-    /**
-     *
-     * @return string
-     */
-    public function getServer()
+    public function getServer() : string
     {
         return $this->server;
     }
 
-    /**
-     *
-     * @param string $server
-     *
-     * @return \DoctrineMongoODMModule\Options\Connection
-     */
-    public function setServer($server)
+    public function setServer(string $server) : Connection
     {
-        $this->server = (string)$server;
+        $this->server = (string) $server;
+
         return $this;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getPort()
+    public function getPort() : string
     {
         return $this->port;
     }
 
-    /**
-     *
-     * @param string $port
-     *
-     * @return \DoctrineMongoODMModule\Options\Connection
-     */
-    public function setPort($port)
+    public function setPort(string $port) : Connection
     {
-        $this->port = (string)$port;
+        $this->port = (string) $port;
+
         return $this;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getUser()
+    public function getUser() : string
     {
         return $this->user;
     }
 
-    /**
-     *
-     * @param string $user
-     *
-     * @return \DoctrineMongoODMModule\Options\Connection
-     */
-    public function setUser($user)
+    public function setUser(string $user) : Connection
     {
-        $this->user = (string)$user;
+        $this->user = (string) $user;
+
         return $this;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getPassword()
+    public function getPassword() : string
     {
         return $this->password;
     }
 
-    /**
-     *
-     * @param string $password
-     *
-     * @return \DoctrineMongoODMModule\Options\Connection
-     */
-    public function setPassword($password)
+    public function setPassword(string $password) : Connection
     {
-        $this->password = (string)$password;
+        $this->password = (string) $password;
+
         return $this;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getDbname()
+    public function getDbname() : string
     {
         return $this->dbname;
     }
 
-    /**
-     *
-     * @param string $dbname
-     *
-     * @return \DoctrineMongoODMModule\Options\Connection
-     */
-    public function setDbname($dbname)
+    public function setDbname(string $dbname) : Connection
     {
-        $this->dbname = (string)$dbname;
+        $this->dbname = (string) $dbname;
+
         return $this;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getConnectionString()
+    public function getConnectionString() : string
     {
         return $this->connectionString;
     }
 
-    /**
-     *
-     * @param string $connectionString
-     *
-     * @return \DoctrineMongoODMModule\Options\Connection
-     */
-    public function setConnectionString($connectionString)
+    public function setConnectionString(string $connectionString) : Connection
     {
-        $this->connectionString = (string)$connectionString;
+        $this->connectionString = (string) $connectionString;
+
         return $this;
     }
 
     /**
-     *
-     * @return array
+     * @return mixed[]
      */
-    public function getOptions()
+    public function getOptions() : array
     {
         return $this->options;
     }
 
     /**
-     *
-     * @param array $options
-     *
-     * @return \DoctrineMongoODMModule\Options\Connection
+     * @param mixed[] $options
      */
-    public function setOptions($options)
+    public function setOptions(array $options) : Connection
     {
         $this->options = $options;
+
         return $this;
     }
 }
