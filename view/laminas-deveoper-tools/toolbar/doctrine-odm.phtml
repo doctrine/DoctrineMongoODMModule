@@ -1,15 +1,15 @@
-<div class="zdt-toolbar-entry">
-    <div class="zdt-toolbar-preview">
+<div class="laminas-toolbar-entry">
+    <div class="laminas-toolbar-preview">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAZxJREFUeNpiYCACpG4PdQhY7eNAjFpGQgpiNvsYsDKz7v/w9feDb79+O+6M3vkBn3omfJKh690V/v77t//f/38Cf/79M/j/n6GfkAPwGvj3H8N8kGH//v1jYPjPAMIJrovdG8jysu9q9wQWRob5LMwMDGzMLAwfv/5j+PX7H1gO6FLF3fE7H5DkQqCj4v/9B2tm+Ack/oFpCAaiepK87L7MQwCo0QHkS4gh/yAmgwXAOIAkA4F6gBHAyIDswv9ADszM////CzjPc3Mg3kCg61C8CMYQBtxgoBpselmwCf6HYbArEeH3HxrZ+BIvCw4XgjUhvIhkC5z6T7yBQHABESEMKGGJlN5ISjYXEK5DRA7clZBIP0C0gQdidjwA6tsAjxAGaPjB8H+GCwfSdz8gNes1InsbFMtIuBGXJmZcEg/W3XmhGKzCyMjI4MAEJH59/wd2HRBsOJy9p5GswmFf9I4GoOMWgLzN858T5PcLQJzIQCmoXJk1f/aGjv3EqGUhRpEdr/5CPj4hokpsJmIUcXPxfhAUFH1AjFqAAAMAOZz9JCtJEegAAAAASUVORK5CYII=" alt="MongoDB (DoctrineMongoODMModule)">
-        <span class="zdt-toolbar-info">
+        <span class="laminas-toolbar-info">
             <?php echo $this->collector->getQueryCount(); ?> queries
         </span>
     </div>
-    <div class="zdt-toolbar-detail">
-        <span class="zdt-toolbar-info zdt-toolbar-info-heading">Details</span>
-        <span class="zdt-toolbar-info">
-            <span class="zdt-detail-label">Help us!</span>
-            <span class="zdt-detail-value zdt-detail-value-right">
+    <div class="laminas-toolbar-detail">
+        <span class="laminas-toolbar-info laminas-toolbar-info-heading">Details</span>
+        <span class="laminas-toolbar-info">
+            <span class="laminas-detail-label">Help us!</span>
+            <span class="laminas-detail-value laminas-detail-value-right">
                 Please help us improve
                 <br/>
                 profiling by forking and
@@ -22,29 +22,29 @@
             </span>
         </span>
 
-        <span class="zdt-toolbar-info zdt-toolbar-info-heading">Queries <span class="ddt-toolbar-info">for <?php echo $this->collector->getName() ?></span></span>
-        <span class="zdt-toolbar-info ddt-toolbar-info">
+        <span class="laminas-toolbar-info laminas-toolbar-info-heading">Queries <span class="ddt-toolbar-info">for <?php echo $this->collector->getName() ?></span></span>
+        <span class="laminas-toolbar-info ddt-toolbar-info">
         <?php foreach ($this->collector->getQueries() as $query): ?>
             <hr/>
 
             <?php if (isset($query['db'])): ?>
-                <span class="zdt-detail-label">Database</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Database</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     <?php \Doctrine\Common\Util\Debug::dump($query['db']) ?>
                 </span>
                 <span class="clear"></span>
             <?php endif ?>
 
             <?php if (isset($query['collection'])): ?>
-                <span class="zdt-detail-label">Collection</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Collection</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     <?php \Doctrine\Common\Util\Debug::dump($query['collection']) ?>
                 </span>
                 <span class="clear"></span>
             <?php endif ?>
 
-            <span class="zdt-detail-label">Query</span>
-            <span class="zdt-detail-value ddt-detail-query ddt-detail-value">
+            <span class="laminas-detail-label">Query</span>
+            <span class="laminas-detail-value ddt-detail-query ddt-detail-value">
 
                 <?php if (isset($query['query']) && is_array($query['query']) && !empty($query['query'])): ?>
                     <?php foreach($query['query'] as $key => $value): ?>
@@ -56,8 +56,8 @@
             <span class="clear"></span>
 
             <?php if (isset($query['fields']) && is_array($query['fields']) && !empty($query['fields'])): ?>
-                <span class="zdt-detail-label">Fields</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Fields</span>
+                <span class="laminas-detail-value ddt-detail-value">
                         <?php foreach($query['fields'] as $key => $value): ?>
                             &nbsp;&nbsp;&nbsp;&nbsp;<?php echo $key ?> => <?php print_r($value) ?>
                         <?php endforeach ?>
@@ -66,40 +66,40 @@
             <?php endif ?>
 
             <?php if (isset($query['find'])): ?>
-                <span class="zdt-detail-label">Find</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Find</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     <?php \Doctrine\Common\Util\Debug::dump($query['find']) ?>
                 </span>
                 <span class="clear"></span>
             <?php endif ?>
 
             <?php if (isset($query['limit'])): ?>
-                <span class="zdt-detail-label">Limit to</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Limit to</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     <?php \Doctrine\Common\Util\Debug::dump($query['limitNum']) ?>
                 </span>
                 <span class="clear"></span>
             <?php endif ?>
 
             <?php if (isset($query['sort'])): ?>
-                <span class="zdt-detail-label">Sort by</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Sort by</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     <?php \Doctrine\Common\Util\Debug::dump($query['sortFields']) ?>
                 </span>
                 <span class="clear"></span>
             <?php endif ?>
 
             <?php if (isset($query['skip'])): ?>
-                <span class="zdt-detail-label">Skip to</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Skip to</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     <?php \Doctrine\Common\Util\Debug::dump($query['skipNum']) ?>
                 </span>
                 <span class="clear"></span>
             <?php endif ?>
 
             <?php if (isset($query['authenticate'])): ?>
-                <span class="zdt-detail-label">Authenticate</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Authenticate</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     &nbsp;&nbsp;&nbsp;&nbsp;username => <?php \Doctrine\Common\Util\Debug::dump($query['username']) ?><br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;password => <?php \Doctrine\Common\Util\Debug::dump($query['password']) ?>
                 </span>
@@ -107,8 +107,8 @@
             <?php endif ?>
 
             <?php if (isset($query['command'])): ?>
-                <span class="zdt-detail-label">Command</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Command</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     &nbsp;&nbsp;&nbsp;&nbsp;data => <?php \Doctrine\Common\Util\Debug::dump($query['data']) ?><br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;options => <?php \Doctrine\Common\Util\Debug::dump($query['options']) ?>
                 </span>
@@ -116,8 +116,8 @@
             <?php endif ?>
 
             <?php if (isset($query['createCollection'])): ?>
-                <span class="zdt-detail-label">Create collection</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Create collection</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     &nbsp;&nbsp;&nbsp;&nbsp;capped => <?php \Doctrine\Common\Util\Debug::dump($query['capped']) ?><br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;size => <?php \Doctrine\Common\Util\Debug::dump($query['size']) ?><br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;max => <?php \Doctrine\Common\Util\Debug::dump($query['max']) ?>
@@ -126,8 +126,8 @@
             <?php endif ?>
 
             <?php if (isset($query['createDBRef'])): ?>
-                <span class="zdt-detail-label">Create DB ref</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Create DB ref</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     &nbsp;&nbsp;&nbsp;&nbsp;collection => <?php \Doctrine\Common\Util\Debug::dump($query['collection']) ?><br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;reference => <?php \Doctrine\Common\Util\Debug::dump($query['reference']) ?>
                 </span>
@@ -135,29 +135,29 @@
             <?php endif ?>
 
             <?php if (isset($query['getDBRef'])): ?>
-                <span class="zdt-detail-label">Get DB ref</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Get DB ref</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     &nbsp;&nbsp;&nbsp;&nbsp;reference => <?php \Doctrine\Common\Util\Debug::dump($query['reference']) ?>
                 </span>
                 <span class="clear"></span>
             <?php endif ?>
 
             <?php if (isset($query['drop'])): ?>
-                <span class="zdt-detail-label">Drop database</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Drop database</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     &nbsp;&nbsp;&nbsp;&nbsp;dropDatabase => <?php \Doctrine\Common\Util\Debug::dump($query['dropDatabase']) ?>
                 </span>
                 <span class="clear"></span>
             <?php endif ?>
 
             <?php if (isset($query['execute'])): ?>
-                <span class="zdt-detail-label">Code</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Code</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     <?php print_r($query['code']) ?>
                 </span>
                 <span class="clear"></span>
-                <span class="zdt-detail-label">Args</span>
-                <span class="zdt-detail-value ddt-detail-value">
+                <span class="laminas-detail-label">Args</span>
+                <span class="laminas-detail-value ddt-detail-value">
                     <?php foreach($query['args'] as $key => $value): ?>
                         &nbsp;&nbsp;&nbsp;&nbsp;<?php echo $key ?> => <?php \Doctrine\Common\Util\Debug::dump($value) ?><br/>
                     <?php endforeach ?>
@@ -169,7 +169,7 @@
     </div>
 </div>
 <style>
-.zdt-toolbar-entry .zdt-toolbar-detail .ddt-toolbar-info {
+.laminas-toolbar-entry .laminas-toolbar-detail .ddt-toolbar-info {
 
     font-size: 11px;
     max-width: 600px;
@@ -179,25 +179,25 @@
     overflow-x: hidden;
 }
 
-.zdt-toolbar-entry .zdt-toolbar-detail .ddt-detail-query {
+.laminas-toolbar-entry .laminas-toolbar-detail .ddt-detail-query {
 
     white-space: normal;
     width: 400px;
 }
 
-.zdt-toolbar-entry .zdt-toolbar-detail .ddt-detail-query .highlight {
+.laminas-toolbar-entry .laminas-toolbar-detail .ddt-detail-query .highlight {
 
     color: #80DC09;
     font-weight: bold;
 }
 
-.zdt-toolbar-entry .zdt-toolbar-info .clear {
+.laminas-toolbar-entry .laminas-toolbar-info .clear {
 
     clear: both;
     display: block;
 }
 
-.zdt-toolbar-entry .zdt-toolbar-detail .ddt-toolbar-info hr {
+.laminas-toolbar-entry .laminas-toolbar-detail .ddt-toolbar-info hr {
 
     border: 0;
     border-top: 1px solid #80DC09;

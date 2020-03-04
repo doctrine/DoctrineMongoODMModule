@@ -3,10 +3,10 @@
     "description": "Laminas Module which provides Doctrine MongoDB ODM functionality",
     "keywords": [
         "doctrine",
-        "odm",
+        "laminas",
         "mongodb",
         "module",
-        "laminas"
+        "odm"
     ],
     "homepage": "https://www.doctrine-project.org/",
     "license": "MIT",
@@ -45,9 +45,6 @@
         }
     ],
     "extra": {
-        "branch-alias": {
-            "dev-master": "2.0.x-dev"
-        },
         "laminas": {
             "module": "DoctrineMongoODMModule"
         }
