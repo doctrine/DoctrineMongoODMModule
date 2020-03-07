@@ -69,13 +69,11 @@ install:
   - if [[ $DEPS == 'latest' ]]; then composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - if $TEST_COVERAGE; then composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
-  - composer require --dev $COMPOSER_ARGS 
-  - composer install $COMPOSER_ARGS
   - docker stty cols 120 && composer show
   - composer show
 
 script:
-  - docker cp ./test/TestConfiguration.php ./config/application.config.php
+  - docker cp ./tests/TestConfiguration.php ./config/application.config.php
   - docker vendor/bin/doctrine-module odm:schema:create
   - docker vendor/bin/doctrine-module odm:schema:drop
   - if [[ $TEST_COVERAGE == 'true' ]]; then php vendor/bin/phpunit --coverage-clover build/logs/clover.xml ; else php vendor/bin/phpunit ; fi
