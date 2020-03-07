@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78e11dd492fd891b878a114b312c2f60",
+    "content-hash": "a59b10946d63facb69dc0ddfad123b4d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -461,36 +461,36 @@
         },
         {
             "name": "doctrine/doctrine-module",
-            "version": "3.0.1",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineModule.git",
-                "reference": "f2b8b42908568ea0ae385184210f26e7734a296e"
+                "reference": "570a915b5de014c94c01633622f7d34ad500f640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/f2b8b42908568ea0ae385184210f26e7734a296e",
-                "reference": "f2b8b42908568ea0ae385184210f26e7734a296e",
+                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/570a915b5de014c94c01633622f7d34ad500f640",
+                "reference": "570a915b5de014c94c01633622f7d34ad500f640",
                 "shasum": ""
             },
             "require": {
                 "doctrine/cache": "^1.7",
                 "doctrine/common": "^2.8",
-                "doctrine/doctrine-laminas-hydrator": "^2.0",
+                "doctrine/doctrine-laminas-hydrator": "^2.0.2",
                 "laminas/laminas-authentication": "^2.5.3",
                 "laminas/laminas-cache": "^2.7.1",
-                "laminas/laminas-dependency-plugin": "^1.0",
                 "laminas/laminas-form": "^2.11",
                 "laminas/laminas-hydrator": "^3.0",
                 "laminas/laminas-mvc": "^3.1",
                 "laminas/laminas-paginator": "^2.8",
                 "laminas/laminas-servicemanager": "^3.3",
-                "laminas/laminas-stdlib": "^3.1",
+                "laminas/laminas-stdlib": "^3.2.1",
                 "laminas/laminas-validator": "^2.10",
                 "php": "^7.2",
-                "symfony/console": "^3.3 || ^4.0 || ^5.0"
+                "symfony/console": "^5.0"
             },
             "require-dev": {
+                "doctrine/coding-standard": "^7.0",
                 "laminas/laminas-i18n": "^2.7",
                 "laminas/laminas-log": "^2.9",
                 "laminas/laminas-modulemanager": "^2.8",
@@ -498,9 +498,8 @@
                 "laminas/laminas-serializer": "^2.8",
                 "laminas/laminas-session": "^2.8",
                 "laminas/laminas-test": "^3.1.1",
-                "phpunit/phpunit": "^7.5.2",
-                "predis/predis": "^1.1",
-                "squizlabs/php_codesniffer": "^2.7"
+                "phpunit/phpunit": "^8.5",
+                "predis/predis": "^1.1"
             },
             "suggest": {
                 "doctrine/data-fixtures": "Data Fixtures if you want to generate test data or bootstrap data for your deployments",
@@ -517,9 +516,7 @@
                 },
                 "branch-alias": {
                     "dev-1.2-dev": "1.2-dev",
-                    "dev-2.0-dev": "2.0-dev",
-                    "dev-master": "1.2-dev",
-                    "dev-develop": "2.0-dev"
+                    "dev-2.0-dev": "2.0-dev"
                 }
             },
             "autoload": {
@@ -564,7 +561,7 @@
                 "laminas",
                 "module"
             ],
-            "time": "2020-01-23T21:43:50+00:00"
+            "time": "2020-02-19T17:36:36+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -1366,52 +1363,6 @@
                 "laminas"
             ],
             "time": "2019-12-31T16:30:11+00:00"
-        },
-        {
-            "name": "laminas/laminas-dependency-plugin",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laminas/laminas-dependency-plugin.git",
-                "reference": "f269716dc584cd7b69e7f6e8ac1092d645ab56d5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-dependency-plugin/zipball/f269716dc584cd7b69e7f6e8ac1092d645ab56d5",
-                "reference": "f269716dc584cd7b69e7f6e8ac1092d645ab56d5",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.1",
-                "php": "^5.6 || ^7.0"
-            },
-            "require-dev": {
-                "composer/composer": "^1.9",
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-                "phpcompatibility/php-compatibility": "^9.3",
-                "phpunit/phpunit": "^8.4",
-                "roave/security-advisories": "dev-master",
-                "webimpress/coding-standard": "^1.0"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev",
-                    "dev-develop": "1.1.x-dev"
-                },
-                "class": "Laminas\\DependencyPlugin\\DependencyRewriterPlugin"
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laminas\\DependencyPlugin\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Replace zendframework and zfcampus packages with their Laminas Project equivalents.",
-            "time": "2020-01-14T19:36:52+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -3557,16 +3508,16 @@
         },
         {
             "name": "laminas/laminas-session",
-            "version": "2.9.1",
+            "version": "2.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-session.git",
-                "reference": "60b5cc844e09627d4f1a2a547e13268f376ccb3d"
+                "reference": "fdba34c1b257235dba2fff6ed4df1844390f85f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-session/zipball/60b5cc844e09627d4f1a2a547e13268f376ccb3d",
-                "reference": "60b5cc844e09627d4f1a2a547e13268f376ccb3d",
+                "url": "https://api.github.com/repos/laminas/laminas-session/zipball/fdba34c1b257235dba2fff6ed4df1844390f85f6",
+                "reference": "fdba34c1b257235dba2fff6ed4df1844390f85f6",
                 "shasum": ""
             },
             "require": {
@@ -3588,7 +3539,7 @@
                 "laminas/laminas-validator": "^2.6",
                 "mongodb/mongodb": "^1.0.1",
                 "php-mock/php-mock-phpunit": "^1.1.2 || ^2.0",
-                "phpunit/phpunit": "^5.7.27 || ^6.5.14 || ^7.5.16"
+                "phpunit/phpunit": "^5.7.27 || ^6.5.14 || ^7.5.20"
             },
             "suggest": {
                 "laminas/laminas-cache": "Laminas\\Cache component",
@@ -3624,7 +3575,7 @@
                 "laminas",
                 "session"
             ],
-            "time": "2019-12-31T17:46:59+00:00"
+            "time": "2020-03-06T09:44:45+00:00"
         },
         {
             "name": "laminas/laminas-text",
@@ -3981,16 +3932,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.10.2",
+            "version": "v1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9"
+                "reference": "451c3cd1418cf640de218914901e51b064abb093"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
-                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/451c3cd1418cf640de218914901e51b064abb093",
+                "reference": "451c3cd1418cf640de218914901e51b064abb093",
                 "shasum": ""
             },
             "require": {
@@ -4040,7 +3991,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2020-01-20T15:57:02+00:00"
+            "time": "2020-03-05T15:02:03+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
