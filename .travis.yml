@@ -55,6 +55,7 @@ matrix:
 
 before_install:
   - shopt -s expand_aliases
+  - alias docker="travis_retry docker-compose run --rm php"
   - alias composer="travis_retry docker-compose run --rm php composer"
   - alias php="travis_retry docker-compose run -e TRAVIS -e TRAVIS_JOB_ID --rm php php"
   - docker-compose build --build-arg PHP_VERSION=${TRAVIS_PHP_VERSION} --build-arg XDEBUG=${TEST_COVERAGE:+1} --no-cache php
@@ -67,18 +68,16 @@ install:
   - composer install $COMPOSER_ARGS --ignore-platform-reqs
   - if [[ $DEPS == 'latest' ]]; then composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
-  - if $TEST_COVERAGE; then composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
-  - composer require --dev $COMPOSER_ARGS 
-  - composer install $COMPOSER_ARGS
-  - stty cols 120 && composer show
+  - if [[ $TEST_COVERAGE == 'true' ]]; then composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
+  - docker stty cols 120 && composer show
   - composer show
 
 script:
-  - cp ./tests/TestConfiguration.php ./config/application.config.php
-  - ./vendor/bin/doctrine-module odm:schema:create
-  - ./vendor/bin/doctrine-module odm:schema:drop
-  - if $TEST_COVERAGE; then php vendor/bin/phpunit --coverage-clover build/logs/clover.xml ; else php vendor/bin/phpunit ; fi
-  - if $CHECK_CS; then php vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
+  - docker cp ./tests/TestConfiguration.php ./config/application.config.php
+  - docker vendor/bin/doctrine-module odm:schema:create
+  - docker vendor/bin/doctrine-module odm:schema:drop
+  - if [[ $TEST_COVERAGE == 'true' ]]; then php vendor/bin/phpunit --coverage-clover build/logs/clover.xml ; else php vendor/bin/phpunit ; fi
+  - if [[ $CHECK_CS == 'true' ]]; then php vendor/bin/phpcs --standard=PSR2 ./src/ ./test/ ./config/ ; fi
 
 after_script:
-  - if $TEST_COVERAGE; then php vendor/bin/php-coveralls -v ; fi
+  - if [[ $TEST_COVERAGE == 'true' ]]; then php vendor/bin/php-coveralls -v ; fi
