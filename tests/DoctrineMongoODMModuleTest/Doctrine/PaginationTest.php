@@ -1,21 +1,23 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 use DoctrineMongoODMModuleTest\AbstractTest;
 use DoctrineMongoODMModuleTest\Assets\Document\Simple;
-use Zend\Paginator\Paginator;
+use Laminas\Paginator\Paginator;
+use function get_class;
 
 /**
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @author  Chris Levy <chrisianlevy@yahoo.co.uk>
  *
  * @covers \DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator
  */
 class PaginationTest extends AbstractTest
 {
-    protected function getPaginationAdapter()
+    protected function getPaginationAdapter() : DoctrinePaginator
     {
         $documentManager = $this->getDocumentManager();
 
@@ -25,12 +27,12 @@ class PaginationTest extends AbstractTest
         return new DoctrinePaginator($cursor);
     }
 
-    protected function getPaginator(DoctrinePaginator $adapter)
+    protected function getPaginator(DoctrinePaginator $adapter) : Paginator
     {
         return new Paginator($adapter);
     }
 
-    public function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 
@@ -38,17 +40,18 @@ class PaginationTest extends AbstractTest
 
         for ($i = 1; $i <= 20; $i++) {
             $document = new Simple();
-            $document->setName("Document $i");
+            $document->setName('Document ' . $i);
             $documentManager->persist($document);
         }
+
         $documentManager->flush();
     }
 
-    public function testGetFoundItemCount()
+    public function testGetFoundItemCount() : void
     {
         $paginationAdapter = $this->getPaginationAdapter();
-        $paginator = $this->getPaginator($paginationAdapter);
-        $pages = $paginator->getPages();
+        $paginator         = $this->getPaginator($paginationAdapter);
+        $pages             = $paginator->getPages();
 
         $this->assertEquals(10, $pages->lastItemNumber);
     }

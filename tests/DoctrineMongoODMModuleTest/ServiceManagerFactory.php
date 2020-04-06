@@ -1,50 +1,46 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest;
 
-use Zend\Mvc\Application;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
+use function assert;
 
 /**
  * Utility used to retrieve a freshly bootstrapped application's service manager
  *
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @author  Adam Homsi <adam.homsi@gmail.com>
  */
 class ServiceManagerFactory
 {
     /**
-     * @return array
+     * @return mixed[]
      */
-    public static function getConfiguration()
+    public static function getConfiguration() : array
     {
-        $r = new \ReflectionClass(Application::class);
-        $requiredParams = $r->getConstructor()->getNumberOfRequiredParameters();
-
-        $configFile = $requiredParams == 1 ? 'TestConfigurationV3.php' : 'TestConfigurationV2.php';
-
-        return include __DIR__ . '/../' . $configFile;
+        return include __DIR__ . '/../TestConfiguration.php';
     }
 
     /**
      * Builds a new service manager
      *
-     * @param  array|null     $configuration
-     * @return ServiceManager
+     * @param  mixed[]|null $configuration
      */
-    public static function getServiceManager(array $configuration = null)
+    public static function getServiceManager(?array $configuration = null) : ServiceManager
     {
         $configuration        = $configuration ?: static::getConfiguration();
         $serviceManager       = new ServiceManager();
         $serviceManagerConfig = new ServiceManagerConfig(
-            isset($configuration['service_manager']) ? $configuration['service_manager'] : []
+            $configuration['service_manager'] ?? []
         );
         $serviceManagerConfig->configureServiceManager($serviceManager);
         $serviceManager->setService('ApplicationConfig', $configuration);
 
-        /** @var $moduleManager \Zend\ModuleManager\ModuleManager */
         $moduleManager = $serviceManager->get('ModuleManager');
+        assert($moduleManager instanceof ModuleManager);
         $moduleManager->loadModules();
 
         return $serviceManager;

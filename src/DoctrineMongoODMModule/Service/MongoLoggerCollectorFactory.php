@@ -1,31 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Service;
 
+use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Collector\MongoLoggerCollector;
 use DoctrineMongoODMModule\Logging\DebugStack;
 use DoctrineMongoODMModule\Logging\LoggerChain;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use function assert;
 
 /**
  * Mongo Logger Configuration ServiceManager factory
  *
- * @license MIT
  * @link    http://www.doctrine-project.org/
  */
 class MongoLoggerCollectorFactory extends AbstractFactory
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $name;
 
-    /**
-     * @param $name
-     */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
@@ -35,10 +33,10 @@ class MongoLoggerCollectorFactory extends AbstractFactory
      *
      * @return MongoLoggerCollector
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        /** @var $options Options\MongoLoggerCollector */
         $options = $this->getOptions($container, 'mongo_logger_collector');
+        assert($options instanceof Options\MongoLoggerCollector);
 
         if ($options->getMongoLogger()) {
             $debugStackLogger = $container->get($options->getMongoLogger());
@@ -46,10 +44,10 @@ class MongoLoggerCollectorFactory extends AbstractFactory
             $debugStackLogger = new DebugStack();
         }
 
-        /** @var $options \Doctrine\ODM\MongoDB\Configuration */
         $configuration = $container->get($options->getConfiguration());
+        assert($configuration instanceof Configuration);
 
-        if (null !== $configuration->getLoggerCallable()) {
+        if ($configuration->getLoggerCallable() !== null) {
             $logger = new LoggerChain();
             $logger->addLogger($debugStackLogger);
             $callable = $configuration->getLoggerCallable();
@@ -62,6 +60,9 @@ class MongoLoggerCollectorFactory extends AbstractFactory
         return new MongoLoggerCollector($debugStackLogger, $options->getName());
     }
 
+    /**
+     * @return mixed
+     */
     public function createService(ServiceLocatorInterface $container)
     {
         return $this($container, MongoLoggerCollector::class);
@@ -70,7 +71,7 @@ class MongoLoggerCollectorFactory extends AbstractFactory
     /**
      * {@inheritDoc}
      */
-    public function getOptionsClass()
+    public function getOptionsClass() : string
     {
         return Options\MongoLoggerCollector::class;
     }

@@ -1,3 +1,4 @@
+sudo: false
 language: php
 
 cache:
@@ -8,28 +9,19 @@ cache:
 env:
   global:
     - COMPOSER_ARGS="--no-interaction"
-    - ADAPTER_DEPS="alcaeus/mongo-php-adapter"
-    - LOWEST_DEPS_REMOVE="zendframework/zend-mvc-console"
+    - COVERAGE_DEPS="php-coveralls/php-coveralls"
 
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
+    - php: 7.2
       env:
         - DEPS=lowest
-    - php: 7.1
+    - php: 7.2
       env:
         - DEPS=locked
         - CS_CHECK=true
-    - php: 7.1
-      env:
-        - DEPS=latest
-    - php: 7.2
-      env:
-        - DEPS=lowest
-    - php: 7.2
-      env:
-        - DEPS=locked
+        - TEST_COVERAGE=true
     - php: 7.2
       env:
         - DEPS=latest
@@ -42,25 +34,50 @@ matrix:
     - php: 7.3
       env:
         - DEPS=latest
-
-services: mongodb
+    - php: 7.4
+      env:
+        - DEPS=lowest
+    - php: 7.4
+      env:
+        - DEPS=locked
+    - php: 7.4
+      env:
+        - DEPS=latest
+    - php: 7.4
+      env:
+        - DEPS=lowest
+    - php: 7.4
+      env:
+        - DEPS=locked
+    - php: 7.4
+      env:
+        - DEPS=latest
 
 before_install:
-  - travis_retry composer self-update
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer remove $COMPOSER_ARGS --no-update --dev $LOWEST_DEPS_REMOVE ; fi
+  - shopt -s expand_aliases
+  - alias docker="travis_retry docker-compose run --rm php"
+  - alias composer="travis_retry docker-compose run --rm php composer"
+  - alias php="travis_retry docker-compose run -e TRAVIS -e TRAVIS_JOB_ID --rm php php"
+  - docker-compose build --build-arg PHP_VERSION=${TRAVIS_PHP_VERSION} --build-arg XDEBUG=${TEST_COVERAGE:+1} --no-cache php
+  - composer --version
+  - php -v
+  - php -m
 
 install:
-  - yes '' | pecl -q install -f mongodb
-  - travis_retry composer config "platform.ext-mongo" "1.6.16" && composer require --dev $COMPOSER_ARGS $ADAPTER_DEPS
-  - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
-  - travis_retry composer install $COMPOSER_ARGS
+  - php --info
+  - composer install $COMPOSER_ARGS --ignore-platform-reqs
+  - if [[ $DEPS == 'latest' ]]; then composer update $COMPOSER_ARGS ; fi
+  - if [[ $DEPS == 'lowest' ]]; then composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
+  - if [[ $TEST_COVERAGE == 'true' ]]; then composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
+  - docker stty cols 120 && composer show
   - composer show
-  - if ! nc -z localhost 27017; then sudo service mongod start; fi
 
 script:
-  - if [[ $DEPS == 'lowest' ]]; then cp ./tests/TestConfigurationV2.php ./config/application.config.php ; else cp ./tests/TestConfigurationV3.php ./config/application.config.php ; fi
-  - ./vendor/bin/doctrine-module odm:schema:create
-  - ./vendor/bin/doctrine-module odm:schema:drop
-  - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; else ./vendor/bin/phpunit ; fi
-  - if [[ $CHECK_CS == 'true' ]]; then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/ ./config/ ; fi
+  - docker cp ./tests/TestConfiguration.php ./config/application.config.php
+  - docker vendor/bin/doctrine-module odm:schema:create
+  - docker vendor/bin/doctrine-module odm:schema:drop
+  - if [[ $TEST_COVERAGE == 'true' ]]; then php vendor/bin/phpunit --coverage-clover build/logs/clover.xml ; else php vendor/bin/phpunit ; fi
+  - if [[ $CHECK_CS == 'true' ]]; then php vendor/bin/phpcs --standard=PSR2 ./src/ ./test/ ./config/ ; fi
+
+after_script:
+  - if [[ $TEST_COVERAGE == 'true' ]]; then php vendor/bin/php-coveralls -v ; fi

@@ -1,13 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModuleTest\AbstractTest;
 
 class AuthenticationServiceFactoryTest extends AbstractTest
 {
-    public function testAuthenticationServiceFactory()
+    public function testAuthenticationServiceFactory() : void
     {
         $authenticationService = $this->serviceManager->get('doctrine.authenticationservice.odm_default');
-        $this->assertInstanceOf('Zend\Authentication\AuthenticationService', $authenticationService);
+        $this->assertInstanceOf('Laminas\Authentication\AuthenticationService', $authenticationService);
     }
 }

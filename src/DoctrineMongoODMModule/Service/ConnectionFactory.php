@@ -1,18 +1,24 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Service;
 
+use Doctrine\Common\EventManager;
 use Doctrine\MongoDB\Connection;
+use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use function assert;
+use function strpos;
+use function substr;
+use const PHP_INT_MAX;
 
 /**
  * Factory creates a mongo connection
  *
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @since   0.1.0
- * @author  Tim Roediger <superdweebie@gmail.com>
  */
 class ConnectionFactory extends AbstractFactory
 {
@@ -21,13 +27,13 @@ class ConnectionFactory extends AbstractFactory
      *
      * @return Connection
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        /** @var $options Options\Connection */
         $options = $this->getOptions($container, 'connection');
+        assert($options instanceof Options\Connection);
 
         $connectionString = $options->getConnectionString();
-        $dbName = null;
+        $dbName           = null;
 
         if (empty($connectionString)) {
             $connectionString = 'mongodb://';
@@ -48,8 +54,8 @@ class ConnectionFactory extends AbstractFactory
         } else {
             // parse dbName from the connectionString
             $dbStart = strpos($connectionString, '/', 11);
-            if (false !== $dbStart) {
-                $dbEnd = strpos($connectionString, '?');
+            if ($dbStart !== false) {
+                $dbEnd  = strpos($connectionString, '?');
                 $dbName = substr(
                     $connectionString,
                     $dbStart + 1,
@@ -58,20 +64,23 @@ class ConnectionFactory extends AbstractFactory
             }
         }
 
-        /** @var $configuration \Doctrine\ODM\MongoDB\Configuration */
         $configuration = $container->get('doctrine.configuration.' . $this->getName());
+        assert($configuration instanceof Configuration);
 
         // Set defaultDB to $dbName, if it's not defined in configuration
-        if (null === $configuration->getDefaultDB()) {
+        if ($configuration->getDefaultDB() === null) {
             $configuration->setDefaultDB($dbName);
         }
 
-        /** @var $configuration \Doctrine\Common\EventManager */
         $eventManager = $container->get('doctrine.eventmanager.' . $this->getName());
+        assert($eventManager instanceof EventManager);
 
         return new Connection($connectionString, $options->getOptions(), $configuration, $eventManager);
     }
 
+    /**
+     * @return mixed
+     */
     public function createService(ServiceLocatorInterface $container)
     {
         return $this($container, Connection::class);
@@ -79,10 +88,8 @@ class ConnectionFactory extends AbstractFactory
 
     /**
      * Get the class name of the options associated with this factory.
-     *
-     * @return string
      */
-    public function getOptionsClass()
+    public function getOptionsClass() : string
     {
         return Options\Connection::class;
     }

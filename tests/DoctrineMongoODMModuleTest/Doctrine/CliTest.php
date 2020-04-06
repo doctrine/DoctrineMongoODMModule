@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -15,73 +18,70 @@
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
+
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper;
 use DoctrineMongoODMModuleTest\ServiceManagerFactory;
+use Laminas\EventManager\SharedEventManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Application;
+use function assert;
 
 /**
  * Tests used to verify that command line functionality is active
  *
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @author  Adam Homsi <adam.homsi@gmail.com>
  */
 class CliTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\Console\Application
-     */
+    /** @var Application */
     protected $cli;
 
-    /**
-     * @var \Doctrine\ODM\MongoDB\DocumentManager
-     */
+    /** @var DocumentManager */
     protected $documentManager;
 
-    /**
-     * {@inheritDoc}
-     */
-    public function setUp()
+    protected function setUp() : void
     {
-        $serviceManager     = ServiceManagerFactory::getServiceManager();
+        $serviceManager = ServiceManagerFactory::getServiceManager();
 
-        /* @var $sharedEventManager \Zend\EventManager\SharedEventManagerInterface */
         $sharedEventManager = $serviceManager->get('SharedEventManager');
+        assert($sharedEventManager instanceof SharedEventManagerInterface);
 
-        /* @var $application \Zend\Mvc\Application */
-        $application        = $serviceManager->get('Application');
-        $invocations        = 0;
+        $application = $serviceManager->get('Application');
+        assert($application instanceof \Laminas\Mvc\Application);
+        $invocations = 0;
 
         $sharedEventManager = $application->getEventManager()->getSharedManager();
 
         $sharedEventManager->attach(
             'doctrine',
             'loadCli.post',
-            function () use (&$invocations) {
+            static function () use (&$invocations) : void {
                 $invocations += 1;
             }
         );
 
         $application->bootstrap();
         $this->documentManager = $serviceManager->get('doctrine.documentmanager.odm_default');
-        $this->cli           = $serviceManager->get('doctrine.cli');
+        $this->cli             = $serviceManager->get('doctrine.cli');
 
         $this->assertSame(1, $invocations);
     }
 
-    public function testValidHelpers()
+    public function testValidHelpers() : void
     {
         $helperSet = $this->cli->getHelperSet();
 
-        /* @var $dmHelper \Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper */
         $dmHelper = $helperSet->get('dm');
+        assert($dmHelper instanceof DocumentManagerHelper);
 
         $this->assertInstanceOf('\Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper', $dmHelper);
         $this->assertSame($this->documentManager, $dmHelper->getDocumentManager());
     }
 
-    public function testValidCommands()
+    public function testValidCommands() : void
     {
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand',

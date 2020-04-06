@@ -1,10 +1,14 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Logging;
+
+use function var_dump;
 
 /**
  * A logger that logs to the standard output using echo/var_dump.
  *
- * @license MIT
  * @link    www.doctrine-project.org
  */
 class EchoLogger implements Logger
@@ -14,8 +18,10 @@ class EchoLogger implements Logger
      */
     public function log(array $logs)
     {
-        if ($logs) {
-            var_dump($logs);
+        if (! $logs) {
+            return;
         }
+
+        var_dump($logs);
     }
 }

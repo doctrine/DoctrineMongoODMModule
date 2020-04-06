@@ -1,19 +1,20 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModule\Service;
 
-use DoctrineMongoODMModule\Options;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\Types\Type;
+use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use function assert;
 
 /**
  * Factory to create MongoDB configuration object.
  *
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @since   0.1.0
- * @author  Tim Roediger <superdweebie@gmail.com>
  */
 class ConfigurationFactory extends AbstractFactory
 {
@@ -22,12 +23,12 @@ class ConfigurationFactory extends AbstractFactory
      *
      * @return Configuration
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        /** @var $options Options\Configuration */
         $options = $this->getOptions($container, 'configuration');
+        assert($options instanceof Options\Configuration);
 
-        $config = new Configuration;
+        $config = new Configuration();
 
         // logger
         if ($options->getLogger()) {
@@ -77,12 +78,14 @@ class ConfigurationFactory extends AbstractFactory
         $config->setMetadataDriverImpl($container->get($options->getDriver()));
 
         // metadataFactory, if set
-        if ($factoryName = $options->getClassMetadataFactoryName()) {
+        $factoryName = $options->getClassMetadataFactoryName();
+        if ($factoryName) {
             $config->setClassMetadataFactoryName($factoryName);
         }
 
         // respositoryFactory, if set
-        if ($repositoryFactory = $options->getRepositoryFactory()) {
+        $repositoryFactory = $options->getRepositoryFactory();
+        if ($repositoryFactory) {
             $config->setRepositoryFactory($container->get($repositoryFactory));
         }
 
@@ -98,12 +101,15 @@ class ConfigurationFactory extends AbstractFactory
         return $config;
     }
 
+    /**
+     * @return mixed
+     */
     public function createService(ServiceLocatorInterface $container)
     {
         return $this($container, Configuration::class);
     }
 
-    public function getOptionsClass()
+    public function getOptionsClass() : string
     {
         return Options\Configuration::class;
     }

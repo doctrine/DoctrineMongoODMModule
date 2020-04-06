@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 use Doctrine\Common\Proxy\AbstractProxyFactory;
 use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
@@ -13,7 +16,7 @@ return [
                 'user'             => null,
                 'password'         => null,
                 'dbname'           => null,
-                'options'          => []
+                'options'          => [],
             ],
         ],
 
@@ -42,31 +45,31 @@ return [
                 'filters'            => [],  // array('filterName' => 'BSON\Filter\Class')
 
                 // custom types
-                'types'              => []
+                'types'              => [],
 
                 //'classMetadataFactoryName' => 'ClassName'
-            ]
+            ],
         ],
 
         'driver' => [
             'odm_default' => [
                 'class'   => 'Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain',
-                'drivers' => []
-            ]
+                'drivers' => [],
+            ],
         ],
 
         'documentmanager' => [
             'odm_default' => [
                 'connection'    => 'odm_default',
                 'configuration' => 'odm_default',
-                'eventmanager' => 'odm_default'
-            ]
+                'eventmanager' => 'odm_default',
+            ],
         ],
 
         'eventmanager' => [
             'odm_default' => [
-                'subscribers' => []
-            ]
+                'subscribers' => [],
+            ],
         ],
 
         'mongo_logger_collector' => [
@@ -78,35 +81,32 @@ return [
                 'objectManager' => 'doctrine.documentmanager.odm_default',
                 'identityClass' => 'Application\Model\User',
                 'identityProperty' => 'username',
-                'credentialProperty' => 'password'
+                'credentialProperty' => 'password',
             ],
         ],
     ],
 
     'hydrators' => [
         'factories' => [
-            'DoctrineModule\Stdlib\Hydrator\DoctrineObject' => DoctrineObjectHydratorFactory::class
-        ]
+            'Doctrine\Laminas\Hydrator\DoctrineObject' => DoctrineObjectHydratorFactory::class,
+        ],
     ],
 
-    // zendframework/zend-developer-tools specific settings
+    // laminas/laminas-developer-tools specific settings
 
     'view_manager' => [
         'template_map' => [
-            'zend-developer-tools/toolbar/doctrine-odm' => __DIR__ . '/../view/zend-developer-tools/toolbar/doctrine-odm.phtml',
+            'laminas-developer-tools/toolbar/doctrine-odm'
+                => __DIR__ . '/../view/laminas-developer-tools/toolbar/doctrine-odm.phtml',
         ],
     ],
 
-    'zenddevelopertools' => [
+    'laminas-developer-tools' => [
         'profiler' => [
-            'collectors' => [
-                'odm_default' => 'doctrine.mongo_logger_collector.odm_default',
-            ],
+            'collectors' => ['odm_default' => 'doctrine.mongo_logger_collector.odm_default'],
         ],
         'toolbar' => [
-            'entries' => [
-                'odm_default' => 'zend-developer-tools/toolbar/doctrine-odm',
-            ],
+            'entries' => ['odm_default' => 'laminas-developer-tools/toolbar/doctrine-odm'],
         ],
     ],
 ];

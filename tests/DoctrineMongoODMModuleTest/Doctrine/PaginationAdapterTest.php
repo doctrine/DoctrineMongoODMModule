@@ -1,14 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 use DoctrineMongoODMModuleTest\AbstractTest;
 use DoctrineMongoODMModuleTest\Assets\Document\Simple;
+use function current;
+use function get_class;
+use function next;
+use function sprintf;
 
 /**
- * @license MIT
  * @link    http://www.doctrine-project.org/
- * @author  Roman Konz <roman@konz.me>
  *
  * @covers \DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator
  */
@@ -21,7 +26,7 @@ class PaginationAdapterTest extends AbstractTest
      */
     protected $numberOfItems;
 
-    protected function getPaginationAdapter()
+    protected function getPaginationAdapter() : DoctrinePaginator
     {
         $documentManager = $this->getDocumentManager();
 
@@ -31,7 +36,7 @@ class PaginationAdapterTest extends AbstractTest
         return new DoctrinePaginator($cursor);
     }
 
-    public function setup()
+    protected function setUp() : void
     {
         parent::setup();
 
@@ -43,16 +48,17 @@ class PaginationAdapterTest extends AbstractTest
             $document->setName(sprintf('Document %02d', $i));
             $documentManager->persist($document);
         }
+
         $documentManager->flush();
     }
 
-    public function testItemCount()
+    public function testItemCount() : void
     {
         $paginationAdapter = $this->getPaginationAdapter();
         $this->assertEquals($this->numberOfItems, $paginationAdapter->count());
     }
 
-    public function testItemCountWithEagerCursor()
+    public function testItemCountWithEagerCursor() : void
     {
         $documentManager = $this->getDocumentManager();
 
@@ -65,10 +71,10 @@ class PaginationAdapterTest extends AbstractTest
         $this->assertEquals($this->numberOfItems, $paginationAdapter->count());
     }
 
-    public function testGetItemsWithFirstFive()
+    public function testGetItemsWithFirstFive() : void
     {
         $paginationAdapter = $this->getPaginationAdapter();
-        $documents = $paginationAdapter->getItems(0, 5);
+        $documents         = $paginationAdapter->getItems(0, 5);
 
         $this->assertCount(5, $documents);
         for ($i = 1; $i <= 5; $i++) {
@@ -77,16 +83,16 @@ class PaginationAdapterTest extends AbstractTest
         }
     }
 
-    public function testGetItemsWithLastItem()
+    public function testGetItemsWithLastItem() : void
     {
         $paginationAdapter = $this->getPaginationAdapter();
-        $documents = $paginationAdapter->getItems($this->numberOfItems - 1, 5);
+        $documents         = $paginationAdapter->getItems($this->numberOfItems - 1, 5);
 
         $this->assertEquals(sprintf('Document %02d', $this->numberOfItems), current($documents)->getName());
         $this->assertCount(1, $documents);
     }
 
-    public function testGetItemsCalledTwoTimes()
+    public function testGetItemsCalledTwoTimes() : void
     {
         $paginationAdapter = $this->getPaginationAdapter();
 
@@ -97,10 +103,10 @@ class PaginationAdapterTest extends AbstractTest
         $this->assertEquals('Document 02', $document2->getName());
     }
 
-    public function testItemsAreKeyedAsSequentialIntegers()
+    public function testItemsAreKeyedAsSequentialIntegers() : void
     {
         $paginationAdapter = $this->getPaginationAdapter();
-        $items = $paginationAdapter->getItems(0, $paginationAdapter->count());
+        $items             = $paginationAdapter->getItems(0, $paginationAdapter->count());
 
         for ($i = 0; $i < $paginationAdapter->count(); $i++) {
             $this->assertArrayHasKey($i, $items);

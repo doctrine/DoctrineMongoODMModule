@@ -1,13 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
-use DoctrineMongoODMModuleTest\Assets\Document\Simple;
 use DoctrineMongoODMModuleTest\AbstractTest;
+use DoctrineMongoODMModuleTest\Assets\Document\Simple;
+use function get_class;
 
 class PersistTest extends AbstractTest
 {
-
-    public function testPersist()
+    public function testPersist() : void
     {
         $documentManager = $this->getDocumentManager();
 
@@ -19,7 +22,7 @@ class PersistTest extends AbstractTest
         $id = $simple->getId();
 
         $repository = $documentManager->getRepository(get_class($simple));
-        $simple = $repository->find($id);
+        $simple     = $repository->find($id);
 
         $this->assertEquals('lucy', $simple->getName());
     }

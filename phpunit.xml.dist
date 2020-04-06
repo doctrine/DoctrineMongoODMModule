@@ -5,6 +5,9 @@
     colors="true"
     backupGlobals="false"
 >
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
     <testsuites>
         <testsuite name="DoctrineMongoODMModule Test Suite">
             <directory>./tests/DoctrineMongoODMModuleTest/</directory>

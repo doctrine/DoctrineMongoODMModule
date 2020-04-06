@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest\Assets\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -8,25 +11,38 @@ class Simple
 {
     /**
      * @ODM\Id(strategy="UUID")
+     *
+     * @var mixed $id
      */
     protected $id;
 
     /**
      * @ODM\Field(type="string")
+     *
+     * @var mixed $name
      */
     protected $name;
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
 
-    public function setName($name)
+    /**
+     * @param mixed $name
+     */
+    public function setName($name) : void
     {
         $this->name = (string) $name;
     }

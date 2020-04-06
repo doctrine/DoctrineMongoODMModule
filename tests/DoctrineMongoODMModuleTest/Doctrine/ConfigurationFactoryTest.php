@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DoctrineMongoODMModuleTest\Service;
 
 use Doctrine\Common\Cache\Cache;
@@ -13,49 +16,57 @@ use DoctrineMongoODMModule\Service\ConfigurationFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
 use DoctrineMongoODMModuleTest\Assets\CustomRepositoryFactory;
 use DoctrineMongoODMModuleTest\Assets\CustomType;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
+use function assert;
+use function is_callable;
 
 final class ConfigurationFactoryTest extends AbstractTest
 {
-    public function testRetryConnectValueIsSetFromConfigurationOptions()
+    public function testRetryConnectValueIsSetFromConfigurationOptions() : void
     {
         $config = $this->getDocumentManager()->getConfiguration();
 
         $this->assertSame(123, $config->getRetryConnect());
     }
 
-    public function testRetryQueryValueIsSetFromConfigurationOptions()
+    public function testRetryQueryValueIsSetFromConfigurationOptions() : void
     {
         $config = $this->getDocumentManager()->getConfiguration();
 
         $this->assertSame(456, $config->getRetryQuery());
     }
 
-    public function testCreation()
+    public function testCreation() : void
     {
-        $serviceLocator = new ServiceManager;
+        $serviceLocator = new ServiceManager();
 
         $serviceLocator->setService('stubbed_logger', $this->getMockForAbstractClass(Logger::class));
+
         $serviceLocator->setService(
             'doctrine.cache.stubbed_metadatacache',
             $metadataCache = $this->getMockForAbstractClass(Cache::class)
         );
+
         $serviceLocator->setService(
             'doctrine.driver.stubbed_driver',
             $mappingDriver = $this->getMockForAbstractClass(MappingDriver::class)
         );
+
         $serviceLocator->setService(
             CustomRepositoryFactory::class,
             $repositoryFactory = new CustomRepositoryFactory()
         );
+
         $serviceLocator->setService(
             PersistentCollectionFactory::class,
             $persistentCollectionFactory = $this->getMockForAbstractClass(PersistentCollectionFactory::class)
         );
+
         $serviceLocator->setService(
             PersistentCollectionGenerator::class,
             $persistentCollectionGenerator = $this->getMockForAbstractClass(PersistentCollectionGenerator::class)
         );
+
         $serviceLocator->setService(
             'config',
             [
@@ -67,15 +78,16 @@ final class ConfigurationFactoryTest extends AbstractTest
                             'driver' => 'stubbed_driver',
 
                             'generate_proxies' => $proxyGenerate = false,
-                            'proxy_dir' => $proxyDir = 'dir/proxy',
+                            'proxy_dir' => $proxyDir             = 'dir/proxy',
                             'proxy_namespace' => $proxyNamespace = 'ns\proxy',
 
-                            'generate_hydrators' => $hydratorGenerate = true,
-                            'hydrator_dir' => $hydratorDir = 'dir/hydrator',
+                            'generate_hydrators' => $hydratorGenerate  = true,
+                            'hydrator_dir' => $hydratorDir             = 'dir/hydrator',
                             'hydrator_namespace' => $hydratorNamespace = 'ns\hydrator',
-
+                            // phpcs:disable Generic.Files.LineLength
                             'generate_persistent_collections' => $collectionGenerate = Configuration::AUTOGENERATE_EVAL,
-                            'persistent_collection_dir' => $collectionDir = 'dir/collection',
+                            // phpcs:enable Generic.Files.LineLength
+                            'persistent_collection_dir' => $collectionDir             = 'dir/collection',
                             'persistent_collection_namespace' => $collectionNamespace = 'ns\collection',
                             'persistent_collection_factory' => PersistentCollectionFactory::class,
                             'persistent_collection_generator' => PersistentCollectionGenerator::class,
@@ -85,16 +97,16 @@ final class ConfigurationFactoryTest extends AbstractTest
                             'types' => [$typeName = 'foo_type' => $typeClassName = CustomType::class],
                             'classMetadataFactoryName' => 'stdClass',
                             'repositoryFactory' => CustomRepositoryFactory::class,
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         );
 
         $factory = new ConfigurationFactory('odm_test');
 
-        /** @var Configuration $config */
         $config = $factory->createService($serviceLocator);
+        assert($config instanceof Configuration);
 
         self::assertInstanceOf(Configuration::class, $config);
         self::assertTrue(is_callable($config->getLoggerCallable()));

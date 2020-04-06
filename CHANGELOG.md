@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.0.0
+
+- Drop PHP 7.1 support.
+- Add Laminas support.
+
 ## Version 1.1.0
 
 - [#206](https://github.com/docrine/DoctrineMongoODMModule/pull/206) Drop PHP 5.6 and 7.0 support
