@@ -476,12 +476,12 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getDefaultDocumentRepositoryClassName()
+    public function getDefaultDocumentRepositoryClassName() : string
     {
         return $this->defaultDocumentRepositoryClassName;
     }
 
-    public function setDefaultDocumentRepositoryClassName(string $defaultDocumentRepositoryClassName)
+    public function setDefaultDocumentRepositoryClassName(string $defaultDocumentRepositoryClassName) : self
     {
         $this->defaultDocumentRepositoryClassName = $defaultDocumentRepositoryClassName;
 
