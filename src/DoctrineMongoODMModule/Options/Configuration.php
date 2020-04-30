@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DoctrineMongoODMModule\Options;
 
 use Doctrine\Common\Proxy\AbstractProxyFactory;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository as DefaultDocumentRepository;
 use DoctrineMongoODMModule\Logging\Logger;
 use Laminas\Stdlib\AbstractOptions;
 use function is_bool;
@@ -124,6 +125,9 @@ class Configuration extends AbstractOptions
 
     /** @var string */
     protected $repositoryFactory;
+
+    /** @var string */
+    protected $defaultDocumentRepositoryClassName;
 
     /**
      * Number of times to attempt to connect if an exception is encountered
@@ -468,6 +472,18 @@ class Configuration extends AbstractOptions
     public function setRepositoryFactory(?string $repositoryFactory) : Configuration
     {
         $this->repositoryFactory = (string) $repositoryFactory;
+
+        return $this;
+    }
+
+    public function getDefaultDocumentRepositoryClassName()
+    {
+        return $this->defaultDocumentRepositoryClassName;
+    }
+
+    public function setDefaultDocumentRepositoryClassName(string $defaultDocumentRepositoryClassName)
+    {
+        $this->defaultDocumentRepositoryClassName = $defaultDocumentRepositoryClassName;
 
         return $this;
     }
