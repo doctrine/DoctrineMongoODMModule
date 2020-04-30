@@ -1,5 +1,6 @@
 <?php
 use Doctrine\ODM\MongoDB\Configuration;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository as DefaultDocumentRepository;
 
 return array(
     'doctrine' => array(
@@ -40,7 +41,9 @@ return array(
 //
 //                'filters'            => array(),  // array('filterName' => 'BSON\Filter\Class'),
 //
-//                'logger'             => null // 'DoctrineMongoODMModule\Logging\DebugStack'
+//                'logger'             => null // 'DoctrineMongoODMModule\Logging\DebugStack',
+//               
+//                'default_document_repository_class_name' => DefaultDocumentRepository::class,
             )
         ),
 
