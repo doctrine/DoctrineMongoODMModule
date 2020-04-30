@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+namespace DoctrineMongoODMModuleTest;
 
 return [
     'doctrine' => [
@@ -9,6 +9,7 @@ return [
                 'default_db' => 'doctrineMongoODMModuleTest',
                 'retryConnect' => 123,
                 'retryQuery' => 456,
+                'default_document_repository_class_name' => Assets\DefaultDocumentRepository ::class,
             ],
         ],
         'connection' => [
