@@ -127,7 +127,7 @@ class Configuration extends AbstractOptions
     protected $repositoryFactory;
 
     /** @var string */
-    protected $defaultDocumentRepositoryClassName;
+    protected $defaultDocumentRepositoryClassName = DefaultDocumentRepository::class;
 
     /**
      * Number of times to attempt to connect if an exception is encountered
