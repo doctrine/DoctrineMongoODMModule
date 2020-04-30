@@ -17,5 +17,6 @@ final class CustomDefaultRepositoryTest extends AbstractTest
         $repository = $documentManager->getRepository(Simple::class);
 
         self::assertInstanceOf(DefaultDocumentRepository::class, $repository);
+        self::assertTrue($repository->isCustomDefaultDocumentRepository());
     }
 }
