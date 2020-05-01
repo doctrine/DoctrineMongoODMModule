@@ -98,6 +98,11 @@ class ConfigurationFactory extends AbstractFactory
             }
         }
 
+        $className = $options->getDefaultDocumentRepositoryClassName();
+        if ($className) {
+            $config->setDefaultDocumentRepositoryClassName($className);
+        }
+
         return $config;
     }
 

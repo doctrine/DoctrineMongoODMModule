@@ -16,6 +16,7 @@ use DoctrineMongoODMModule\Service\ConfigurationFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
 use DoctrineMongoODMModuleTest\Assets\CustomRepositoryFactory;
 use DoctrineMongoODMModuleTest\Assets\CustomType;
+use DoctrineMongoODMModuleTest\Assets\DefaultDocumentRepository as CustomDocumentRepository;
 use Laminas\ServiceManager\ServiceManager;
 use function assert;
 use function is_callable;
@@ -39,7 +40,6 @@ final class ConfigurationFactoryTest extends AbstractTest
     public function testCreation() : void
     {
         $serviceLocator = new ServiceManager();
-
         $serviceLocator->setService('stubbed_logger', $this->getMockForAbstractClass(Logger::class));
 
         $serviceLocator->setService(
@@ -97,6 +97,7 @@ final class ConfigurationFactoryTest extends AbstractTest
                             'types' => [$typeName = 'foo_type' => $typeClassName = CustomType::class],
                             'classMetadataFactoryName' => 'stdClass',
                             'repositoryFactory' => CustomRepositoryFactory::class,
+                            'default_document_repository_class_name' => CustomDocumentRepository::class,
                         ],
                     ],
                 ],
@@ -104,8 +105,8 @@ final class ConfigurationFactoryTest extends AbstractTest
         );
 
         $factory = new ConfigurationFactory('odm_test');
-
         $config = $factory->createService($serviceLocator);
+
         assert($config instanceof Configuration);
 
         self::assertInstanceOf(Configuration::class, $config);
@@ -130,5 +131,7 @@ final class ConfigurationFactoryTest extends AbstractTest
 
         self::assertInstanceOf($typeClassName, Type::getType($typeName));
         self::assertSame($repositoryFactory, $config->getRepositoryFactory());
+
+        self::assertSame(CustomDocumentRepository::class, $config->getDefaultDocumentRepositoryClassName());
     }
 }
