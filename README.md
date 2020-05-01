@@ -117,3 +117,4 @@ Run phpcs as
 ```
 docker-compose run --rm php composer cs-check src test config
 ```
+
