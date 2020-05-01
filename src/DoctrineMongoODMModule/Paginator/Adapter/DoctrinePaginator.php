@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModule\Paginator\Adapter;
 
+use Iterator;
 use Doctrine\MongoDB\EagerCursor;
 use Doctrine\ODM\MongoDB\Cursor;
 use Laminas\Paginator\Adapter\AdapterInterface;
@@ -19,7 +20,7 @@ class DoctrinePaginator implements AdapterInterface
     /**
      * Constructor
      */
-    public function __construct(Cursor $cursor)
+    public function __construct(Iterator $cursor)
     {
         $this->cursor = $cursor;
     }
