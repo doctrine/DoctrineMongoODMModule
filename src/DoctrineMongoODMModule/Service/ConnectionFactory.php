@@ -75,7 +75,7 @@ class ConnectionFactory extends AbstractFactory
         $eventManager = $container->get('doctrine.eventmanager.' . $this->getName());
         assert($eventManager instanceof EventManager);
 
-        return new Connection($connectionString, $options->getOptions(), $configuration, $eventManager);
+        return new Connection($connectionString, $options->getOptions(), $configuration, $eventManager,$options->getDriverOptions());
     }
 
     /**
