@@ -62,6 +62,13 @@ class Connection extends AbstractOptions
      */
     protected $options = [];
 
+    /**
+     * Driver specific connection options defined by mongodb-odm
+     *
+     * @var mixed[]
+     */
+    protected $driverOptions = [];
+
     public function getServer() : string
     {
         return $this->server;
@@ -148,6 +155,24 @@ class Connection extends AbstractOptions
     public function setOptions(array $options) : Connection
     {
         $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed[]
+     */
+    public function getDriverOptions() : array
+    {
+        return $this->driverOptions;
+    }
+
+    /**
+     * @param mixed[] $options
+     */
+    public function setDriverOptions(array $driverOptions) : Connection
+    {
+        $this->driverOptions = $driverOptions;
 
         return $this;
     }
