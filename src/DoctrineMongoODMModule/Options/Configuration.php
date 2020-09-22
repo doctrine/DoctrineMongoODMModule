@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModule\Options;
 
-use Doctrine\Common\Proxy\AbstractProxyFactory;
+use Doctrine\ODM\MongoDB\Configuration as MongoDbConfiguration;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository as DefaultDocumentRepository;
 use DoctrineMongoODMModule\Logging\Logger;
 use Laminas\Stdlib\AbstractOptions;
-use function is_bool;
 
 /**
  * Configuration options for doctrine mongo
@@ -29,9 +28,9 @@ class Configuration extends AbstractOptions
     /**
      * Automatic generation of proxies (disable for production!)
      *
-     * @var bool
+     * @var int
      */
-    protected $generateProxies = AbstractProxyFactory::AUTOGENERATE_ALWAYS;
+    protected $generateProxies = MongoDbConfiguration::AUTOGENERATE_EVAL;
 
     /**
      * Proxy directory.
@@ -50,9 +49,9 @@ class Configuration extends AbstractOptions
     /**
      * Automatic generation of hydrators (disable for production!)
      *
-     * @var bool
+     * @var int
      */
-    protected $generateHydrators = true;
+    protected $generateHydrators = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
 
     /**
      * Hydrator directory
@@ -73,7 +72,7 @@ class Configuration extends AbstractOptions
      *
      * @var int
      */
-    protected $generatePersistentCollections = \Doctrine\ODM\MongoDB\Configuration::AUTOGENERATE_ALWAYS;
+    protected $generatePersistentCollections = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
 
     /**
      * Persistent collection directory.
@@ -92,7 +91,7 @@ class Configuration extends AbstractOptions
     /**
      * Persistent collection factory service name.
      *
-     * @var string
+     * @var string|null
      */
     protected $persistentCollectionFactory;
 
@@ -106,7 +105,7 @@ class Configuration extends AbstractOptions
     /** @var string */
     protected $driver;
 
-    /** @var string */
+    /** @var string|null */
     protected $defaultDb;
 
     /**
@@ -171,12 +170,6 @@ class Configuration extends AbstractOptions
      */
     public function setGenerateProxies(int $generateProxies)
     {
-        if (is_bool($generateProxies)) {
-            $generateProxies = $generateProxies
-                ? AbstractProxyFactory::AUTOGENERATE_ALWAYS
-                : AbstractProxyFactory::AUTOGENERATE_NEVER;
-        }
-
         $this->generateProxies = $generateProxies;
 
         return $this;
@@ -232,12 +225,12 @@ class Configuration extends AbstractOptions
         return $this->proxyNamespace;
     }
 
-    public function getGenerateHydrators() : bool
+    public function getGenerateHydrators() : int
     {
         return $this->generateHydrators;
     }
 
-    public function setGenerateHydrators(bool $generateHydrators) : Configuration
+    public function setGenerateHydrators(int $generateHydrators) : Configuration
     {
         $this->generateHydrators = $generateHydrators;
 
@@ -319,7 +312,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getPersistentCollectionFactory() : string
+    public function getPersistentCollectionFactory() : ?string
     {
         return $this->persistentCollectionFactory;
     }
@@ -336,7 +329,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getPersistentCollectionGenerator() : string
+    public function getPersistentCollectionGenerator() : ?string
     {
         return $this->persistentCollectionGenerator;
     }

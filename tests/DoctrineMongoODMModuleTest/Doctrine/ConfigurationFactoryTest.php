@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace DoctrineMongoODMModuleTest\Service;
+namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use Doctrine\Common\Cache\Cache;
-use Doctrine\Common\Persistence\Mapping\Driver\MappingDriver;
-use Doctrine\Common\Proxy\AbstractProxyFactory;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\PersistentCollection\PersistentCollectionFactory;
 use Doctrine\ODM\MongoDB\PersistentCollection\PersistentCollectionGenerator;
 use Doctrine\ODM\MongoDB\Types\Type;
+use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use DoctrineMongoODMModule\Logging\Logger;
 use DoctrineMongoODMModule\Service\ConfigurationFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
@@ -19,24 +18,9 @@ use DoctrineMongoODMModuleTest\Assets\CustomType;
 use DoctrineMongoODMModuleTest\Assets\DefaultDocumentRepository as CustomDocumentRepository;
 use Laminas\ServiceManager\ServiceManager;
 use function assert;
-use function is_callable;
 
 final class ConfigurationFactoryTest extends AbstractTest
 {
-    public function testRetryConnectValueIsSetFromConfigurationOptions() : void
-    {
-        $config = $this->getDocumentManager()->getConfiguration();
-
-        $this->assertSame(123, $config->getRetryConnect());
-    }
-
-    public function testRetryQueryValueIsSetFromConfigurationOptions() : void
-    {
-        $config = $this->getDocumentManager()->getConfiguration();
-
-        $this->assertSame(456, $config->getRetryQuery());
-    }
-
     public function testCreation() : void
     {
         $serviceLocator = new ServiceManager();
@@ -77,11 +61,11 @@ final class ConfigurationFactoryTest extends AbstractTest
                             'metadata_cache' => 'stubbed_metadatacache',
                             'driver' => 'stubbed_driver',
 
-                            'generate_proxies' => $proxyGenerate = false,
+                            'generate_proxies' => $proxyGenerate = Configuration::AUTOGENERATE_EVAL,
                             'proxy_dir' => $proxyDir             = 'dir/proxy',
                             'proxy_namespace' => $proxyNamespace = 'ns\proxy',
 
-                            'generate_hydrators' => $hydratorGenerate  = true,
+                            'generate_hydrators' => $hydratorGenerate  = Configuration::AUTOGENERATE_ALWAYS,
                             'hydrator_dir' => $hydratorDir             = 'dir/hydrator',
                             'hydrator_namespace' => $hydratorNamespace = 'ns\hydrator',
                             // phpcs:disable Generic.Files.LineLength
@@ -105,21 +89,20 @@ final class ConfigurationFactoryTest extends AbstractTest
         );
 
         $factory = new ConfigurationFactory('odm_test');
-        $config = $factory->createService($serviceLocator);
+        $config  = $factory->createService($serviceLocator);
 
         assert($config instanceof Configuration);
 
         self::assertInstanceOf(Configuration::class, $config);
-        self::assertTrue(is_callable($config->getLoggerCallable()));
 
         self::assertSame($metadataCache, $config->getMetadataCacheImpl());
         self::assertSame($mappingDriver, $config->getMetadataDriverImpl());
 
-        self::assertSame(AbstractProxyFactory::AUTOGENERATE_NEVER, $config->getAutoGenerateProxyClasses());
+        self::assertSame(Configuration::AUTOGENERATE_EVAL, $config->getAutoGenerateProxyClasses());
         self::assertSame($proxyDir, $config->getProxyDir());
         self::assertSame($proxyNamespace, $config->getProxyNamespace());
 
-        self::assertTrue($config->getAutoGenerateHydratorClasses());
+        self::assertSame($config->getAutoGenerateHydratorClasses(), Configuration::AUTOGENERATE_ALWAYS);
         self::assertSame($hydratorDir, $config->getHydratorDir());
         self::assertSame($hydratorNamespace, $config->getHydratorNamespace());
 

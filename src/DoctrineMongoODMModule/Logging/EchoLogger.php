@@ -16,7 +16,7 @@ class EchoLogger implements Logger
     /**
      * {@inheritdoc}
      */
-    public function log(array $logs)
+    public function log(array $logs) : void
     {
         if (! $logs) {
             return;

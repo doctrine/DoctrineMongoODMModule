@@ -25,72 +25,69 @@ class ConfigurationFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        $options = $this->getOptions($container, 'configuration');
-        assert($options instanceof Options\Configuration);
+        $configurationOptions = $this->getOptions($container, 'configuration');
+        assert($configurationOptions instanceof Options\Configuration);
 
         $config = new Configuration();
 
-        // logger
-        if ($options->getLogger()) {
-            $logger = $container->get($options->getLogger());
-            $config->setLoggerCallable([$logger, 'log']);
-        }
-
         // proxies
-        $config->setAutoGenerateProxyClasses($options->getGenerateProxies());
-        $config->setProxyDir($options->getProxyDir());
-        $config->setProxyNamespace($options->getProxyNamespace());
+        $config->setAutoGenerateProxyClasses($configurationOptions->getGenerateProxies());
+        $config->setProxyDir($configurationOptions->getProxyDir());
+        $config->setProxyNamespace($configurationOptions->getProxyNamespace());
 
         // hydrators
-        $config->setAutoGenerateHydratorClasses($options->getGenerateHydrators());
-        $config->setHydratorDir($options->getHydratorDir());
-        $config->setHydratorNamespace($options->getHydratorNamespace());
+        $config->setAutoGenerateHydratorClasses($configurationOptions->getGenerateHydrators());
+        $config->setHydratorDir($configurationOptions->getHydratorDir());
+        $config->setHydratorNamespace($configurationOptions->getHydratorNamespace());
 
         // persistent collections
-        $config->setAutoGeneratePersistentCollectionClasses($options->getGeneratePersistentCollections());
-        $config->setPersistentCollectionDir($options->getPersistentCollectionDir());
-        $config->setPersistentCollectionNamespace($options->getPersistentCollectionNamespace());
+        $config->setAutoGeneratePersistentCollectionClasses($configurationOptions->getGeneratePersistentCollections());
+        $config->setPersistentCollectionDir($configurationOptions->getPersistentCollectionDir());
+        $config->setPersistentCollectionNamespace($configurationOptions->getPersistentCollectionNamespace());
 
-        if ($options->getPersistentCollectionFactory()) {
-            $config->setPersistentCollectionFactory($container->get($options->getPersistentCollectionFactory()));
+        if ($configurationOptions->getPersistentCollectionFactory()) {
+            $config->setPersistentCollectionFactory(
+                $container->get($configurationOptions->getPersistentCollectionFactory())
+            );
         }
 
-        if ($options->getPersistentCollectionGenerator()) {
-            $config->setPersistentCollectionGenerator($container->get($options->getPersistentCollectionGenerator()));
+        if ($configurationOptions->getPersistentCollectionGenerator()) {
+            $config->setPersistentCollectionGenerator(
+                $container->get($configurationOptions->getPersistentCollectionGenerator())
+            );
         }
 
         // default db
-        $config->setDefaultDB($options->getDefaultDb());
+        $defaultDb = $configurationOptions->getDefaultDb();
+        if ($defaultDb !== null) {
+            $config->setDefaultDB($defaultDb);
+        }
 
         // caching
-        $config->setMetadataCacheImpl($container->get($options->getMetadataCache()));
-
-        // retries
-        $config->setRetryConnect($options->getRetryConnect());
-        $config->setRetryQuery($options->getRetryQuery());
+        $config->setMetadataCacheImpl($container->get($configurationOptions->getMetadataCache()));
 
         // Register filters
-        foreach ($options->getFilters() as $alias => $class) {
+        foreach ($configurationOptions->getFilters() as $alias => $class) {
             $config->addFilter($alias, $class);
         }
 
         // the driver
-        $config->setMetadataDriverImpl($container->get($options->getDriver()));
+        $config->setMetadataDriverImpl($container->get($configurationOptions->getDriver()));
 
         // metadataFactory, if set
-        $factoryName = $options->getClassMetadataFactoryName();
+        $factoryName = $configurationOptions->getClassMetadataFactoryName();
         if ($factoryName) {
             $config->setClassMetadataFactoryName($factoryName);
         }
 
         // respositoryFactory, if set
-        $repositoryFactory = $options->getRepositoryFactory();
+        $repositoryFactory = $configurationOptions->getRepositoryFactory();
         if ($repositoryFactory) {
             $config->setRepositoryFactory($container->get($repositoryFactory));
         }
 
         // custom types
-        foreach ($options->getTypes() as $name => $class) {
+        foreach ($configurationOptions->getTypes() as $name => $class) {
             if (Type::hasType($name)) {
                 Type::overrideType($name, $class);
             } else {
@@ -98,7 +95,7 @@ class ConfigurationFactory extends AbstractFactory
             }
         }
 
-        $className = $options->getDefaultDocumentRepositoryClassName();
+        $className = $configurationOptions->getDefaultDocumentRepositoryClassName();
         if ($className) {
             $config->setDefaultDocumentRepositoryClassName($className);
         }

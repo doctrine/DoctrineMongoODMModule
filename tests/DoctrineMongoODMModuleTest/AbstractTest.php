@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModuleTest;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Laminas\Mvc\Application;
-use MongoException;
+use MongoDB\Driver\Exception\RuntimeException;
+use MongoDB\Driver\WriteConcern;
 use PHPUnit\Framework\TestCase;
 
 // phpcs:disable SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
@@ -25,10 +27,7 @@ abstract class AbstractTest extends TestCase
         $this->serviceManager = $this->application->getServiceManager();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDocumentManager()
+    public function getDocumentManager() : DocumentManager
     {
         return $this->serviceManager->get('doctrine.documentmanager.odm_default');
     }
@@ -36,12 +35,13 @@ abstract class AbstractTest extends TestCase
     protected function tearDown() : void
     {
         try {
-            $connection  = $this->getDocumentManager()->getConnection();
-            $collections = $connection->selectDatabase('doctrineMongoODMModuleTest')->listCollections();
-            foreach ($collections as $collection) {
-                $collection->remove([], ['w' => 1]);
+            $connection   = $this->getDocumentManager()->getClient();
+            $database     = $connection->selectDatabase('doctrineMongoODMModuleTest');
+            $collections  = $database->listCollections();
+            $writeConcern = new WriteConcern(1);     foreach ($collections as $collection) {
+                $database->dropCollection($collection->getName(), ['writeConcern' => $writeConcern]);
             }
-        } catch (MongoException $e) {
+        } catch (RuntimeException $e) {
         }
     }
 }

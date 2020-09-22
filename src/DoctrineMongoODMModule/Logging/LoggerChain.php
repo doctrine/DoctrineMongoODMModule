@@ -25,7 +25,7 @@ class LoggerChain implements Logger
     /**
      * {@inheritdoc}
      */
-    public function log(array $logs)
+    public function log(array $logs) : void
     {
         foreach ($this->loggers as $logger) {
             $logger->log($logs);

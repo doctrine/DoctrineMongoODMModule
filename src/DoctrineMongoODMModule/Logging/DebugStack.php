@@ -23,7 +23,7 @@ class DebugStack implements Logger
     /**
      * {@inheritdoc}
      */
-    public function log(array $logs):void
+    public function log(array $logs) : void
     {
         if (! $this->enabled) {
             return;

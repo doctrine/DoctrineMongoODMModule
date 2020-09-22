@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DoctrineMongoODMModuleTest\Service;
+namespace DoctrineMongoODMModuleTest\Doctrine;
 
-use DoctrineModule\Service\EventManagerFactory;
+use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Service\ConnectionFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
 
@@ -23,6 +23,8 @@ class ConnectionFactoryTest extends AbstractTest
     {
         parent::setup();
         $this->serviceManager->setAllowOverride(true);
+        $this->serviceManager->setService('doctrine.configuration.odm_default', null);
+        $this->serviceManager->setService('doctrine.connection.odm_default', null);
         $this->configuration     = $this->serviceManager->get('config');
         $this->connectionFactory = new ConnectionFactory('odm_default');
     }
@@ -45,7 +47,7 @@ class ConnectionFactoryTest extends AbstractTest
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($connectionString, $connection->getServer());
+        self::assertEquals($connectionString, (string) $connection);
     }
 
     public function testConnectionStringShouldAllowMultipleHosts() : void
@@ -61,12 +63,12 @@ class ConnectionFactoryTest extends AbstractTest
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($connectionString, $connection->getServer());
+        self::assertEquals($connectionString, (string) $connection);
     }
 
     public function testConnectionStringShouldAllowUnixSockets() : void
     {
-        $connectionString = 'mongodb:///tmp/mongodb-27017.sock';
+        $connectionString = 'mongodb://%2Ftmp%2Fmongodb-27017.sock';
         $connectionConfig = [
             'odm_default' => ['connectionString' => $connectionString],
         ];
@@ -76,96 +78,84 @@ class ConnectionFactoryTest extends AbstractTest
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($connectionString, $connection->getServer());
+        self::assertEquals($connectionString, (string) $connection);
     }
 
     public function testDbNameShouldSetDefaultDB() : void
     {
-        $dbName           = 'foo_db';
-        $connectionConfig = [
+        $dbName              = 'foo_db';
+        $connectionConfig    = [
             'odm_default' => ['dbname' => $dbName],
         ];
+        $configurationConfig = ['odm_default' => ['default_db' => null, 'driver' => 'odm_default']];
 
-        $this->configuration['doctrine']['connection'] = $connectionConfig;
+        $this->configuration['doctrine']['connection']    = $connectionConfig;
+        $this->configuration['doctrine']['configuration'] = $configurationConfig;
         $this->serviceManager->setService('config', $this->configuration);
 
-        $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
-        $configuration->setDefaultDB(null);
         $this->connectionFactory->createService($this->serviceManager);
+        $configuration = $this->getConfiguration();
 
-        $this->assertEquals($dbName, $configuration->getDefaultDB());
+        self::assertEquals($dbName, $configuration->getDefaultDB());
     }
 
     public function testDbNameShouldNotOverrideExplicitDefaultDB() : void
     {
         $defaultDB        = 'foo_db';
         $connectionConfig = [
-            'odm_default' => ['dbname' => 'test fails if this is defaultDB'],
+            'odm_default' => ['dbname' => 'test-fails-if-this-is-defaultDB'],
         ];
 
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('config', $this->configuration);
 
-        $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
+        $configuration = $this->getConfiguration();
         $configuration->setDefaultDB($defaultDB);
         $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($defaultDB, $configuration->getDefaultDB());
+        self::assertEquals($defaultDB, $configuration->getDefaultDB());
     }
 
     public function testConnectionStringShouldSetDefaultDB() : void
     {
-        $dbName           = 'foo_db';
-        $connectionString = 'mongodb://localhost:27017/' . $dbName;
-        $connectionConfig = [
+        $dbName              = 'foo_db';
+        $connectionString    = 'mongodb://localhost:27017/' . $dbName;
+        $connectionConfig    = [
             'odm_default' => ['connectionString' => $connectionString],
         ];
+        $configurationConfig = ['odm_default' => ['default_db' => null, 'driver' => 'odm_default']];
 
-        $this->configuration['doctrine']['connection'] = $connectionConfig;
+        $this->configuration['doctrine']['connection']    = $connectionConfig;
+        $this->configuration['doctrine']['configuration'] = $configurationConfig;
         $this->serviceManager->setService('config', $this->configuration);
 
-        $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
-        $configuration->setDefaultDB(null);
+        $configuration = $this->getConfiguration();
         $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($dbName, $configuration->getDefaultDB());
+        self::assertEquals($dbName, $configuration->getDefaultDB());
     }
 
     public function testConnectionStringWithOptionsShouldSetDefaultDB() : void
     {
-        $dbName           = 'foo_db';
-        $connectionString = 'mongodb://localhost:27017/' . $dbName;
-        $connectionConfig = [
+        $dbName              = 'foo_db';
+        $connectionString    = 'mongodb://localhost:27017/' . $dbName;
+        $connectionConfig    = [
             'odm_default' => ['connectionString' => $connectionString],
         ];
+        $configurationConfig = ['odm_default' => ['default_db' => null, 'driver' => 'odm_default']];
 
-        $this->configuration['doctrine']['connection'] = $connectionConfig;
+        $this->configuration['doctrine']['connection']    = $connectionConfig;
+        $this->configuration['doctrine']['configuration'] = $configurationConfig;
         $this->serviceManager->setService('config', $this->configuration);
 
-        $configuration = $this->serviceManager->get('doctrine.configuration.odm_default');
-        $configuration->setDefaultDB(null);
+        $configuration = $this->getConfiguration();
         $this->connectionFactory->createService($this->serviceManager);
 
-        $this->assertEquals($dbName, $configuration->getDefaultDB());
+        self::assertEquals($dbName, $configuration->getDefaultDB());
     }
 
-    public function testShouldSetEventManager() : void
+    private function getConfiguration() : Configuration
     {
-        $eventManagerConfig = [
-            'odm_default' => [
-                'subscribers' => [],
-            ],
-        ];
-
-        $this->configuration['doctrine']['eventmanager'] = $eventManagerConfig;
-        $this->serviceManager->setService('config', $this->configuration);
-
-        $eventManagerFactory = new EventManagerFactory('odm_default');
-        $eventManager        = $eventManagerFactory->createService($this->serviceManager);
-        $this->serviceManager->setService('doctrine.eventmanager.odm_default', $eventManager);
-
-        $connection = $this->connectionFactory->createService($this->serviceManager);
-
-        self::assertSame($eventManager, $connection->getEventManager());
+        return $this->serviceManager->get('doctrine.configuration.odm_default');
     }
 }
