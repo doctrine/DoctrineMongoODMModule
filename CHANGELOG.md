@@ -23,6 +23,7 @@
 
 - `DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator` was removed because `Doctrine\ODM\MongoDB\Cursor` doesn't exist anymore and there is no simple workaround.
 - The CLI commands `odm:generate:documents` and `odm:generate:repositories` were removed because they no longer exist.
+- The Configuration options `retryConnect` and `retryQuery` were removed.
 
 ### Fixed
 

@@ -129,20 +129,6 @@ class Configuration extends AbstractOptions
     protected $defaultDocumentRepositoryClassName = DefaultDocumentRepository::class;
 
     /**
-     * Number of times to attempt to connect if an exception is encountered
-     *
-     * @var int
-     */
-    protected $retryConnect = 0;
-
-    /**
-     * Number of times to attempt a query if an exception is encountered
-     *
-     * @var int
-     */
-    protected $retryQuery = 0;
-
-    /**
      * Keys must be the name of the type identifier and value is
      * the class name of the Type
      *
@@ -409,36 +395,6 @@ class Configuration extends AbstractOptions
     public function setClassMetadataFactoryName(?string $classMetadataFactoryName) : void
     {
         $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
-    }
-
-    /**
-     * @return $this
-     */
-    public function setRetryConnect(int $retryConnect)
-    {
-        $this->retryConnect = (int) $retryConnect;
-
-        return $this;
-    }
-
-    public function getRetryConnect() : int
-    {
-        return $this->retryConnect;
-    }
-
-    /**
-     * @return $this
-     */
-    public function setRetryQuery(int $retryQuery)
-    {
-        $this->retryQuery = (int) $retryQuery;
-
-        return $this;
-    }
-
-    public function getRetryQuery() : int
-    {
-        return $this->retryQuery;
     }
 
     /**

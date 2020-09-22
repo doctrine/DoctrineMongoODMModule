@@ -9,8 +9,6 @@ return [
         'configuration' => [
             'odm_default' => [
                 'default_db' => 'doctrineMongoODMModuleTest',
-                'retryConnect' => 123,
-                'retryQuery' => 456,
                 'default_document_repository_class_name' => Assets\DefaultDocumentRepository::class,
             ],
         ],
