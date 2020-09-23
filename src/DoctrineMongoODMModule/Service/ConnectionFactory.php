@@ -78,7 +78,7 @@ class ConnectionFactory extends AbstractFactory
         $driverOptions            = $connectionOptions->getDriverOptions();
         $driverOptions['typeMap'] = ['root' => 'array', 'document' => 'array'];
 
-        return new Client($connectionString, [], $driverOptions);
+        return new Client($connectionString, $connectionOptions->getOptions(), $driverOptions);
     }
 
     /**
