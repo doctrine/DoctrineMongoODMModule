@@ -12,6 +12,7 @@ use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use function assert;
+use function MongoDB\Driver\Monitoring\addSubscriber;
 
 /**
  * Mongo Logger Configuration ServiceManager factory
@@ -25,6 +26,7 @@ class MongoLoggerCollectorFactory extends AbstractFactory
 
     public function __construct(string $name)
     {
+        parent::__construct($name);
         $this->name = $name;
     }
 
@@ -35,29 +37,16 @@ class MongoLoggerCollectorFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        $options = $this->getOptions($container, 'mongo_logger_collector');
-        assert($options instanceof Options\MongoLoggerCollector);
+        $settings = $this->getOptions($container, 'mongo_logger_collector');
+        assert($settings instanceof Options\MongoLoggerCollector);
 
-        if ($options->getMongoLogger()) {
-            $debugStackLogger = $container->get($options->getMongoLogger());
+        if ($settings->getMongoLogger()) {
+            $debugStackLogger = $container->get($settings->getMongoLogger());
         } else {
             $debugStackLogger = new DebugStack();
         }
 
-        $configuration = $container->get($options->getConfiguration());
-        assert($configuration instanceof Configuration);
-
-        if ($configuration->getLoggerCallable() !== null) {
-            $logger = new LoggerChain();
-            $logger->addLogger($debugStackLogger);
-            $callable = $configuration->getLoggerCallable();
-            $logger->addLogger($callable[0]);
-            $configuration->setLoggerCallable([$logger, 'log']);
-        } else {
-            $configuration->setLoggerCallable([$debugStackLogger, 'log']);
-        }
-
-        return new MongoLoggerCollector($debugStackLogger, $options->getName());
+        return new MongoLoggerCollector($debugStackLogger, $settings->getName());
     }
 
     /**

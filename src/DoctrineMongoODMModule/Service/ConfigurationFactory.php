@@ -9,6 +9,7 @@ use Doctrine\ODM\MongoDB\Types\Type;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+
 use function assert;
 
 /**
@@ -29,6 +30,12 @@ class ConfigurationFactory extends AbstractFactory
         assert($configurationOptions instanceof Options\Configuration);
 
         $config = new Configuration();
+
+        // logger
+        $logger = $configurationOptions->getLogger();
+        if ($logger !== null) {
+            $container->get($logger);
+        }
 
         // proxies
         $config->setAutoGenerateProxyClasses($configurationOptions->getGenerateProxies());

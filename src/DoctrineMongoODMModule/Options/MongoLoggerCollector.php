@@ -45,7 +45,7 @@ class MongoLoggerCollector extends AbstractOptions
      */
     public function getConfiguration() : string
     {
-        return $this->configuration ? $this->configuration : 'doctrine.configuration.odm_default';
+        return $this->configuration ?? 'doctrine.configuration.odm_default';
     }
 
     public function setMongoLogger(?string $mongoLogger) : void

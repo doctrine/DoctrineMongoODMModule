@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20121e4f394e1ede59ae9d4760707316",
+    "content-hash": "2fdb6538f1485a71af18135430d16ead",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -3720,16 +3720,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v5.1.5",
+            "version": "v5.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "b43a3905262bcf97b2510f0621f859ca4f5287be"
+                "reference": "c976c115a0d788808f7e71834c8eb0844f678d02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/b43a3905262bcf97b2510f0621f859ca4f5287be",
-                "reference": "b43a3905262bcf97b2510f0621f859ca4f5287be",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/c976c115a0d788808f7e71834c8eb0844f678d02",
+                "reference": "c976c115a0d788808f7e71834c8eb0844f678d02",
                 "shasum": ""
             },
             "require": {
@@ -3806,7 +3806,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-08-17T07:42:30+00:00"
+            "time": "2020-09-18T14:27:32+00:00"
         },
         {
             "name": "webimpress/safe-writer",
@@ -4048,6 +4048,76 @@
                 "laminas"
             ],
             "time": "2019-12-31T16:31:45+00:00"
+        },
+        {
+            "name": "laminas/laminas-developer-tools",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-developer-tools.git",
+                "reference": "7c74cb0d71a8362e7491972a3e065402a216163f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-developer-tools/zipball/7c74cb0d71a8362e7491972a3e065402a216163f",
+                "reference": "7c74cb0d71a8362e7491972a3e065402a216163f",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-eventmanager": "^2.6.2 || ^3.0",
+                "laminas/laminas-modulemanager": "^2.7",
+                "laminas/laminas-mvc": "^2.7 || ^3.0.1",
+                "laminas/laminas-servicemanager": "^2.7.5 || ^3.0.3",
+                "laminas/laminas-stdlib": "^2.7 || ^3.0",
+                "laminas/laminas-view": "^2.6",
+                "laminas/laminas-zendframework-bridge": "^1.0",
+                "php": "^5.6 || ^7.0",
+                "symfony/var-dumper": "^3.4.36 || ^4.4.1 || ^5.0.1"
+            },
+            "replace": {
+                "zendframework/zend-developer-tools": "^2.0.0"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "phpunit/phpunit": "^5.7.25 || ^6.4.4 || ^7.1"
+            },
+            "suggest": {
+                "aist/aist-git-tools": "Show you information about current GIT repository",
+                "bjyoungblood/bjy-profiler": "Version: dev-master, allows the usage of the (Laminas) Db collector.",
+                "doctrine/doctrine-orm-module": "Profile DoctrineORM queries",
+                "jhuet/zdt-logger-module": "Show you log data from Laminas\\Log",
+                "ocramius/ocra-service-manager": "OcraServiceManager can help you track dependencies within your application.",
+                "san/san-session-toolbar": "SanSessionToolbar can help you see current Laminas\\Session data you're using within your application.",
+                "snapshotpl/api-tools-snap-event-debugger": "ZfSnapEventDebugger can help you debug events from Laminas\\EventManager"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev",
+                    "dev-develop": "2.1.x-dev"
+                },
+                "laminas": {
+                    "module": "Laminas\\DeveloperTools"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\DeveloperTools\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Module for developer and debug tools for use with laminas-mvc applications.",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "debug",
+                "developer",
+                "laminas",
+                "module"
+            ],
+            "time": "2020-03-29T12:19:10+00:00"
         },
         {
             "name": "laminas/laminas-i18n",
