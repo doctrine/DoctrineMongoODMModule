@@ -8,9 +8,9 @@
 
 ### Changed
 
-- Configuration was changed to use `Doctrine\ODM\MongoDB\Configuration:AUTOGENERATE_*` constants instead of removed `AbstractProxyFactory::AUTOGENERATE_*`. If you override those settings in your local config, ensure the proper constants are used.
+- Configuration was changed to use `Doctrine\ODM\MongoDB\Configuration:AUTOGENERATE_*` constants for `generate_proxies`
+ and `generate_hydrators` instead of removed `AbstractProxyFactory::AUTOGENERATE_*`. If you override those settings in your local config, ensure the proper constants are used.
 - Adapt to `doctrine/peristence:2.0`
-- add return types to `\DoctrineMongoODMModule\Logging\Logger` implementations
 - `DoctrineMongoODMModule\Options\Configuration::getGenerateHydrators()` returns an `int` instead of a `bool`
 - `DoctrineMongoODMModule\Options\Configuration::setGenerateHydrators()` requires an `int` instead of a `bool` for its first parameter
 - `DoctrineMongoODMModule\Options\Configuration`: The methods `getPersistentCollectionFactory` and `getPersistentCollectionGenerator` can now return `null`.
