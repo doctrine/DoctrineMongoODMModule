@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModule\Options;
 
-use Doctrine\ODM\MongoDB\APM\CommandLoggerInterface;
 use Doctrine\ODM\MongoDB\Configuration as MongoDbConfiguration;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository as DefaultDocumentRepository;
 use Laminas\Stdlib\AbstractOptions;
@@ -116,8 +115,12 @@ class Configuration extends AbstractOptions
      */
     protected $filters = [];
 
-    /** @var CommandLoggerInterface|string|null */
-    protected $logger = null;
+    /**
+     * service name of the Logger
+     *
+     * @var string|null
+     */
+    protected $logger;
 
     /** @var string */
     protected $classMetadataFactoryName;
@@ -370,7 +373,7 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     * @param CommandLoggerInterface|string|null $logger
+     * @param string|null $logger
      */
     public function setLogger($logger) : self
     {
@@ -380,7 +383,7 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     * @return  CommandLoggerInterface|string|null
+     * @return string|null
      */
     public function getLogger()
     {
