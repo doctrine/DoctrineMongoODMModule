@@ -3,4 +3,5 @@ vendor/
 .idea/
 phpunit.xml
 phpcs.xml
+.phpcs-cache
 build

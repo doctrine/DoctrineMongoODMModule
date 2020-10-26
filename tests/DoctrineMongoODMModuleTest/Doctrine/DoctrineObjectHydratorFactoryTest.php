@@ -8,32 +8,32 @@ use Doctrine\Laminas\Hydrator\DoctrineObject;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class DoctrineObjectHydratorFactoryTest extends TestCase
 {
-    /** @var ServiceLocatorInterface|PHPUnit_Framework_MockObject_MockObject */
+    /** @var ServiceLocatorInterface|MockObject */
     protected $services;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->services = $this->createMock(ServiceLocatorInterface::class);
 
         $this->services
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('doctrine.documentmanager.odm_default')
             ->willReturn($this->prophesize(DocumentManager::class)->reveal());
     }
 
-    public function testReturnsHydratorInstance() : void
+    public function testReturnsHydratorInstance(): void
     {
         $factory  = new DoctrineObjectHydratorFactory();
-        $hydrator = $factory($this->services, DoctrineObject::class);
+        $hydrator = $factory($this->services);
 
-        $this->assertInstanceOf(DoctrineObject::class, $hydrator);
+        self::assertInstanceOf(DoctrineObject::class, $hydrator);
     }
 }

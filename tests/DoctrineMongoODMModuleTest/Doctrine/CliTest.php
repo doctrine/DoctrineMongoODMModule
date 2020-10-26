@@ -27,6 +27,7 @@ use DoctrineMongoODMModuleTest\ServiceManagerFactory;
 use Laminas\EventManager\SharedEventManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
+
 use function assert;
 
 /**
@@ -42,7 +43,7 @@ class CliTest extends TestCase
     /** @var DocumentManager */
     protected $documentManager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $serviceManager = ServiceManagerFactory::getServiceManager();
 
@@ -58,7 +59,7 @@ class CliTest extends TestCase
         $sharedEventManager->attach(
             'doctrine',
             'loadCli.post',
-            static function () use (&$invocations) : void {
+            static function () use (&$invocations): void {
                 $invocations += 1;
             }
         );
@@ -70,7 +71,7 @@ class CliTest extends TestCase
         self::assertSame(1, $invocations);
     }
 
-    public function testValidHelpers() : void
+    public function testValidHelpers(): void
     {
         $helperSet = $this->cli->getHelperSet();
 
@@ -81,7 +82,7 @@ class CliTest extends TestCase
         self::assertSame($this->documentManager, $dmHelper->getDocumentManager());
     }
 
-    public function testValidCommands() : void
+    public function testValidCommands(): void
     {
         self::assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand',

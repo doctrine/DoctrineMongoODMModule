@@ -12,7 +12,7 @@ final class DocumentManagerTest extends AbstractTest
     /** @var mixed[] $configuration */
     private $configuration = [];
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setup();
         $this->serviceManager->setAllowOverride(true);
@@ -23,14 +23,14 @@ final class DocumentManagerTest extends AbstractTest
         $this->serviceManager->setService('doctrine.eventmanager.odm_default', null);
     }
 
-    public function testDocumentManager() : void
+    public function testDocumentManager(): void
     {
         $documentManager = $this->getDocumentManager();
 
         self::assertInstanceOf(DocumentManager::class, $documentManager);
     }
 
-    public function testShouldSetEventManager() : void
+    public function testShouldSetEventManager(): void
     {
         $eventManagerConfig = [
             'odm_default' => [

@@ -10,7 +10,7 @@ use DoctrineMongoODMModuleTest\Assets\Document\Simple;
 
 final class CustomDefaultRepositoryTest extends AbstractTest
 {
-    public function testCustomDefaultRepository() : void
+    public function testCustomDefaultRepository(): void
     {
         $documentManager = $this->getDocumentManager();
 

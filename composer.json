@@ -62,6 +62,7 @@
         "symfony/var-dumper": "^5.1"
     },
     "require-dev": {
+        "doctrine/coding-standard": "^8.2",
         "laminas/laminas-console": "^2.8",
         "laminas/laminas-developer-tools": "^2.0",
         "laminas/laminas-i18n": "^2.10.1",
@@ -71,8 +72,7 @@
         "laminas/laminas-serializer": "^2.9.1",
         "laminas/laminas-session": "^2.9.1",
         "laminas/laminas-view": "^2.11.4",
-        "phpunit/phpunit": "^8.5.2",
-        "squizlabs/php_codesniffer": "^3.5"
+        "phpunit/phpunit": "^8.5.2"
     },
     "autoload": {
         "psr-4": {

@@ -4,22 +4,13 @@
 
     <!-- display progress -->
     <arg value="p"/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="80"/>
+    <arg name="cache" value=".phpcs-cache"/>
     <arg name="colors"/>
 
-    <!-- inherit rules from: -->
-    <rule ref="PSR2"/>
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-    <rule ref="Generic.Formatting.SpaceAfterNot"/>
-    <rule ref="Squiz.WhiteSpace.OperatorSpacing">
-        <properties>
-            <property name="ignoreNewlines" value="true"/>
-        </properties>
-    </rule>
-    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
-        <properties>
-            <property name="ignoreBlankLines" value="false"/>
-        </properties>
-    </rule>
+    <!-- Include full Doctrine Coding Standard -->
+    <rule ref="Doctrine"/>
 
     <!-- Paths to check -->
     <file>config</file>

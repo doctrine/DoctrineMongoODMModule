@@ -8,9 +8,9 @@ use DoctrineMongoODMModuleTest\AbstractTest;
 
 class AuthenticationAdapterFactoryTest extends AbstractTest
 {
-    public function testAuthenticationAdapterFactory() : void
+    public function testAuthenticationAdapterFactory(): void
     {
         $adapter = $this->serviceManager->get('doctrine.authenticationadapter.odm_default');
-        $this->assertInstanceOf('Laminas\Authentication\Adapter\AdapterInterface', $adapter);
+        self::assertInstanceOf('Laminas\Authentication\Adapter\AdapterInterface', $adapter);
     }
 }

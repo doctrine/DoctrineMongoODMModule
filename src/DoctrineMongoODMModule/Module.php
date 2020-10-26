@@ -21,17 +21,17 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class Module
 {
-    public function init(ModuleManagerInterface $manager) : void
+    public function init(ModuleManagerInterface $manager): void
     {
         $events = $manager->getEventManager();
         // Initialize logger collector once the profiler is initialized itself
-        $events->attach('profiler_init', static function (EventInterface $e) use ($manager) : void {
+        $events->attach('profiler_init', static function (EventInterface $e) use ($manager): void {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
         $events->getSharedManager()->attach('doctrine', 'loadCli.post', [$this, 'loadCli']);
     }
 
-    public function loadCli(EventInterface $event) : void
+    public function loadCli(EventInterface $event): void
     {
         $commands = [
             new Command\QueryCommand(),
@@ -70,7 +70,7 @@ class Module
     /**
      * {@inheritDoc}
      */
-    public function getConfig() : array
+    public function getConfig(): array
     {
         return include __DIR__ . '/../../config/module.config.php';
     }
@@ -78,7 +78,7 @@ class Module
     /**
      * {@inheritDoc}
      */
-    public function getServiceConfig() : array
+    public function getServiceConfig(): array
     {
         return [
             'invokables' => [

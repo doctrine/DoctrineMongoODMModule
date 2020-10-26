@@ -6,7 +6,7 @@ namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ODM\MongoDB\APM\CommandLoggerInterface;
-use Doctrine\ODM\MongoDB\Configuration;
+use Doctrine\ODM\MongoDB\Configuration as Config;
 use Doctrine\ODM\MongoDB\PersistentCollection\PersistentCollectionFactory;
 use Doctrine\ODM\MongoDB\PersistentCollection\PersistentCollectionGenerator;
 use Doctrine\ODM\MongoDB\Types\Type;
@@ -22,7 +22,7 @@ use function assert;
 
 final class ConfigurationFactoryTest extends AbstractTest
 {
-    public function testCreation() : void
+    public function testCreation(): void
     {
         $serviceLocator = new ServiceManager();
         $serviceLocator->setService(
@@ -65,17 +65,15 @@ final class ConfigurationFactoryTest extends AbstractTest
                             'metadata_cache' => 'stubbed_metadatacache',
                             'driver'         => 'stubbed_driver',
 
-                            'generate_proxies' => $proxyGenerate = Configuration::AUTOGENERATE_EVAL,
-                            'proxy_dir'        => $proxyDir = 'dir/proxy',
+                            'generate_proxies' => $proxyGenerate  = Config::AUTOGENERATE_EVAL,
+                            'proxy_dir'        => $proxyDir       = 'dir/proxy',
                             'proxy_namespace'  => $proxyNamespace = 'ns\proxy',
 
-                            'generate_hydrators'              => $hydratorGenerate = Configuration::AUTOGENERATE_ALWAYS,
-                            'hydrator_dir'                    => $hydratorDir = 'dir/hydrator',
-                            'hydrator_namespace'              => $hydratorNamespace = 'ns\hydrator',
-                            // phpcs:disable Generic.Files.LineLength
-                            'generate_persistent_collections' => $collectionGenerate = Configuration::AUTOGENERATE_EVAL,
-                            // phpcs:enable Generic.Files.LineLength
-                            'persistent_collection_dir'       => $collectionDir = 'dir/collection',
+                            'generate_hydrators'              => $hydratorGenerate    = Config::AUTOGENERATE_ALWAYS,
+                            'hydrator_dir'                    => $hydratorDir         = 'dir/hydrator',
+                            'hydrator_namespace'              => $hydratorNamespace   = 'ns\hydrator',
+                            'generate_persistent_collections' => $collectionGenerate  = Config::AUTOGENERATE_EVAL,
+                            'persistent_collection_dir'       => $collectionDir       = 'dir/collection',
                             'persistent_collection_namespace' => $collectionNamespace = 'ns\collection',
                             'persistent_collection_factory'   => PersistentCollectionFactory::class,
                             'persistent_collection_generator' => PersistentCollectionGenerator::class,
@@ -97,18 +95,18 @@ final class ConfigurationFactoryTest extends AbstractTest
         $factory = new ConfigurationFactory('odm_test');
         $config  = $factory->createService($serviceLocator);
 
-        assert($config instanceof Configuration);
+        assert($config instanceof Config);
 
-        self::assertInstanceOf(Configuration::class, $config);
+        self::assertInstanceOf(Config::class, $config);
 
         self::assertSame($metadataCache, $config->getMetadataCacheImpl());
         self::assertSame($mappingDriver, $config->getMetadataDriverImpl());
 
-        self::assertSame(Configuration::AUTOGENERATE_EVAL, $config->getAutoGenerateProxyClasses());
+        self::assertSame(Config::AUTOGENERATE_EVAL, $config->getAutoGenerateProxyClasses());
         self::assertSame($proxyDir, $config->getProxyDir());
         self::assertSame($proxyNamespace, $config->getProxyNamespace());
 
-        self::assertSame($config->getAutoGenerateHydratorClasses(), Configuration::AUTOGENERATE_ALWAYS);
+        self::assertSame($config->getAutoGenerateHydratorClasses(), Config::AUTOGENERATE_ALWAYS);
         self::assertSame($hydratorDir, $config->getHydratorDir());
         self::assertSame($hydratorNamespace, $config->getHydratorNamespace());
 

@@ -10,9 +10,11 @@ use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use MongoDB\Client;
+
 use function assert;
 use function strpos;
 use function substr;
+
 use const PHP_INT_MAX;
 
 /**
@@ -92,7 +94,7 @@ class ConnectionFactory extends AbstractFactory
     /**
      * Get the class name of the options associated with this factory.
      */
-    public function getOptionsClass() : string
+    public function getOptionsClass(): string
     {
         return Options\Connection::class;
     }

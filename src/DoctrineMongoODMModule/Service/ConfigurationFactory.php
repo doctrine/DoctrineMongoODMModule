@@ -118,7 +118,7 @@ class ConfigurationFactory extends AbstractFactory
         return $this($container, Configuration::class);
     }
 
-    public function getOptionsClass() : string
+    public function getOptionsClass(): string
     {
         return Options\Configuration::class;
     }

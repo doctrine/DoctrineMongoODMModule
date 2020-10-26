@@ -42,7 +42,7 @@ class Simple
     /**
      * @param mixed $name
      */
-    public function setName($name) : void
+    public function setName($name): void
     {
         $this->name = (string) $name;
     }

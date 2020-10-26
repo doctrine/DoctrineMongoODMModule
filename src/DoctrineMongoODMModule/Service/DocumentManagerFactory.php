@@ -42,7 +42,7 @@ class DocumentManagerFactory extends AbstractFactory
     /**
      * Get the class name of the options associated with this factory.
      */
-    public function getOptionsClass() : string
+    public function getOptionsClass(): string
     {
         return Options\DocumentManager::class;
     }

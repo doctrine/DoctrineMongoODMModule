@@ -19,7 +19,7 @@ class ConnectionFactoryTest extends AbstractTest
     /** @var mixed[] $connectionFactory */
     private $connectionFactory = [];
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setup();
         $this->serviceManager->setAllowOverride(true);
@@ -29,7 +29,7 @@ class ConnectionFactoryTest extends AbstractTest
         $this->connectionFactory = new ConnectionFactory('odm_default');
     }
 
-    public function testConnectionStringOverwritesOtherConnectionSettings() : void
+    public function testConnectionStringOverwritesOtherConnectionSettings(): void
     {
         $connectionString = 'mongodb://localhost:27017';
         $connectionConfig = [
@@ -50,7 +50,7 @@ class ConnectionFactoryTest extends AbstractTest
         self::assertEquals($connectionString, (string) $connection);
     }
 
-    public function testConnectionStringShouldAllowMultipleHosts() : void
+    public function testConnectionStringShouldAllowMultipleHosts(): void
     {
         $unreachablePort  = 56000;
         $connectionString = 'mongodb://localhost:' . $unreachablePort . ',localhost:27017';
@@ -66,7 +66,7 @@ class ConnectionFactoryTest extends AbstractTest
         self::assertEquals($connectionString, (string) $connection);
     }
 
-    public function testConnectionStringShouldAllowUnixSockets() : void
+    public function testConnectionStringShouldAllowUnixSockets(): void
     {
         $connectionString = 'mongodb://%2Ftmp%2Fmongodb-27017.sock';
         $connectionConfig = [
@@ -81,7 +81,7 @@ class ConnectionFactoryTest extends AbstractTest
         self::assertEquals($connectionString, (string) $connection);
     }
 
-    public function testDbNameShouldSetDefaultDB() : void
+    public function testDbNameShouldSetDefaultDB(): void
     {
         $dbName              = 'foo_db';
         $connectionConfig    = [
@@ -99,7 +99,7 @@ class ConnectionFactoryTest extends AbstractTest
         self::assertEquals($dbName, $configuration->getDefaultDB());
     }
 
-    public function testDbNameShouldNotOverrideExplicitDefaultDB() : void
+    public function testDbNameShouldNotOverrideExplicitDefaultDB(): void
     {
         $defaultDB        = 'foo_db';
         $connectionConfig = [
@@ -116,7 +116,7 @@ class ConnectionFactoryTest extends AbstractTest
         self::assertEquals($defaultDB, $configuration->getDefaultDB());
     }
 
-    public function testConnectionStringShouldSetDefaultDB() : void
+    public function testConnectionStringShouldSetDefaultDB(): void
     {
         $dbName              = 'foo_db';
         $connectionString    = 'mongodb://localhost:27017/' . $dbName;
@@ -135,7 +135,7 @@ class ConnectionFactoryTest extends AbstractTest
         self::assertEquals($dbName, $configuration->getDefaultDB());
     }
 
-    public function testConnectionStringWithOptionsShouldSetDefaultDB() : void
+    public function testConnectionStringWithOptionsShouldSetDefaultDB(): void
     {
         $dbName              = 'foo_db';
         $connectionString    = 'mongodb://localhost:27017/' . $dbName;
@@ -154,7 +154,7 @@ class ConnectionFactoryTest extends AbstractTest
         self::assertEquals($dbName, $configuration->getDefaultDB());
     }
 
-    private function getConfiguration() : Configuration
+    private function getConfiguration(): Configuration
     {
         return $this->serviceManager->get('doctrine.configuration.odm_default');
     }

@@ -8,6 +8,7 @@ use DoctrineMongoODMModule\Logging\DebugStack;
 use Laminas\DeveloperTools\Collector\AutoHideInterface;
 use Laminas\DeveloperTools\Collector\CollectorInterface;
 use Laminas\Mvc\MvcEvent;
+
 use function count;
 
 /**
@@ -66,7 +67,7 @@ class MongoLoggerCollector implements CollectorInterface, AutoHideInterface
         return empty($this->mongoLogger->queries);
     }
 
-    public function getQueryCount() : int
+    public function getQueryCount(): int
     {
         return count($this->mongoLogger->queries);
     }
@@ -74,12 +75,12 @@ class MongoLoggerCollector implements CollectorInterface, AutoHideInterface
     /**
      * @return mixed[]
      */
-    public function getQueries() : array
+    public function getQueries(): array
     {
         return $this->mongoLogger->queries;
     }
 
-    public function getQueryTime() : float
+    public function getQueryTime(): float
     {
         return 0.0;
     }

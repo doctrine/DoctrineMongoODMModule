@@ -10,14 +10,14 @@ use DoctrineMongoODMModuleTest\AbstractTest;
 
 class MongoLoggerCollectorFactoryTest extends AbstractTest
 {
-    public function testCreateService() : void
+    public function testCreateService(): void
     {
         $collector = $this->serviceManager->get('doctrine.mongo_logger_collector.odm_default');
 
         self::assertInstanceOf(MongoLoggerCollector::class, $collector);
     }
 
-    public function testCreateServiceWithLegacyCreateServiceMethod() : void
+    public function testCreateServiceWithLegacyCreateServiceMethod(): void
     {
         $factory = new MongoLoggerCollectorFactory('odm_default');
 

@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModule\Service;
 
-use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Collector\MongoLoggerCollector;
 use DoctrineMongoODMModule\Logging\DebugStack;
-use DoctrineMongoODMModule\Logging\LoggerChain;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+
 use function assert;
-use function MongoDB\Driver\Monitoring\addSubscriber;
 
 /**
  * Mongo Logger Configuration ServiceManager factory
@@ -57,7 +55,7 @@ class MongoLoggerCollectorFactory extends AbstractFactory
         return $this($container, MongoLoggerCollector::class);
     }
 
-    public function getOptionsClass() : string
+    public function getOptionsClass(): string
     {
         return Options\MongoLoggerCollector::class;
     }
