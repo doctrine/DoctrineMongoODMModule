@@ -83,7 +83,8 @@ final class ConfigurationFactoryTest extends AbstractTest
                             'default_db'                             => 'default_db',
                             'filters'                                => [], // ['filterName' => 'BSON\Filter\Class']
                             'types'                                  => [
-                                $typeName = 'foo_type' => $typeClassName = CustomType::class],
+                                $typeName = 'foo_type' => $typeClassName = CustomType::class,
+                            ],
                             'classMetadataFactoryName'               => 'stdClass',
                             'repositoryFactory'                      => CustomRepositoryFactory::class,
                             'default_document_repository_class_name' => CustomDocumentRepository::class,
