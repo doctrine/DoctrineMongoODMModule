@@ -168,7 +168,7 @@ class Connection extends AbstractOptions
     }
 
     /**
-     * @param mixed[] $options
+     * @param mixed[] $driverOptions
      */
     public function setDriverOptions(array $driverOptions) : Connection
     {

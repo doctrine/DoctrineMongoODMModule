@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use DoctrineMongoODMModuleTest\AbstractTest;
-use DoctrineMongoODMModuleTest\Assets\Document\Simple;
 use DoctrineMongoODMModuleTest\Assets\DefaultDocumentRepository;
+use DoctrineMongoODMModuleTest\Assets\Document\Simple;
 
 final class CustomDefaultRepositoryTest extends AbstractTest
 {

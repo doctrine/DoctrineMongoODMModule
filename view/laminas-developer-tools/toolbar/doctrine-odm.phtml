@@ -1,0 +1,87 @@
+<?php
+
+use Symfony\Component\VarDumper\VarDumper;
+
+?>
+<div class="laminas-toolbar-entry">
+    <div class="laminas-toolbar-preview">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAZxJREFUeNpiYCACpG4PdQhY7eNAjFpGQgpiNvsYsDKz7v/w9feDb79+O+6M3vkBn3omfJKh690V/v77t//f/38Cf/79M/j/n6GfkAPwGvj3H8N8kGH//v1jYPjPAMIJrovdG8jysu9q9wQWRob5LMwMDGzMLAwfv/5j+PX7H1gO6FLF3fE7H5DkQqCj4v/9B2tm+Ack/oFpCAaiepK87L7MQwCo0QHkS4gh/yAmgwXAOIAkA4F6gBHAyIDswv9ADszM////CzjPc3Mg3kCg61C8CMYQBtxgoBpselmwCf6HYbArEeH3HxrZ+BIvCw4XgjUhvIhkC5z6T7yBQHABESEMKGGJlN5ISjYXEK5DRA7clZBIP0C0gQdidjwA6tsAjxAGaPjB8H+GCwfSdz8gNes1InsbFMtIuBGXJmZcEg/W3XmhGKzCyMjI4MAEJH59/wd2HRBsOJy9p5GswmFf9I4GoOMWgLzN858T5PcLQJzIQCmoXJk1f/aGjv3EqGUhRpEdr/5CPj4hokpsJmIUcXPxfhAUFH1AjFqAAAMAOZz9JCtJEegAAAAASUVORK5CYII="
+             alt="MongoDB (DoctrineMongoODMModule)">
+        <span class="laminas-toolbar-info">
+            <?php echo $this->collector->getQueryCount(); ?> queries
+        </span>
+    </div>
+    <div class="laminas-toolbar-detail">
+        <span class="laminas-toolbar-info laminas-toolbar-info-heading">Details</span>
+        <span class="laminas-toolbar-info">
+            <span class="laminas-detail-label">Help us!</span>
+            <span class="laminas-detail-value laminas-detail-value-right">
+                Please help us improve
+                <br/>
+                profiling by forking and
+                <br/>
+                contributing to
+                <br/>
+                <a href="https://github.com/doctrine/DoctrineMongoODMModule/fork" target="_blank">
+                    DoctrineMongoODMModule
+                </a>
+            </span>
+        </span>
+
+        <span class="laminas-toolbar-info laminas-toolbar-info-heading">Queries <span
+                    class="ddt-toolbar-info">for <?php echo $this->collector->getName() ?></span></span>
+        <span class="laminas-toolbar-info ddt-toolbar-info">
+        <?php foreach ($this->collector->getQueries() as $query): ?>
+            <hr/>
+
+            <span class="laminas-detail-label">Database</span>
+            <span class="laminas-detail-value ddt-detail-value">
+                    <?= $query['db'] ?>
+                </span>
+            <span class="clear"></span>
+
+            <span class="laminas-detail-label">Command</span>
+            <span class="laminas-detail-value ddt-detail-query ddt-detail-value">
+                <?php VarDumper::dump($query['command']) ?>
+            </span>
+            <span class="clear"></span>
+        <?php endforeach ?>
+        </span>
+    </div>
+</div>
+<style>
+    .laminas-toolbar-entry .laminas-toolbar-detail .ddt-toolbar-info {
+
+        font-size: 11px;
+        max-width: 600px;
+        width: 600px;
+        max-height: 300px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .laminas-toolbar-entry .laminas-toolbar-detail .ddt-detail-query {
+
+        white-space: normal;
+        width: 400px;
+    }
+
+    .laminas-toolbar-entry .laminas-toolbar-detail .ddt-detail-query .highlight {
+
+        color: #80DC09;
+        font-weight: bold;
+    }
+
+    .laminas-toolbar-entry .laminas-toolbar-info .clear {
+
+        clear: both;
+        display: block;
+    }
+
+    .laminas-toolbar-entry .laminas-toolbar-detail .ddt-toolbar-info hr {
+
+        border: 0;
+        border-top: 1px solid #80DC09;
+        clear: both;
+    }
+</style>

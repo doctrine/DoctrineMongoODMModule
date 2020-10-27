@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\Common\EventManager;
-use Doctrine\MongoDB\Connection;
 use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use MongoDB\Client;
 use function assert;
 use function strpos;
 use function substr;
@@ -25,28 +25,28 @@ class ConnectionFactory extends AbstractFactory
     /**
      * {@inheritDoc}
      *
-     * @return Connection
+     * @return Client
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        $options = $this->getOptions($container, 'connection');
-        assert($options instanceof Options\Connection);
+        $connectionOptions = $this->getOptions($container, 'connection');
+        assert($connectionOptions instanceof Options\Connection);
 
-        $connectionString = $options->getConnectionString();
+        $connectionString = $connectionOptions->getConnectionString();
         $dbName           = null;
 
         if (empty($connectionString)) {
             $connectionString = 'mongodb://';
 
-            $user     = $options->getUser();
-            $password = $options->getPassword();
-            $dbName   = $options->getDbName();
+            $user     = $connectionOptions->getUser();
+            $password = $connectionOptions->getPassword();
+            $dbName   = $connectionOptions->getDbName();
 
             if ($user && $password) {
                 $connectionString .= $user . ':' . $password . '@';
             }
 
-            $connectionString .= $options->getServer() . ':' . $options->getPort();
+            $connectionString .= $connectionOptions->getServer() . ':' . $connectionOptions->getPort();
 
             if ($dbName) {
                 $connectionString .= '/' . $dbName;
@@ -68,14 +68,17 @@ class ConnectionFactory extends AbstractFactory
         assert($configuration instanceof Configuration);
 
         // Set defaultDB to $dbName, if it's not defined in configuration
-        if ($configuration->getDefaultDB() === null) {
+        if ($configuration->getDefaultDB() === null && $dbName !== null) {
             $configuration->setDefaultDB($dbName);
         }
 
         $eventManager = $container->get('doctrine.eventmanager.' . $this->getName());
         assert($eventManager instanceof EventManager);
 
-        return new Connection($connectionString, $options->getOptions(), $configuration, $eventManager,$options->getDriverOptions());
+        $driverOptions            = $connectionOptions->getDriverOptions();
+        $driverOptions['typeMap'] = ['root' => 'array', 'document' => 'array'];
+
+        return new Client($connectionString, $connectionOptions->getOptions(), $driverOptions);
     }
 
     /**
@@ -83,7 +86,7 @@ class ConnectionFactory extends AbstractFactory
      */
     public function createService(ServiceLocatorInterface $container)
     {
-        return $this($container, Connection::class);
+        return $this($container, Client::class);
     }
 
     /**

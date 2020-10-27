@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModule\Options;
 
-use Doctrine\Common\Proxy\AbstractProxyFactory;
+use Doctrine\ODM\MongoDB\Configuration as MongoDbConfiguration;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository as DefaultDocumentRepository;
-use DoctrineMongoODMModule\Logging\Logger;
 use Laminas\Stdlib\AbstractOptions;
-use function is_bool;
 
 /**
  * Configuration options for doctrine mongo
@@ -29,9 +27,9 @@ class Configuration extends AbstractOptions
     /**
      * Automatic generation of proxies (disable for production!)
      *
-     * @var bool
+     * @var int
      */
-    protected $generateProxies = AbstractProxyFactory::AUTOGENERATE_ALWAYS;
+    protected $generateProxies = MongoDbConfiguration::AUTOGENERATE_EVAL;
 
     /**
      * Proxy directory.
@@ -50,9 +48,9 @@ class Configuration extends AbstractOptions
     /**
      * Automatic generation of hydrators (disable for production!)
      *
-     * @var bool
+     * @var int
      */
-    protected $generateHydrators = true;
+    protected $generateHydrators = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
 
     /**
      * Hydrator directory
@@ -73,7 +71,7 @@ class Configuration extends AbstractOptions
      *
      * @var int
      */
-    protected $generatePersistentCollections = \Doctrine\ODM\MongoDB\Configuration::AUTOGENERATE_ALWAYS;
+    protected $generatePersistentCollections = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
 
     /**
      * Persistent collection directory.
@@ -92,7 +90,7 @@ class Configuration extends AbstractOptions
     /**
      * Persistent collection factory service name.
      *
-     * @var string
+     * @var string|null
      */
     protected $persistentCollectionFactory;
 
@@ -106,7 +104,7 @@ class Configuration extends AbstractOptions
     /** @var string */
     protected $driver;
 
-    /** @var string */
+    /** @var string|null */
     protected $defaultDb;
 
     /**
@@ -117,7 +115,11 @@ class Configuration extends AbstractOptions
      */
     protected $filters = [];
 
-    /** @var Logger */
+    /**
+     * service name of the Logger
+     *
+     * @var string|null
+     */
     protected $logger;
 
     /** @var string */
@@ -128,20 +130,6 @@ class Configuration extends AbstractOptions
 
     /** @var string */
     protected $defaultDocumentRepositoryClassName = DefaultDocumentRepository::class;
-
-    /**
-     * Number of times to attempt to connect if an exception is encountered
-     *
-     * @var int
-     */
-    protected $retryConnect = 0;
-
-    /**
-     * Number of times to attempt a query if an exception is encountered
-     *
-     * @var int
-     */
-    protected $retryQuery = 0;
 
     /**
      * Keys must be the name of the type identifier and value is
@@ -171,12 +159,6 @@ class Configuration extends AbstractOptions
      */
     public function setGenerateProxies(int $generateProxies)
     {
-        if (is_bool($generateProxies)) {
-            $generateProxies = $generateProxies
-                ? AbstractProxyFactory::AUTOGENERATE_ALWAYS
-                : AbstractProxyFactory::AUTOGENERATE_NEVER;
-        }
-
         $this->generateProxies = $generateProxies;
 
         return $this;
@@ -232,12 +214,12 @@ class Configuration extends AbstractOptions
         return $this->proxyNamespace;
     }
 
-    public function getGenerateHydrators() : bool
+    public function getGenerateHydrators() : int
     {
         return $this->generateHydrators;
     }
 
-    public function setGenerateHydrators(bool $generateHydrators) : Configuration
+    public function setGenerateHydrators(int $generateHydrators) : Configuration
     {
         $this->generateHydrators = $generateHydrators;
 
@@ -319,7 +301,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getPersistentCollectionFactory() : string
+    public function getPersistentCollectionFactory() : ?string
     {
         return $this->persistentCollectionFactory;
     }
@@ -336,7 +318,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getPersistentCollectionGenerator() : string
+    public function getPersistentCollectionGenerator() : ?string
     {
         return $this->persistentCollectionGenerator;
     }
@@ -391,7 +373,7 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     * @param string|Logger $logger
+     * @param string|null $logger
      */
     public function setLogger($logger) : self
     {
@@ -401,7 +383,7 @@ class Configuration extends AbstractOptions
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getLogger()
     {
@@ -416,36 +398,6 @@ class Configuration extends AbstractOptions
     public function setClassMetadataFactoryName(?string $classMetadataFactoryName) : void
     {
         $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
-    }
-
-    /**
-     * @return $this
-     */
-    public function setRetryConnect(int $retryConnect)
-    {
-        $this->retryConnect = (int) $retryConnect;
-
-        return $this;
-    }
-
-    public function getRetryConnect() : int
-    {
-        return $this->retryConnect;
-    }
-
-    /**
-     * @return $this
-     */
-    public function setRetryQuery(int $retryQuery)
-    {
-        $this->retryQuery = (int) $retryQuery;
-
-        return $this;
-    }
-
-    public function getRetryQuery() : int
-    {
-        return $this->retryQuery;
     }
 
     /**

@@ -35,8 +35,6 @@ class Module
     {
         $commands = [
             new Command\QueryCommand(),
-            new Command\GenerateDocumentsCommand(),
-            new Command\GenerateRepositoriesCommand(),
             new Command\GenerateProxiesCommand(),
             new Command\GenerateHydratorsCommand(),
             new Command\GeneratePersistentCollectionsCommand(),
@@ -85,7 +83,6 @@ class Module
         return [
             'invokables' => [
                 Logging\DebugStack::class  => Logging\DebugStack::class,
-                Logging\LoggerChain::class => Logging\LoggerChain::class,
                 Logging\EchoLogger::class  => Logging\EchoLogger::class,
             ],
             'aliases' => [DocumentManager::class => 'doctrine.documentmanager.odm_default'],

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Doctrine\Common\Proxy\AbstractProxyFactory;
 use Doctrine\ODM\MongoDB\Configuration;
+use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
 use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
 
 return [
@@ -26,7 +26,7 @@ return [
 
                 'driver'             => 'odm_default',
 
-                'generate_proxies'   => AbstractProxyFactory::AUTOGENERATE_ALWAYS,
+                'generate_proxies'   => Configuration::AUTOGENERATE_EVAL,
                 'proxy_dir'          => 'data/DoctrineMongoODMModule/Proxy',
                 'proxy_namespace'    => 'DoctrineMongoODMModule\Proxy',
 
@@ -53,7 +53,7 @@ return [
 
         'driver' => [
             'odm_default' => [
-                'class'   => 'Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain',
+                'class'   => MappingDriverChain::class,
                 'drivers' => [],
             ],
         ],
