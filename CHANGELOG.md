@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.0.1 - 2020-10-29
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Updated to Doctrine coding standard v8.2.0
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Nothing
+
 ## 3.0.0 - 2020-10-26
 
 ### Added
