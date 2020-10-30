@@ -69,72 +69,72 @@ class Connection extends AbstractOptions
      */
     protected $driverOptions = [];
 
-    public function getServer() : string
+    public function getServer(): string
     {
         return $this->server;
     }
 
-    public function setServer(?string $server) : Connection
+    public function setServer(?string $server): Connection
     {
         $this->server = (string) $server;
 
         return $this;
     }
 
-    public function getPort() : string
+    public function getPort(): string
     {
         return $this->port;
     }
 
-    public function setPort(?string $port) : Connection
+    public function setPort(?string $port): Connection
     {
         $this->port = (string) $port;
 
         return $this;
     }
 
-    public function getUser() : ?string
+    public function getUser(): ?string
     {
         return $this->user;
     }
 
-    public function setUser(?string $user) : Connection
+    public function setUser(?string $user): Connection
     {
         $this->user = (string) $user;
 
         return $this;
     }
 
-    public function getPassword() : ?string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(?string $password) : self
+    public function setPassword(?string $password): self
     {
         $this->password = (string) $password;
 
         return $this;
     }
 
-    public function getDbname() : string
+    public function getDbname(): string
     {
         return $this->dbname;
     }
 
-    public function setDbname(?string $dbname) : Connection
+    public function setDbname(?string $dbname): Connection
     {
         $this->dbname = (string) $dbname;
 
         return $this;
     }
 
-    public function getConnectionString() : ?string
+    public function getConnectionString(): ?string
     {
         return $this->connectionString;
     }
 
-    public function setConnectionString(?string $connectionString) : Connection
+    public function setConnectionString(?string $connectionString): Connection
     {
         $this->connectionString = (string) $connectionString;
 
@@ -144,7 +144,7 @@ class Connection extends AbstractOptions
     /**
      * @return mixed[]
      */
-    public function getOptions() : array
+    public function getOptions(): array
     {
         return $this->options;
     }
@@ -152,7 +152,7 @@ class Connection extends AbstractOptions
     /**
      * @param mixed[] $options
      */
-    public function setOptions(array $options) : Connection
+    public function setOptions(array $options): Connection
     {
         $this->options = $options;
 
@@ -162,7 +162,7 @@ class Connection extends AbstractOptions
     /**
      * @return mixed[]
      */
-    public function getDriverOptions() : array
+    public function getDriverOptions(): array
     {
         return $this->driverOptions;
     }
@@ -170,7 +170,7 @@ class Connection extends AbstractOptions
     /**
      * @param mixed[] $driverOptions
      */
-    public function setDriverOptions(array $driverOptions) : Connection
+    public function setDriverOptions(array $driverOptions): Connection
     {
         $this->driverOptions = $driverOptions;
 

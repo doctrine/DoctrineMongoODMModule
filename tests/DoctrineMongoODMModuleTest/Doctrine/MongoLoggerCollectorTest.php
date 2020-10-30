@@ -15,40 +15,40 @@ class MongoLoggerCollectorTest extends TestCase
     /** @var MongoLoggerCollector */
     private $collector;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->logger    = new DebugStack();
         $this->collector = new MongoLoggerCollector($this->logger, 'my-logger');
     }
 
-    public function testGetName() : void
+    public function testGetName(): void
     {
         self::assertSame('my-logger', $this->collector->getName());
     }
 
-    public function testPriority() : void
+    public function testPriority(): void
     {
         self::assertSame(10, $this->collector->getPriority());
     }
 
-    public function testCanHideIfQueryCountIsZero() : void
+    public function testCanHideIfQueryCountIsZero(): void
     {
         self::assertTrue($this->collector->canHide());
     }
 
-    public function testCannotHideIfQueriesAreLogged() : void
+    public function testCannotHideIfQueriesAreLogged(): void
     {
         $this->logger->queries = ['foo'];
 
         self::assertFalse($this->collector->canHide());
     }
 
-    public function testDefaultQueryCount() : void
+    public function testDefaultQueryCount(): void
     {
         self::assertSame(0, $this->collector->getQueryCount());
     }
 
-    public function testQueryCount() : void
+    public function testQueryCount(): void
     {
         $this->logger->queries = [
             'first query',
@@ -58,7 +58,7 @@ class MongoLoggerCollectorTest extends TestCase
         self::assertSame(2, $this->collector->getQueryCount());
     }
 
-    public function testGetQueries() : void
+    public function testGetQueries(): void
     {
         $queries = [
             'first query',
@@ -70,7 +70,7 @@ class MongoLoggerCollectorTest extends TestCase
         self::assertSame($queries, $this->collector->getQueries());
     }
 
-    public function testQueryTimeIsZero() : void
+    public function testQueryTimeIsZero(): void
     {
         self::assertSame(0.0, $this->collector->getQueryTime());
     }

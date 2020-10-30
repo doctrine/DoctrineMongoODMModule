@@ -8,6 +8,7 @@ use DoctrineModule\Service\AbstractFactory as DoctrineModuleAbstractFactory;
 use Interop\Container\ContainerInterface;
 use Laminas\Stdlib\AbstractOptions;
 use RuntimeException;
+
 use function sprintf;
 
 // phpcs:disable SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
@@ -18,7 +19,7 @@ abstract class AbstractFactory extends DoctrineModuleAbstractFactory
     /**
      * {@inheritDoc}
      */
-    public function getOptions(ContainerInterface $container, $key, $name = null) : AbstractOptions
+    public function getOptions(ContainerInterface $container, $key, $name = null): AbstractOptions
     {
         if ($name === null) {
             $name = $this->getName();

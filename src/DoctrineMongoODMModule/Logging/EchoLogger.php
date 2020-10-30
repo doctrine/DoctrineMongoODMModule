@@ -12,6 +12,7 @@ use Symfony\Component\VarDumper\VarDumper;
 
 use function MongoDB\Driver\Monitoring\addSubscriber;
 use function MongoDB\Driver\Monitoring\removeSubscriber;
+use function sprintf;
 
 /**
  * A logger that logs to the standard output using echo/var_dump.
@@ -25,22 +26,22 @@ class EchoLogger implements CommandLoggerInterface
         $this->register();
     }
 
-    public function register() : void
+    public function register(): void
     {
         addSubscriber($this);
     }
 
-    public function unregister() : void
+    public function unregister(): void
     {
         removeSubscriber($this);
     }
 
-    public function commandFailed(CommandFailedEvent $event)
+    public function commandFailed(CommandFailedEvent $event): void
     {
         echo $event->getError()->getTraceAsString();
     }
 
-    public function commandStarted(CommandStartedEvent $event)
+    public function commandStarted(CommandStartedEvent $event): void
     {
         VarDumper::dump(
             [
@@ -50,7 +51,7 @@ class EchoLogger implements CommandLoggerInterface
         );
     }
 
-    public function commandSucceeded(CommandSucceededEvent $event)
+    public function commandSucceeded(CommandSucceededEvent $event): void
     {
         echo sprintf("%s\n%s", $event->getRequestId(), $event->getCommandName());
     }

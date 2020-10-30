@@ -22,7 +22,7 @@ class MongoLoggerCollector extends AbstractOptions
     /** @var string|null service name of the Logger to be used */
     protected $mongoLogger;
 
-    public function setName(string $name) : void
+    public function setName(string $name): void
     {
         $this->name = (string) $name;
     }
@@ -30,12 +30,12 @@ class MongoLoggerCollector extends AbstractOptions
     /**
      * Name of the collector
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setConfiguration(?string $configuration) : void
+    public function setConfiguration(?string $configuration): void
     {
         $this->configuration = $configuration ? (string) $configuration : null;
     }
@@ -43,12 +43,12 @@ class MongoLoggerCollector extends AbstractOptions
     /**
      * Configuration service name (where to set the logger)
      */
-    public function getConfiguration() : string
+    public function getConfiguration(): string
     {
         return $this->configuration ?? 'doctrine.configuration.odm_default';
     }
 
-    public function setMongoLogger(?string $mongoLogger) : void
+    public function setMongoLogger(?string $mongoLogger): void
     {
         $this->mongoLogger = $mongoLogger ? (string) $mongoLogger : null;
     }
@@ -56,7 +56,7 @@ class MongoLoggerCollector extends AbstractOptions
     /**
      * Logger service name
      */
-    public function getMongoLogger() : ?string
+    public function getMongoLogger(): ?string
     {
         return $this->mongoLogger;
     }

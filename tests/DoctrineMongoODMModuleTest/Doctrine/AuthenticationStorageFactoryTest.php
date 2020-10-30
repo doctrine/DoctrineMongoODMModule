@@ -8,9 +8,9 @@ use DoctrineMongoODMModuleTest\AbstractTest;
 
 class AuthenticationStorageFactoryTest extends AbstractTest
 {
-    public function testAuthenticationStorageFactory() : void
+    public function testAuthenticationStorageFactory(): void
     {
         $storage = $this->serviceManager->get('doctrine.authenticationstorage.odm_default');
-        $this->assertInstanceOf('Laminas\Authentication\Storage\StorageInterface', $storage);
+        self::assertInstanceOf('Laminas\Authentication\Storage\StorageInterface', $storage);
     }
 }

@@ -21,18 +21,18 @@ abstract class AbstractTest extends TestCase
     /** @var mixed $serviceManager */
     protected $serviceManager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->application    = Application::init(ServiceManagerFactory::getConfiguration());
         $this->serviceManager = $this->application->getServiceManager();
     }
 
-    public function getDocumentManager() : DocumentManager
+    public function getDocumentManager(): DocumentManager
     {
         return $this->serviceManager->get('doctrine.documentmanager.odm_default');
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         try {
             $connection   = $this->getDocumentManager()->getClient();

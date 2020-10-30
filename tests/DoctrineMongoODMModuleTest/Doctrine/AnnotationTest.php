@@ -8,7 +8,7 @@ use DoctrineMongoODMModuleTest\AbstractTest;
 
 class AnnotationTest extends AbstractTest
 {
-    public function testAnnotation() : void
+    public function testAnnotation(): void
     {
         self::markTestIncomplete();
         $documentManager = $this->getDocumentManager();

@@ -43,14 +43,14 @@ class DocumentManager extends AbstractOptions
     /**
      * @param mixed $configuration
      */
-    public function setConfiguration($configuration) : self
+    public function setConfiguration($configuration): self
     {
         $this->configuration = (string) $configuration;
 
         return $this;
     }
 
-    public function getConfiguration() : string
+    public function getConfiguration(): string
     {
         return 'doctrine.configuration.' . $this->configuration;
     }
@@ -58,19 +58,19 @@ class DocumentManager extends AbstractOptions
     /**
      * @param mixed $connection
      */
-    public function setConnection($connection) : self
+    public function setConnection($connection): self
     {
         $this->connection = (string) $connection;
 
         return $this;
     }
 
-    public function getConnection() : string
+    public function getConnection(): string
     {
         return 'doctrine.connection.' . $this->connection;
     }
 
-    public function getEventManager() : string
+    public function getEventManager(): string
     {
         return 'doctrine.eventmanager.' . $this->eventManager;
     }
@@ -78,7 +78,7 @@ class DocumentManager extends AbstractOptions
     /**
      * @param mixed $eventManager
      */
-    public function setEventManager($eventManager) : self
+    public function setEventManager($eventManager): self
     {
         $this->eventManager = (string) $eventManager;
 

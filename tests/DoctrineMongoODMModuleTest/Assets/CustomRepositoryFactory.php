@@ -16,7 +16,7 @@ class CustomRepositoryFactory implements RepositoryFactory
      * @param DocumentManager $documentManager The DocumentManager instance.
      * @param string          $documentName    The name of the document.
      */
-    public function getRepository(DocumentManager $documentManager, string $documentName) : ObjectRepository
+    public function getRepository(DocumentManager $documentManager, string $documentName): ObjectRepository
     {
     }
 }

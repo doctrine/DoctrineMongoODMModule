@@ -149,7 +149,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getDriver() : string
+    public function getDriver(): string
     {
         return 'doctrine.driver.' . $this->driver;
     }
@@ -164,7 +164,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getGenerateProxies() : int
+    public function getGenerateProxies(): int
     {
         return $this->generateProxies;
     }
@@ -179,7 +179,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getMetadataCache() : string
+    public function getMetadataCache(): string
     {
         return 'doctrine.cache.' . $this->metadataCache;
     }
@@ -194,7 +194,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getProxyDir() : string
+    public function getProxyDir(): string
     {
         return $this->proxyDir;
     }
@@ -209,24 +209,24 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getProxyNamespace() : string
+    public function getProxyNamespace(): string
     {
         return $this->proxyNamespace;
     }
 
-    public function getGenerateHydrators() : int
+    public function getGenerateHydrators(): int
     {
         return $this->generateHydrators;
     }
 
-    public function setGenerateHydrators(int $generateHydrators) : Configuration
+    public function setGenerateHydrators(int $generateHydrators): Configuration
     {
         $this->generateHydrators = $generateHydrators;
 
         return $this;
     }
 
-    public function getHydratorDir() : string
+    public function getHydratorDir(): string
     {
         return $this->hydratorDir;
     }
@@ -241,7 +241,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getHydratorNamespace() : string
+    public function getHydratorNamespace(): string
     {
         return $this->hydratorNamespace;
     }
@@ -256,7 +256,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getGeneratePersistentCollections() : int
+    public function getGeneratePersistentCollections(): int
     {
         return $this->generatePersistentCollections;
     }
@@ -271,7 +271,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getPersistentCollectionDir() : string
+    public function getPersistentCollectionDir(): string
     {
         return $this->persistentCollectionDir;
     }
@@ -286,7 +286,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getPersistentCollectionNamespace() : string
+    public function getPersistentCollectionNamespace(): string
     {
         return $this->persistentCollectionNamespace;
     }
@@ -301,7 +301,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getPersistentCollectionFactory() : ?string
+    public function getPersistentCollectionFactory(): ?string
     {
         return $this->persistentCollectionFactory;
     }
@@ -318,7 +318,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getPersistentCollectionGenerator() : ?string
+    public function getPersistentCollectionGenerator(): ?string
     {
         return $this->persistentCollectionGenerator;
     }
@@ -333,7 +333,7 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getDefaultDb() : ?string
+    public function getDefaultDb(): ?string
     {
         return $this->defaultDb;
     }
@@ -355,7 +355,7 @@ class Configuration extends AbstractOptions
     /**
      * @return mixed[]
      */
-    public function getFilters() : array
+    public function getFilters(): array
     {
         return $this->filters;
     }
@@ -372,30 +372,24 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
-    /**
-     * @param string|null $logger
-     */
-    public function setLogger($logger) : self
+    public function setLogger(?string $logger): self
     {
         $this->logger = $logger;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getLogger()
+    public function getLogger(): ?string
     {
         return $this->logger;
     }
 
-    public function getClassMetadataFactoryName() : ?string
+    public function getClassMetadataFactoryName(): ?string
     {
         return $this->classMetadataFactoryName;
     }
 
-    public function setClassMetadataFactoryName(?string $classMetadataFactoryName) : void
+    public function setClassMetadataFactoryName(?string $classMetadataFactoryName): void
     {
         $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
     }
@@ -403,7 +397,7 @@ class Configuration extends AbstractOptions
     /**
      * @param mixed[] $types
      */
-    public function setTypes(array $types) : void
+    public function setTypes(array $types): void
     {
         $this->types = $types;
     }
@@ -411,29 +405,29 @@ class Configuration extends AbstractOptions
     /**
      * @return mixed[]
      */
-    public function getTypes() : array
+    public function getTypes(): array
     {
         return $this->types;
     }
 
-    public function getRepositoryFactory() : ?string
+    public function getRepositoryFactory(): ?string
     {
         return $this->repositoryFactory;
     }
 
-    public function setRepositoryFactory(?string $repositoryFactory) : Configuration
+    public function setRepositoryFactory(?string $repositoryFactory): Configuration
     {
         $this->repositoryFactory = (string) $repositoryFactory;
 
         return $this;
     }
 
-    public function getDefaultDocumentRepositoryClassName() : string
+    public function getDefaultDocumentRepositoryClassName(): string
     {
         return $this->defaultDocumentRepositoryClassName;
     }
 
-    public function setDefaultDocumentRepositoryClassName(string $defaultDocumentRepositoryClassName) : self
+    public function setDefaultDocumentRepositoryClassName(string $defaultDocumentRepositoryClassName): self
     {
         $this->defaultDocumentRepositoryClassName = $defaultDocumentRepositoryClassName;
 
