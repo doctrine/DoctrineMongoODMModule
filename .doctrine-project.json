@@ -13,18 +13,14 @@
       "maintained":true,
       "aliases":[
         "current",
-        "stable",
-        "3.0.x"
+        "stable"
       ]
     },
     {
       "name":"2.x",
       "branchName":"2.x",
       "slug":"2.x",
-      "maintained":false,
-      "aliases":[
-        "2.x"
-      ]
+      "maintained":false
     }
   ]
 }
