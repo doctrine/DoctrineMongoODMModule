@@ -1,6 +1,7 @@
 # Doctrine MongoDB ODM Module for Laminas
 
 [![Build Status](https://secure.travis-ci.org/doctrine/DoctrineMongoODMModule.png?branch=3.0.x)](http://travis-ci.org/doctrine/DoctrineMongoODMModule)
+[![Coverage Status](https://coveralls.io/repos/github/doctrine/DoctrineMongoODMModule/badge.svg?branch=3.0.x)](https://coveralls.io/github/doctrine/DoctrineMongoODMModule?branch=3.0.x)
 [![Latest Stable Version](https://poser.pugx.org/doctrine/doctrine-mongo-odm-module/v/stable.png)](https://packagist.org/packages/doctrine/doctrine-mongo-odm-module) 
 [![Total Downloads](https://poser.pugx.org/doctrine/doctrine-mongo-odm-module/downloads.png)](https://packagist.org/packages/doctrine/doctrine-mongo-odm-module)
 
