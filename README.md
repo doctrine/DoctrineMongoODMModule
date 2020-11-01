@@ -58,7 +58,7 @@ or
 Access the document manager using this service manager alias:
 
 ```php
-$dm = $serviceManager->get('doctrine.documentmanager.odm_default');
+$objectManager = $serviceManager->get('doctrine.documentmanager.odm_default');
 ```
 
 #### Configuration
