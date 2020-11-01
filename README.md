@@ -1,6 +1,8 @@
 # Doctrine MongoDB ODM Module for Laminas
 
-Master: [![Build Status](https://secure.travis-ci.org/doctrine/DoctrineMongoODMModule.png?branch=master)](http://travis-ci.org/doctrine/DoctrineMongoODMModule)
+[![Build Status](https://secure.travis-ci.org/doctrine/DoctrineMongoODMModule.png?branch=3.0.x)](http://travis-ci.org/doctrine/DoctrineMongoODMModule)
+[![Latest Stable Version](https://poser.pugx.org/doctrine/doctrine-mongo-odm-module/v/stable.png)](https://packagist.org/packages/doctrine/doctrine-mongo-odm-module) 
+[![Total Downloads](https://poser.pugx.org/doctrine/doctrine-mongo-odm-module/downloads.png)](https://packagist.org/packages/doctrine/doctrine-mongo-odm-module)
 
 The DoctrineMongoODMModule integrates Doctrine 2 MongoDB ODM with Laminas
 quickly and easily. The following features are intended to work out of the box:
@@ -9,7 +11,7 @@ quickly and easily. The following features are intended to work out of the box:
   - Multiple document managers
   - Multiple connections
   - Support for using existing `Mongo` connections
-  - Doctrine Cli support
+  - Doctrine CLI support
 
 ## Requirements
 
@@ -19,37 +21,24 @@ architecture)
 ## Installation
 
 Installation of this module uses composer. For composer documentation, please refer to
-[getcomposer.org](https://getcomposer.org/).
+[getcomposer.org](http://getcomposer.org/).
 
-#### Installation steps
+```sh
+composer require doctrine/doctrine-mongo-odm-module
+```
 
-  1. `cd my/project/directory`
-  2. create a `composer.json` file with following contents:
+Copy `vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm.local.php.dist` into your application's
+`config/autoload` directory, rename it to `module.doctrine-mongo-odm.local.php`, and make the appropriate changes.
+With this config file you can configure your mongo connection, add extra annotations to register, add subscribers to
+the event manager, add filters to the filter collection, and drivers to the driver chain.
 
-     ```json
-     {
-         "require": {
-             "doctrine/doctrine-mongo-odm-module": "^2.0"
-         }
-     }
-     ```
-  3. install composer via `curl -s http://getcomposer.org/installer | php` (on windows, download
-     http://getcomposer.org/installer and execute it with PHP)
-  4. run `php composer.phar install`
-  5. open `my/project/directory/configs/application.config.php` and add following keys to your `modules` (in this order)
+Then add `DoctrineModule` and `DoctrineMongoODMModule` to your `config/application.config.php` and create directories
+`data/DoctrineMongoODMModule/Proxy` and `data/DoctrineMongoODMModule/Hydrator` and make sure your application has 
+write access to them.
 
-     ```php
-     'DoctrineModule',
-     'DoctrineMongoODMModule',
-     ```
+Installation without composer is not officially supported and requires you to manually install all dependencies
+that are listed in `composer.json`
 
-  6. copy `vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm.local.php.dist` into your application's
-     `config/autoload` directory, rename it to `module.doctrine-mongo-odm.local.php` and make the appropriate changes.
-     With this config file you can configure your mongo connection, add extra annotations to register, add subscribers to
-     the event manager, add filters to the filter collection, and drivers to the driver chain.
-
-  7. create directory `my/project/directory/data/DoctrineMongoODMModule/Proxy` and
-     `my/project/directory/data/DoctrineMongoODMModule/Hydrator` and make sure your application has write access to it.
 
 ## Usage
 
@@ -57,15 +46,18 @@ Installation of this module uses composer. For composer documentation, please re
 Access the Doctrine command line as following
 
 ```sh
+php public/index.php
+```
+or
+```sh
 ./vendor/bin/doctrine-module
 ```
 
 #### Service Locator
-Access the document manager using the following service manager alias:
+Access the document manager using this service manager alias:
 
 ```php
-<?php
-$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
+$dm = $serviceManager->get('doctrine.documentmanager.odm_default');
 ```
 
 #### Configuration
