@@ -1,12 +1,23 @@
+Usage of DoctrineMongoODMModule
+===============================
+
+The DoctrineMongoODMModule integrates Doctrine MongoDB ODM with Laminas
+quickly and easily. The following features are intended to work out of
+the box:
+
+-  MongoDB support
+-  Multiple document managers
+-  Multiple connections
+-  Support for using existing ``Mongo`` connections
+-  Doctrine CLI support
+
 Installation
-============
+------------
 
-Installation of this module uses composer. For composer documentation,
-please refer to `getcomposer.org <http://getcomposer.org/>`__.
+Run the following to install this library:
 
-.. code:: sh
-
-   composer require doctrine/doctrine-mongo-odm-module
+.. code:: bash
+   $ composer require doctrine/doctrine-mongo-odm-module
 
 Copy
 ``vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm.local.php.dist``
@@ -25,3 +36,13 @@ has write access to them.
 Installation without composer is not officially supported and requires
 you to manually install all dependencies that are listed in
 ``composer.json``
+
+Next Steps
+----------
+
+.. toctree::
+    :caption: Table of Contents
+
+    usage
+    user-guide
+    development

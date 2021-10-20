@@ -43,9 +43,9 @@ Either ``server`` or ``connectionString`` option has to be set.
 | connectionString      | null          | If the connection string is  |
 |                       |               | specified, it will overwrite |
 |                       |               | other connection options     |
-|                       |               | (``serv                      |
-|                       |               | er``,\ ``port``,\ ``user``,\ |
-|                       |               |  ``password``,\ ``dbname``). |
+|                       |               | (``server``, ``port``,       |
+|                       |               | ``user``, ``password``,      |
+|                       |               | ``dbname``).                 |
 |                       |               | Still, the connection will   |
 |                       |               | respect the settings passed  |
 |                       |               | in ``options`` array.        |
