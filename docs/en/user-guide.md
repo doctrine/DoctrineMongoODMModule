@@ -1,17 +1,15 @@
-User Guide
-==========
+# User Guide
 
 This guide helps you to create a Laminas application with Doctrine Mongo ODM integration.
 If you're new to Laminas, please read the [Laminas documentation](https://docs.laminas.dev/) before you 
 continue.
 
-Install Composer
-----------------
+## Install Composer
+
 install composer via `curl -s http://getcomposer.org/installer | php` 
 (on windows, download http://getcomposer.org/installer and execute it with PHP)
 
-ZF2 Skeleton Application
-------------------------
+## Laminas Skeleton Application 
 
 Create a new Skeleton application with Composer:
 
@@ -30,8 +28,7 @@ $ php -S 0.0.0.0:8080 -t public/ public/index.php
 For detailed instructions on installing the Laminas MVC Skeleton Application follow 
 [this link](https://github.com/laminas/laminas-mvc-skeleton).
 
-Install Doctrine Mongo ODM Module 
----------------------------------
+## Install Doctrine Mongo ODM Module
 
 Install DoctrineODMModule :
 
@@ -53,8 +50,7 @@ Copy `vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm
 Create the directories `my/project/directory/data/DoctrineMongoODMModule/Proxy` and
 `my/project/directory/data/DoctrineMongoODMModule/Hydrator` and make sure your application has write access to them.
 
-Configure your Application module
----------------------------------
+## Configure your Application module
 
 Open `module/Application/config/module.config.php` and add the namespace to the top of the file:
 
@@ -88,8 +84,7 @@ return [
 ];
 ```
 
-Create a managed document class
--------------------------------
+## Create a managed document class
 
 Create your first Doctrine ODM managed document class in `module/Application/src/Application/Document/Message.php`:
 
@@ -137,8 +132,7 @@ class Message
 }
 ```
 
-Test the newly created document
--------------------------------
+## Test the newly created document
 
 To test your Doctrine ODM configuration, replace the indexAction in 
 `module/Application/src/Application/Controller/IndexController.php`:
