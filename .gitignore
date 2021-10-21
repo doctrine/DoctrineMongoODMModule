@@ -1,7 +1,9 @@
-.phpunit.result.cache
-vendor/
-.idea/
-phpunit.xml
-phpcs.xml
-.phpcs-cache
-build
+/.phpcs.cache
+/.phpunit.result.cache
+/build/
+/config/application.config.php
+/coverage.xml
+/composer.lock
+/phpcs.xml
+/phpunit.xml
+/vendor/
