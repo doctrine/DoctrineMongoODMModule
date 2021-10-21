@@ -22,16 +22,12 @@ jobs:
         dependencies:
           - "highest"
         include:
-          - php-version: "7.3"
+          - php-version: "7.2"
             dependencies: "lowest"
 
     services:
       mongodb:
         image: "mongo:5"
-        env:
-          MONGO_INITDB_ROOT_USERNAME: mongodb
-          MONGO_INITDB_ROOT_PASSWORD: mongodb
-          MONGO_INITDB_DATABASE: mongodb
         options: >-
           --health-cmd mongo
           --health-interval 10s
@@ -67,7 +63,7 @@ jobs:
         run: "./vendor/bin/doctrine-module odm:schema:create"
 
       - name: "Drop schema"
-        run: "./vendor/bin/doctrine-module odm:schema:create"
+        run: "./vendor/bin/doctrine-module odm:schema:drop"
 
       - name: "Run PHPUnit"
         run: "./vendor/bin/phpunit --coverage-clover=coverage.xml"

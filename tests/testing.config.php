@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModuleTest;
 
+use function getenv;
+
 return [
     'doctrine' => [
         'configuration' => [
@@ -13,7 +15,8 @@ return [
             ],
         ],
         'connection' => [
-            'odm_default' => ['server' => 'mongo'],
+            // in Github actions MongoDB is available under 127.0.0.1, docker-compose needs mongodb
+            'odm_default' => ['server' => getenv('GITHUB_ACTION') ? '127.0.0.1' : 'mongodb'],
         ],
         'driver' => [
             'odm_default' => [
@@ -22,7 +25,7 @@ return [
             'test' => [
                 'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => [__DIR__ . '/Assets/Document'],
+                'paths' => [__DIR__ . '/DoctrineMongoODMModuleTest/Assets/Document'],
             ],
         ],
     ],
