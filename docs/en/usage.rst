@@ -4,19 +4,13 @@ Usage
 Command Line
 ------------
 
-Access the Doctrine command line as following
+Access the Doctrine command line as follows:
 
-.. code:: sh
-
-   php public/index.php
-
-or
-
-.. code:: sh
+.. code:: bash
 
    ./vendor/bin/doctrine-module
 
-Service Locator
+Service Manager
 ---------------
 
 Access the document manager using this service manager alias:

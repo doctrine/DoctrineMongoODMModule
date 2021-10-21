@@ -8,7 +8,7 @@ documentation <https://docs.laminas.dev/>`__ before you continue.
 Install Composer
 ----------------
 
-install composer via ``curl -s http://getcomposer.org/installer | php``
+Install composer via ``curl -s http://getcomposer.org/installer | php``
 (on windows, download http://getcomposer.org/installer and execute it
 with PHP)
 
@@ -37,14 +37,14 @@ link <https://github.com/laminas/laminas-mvc-skeleton>`__.
 Install Doctrine Mongo ODM Module
 ---------------------------------
 
-Install DoctrineODMModule :
+Install DoctrineMongoODMModule :
 
 .. code:: bash
 
    $ composer require doctrine/doctrine-mongo-odm-module
 
-Open ``doctrine-odm-tutorial/configs/application.config.php`` in your
-editor and add following keys to your ``modules`` (in this order)
+Open ``config/application.config.php`` in your editor and add following
+keys to your ``modules`` (in this order):
 
 .. code:: php
 
