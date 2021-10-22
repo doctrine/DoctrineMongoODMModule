@@ -1,6 +1,5 @@
 version: "3.7"
 services:
-
   php:
     build:
       context: .
@@ -12,11 +11,11 @@ services:
       - ./:/docker
       - ./docker/php.ini:/usr/local/etc/php/php.ini
     depends_on:
-      - mongo
+      - mongodb
     environment:
         - TRAVIS
         - TRAVIS_JOB_ID
         - TRAVIS_BRANCH
         - TRAVIS_PULL_REQUEST
-  mongo:
+  mongodb:
     image: mongo:latest

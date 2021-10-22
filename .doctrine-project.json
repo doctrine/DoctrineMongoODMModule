@@ -1,8 +1,7 @@
 {
   "active": true,
   "name": "Doctrine MongoDB ODM Module for Laminas",
-  "slug": "DoctrineMongoODMModule",
-  "docsSlug": "doctrine-mongo-odm-module",
+  "slug": "doctrine-mongo-odm-module",
   "versions": [
     {
       "name": "3.0.x",
