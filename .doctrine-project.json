@@ -4,9 +4,9 @@
   "slug": "doctrine-mongo-odm-module",
   "versions": [
     {
-      "name": "3.0.x",
+      "name": "3.0",
       "branchName": "3.0.x",
-      "slug": "3.0.x",
+      "slug": "3.0",
       "aliases":[
         "current",
         "stable"
