@@ -5,8 +5,9 @@
 [![Latest Stable Version](https://poser.pugx.org/doctrine/doctrine-mongo-odm-module/v/stable.png)](https://packagist.org/packages/doctrine/doctrine-mongo-odm-module) 
 [![Total Downloads](https://poser.pugx.org/doctrine/doctrine-mongo-odm-module/downloads.png)](https://packagist.org/packages/doctrine/doctrine-mongo-odm-module)
 
-The DoctrineMongoODMModule integrates Doctrine MongoDB ODM with Laminas
-quickly and easily. The following features are intended to work out of the box:
+The DoctrineMongoODMModule leverages [DoctrineModule](https://github.com/doctrine/DoctrineModule/) and integrates 
+[Doctrine MongoDB ODM](https://github.com/doctrine/mongodb-odm) with [Laminas](https://getlaminas.org/) quickly
+and easily. The following features are intended to work out of the box:
 
   - MongoDB support
   - Multiple document managers
@@ -14,15 +15,17 @@ quickly and easily. The following features are intended to work out of the box:
   - Support for using existing `Mongo` connections
   - Doctrine CLI support
 
-## Documentation
-
-Please check the [`docs` dir](./docs/en)
-for more detailed documentation on the features provided by this component.
-
 ## Installation
 
-Run the following to install this library:
+Run the following to install this library using [Composer](https://getcomposer.org/):
 
-```sh
+```bash
 composer require doctrine/doctrine-mongo-odm-module
 ```
+
+## Documentation
+
+Please check the [documentation on the Doctrine website](https://www.doctrine-project.org/projects/doctrine-mongo-odm-module.html)
+for more detailed information on features provided by this component. The source files for the documentation can be
+found in the [docs directory](./docs/en).
+
