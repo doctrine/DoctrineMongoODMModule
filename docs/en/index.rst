@@ -1,5 +1,5 @@
-Usage of DoctrineMongoODMModule
-===============================
+Introduction
+============
 
 The DoctrineMongoODMModule integrates Doctrine MongoDB ODM with Laminas
 quickly and easily. The following features are intended to work out of

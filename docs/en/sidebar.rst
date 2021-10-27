@@ -1,7 +1,7 @@
 .. toctree::
     :depth: 3
 
-    Introduction <index>
+    index
     usage
     user-guide
     development
