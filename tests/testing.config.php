@@ -25,7 +25,7 @@ return [
             'test' => [
                 'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => [__DIR__ . '/DoctrineMongoODMModuleTest/Assets/Document'],
+                'paths' => [__DIR__ . '/Assets/Document'],
             ],
         ],
     ],

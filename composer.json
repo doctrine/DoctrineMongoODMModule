@@ -76,12 +76,12 @@
     },
     "autoload": {
         "psr-4": {
-            "DoctrineMongoODMModule\\": "src/DoctrineMongoODMModule/"
+            "DoctrineMongoODMModule\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DoctrineMongoODMModuleTest\\": "tests/DoctrineMongoODMModuleTest/"
+            "DoctrineMongoODMModuleTest\\": "tests/"
         }
     },
     "scripts": {
@@ -89,10 +89,10 @@
             "@cs-check",
             "@test"
         ],
-        "cs-check": "phpcs --standard=Doctrine",
-        "cs-fix": "phpcbf --standard=Doctrine",
-        "test": "phpunit --colors=always --stop-on-error",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover=clover.xml",
         "install-dev": "composer install",
         "update-dev": "composer update"
     },
