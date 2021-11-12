@@ -18,6 +18,7 @@ jobs:
         php-version:
           - "7.3"
           - "7.4"
+          - "8.0"
         dependencies:
           - "highest"
         include:
@@ -51,9 +52,17 @@ jobs:
 
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v1"
+        if: "! startsWith(matrix.php-version, '8')"
         with:
           dependency-versions: "${{ matrix.dependencies }}"
-          composer-options: "--prefer-dist --no-suggest"
+          composer-options: "--prefer-dist"
+
+      - name: "Install dependencies with Composer (--ignore-platform-req=php)"
+        uses: "ramsey/composer-install@v1"
+        if: "startsWith(matrix.php-version, '8')"
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
+          composer-options: "--prefer-dist --ignore-platform-req=php"
 
       - name: "Configure test application"
         run: "cp ./tests/TestConfiguration.php ./config/application.config.php"

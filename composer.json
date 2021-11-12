@@ -50,7 +50,7 @@
         }
     },
     "require": {
-        "php": "^7.3",
+        "php": "^7.3 || ~8.0.0",
         "ext-mongodb": "*",
         "doctrine/doctrine-module": "^4.0",
         "doctrine/mongodb-odm": "^2.0",
@@ -92,7 +92,7 @@
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover=clover.xml",
+        "test-coverage": "phpunit --colors=always --coverage-clover=coverage.xml",
         "install-dev": "composer install",
         "update-dev": "composer update"
     },
