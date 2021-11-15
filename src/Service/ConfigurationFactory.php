@@ -111,6 +111,8 @@ class ConfigurationFactory extends AbstractFactory
     }
 
     /**
+     * @deprecated 3.1.0 With laminas-servicemanager v3 this method is obsolete and will be removed in 4.0.0.
+     *
      * @return mixed
      */
     public function createService(ServiceLocatorInterface $container)

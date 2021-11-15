@@ -10,9 +10,12 @@ use DoctrineMongoODMModule\Service\DoctrineObjectHydratorFactory;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class DoctrineObjectHydratorFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var ServiceLocatorInterface|MockObject */
     protected $services;
 
