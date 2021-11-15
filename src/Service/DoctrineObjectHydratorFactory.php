@@ -6,14 +6,21 @@ namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\Laminas\Hydrator\DoctrineObject;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Psr\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 use function assert;
 
-class DoctrineObjectHydratorFactory
+class DoctrineObjectHydratorFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container): DoctrineObject
-    {
+    /**
+     * {@inheritDoc}
+     */
+    public function __invoke(
+        ContainerInterface $container,
+        $requestedName = null,
+        ?array $options = null
+    ): DoctrineObject {
         $documentManager = $container->get('doctrine.documentmanager.odm_default');
         assert($documentManager instanceof DocumentManager);
 

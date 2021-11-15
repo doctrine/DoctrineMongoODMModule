@@ -9,8 +9,8 @@
     <arg name="cache" value=".phpcs.cache"/>
     <arg name="colors"/>
 
-    <!-- set minimal required PHP version (7.2) -->
-    <config name="php_version" value="70200"/>
+    <!-- set minimal required PHP version (7.3) -->
+    <config name="php_version" value="70300"/>
 
     <!-- Include full Doctrine Coding Standard -->
     <rule ref="Doctrine"/>
