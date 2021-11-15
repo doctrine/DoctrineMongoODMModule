@@ -18,5 +18,46 @@ class CustomRepositoryFactory implements RepositoryFactory
      */
     public function getRepository(DocumentManager $documentManager, string $documentName): ObjectRepository
     {
+        return new class () implements ObjectRepository {
+            /**
+             * {@inheritDoc}
+             */
+            public function find($id)
+            {
+                return null;
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            public function findAll()
+            {
+                return [];
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+            {
+                return [];
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            public function findOneBy(array $criteria)
+            {
+                return null;
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            public function getClassName()
+            {
+                return '';
+            }
+        };
     }
 }

@@ -13,6 +13,7 @@ use InvalidArgumentException;
 use Laminas\EventManager\EventInterface;
 use Laminas\ModuleManager\ModuleManager;
 use Laminas\ModuleManager\ModuleManagerInterface;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -69,6 +70,14 @@ class Module
         }
 
         $cli = $event->getTarget();
+        if (! $cli instanceof Application) {
+            throw new InvalidArgumentException(sprintf(
+                'Expected %s as event target, received %s.',
+                Application::class,
+                get_class($cli)
+            ));
+        }
+
         $cli->addCommands($commands);
 
         $arguments           = new ArgvInput();

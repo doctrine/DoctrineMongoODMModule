@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
+use Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper;
 use DoctrineMongoODMModule\Module;
 use Laminas\EventManager\Event;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
+
+use function assert;
 
 class ModuleTest extends TestCase
 {
@@ -29,7 +32,9 @@ class ModuleTest extends TestCase
         $module = new Module();
         $module->loadCli($event);
 
-        self::assertSame($documentManager, $application->getHelperSet()->get('documentManager')->getDocumentManager());
+        $documentManagerHelper = $application->getHelperSet()->get('documentManager');
+        assert($documentManagerHelper instanceof DocumentManagerHelper);
+        self::assertSame($documentManager, $documentManagerHelper->getDocumentManager());
     }
 
     public function testDocumentManagerUsedCanBeSpecifiedInCommandLineArgument(): void
@@ -56,6 +61,8 @@ class ModuleTest extends TestCase
 
         $_SERVER['argv'] = $argvBackup;
 
-        self::assertSame($documentManager, $application->getHelperSet()->get('documentManager')->getDocumentManager());
+        $documentManagerHelper = $application->getHelperSet()->get('documentManager');
+        assert($documentManagerHelper instanceof DocumentManagerHelper);
+        self::assertSame($documentManager, $documentManagerHelper->getDocumentManager());
     }
 }

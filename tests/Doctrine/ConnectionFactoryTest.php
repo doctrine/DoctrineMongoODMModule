@@ -16,8 +16,8 @@ class ConnectionFactoryTest extends AbstractTest
     /** @var mixed[] $configuration */
     private $configuration = [];
 
-    /** @var mixed[] $connectionFactory */
-    private $connectionFactory = [];
+    /** @var ConnectionFactory $connectionFactory */
+    private $connectionFactory = null;
 
     protected function setUp(): void
     {

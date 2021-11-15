@@ -3,6 +3,5 @@ parameters:
     paths:
         - src
         - tests
-    excludePaths:
 includes:
     - vendor/jangregor/phpstan-prophecy/extension.neon
