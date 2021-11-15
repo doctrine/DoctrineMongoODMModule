@@ -11,6 +11,9 @@ use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
 use InvalidArgumentException;
 use Laminas\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\InitProviderInterface;
+use Laminas\ModuleManager\Feature\ServiceProviderInterface;
 use Laminas\ModuleManager\ModuleManager;
 use Laminas\ModuleManager\ModuleManagerInterface;
 use Symfony\Component\Console\Application;
@@ -25,7 +28,7 @@ use function sprintf;
  *
  * @link    http://www.doctrine-project.org
  */
-class Module
+class Module implements InitProviderInterface, ConfigProviderInterface, ServiceProviderInterface
 {
     public function init(ModuleManagerInterface $manager): void
     {
