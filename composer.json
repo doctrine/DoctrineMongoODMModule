@@ -67,7 +67,7 @@
         "symfony/var-dumper": "^5.3.10"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^8.2.1",
+        "doctrine/coding-standard": "^9.0.0",
         "laminas/laminas-console": "^2.8.0",
         "laminas/laminas-developer-tools": "^2.2.0",
         "laminas/laminas-hydrator": "^3.2.1 || ^4.3.1",
