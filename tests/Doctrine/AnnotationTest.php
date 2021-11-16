@@ -10,7 +10,7 @@ class AnnotationTest extends AbstractTest
 {
     public function testAnnotation(): void
     {
-        self::markTestIncomplete();
+        $this->markTestIncomplete();
         //$documentManager = $this->getDocumentManager();
         //$metadata = $documentManager->getClassMetadata('DoctrineMongoODMModuleTest\Assets\Document\Annotation');
     }

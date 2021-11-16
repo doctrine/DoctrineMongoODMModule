@@ -11,6 +11,6 @@ class AuthenticationAdapterFactoryTest extends AbstractTest
     public function testAuthenticationAdapterFactory(): void
     {
         $adapter = $this->serviceManager->get('doctrine.authenticationadapter.odm_default');
-        self::assertInstanceOf('Laminas\Authentication\Adapter\AdapterInterface', $adapter);
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\AdapterInterface', $adapter);
     }
 }

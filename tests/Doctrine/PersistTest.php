@@ -25,6 +25,6 @@ class PersistTest extends AbstractTest
         $repository = $documentManager->getRepository(get_class($simple));
         $simple     = $repository->find($id);
 
-        self::assertEquals('lucy', $simple->getName());
+        $this->assertEquals('lucy', $simple->getName());
     }
 }

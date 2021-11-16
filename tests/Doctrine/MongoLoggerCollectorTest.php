@@ -23,29 +23,29 @@ class MongoLoggerCollectorTest extends TestCase
 
     public function testGetName(): void
     {
-        self::assertSame('my-logger', $this->collector->getName());
+        $this->assertSame('my-logger', $this->collector->getName());
     }
 
     public function testPriority(): void
     {
-        self::assertSame(10, $this->collector->getPriority());
+        $this->assertSame(10, $this->collector->getPriority());
     }
 
     public function testCanHideIfQueryCountIsZero(): void
     {
-        self::assertTrue($this->collector->canHide());
+        $this->assertTrue($this->collector->canHide());
     }
 
     public function testCannotHideIfQueriesAreLogged(): void
     {
         $this->logger->queries = ['foo'];
 
-        self::assertFalse($this->collector->canHide());
+        $this->assertFalse($this->collector->canHide());
     }
 
     public function testDefaultQueryCount(): void
     {
-        self::assertSame(0, $this->collector->getQueryCount());
+        $this->assertSame(0, $this->collector->getQueryCount());
     }
 
     public function testQueryCount(): void
@@ -55,7 +55,7 @@ class MongoLoggerCollectorTest extends TestCase
             'second query',
         ];
 
-        self::assertSame(2, $this->collector->getQueryCount());
+        $this->assertSame(2, $this->collector->getQueryCount());
     }
 
     public function testGetQueries(): void
@@ -67,11 +67,11 @@ class MongoLoggerCollectorTest extends TestCase
 
         $this->logger->queries = $queries;
 
-        self::assertSame($queries, $this->collector->getQueries());
+        $this->assertSame($queries, $this->collector->getQueries());
     }
 
     public function testQueryTimeIsZero(): void
     {
-        self::assertSame(0.0, $this->collector->getQueryTime());
+        $this->assertSame(0.0, $this->collector->getQueryTime());
     }
 }
