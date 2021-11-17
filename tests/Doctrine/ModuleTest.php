@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
+use Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper;
 use DoctrineMongoODMModule\Module;
 use Laminas\EventManager\Event;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
+
+use function assert;
 
 class ModuleTest extends TestCase
 {
@@ -18,10 +21,10 @@ class ModuleTest extends TestCase
             ->getMock();
 
         $serviceManager = $this->createMock('Laminas\ServiceManager\ServiceManager');
-        $serviceManager->expects(self::once())
+        $serviceManager->expects($this->once())
             ->method('get')
             ->with('doctrine.documentmanager.odm_default')
-            ->will(self::returnValue($documentManager));
+            ->will($this->returnValue($documentManager));
 
         $application = new Application();
         $event       = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
@@ -29,7 +32,9 @@ class ModuleTest extends TestCase
         $module = new Module();
         $module->loadCli($event);
 
-        self::assertSame($documentManager, $application->getHelperSet()->get('documentManager')->getDocumentManager());
+        $documentManagerHelper = $application->getHelperSet()->get('documentManager');
+        assert($documentManagerHelper instanceof DocumentManagerHelper);
+        $this->assertSame($documentManager, $documentManagerHelper->getDocumentManager());
     }
 
     public function testDocumentManagerUsedCanBeSpecifiedInCommandLineArgument(): void
@@ -41,10 +46,10 @@ class ModuleTest extends TestCase
             ->getMock();
 
         $serviceManager = $this->createMock('Laminas\ServiceManager\ServiceManager');
-        $serviceManager->expects(self::once())
+        $serviceManager->expects($this->once())
             ->method('get')
             ->with('doctrine.documentmanager.some_other_name')
-            ->will(self::returnValue($documentManager));
+            ->will($this->returnValue($documentManager));
 
         $application = new Application();
         $event       = new Event('loadCli.post', $application, ['ServiceManager' => $serviceManager]);
@@ -56,6 +61,8 @@ class ModuleTest extends TestCase
 
         $_SERVER['argv'] = $argvBackup;
 
-        self::assertSame($documentManager, $application->getHelperSet()->get('documentManager')->getDocumentManager());
+        $documentManagerHelper = $application->getHelperSet()->get('documentManager');
+        assert($documentManagerHelper instanceof DocumentManagerHelper);
+        $this->assertSame($documentManager, $documentManagerHelper->getDocumentManager());
     }
 }

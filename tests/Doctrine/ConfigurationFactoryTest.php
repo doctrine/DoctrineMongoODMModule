@@ -97,28 +97,28 @@ final class ConfigurationFactoryTest extends AbstractTest
 
         assert($config instanceof Config);
 
-        self::assertInstanceOf(Config::class, $config);
+        $this->assertInstanceOf(Config::class, $config);
 
-        self::assertSame($metadataCache, $config->getMetadataCacheImpl());
-        self::assertSame($mappingDriver, $config->getMetadataDriverImpl());
+        $this->assertSame($metadataCache, $config->getMetadataCacheImpl());
+        $this->assertSame($mappingDriver, $config->getMetadataDriverImpl());
 
-        self::assertSame(Config::AUTOGENERATE_EVAL, $config->getAutoGenerateProxyClasses());
-        self::assertSame($proxyDir, $config->getProxyDir());
-        self::assertSame($proxyNamespace, $config->getProxyNamespace());
+        $this->assertSame(Config::AUTOGENERATE_EVAL, $config->getAutoGenerateProxyClasses());
+        $this->assertSame($proxyDir, $config->getProxyDir());
+        $this->assertSame($proxyNamespace, $config->getProxyNamespace());
 
-        self::assertSame($config->getAutoGenerateHydratorClasses(), Config::AUTOGENERATE_ALWAYS);
-        self::assertSame($hydratorDir, $config->getHydratorDir());
-        self::assertSame($hydratorNamespace, $config->getHydratorNamespace());
+        $this->assertSame($config->getAutoGenerateHydratorClasses(), Config::AUTOGENERATE_ALWAYS);
+        $this->assertSame($hydratorDir, $config->getHydratorDir());
+        $this->assertSame($hydratorNamespace, $config->getHydratorNamespace());
 
-        self::assertSame($collectionGenerate, $config->getAutoGeneratePersistentCollectionClasses());
-        self::assertSame($collectionDir, $config->getPersistentCollectionDir());
-        self::assertSame($collectionNamespace, $config->getPersistentCollectionNamespace());
-        self::assertSame($persistentCollectionFactory, $config->getPersistentCollectionFactory());
-        self::assertSame($persistentCollectionGenerator, $config->getPersistentCollectionGenerator());
+        $this->assertSame($collectionGenerate, $config->getAutoGeneratePersistentCollectionClasses());
+        $this->assertSame($collectionDir, $config->getPersistentCollectionDir());
+        $this->assertSame($collectionNamespace, $config->getPersistentCollectionNamespace());
+        $this->assertSame($persistentCollectionFactory, $config->getPersistentCollectionFactory());
+        $this->assertSame($persistentCollectionGenerator, $config->getPersistentCollectionGenerator());
 
-        self::assertInstanceOf($typeClassName, Type::getType($typeName));
-        self::assertSame($repositoryFactory, $config->getRepositoryFactory());
+        $this->assertInstanceOf($typeClassName, Type::getType($typeName));
+        $this->assertSame($repositoryFactory, $config->getRepositoryFactory());
 
-        self::assertSame(CustomDocumentRepository::class, $config->getDefaultDocumentRepositoryClassName());
+        $this->assertSame(CustomDocumentRepository::class, $config->getDefaultDocumentRepositoryClassName());
     }
 }

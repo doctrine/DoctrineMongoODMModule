@@ -27,7 +27,7 @@ final class DocumentManagerTest extends AbstractTest
     {
         $documentManager = $this->getDocumentManager();
 
-        self::assertInstanceOf(DocumentManager::class, $documentManager);
+        $this->assertInstanceOf(DocumentManager::class, $documentManager);
     }
 
     public function testShouldSetEventManager(): void
@@ -43,6 +43,6 @@ final class DocumentManagerTest extends AbstractTest
         $eventManager    = $this->serviceManager->get('doctrine.eventmanager.odm_default');
         $documentManager = $this->getDocumentManager();
 
-        self::assertSame($eventManager, $documentManager->getEventManager());
+        $this->assertSame($eventManager, $documentManager->getEventManager());
     }
 }

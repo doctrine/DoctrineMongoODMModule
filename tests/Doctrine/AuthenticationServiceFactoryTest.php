@@ -11,6 +11,6 @@ class AuthenticationServiceFactoryTest extends AbstractTest
     public function testAuthenticationServiceFactory(): void
     {
         $authenticationService = $this->serviceManager->get('doctrine.authenticationservice.odm_default');
-        self::assertInstanceOf('Laminas\Authentication\AuthenticationService', $authenticationService);
+        $this->assertInstanceOf('Laminas\Authentication\AuthenticationService', $authenticationService);
     }
 }

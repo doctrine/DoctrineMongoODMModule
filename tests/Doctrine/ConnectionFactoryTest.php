@@ -14,10 +14,10 @@ use DoctrineMongoODMModuleTest\AbstractTest;
 class ConnectionFactoryTest extends AbstractTest
 {
     /** @var mixed[] $configuration */
-    private $configuration = [];
+    private $configuration;
 
-    /** @var mixed[] $connectionFactory */
-    private $connectionFactory = [];
+    /** @var ConnectionFactory $connectionFactory */
+    private $connectionFactory;
 
     protected function setUp(): void
     {
@@ -47,7 +47,7 @@ class ConnectionFactoryTest extends AbstractTest
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
-        self::assertEquals($connectionString, (string) $connection);
+        $this->assertEquals($connectionString, (string) $connection);
     }
 
     public function testConnectionStringShouldAllowMultipleHosts(): void
@@ -63,7 +63,7 @@ class ConnectionFactoryTest extends AbstractTest
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
-        self::assertEquals($connectionString, (string) $connection);
+        $this->assertEquals($connectionString, (string) $connection);
     }
 
     public function testConnectionStringShouldAllowUnixSockets(): void
@@ -78,7 +78,7 @@ class ConnectionFactoryTest extends AbstractTest
 
         $connection = $this->connectionFactory->createService($this->serviceManager);
 
-        self::assertEquals($connectionString, (string) $connection);
+        $this->assertEquals($connectionString, (string) $connection);
     }
 
     public function testDbNameShouldSetDefaultDB(): void
@@ -96,7 +96,7 @@ class ConnectionFactoryTest extends AbstractTest
         $this->connectionFactory->createService($this->serviceManager);
         $configuration = $this->getConfiguration();
 
-        self::assertEquals($dbName, $configuration->getDefaultDB());
+        $this->assertEquals($dbName, $configuration->getDefaultDB());
     }
 
     public function testDbNameShouldNotOverrideExplicitDefaultDB(): void
@@ -113,7 +113,7 @@ class ConnectionFactoryTest extends AbstractTest
         $configuration->setDefaultDB($defaultDB);
         $this->connectionFactory->createService($this->serviceManager);
 
-        self::assertEquals($defaultDB, $configuration->getDefaultDB());
+        $this->assertEquals($defaultDB, $configuration->getDefaultDB());
     }
 
     public function testConnectionStringShouldSetDefaultDB(): void
@@ -132,7 +132,7 @@ class ConnectionFactoryTest extends AbstractTest
         $configuration = $this->getConfiguration();
         $this->connectionFactory->createService($this->serviceManager);
 
-        self::assertEquals($dbName, $configuration->getDefaultDB());
+        $this->assertEquals($dbName, $configuration->getDefaultDB());
     }
 
     public function testConnectionStringWithOptionsShouldSetDefaultDB(): void
@@ -151,7 +151,7 @@ class ConnectionFactoryTest extends AbstractTest
         $configuration = $this->getConfiguration();
         $this->connectionFactory->createService($this->serviceManager);
 
-        self::assertEquals($dbName, $configuration->getDefaultDB());
+        $this->assertEquals($dbName, $configuration->getDefaultDB());
     }
 
     private function getConfiguration(): Configuration

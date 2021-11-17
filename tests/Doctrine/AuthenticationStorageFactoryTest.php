@@ -11,6 +11,6 @@ class AuthenticationStorageFactoryTest extends AbstractTest
     public function testAuthenticationStorageFactory(): void
     {
         $storage = $this->serviceManager->get('doctrine.authenticationstorage.odm_default');
-        self::assertInstanceOf('Laminas\Authentication\Storage\StorageInterface', $storage);
+        $this->assertInstanceOf('Laminas\Authentication\Storage\StorageInterface', $storage);
     }
 }

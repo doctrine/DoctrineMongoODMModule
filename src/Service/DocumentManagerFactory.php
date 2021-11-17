@@ -9,6 +9,8 @@ use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
+use function assert;
+
 /**
  * Factory creates a mongo document manager
  *
@@ -23,7 +25,8 @@ class DocumentManagerFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        $options      = $this->getOptions($container, 'documentmanager');
+        $options = $this->getOptions($container, 'documentmanager');
+        assert($options instanceof Options\DocumentManager);
         $connection   = $container->get($options->getConnection());
         $config       = $container->get($options->getConfiguration());
         $eventManager = $container->get($options->getEventManager());

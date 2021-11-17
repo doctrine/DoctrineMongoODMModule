@@ -14,7 +14,7 @@ class MongoLoggerCollectorFactoryTest extends AbstractTest
     {
         $collector = $this->serviceManager->get('doctrine.mongo_logger_collector.odm_default');
 
-        self::assertInstanceOf(MongoLoggerCollector::class, $collector);
+        $this->assertInstanceOf(MongoLoggerCollector::class, $collector);
     }
 
     public function testCreateServiceWithLegacyCreateServiceMethod(): void
@@ -23,6 +23,6 @@ class MongoLoggerCollectorFactoryTest extends AbstractTest
 
         $collector = $factory->createService($this->serviceManager);
 
-        self::assertInstanceOf(MongoLoggerCollector::class, $collector);
+        $this->assertInstanceOf(MongoLoggerCollector::class, $collector);
     }
 }

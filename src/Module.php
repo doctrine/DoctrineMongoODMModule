@@ -9,20 +9,37 @@ use Doctrine\ODM\MongoDB\Tools\Console\Command;
 use Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper;
 use DoctrineModule\Service as CommonService;
 use DoctrineMongoODMModule\Service as ODMService;
+use InvalidArgumentException;
 use Laminas\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\InitProviderInterface;
+use Laminas\ModuleManager\Feature\ServiceProviderInterface;
+use Laminas\ModuleManager\ModuleManager;
 use Laminas\ModuleManager\ModuleManagerInterface;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputOption;
+
+use function get_class;
+use function sprintf;
 
 /**
  * Doctrine Module provider for Mongo DB ODM.
  *
  * @link    http://www.doctrine-project.org
  */
-class Module
+class Module implements InitProviderInterface, ConfigProviderInterface, ServiceProviderInterface
 {
     public function init(ModuleManagerInterface $manager): void
     {
+        if (! $manager instanceof ModuleManager) {
+            throw new InvalidArgumentException(sprintf(
+                'Expected %s, but received %s.',
+                ModuleManager::class,
+                get_class($manager)
+            ));
+        }
+
         $events = $manager->getEventManager();
         // Initialize logger collector once the profiler is initialized itself
         $events->attach('profiler_init', static function (EventInterface $e) use ($manager): void {
@@ -56,6 +73,14 @@ class Module
         }
 
         $cli = $event->getTarget();
+        if (! $cli instanceof Application) {
+            throw new InvalidArgumentException(sprintf(
+                'Expected %s as event target, received %s.',
+                Application::class,
+                get_class($cli)
+            ));
+        }
+
         $cli->addCommands($commands);
 
         $arguments           = new ArgvInput();

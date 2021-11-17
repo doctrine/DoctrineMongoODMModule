@@ -68,6 +68,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^9.0.0",
+        "jangregor/phpstan-prophecy": "^1.0.0",
         "laminas/laminas-console": "^2.8.0",
         "laminas/laminas-developer-tools": "^2.2.0",
         "laminas/laminas-hydrator": "^3.2.1 || ^4.3.1",
@@ -77,8 +78,10 @@
         "laminas/laminas-serializer": "^2.11.0",
         "laminas/laminas-session": "^2.12.0",
         "laminas/laminas-view": "^2.14.1",
+        "phpstan/phpstan": "^1.1.2",
         "phpspec/prophecy-phpunit": "^2.0.1",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "vimeo/psalm": "^4.11.2"
     },
     "suggest": {
         "laminas/laminas-form": "if you want to use form elements backed by Doctrine",
@@ -97,10 +100,14 @@
     "scripts": {
         "check": [
             "@cs-check",
+            "@phpstan",
+            "@psalm",
             "@test"
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
+        "phpstan": "phpstan analyse",
+        "psalm": "psalm --stats",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover=coverage.xml"
     },
