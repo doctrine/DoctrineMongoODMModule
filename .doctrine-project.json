@@ -9,20 +9,17 @@
       "slug": "3.1",
       "aliases":[
         "latest",
-        "stable"
-      ],
-      "upcoming": true
-    },
-    {
-      "name": "3.0",
-      "branchName": "3.0.x",
-      "slug": "3.0",
-      "aliases":[
         "current",
         "stable"
       ],
       "current": true,
       "maintained": true
+    },
+    {
+      "name": "3.0",
+      "branchName": "3.0.x",
+      "slug": "3.0",
+      "maintained": false
     },
     {
       "name": "2.0",
