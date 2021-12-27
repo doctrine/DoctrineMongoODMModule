@@ -28,6 +28,7 @@ class Configuration extends AbstractOptions
      * Automatic generation of proxies (disable for production!)
      *
      * @var int
+     * @psalm-var MongoDbConfiguration::AUTOGENERATE_*
      */
     protected $generateProxies = MongoDbConfiguration::AUTOGENERATE_EVAL;
 
@@ -49,6 +50,7 @@ class Configuration extends AbstractOptions
      * Automatic generation of hydrators (disable for production!)
      *
      * @var int
+     * @psalm-var MongoDbConfiguration::AUTOGENERATE_*
      */
     protected $generateHydrators = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
 
@@ -70,6 +72,7 @@ class Configuration extends AbstractOptions
      * Persistent collection generation strategy.
      *
      * @var int
+     * @psalm-var MongoDbConfiguration::AUTOGENERATE_*
      */
     protected $generatePersistentCollections = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
 
@@ -155,6 +158,8 @@ class Configuration extends AbstractOptions
     }
 
     /**
+     * @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generateProxies
+     *
      * @return $this
      */
     public function setGenerateProxies(int $generateProxies)
@@ -164,6 +169,9 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
+    /**
+     * @psalm-return MongoDbConfiguration::AUTOGENERATE_*
+     */
     public function getGenerateProxies(): int
     {
         return $this->generateProxies;
@@ -214,11 +222,19 @@ class Configuration extends AbstractOptions
         return $this->proxyNamespace;
     }
 
+    /**
+     * @psalm-return MongoDbConfiguration::AUTOGENERATE_*
+     */
     public function getGenerateHydrators(): int
     {
         return $this->generateHydrators;
     }
 
+    /**
+     * @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generateHydrators
+     *
+     * @return $this
+     */
     public function setGenerateHydrators(int $generateHydrators): Configuration
     {
         $this->generateHydrators = $generateHydrators;
@@ -256,12 +272,17 @@ class Configuration extends AbstractOptions
         return $this;
     }
 
+    /**
+     * @psalm-return MongoDbConfiguration::AUTOGENERATE_*
+     */
     public function getGeneratePersistentCollections(): int
     {
         return $this->generatePersistentCollections;
     }
 
     /**
+     * @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generatePersistentCollections
+     *
      * @return $this
      */
     public function setGeneratePersistentCollections(int $generatePersistentCollections)
