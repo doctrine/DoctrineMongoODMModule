@@ -60,7 +60,7 @@ final class Connection extends AbstractOptions
         return $this->server;
     }
 
-    public function setServer(?string $server): Connection
+    public function setServer(?string $server): self
     {
         $this->server = (string) $server;
 
@@ -72,7 +72,7 @@ final class Connection extends AbstractOptions
         return $this->port;
     }
 
-    public function setPort(?string $port): Connection
+    public function setPort(?string $port): self
     {
         $this->port = (string) $port;
 
@@ -84,9 +84,9 @@ final class Connection extends AbstractOptions
         return $this->user;
     }
 
-    public function setUser(?string $user): Connection
+    public function setUser(?string $user): self
     {
-        $this->user = (string) $user;
+        $this->user = $user;
 
         return $this;
     }
@@ -98,7 +98,7 @@ final class Connection extends AbstractOptions
 
     public function setPassword(?string $password): self
     {
-        $this->password = (string) $password;
+        $this->password = $password;
 
         return $this;
     }
@@ -108,7 +108,7 @@ final class Connection extends AbstractOptions
         return $this->dbname;
     }
 
-    public function setDbname(?string $dbname): Connection
+    public function setDbname(?string $dbname): self
     {
         $this->dbname = (string) $dbname;
 
@@ -120,7 +120,7 @@ final class Connection extends AbstractOptions
         return $this->connectionString;
     }
 
-    public function setConnectionString(?string $connectionString): Connection
+    public function setConnectionString(?string $connectionString): self
     {
         $this->connectionString = (string) $connectionString;
 
@@ -138,7 +138,7 @@ final class Connection extends AbstractOptions
     /**
      * @param mixed[] $options
      */
-    public function setOptions(array $options): Connection
+    public function setOptions(array $options): self
     {
         $this->options = $options;
 
@@ -156,7 +156,7 @@ final class Connection extends AbstractOptions
     /**
      * @param mixed[] $driverOptions
      */
-    public function setDriverOptions(array $driverOptions): Connection
+    public function setDriverOptions(array $driverOptions): self
     {
         $this->driverOptions = $driverOptions;
 

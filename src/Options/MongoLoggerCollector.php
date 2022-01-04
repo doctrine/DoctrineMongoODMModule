@@ -22,7 +22,7 @@ final class MongoLoggerCollector extends AbstractOptions
 
     public function setName(string $name): void
     {
-        $this->name = (string) $name;
+        $this->name = $name;
     }
 
     /**
@@ -33,9 +33,11 @@ final class MongoLoggerCollector extends AbstractOptions
         return $this->name;
     }
 
-    public function setConfiguration(?string $configuration): void
+    public function setConfiguration(?string $configuration): self
     {
-        $this->configuration = $configuration ? (string) $configuration : null;
+        $this->configuration = $configuration ?: null;
+
+        return $this;
     }
 
     /**
@@ -46,9 +48,11 @@ final class MongoLoggerCollector extends AbstractOptions
         return $this->configuration ?? 'doctrine.configuration.odm_default';
     }
 
-    public function setMongoLogger(?string $mongoLogger): void
+    public function setMongoLogger(?string $mongoLogger): self
     {
-        $this->mongoLogger = $mongoLogger ? (string) $mongoLogger : null;
+        $this->mongoLogger = $mongoLogger ?: null;
+
+        return $this;
     }
 
     /**
