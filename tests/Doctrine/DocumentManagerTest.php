@@ -10,7 +10,7 @@ use DoctrineMongoODMModuleTest\AbstractTest;
 final class DocumentManagerTest extends AbstractTest
 {
     /** @var mixed[] $configuration */
-    private $configuration = [];
+    private array $configuration = [];
 
     protected function setUp(): void
     {

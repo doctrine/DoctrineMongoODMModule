@@ -14,13 +14,13 @@ use Laminas\Stdlib\AbstractOptions;
 class MongoLoggerCollector extends AbstractOptions
 {
     /** @var string name to be assigned to the collector */
-    protected $name = 'odm_default';
+    protected string $name = 'odm_default';
 
     /** @var string|null service name of the configuration where the logger has to be put */
-    protected $configuration;
+    protected ?string $configuration = null;
 
     /** @var string|null service name of the Logger to be used */
-    protected $mongoLogger;
+    protected ?string $mongoLogger = null;
 
     public function setName(string $name): void
     {

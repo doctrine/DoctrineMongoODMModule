@@ -37,11 +37,9 @@ use function assert;
  */
 class CliTest extends TestCase
 {
-    /** @var Application */
-    protected $cli;
+    protected Application $cli;
 
-    /** @var DocumentManager */
-    protected $documentManager;
+    protected DocumentManager $documentManager;
 
     protected function setUp(): void
     {

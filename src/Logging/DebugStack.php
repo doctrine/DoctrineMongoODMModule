@@ -20,10 +20,10 @@ use function MongoDB\Driver\Monitoring\removeSubscriber;
 class DebugStack implements CommandLoggerInterface
 {
     /** @var mixed[] $queries Executed queries. */
-    public $queries = [];
+    public array $queries = [];
 
     /** @var bool $enabled If Debug Stack is enabled (log queries) or not. */
-    public $enabled = true;
+    public bool $enabled = true;
 
     /** @var mixed $currentQuery */
     protected $currentQuery = 0;

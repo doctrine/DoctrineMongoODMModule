@@ -19,96 +19,73 @@ class Configuration extends AbstractOptions
      * Set the cache key for the metadata cache. Cache key
      * is assembled as "doctrine.cache.{key}" and pulled from
      * service locator.
-     *
-     * @var string
      */
-    protected $metadataCache = 'array';
+    protected string $metadataCache = 'array';
 
     /**
      * Automatic generation of proxies (disable for production!)
      *
-     * @var int
      * @psalm-var MongoDbConfiguration::AUTOGENERATE_*
      */
-    protected $generateProxies = MongoDbConfiguration::AUTOGENERATE_EVAL;
+    protected int $generateProxies = MongoDbConfiguration::AUTOGENERATE_EVAL;
 
     /**
      * Proxy directory.
-     *
-     * @var string
      */
-    protected $proxyDir = 'data';
+    protected string $proxyDir = 'data';
 
     /**
      * Proxy namespace.
-     *
-     * @var string
      */
-    protected $proxyNamespace = 'DoctrineMongoODMModule\Proxy';
+    protected string $proxyNamespace = 'DoctrineMongoODMModule\Proxy';
 
     /**
      * Automatic generation of hydrators (disable for production!)
      *
-     * @var int
      * @psalm-var MongoDbConfiguration::AUTOGENERATE_*
      */
-    protected $generateHydrators = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
+    protected int $generateHydrators = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
 
     /**
      * Hydrator directory
-     *
-     * @var string
      */
-    protected $hydratorDir = 'data';
+    protected string $hydratorDir = 'data';
 
     /**
      * Hydrator namespace
-     *
-     * @var string
      */
-    protected $hydratorNamespace = 'DoctrineMongoODMModule\Hydrator';
+    protected string $hydratorNamespace = 'DoctrineMongoODMModule\Hydrator';
 
     /**
      * Persistent collection generation strategy.
      *
-     * @var int
      * @psalm-var MongoDbConfiguration::AUTOGENERATE_*
      */
-    protected $generatePersistentCollections = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
+    protected int $generatePersistentCollections = MongoDbConfiguration::AUTOGENERATE_ALWAYS;
 
     /**
      * Persistent collection directory.
-     *
-     * @var string
      */
-    protected $persistentCollectionDir = 'data';
+    protected string $persistentCollectionDir = 'data';
 
     /**
      * Persistent collection namespace.
-     *
-     * @var string
      */
-    protected $persistentCollectionNamespace = 'DoctrineMongoODMModule\PersistentCollection';
+    protected string $persistentCollectionNamespace = 'DoctrineMongoODMModule\PersistentCollection';
 
     /**
      * Persistent collection factory service name.
-     *
-     * @var string|null
      */
-    protected $persistentCollectionFactory;
+    protected ?string $persistentCollectionFactory = null;
 
     /**
      * Persistent collection generator service name.
-     *
-     * @var string
      */
-    protected $persistentCollectionGenerator;
+    protected string $persistentCollectionGenerator;
 
-    /** @var string */
-    protected $driver;
+    protected string $driver;
 
-    /** @var string|null */
-    protected $defaultDb;
+    protected ?string $defaultDb = null;
 
     /**
      * An array of filters. Array should be in the form
@@ -116,23 +93,18 @@ class Configuration extends AbstractOptions
      *
      * @var mixed[]
      */
-    protected $filters = [];
+    protected array $filters = [];
 
     /**
      * service name of the Logger
-     *
-     * @var string|null
      */
-    protected $logger;
+    protected ?string $logger = null;
 
-    /** @var string */
-    protected $classMetadataFactoryName;
+    protected string $classMetadataFactoryName;
 
-    /** @var string */
-    protected $repositoryFactory;
+    protected string $repositoryFactory;
 
-    /** @var string */
-    protected $defaultDocumentRepositoryClassName = DefaultDocumentRepository::class;
+    protected string $defaultDocumentRepositoryClassName = DefaultDocumentRepository::class;
 
     /**
      * Keys must be the name of the type identifier and value is
@@ -140,7 +112,7 @@ class Configuration extends AbstractOptions
      *
      * @var mixed[]
      */
-    protected $types = [];
+    protected array $types = [];
 
     /**
      * @return $this

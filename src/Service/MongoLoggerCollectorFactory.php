@@ -19,8 +19,7 @@ use function assert;
  */
 class MongoLoggerCollectorFactory extends AbstractFactory
 {
-    /** @var string */
-    protected $name;
+    protected string $name;
 
     public function __construct(string $name)
     {
