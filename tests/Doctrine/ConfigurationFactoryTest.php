@@ -93,7 +93,7 @@ final class ConfigurationFactoryTest extends AbstractTest
         );
 
         $factory = new ConfigurationFactory('odm_test');
-        $config  = $factory->createService($serviceLocator);
+        $config  = $factory($serviceLocator, Config::class);
 
         assert($config instanceof Config);
 
