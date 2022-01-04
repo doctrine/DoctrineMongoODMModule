@@ -11,7 +11,7 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 
 use function assert;
 
-class DoctrineObjectHydratorFactory implements FactoryInterface
+final class DoctrineObjectHydratorFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}

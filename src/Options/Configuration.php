@@ -10,10 +10,8 @@ use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Configuration options for doctrine mongo
- *
- * @link    http://www.doctrine-project.org/
  */
-class Configuration extends AbstractOptions
+final class Configuration extends AbstractOptions
 {
     /**
      * Set the cache key for the metadata cache. Cache key

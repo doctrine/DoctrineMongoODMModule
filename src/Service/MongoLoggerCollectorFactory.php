@@ -14,10 +14,8 @@ use function assert;
 
 /**
  * Mongo Logger Configuration ServiceManager factory
- *
- * @link    http://www.doctrine-project.org/
  */
-class MongoLoggerCollectorFactory extends AbstractFactory
+final class MongoLoggerCollectorFactory extends AbstractFactory
 {
     /** @var string */
     protected $name;

@@ -13,10 +13,8 @@ use function assert;
 
 /**
  * Factory creates a mongo document manager
- *
- * @link    http://www.doctrine-project.org/
  */
-class DocumentManagerFactory extends AbstractFactory
+final class DocumentManagerFactory extends AbstractFactory
 {
     /**
      * {@inheritDoc}

@@ -19,10 +19,8 @@ use const PHP_INT_MAX;
 
 /**
  * Factory creates a mongo connection
- *
- * @link    http://www.doctrine-project.org/
  */
-class ConnectionFactory extends AbstractFactory
+final class ConnectionFactory extends AbstractFactory
 {
     /**
      * {@inheritDoc}
