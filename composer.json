@@ -63,8 +63,8 @@
         "laminas/laminas-mvc": "^3.3.0",
         "laminas/laminas-servicemanager": "^3.7.0",
         "laminas/laminas-stdlib": "^3.6.4",
-        "symfony/console": "^5.4.2",
-        "symfony/var-dumper": "^5.4.2"
+        "symfony/console": "^5.4.2 || ^6.0.0",
+        "symfony/var-dumper": "^5.4.2 || ^6.0.0"
     },
     "require-dev": {
         "doctrine/coding-standard": "^9.0.0",
