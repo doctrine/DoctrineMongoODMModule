@@ -20,7 +20,7 @@ RUN apk add --no-cache \
     openssl-dev
     
 RUN docker-php-ext-configure intl
-RUN docker-php-ext-install intl
+RUN docker-php-ext-install -j$(nproc) intl
 RUN pecl install mongodb
 RUN set -o pipefail && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN if [ ${XDEBUG} == "1" ] ; then pecl install xdebug && docker-php-ext-enable xdebug ; fi
