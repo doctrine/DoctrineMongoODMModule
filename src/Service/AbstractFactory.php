@@ -14,11 +14,8 @@ use function sprintf;
 /**
  * @internal
  */
-// phpcs:disable SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
 abstract class AbstractFactory extends DoctrineModuleAbstractFactory
 {
-// phpcs:enable SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
-
     public function getOptions(ContainerInterface $container, string $key, ?string $name = null): AbstractOptions
     {
         if ($name === null) {

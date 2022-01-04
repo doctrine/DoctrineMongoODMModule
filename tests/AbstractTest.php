@@ -10,11 +10,8 @@ use MongoDB\Driver\Exception\RuntimeException;
 use MongoDB\Driver\WriteConcern;
 use PHPUnit\Framework\TestCase;
 
-// phpcs:disable SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
 abstract class AbstractTest extends TestCase
 {
-// phpcs:enable SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
-
     /** @var mixed $application */
     protected $application;
 
