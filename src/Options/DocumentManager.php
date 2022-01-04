@@ -17,28 +17,22 @@ class DocumentManager extends AbstractOptions
      * Set the configuration key for the Configuration. Configuration key
      * is assembled as "doctrine.configuration.{key}" and pulled from
      * service locator.
-     *
-     * @var string
      */
-    protected $configuration = 'odm_default';
+    protected string $configuration = 'odm_default';
 
     /**
      * Set the connection key for the Connection. Connection key
      * is assembled as "doctrine.connection.{key}" and pulled from
      * service locator.
-     *
-     * @var string
      */
-    protected $connection = 'odm_default';
+    protected string $connection = 'odm_default';
 
     /**
      * Set the event manager key for the event manager. Key
      * is assembled as "doctrine.eventManager.{key} and pulled from
      * service locator.
-     *
-     * @var string
      */
-    protected $eventManager = 'odm_default';
+    protected string $eventManager = 'odm_default';
 
     /**
      * @param mixed $configuration

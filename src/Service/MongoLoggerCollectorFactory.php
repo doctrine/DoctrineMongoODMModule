@@ -19,9 +19,6 @@ use function assert;
  */
 class MongoLoggerCollectorFactory extends AbstractFactory
 {
-    /** @var string */
-    protected $name;
-
     public function __construct(string $name)
     {
         parent::__construct($name);

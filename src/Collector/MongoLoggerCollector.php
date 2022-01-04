@@ -24,11 +24,9 @@ class MongoLoggerCollector implements CollectorInterface, AutoHideInterface
      */
     public const PRIORITY = 10;
 
-    /** @var DebugStack */
-    protected $mongoLogger;
+    protected DebugStack $mongoLogger;
 
-    /** @var string */
-    protected $name;
+    protected string $name;
 
     public function __construct(DebugStack $mongoLogger, string $name)
     {

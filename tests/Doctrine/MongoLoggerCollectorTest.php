@@ -10,10 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class MongoLoggerCollectorTest extends TestCase
 {
-    /** @var DebugStack */
-    private $logger;
-    /** @var MongoLoggerCollector */
-    private $collector;
+    private DebugStack $logger;
+    private MongoLoggerCollector $collector;
 
     protected function setUp(): void
     {

@@ -15,59 +15,47 @@ class Connection extends AbstractOptions
 {
     /**
      * The server with the mongo instance you want to connect to
-     *
-     * @var string
      */
-    protected $server = 'localhost';
+    protected string $server = 'localhost';
 
     /**
      * Port to connect over
-     *
-     * @var string
      */
-    protected $port = '27017';
+    protected string $port = '27017';
 
     /**
      * Username if using mongo auth
-     *
-     * @var string
      */
-    protected $user = null;
+    protected ?string $user = null;
 
     /**
      * Password if using mongo auth
-     *
-     * @var string
      */
-    protected $password = null;
+    protected ?string $password = null;
 
     /**
      * If you want to connect to a specific database
-     *
-     * @var string
      */
-    protected $dbname = null;
+    protected ?string $dbname = null;
 
     /**
      * If you want to provide a custom connection string
-     *
-     * @var string
      */
-    protected $connectionString = null;
+    protected ?string $connectionString = null;
 
     /**
      * Further connection options defined by mongodb-odm
      *
      * @var mixed[]
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * Driver specific connection options defined by mongodb-odm
      *
      * @var mixed[]
      */
-    protected $driverOptions = [];
+    protected array $driverOptions = [];
 
     public function getServer(): string
     {
@@ -117,7 +105,7 @@ class Connection extends AbstractOptions
         return $this;
     }
 
-    public function getDbname(): string
+    public function getDbname(): ?string
     {
         return $this->dbname;
     }

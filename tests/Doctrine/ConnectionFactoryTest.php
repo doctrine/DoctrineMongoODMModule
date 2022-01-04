@@ -14,10 +14,9 @@ use DoctrineMongoODMModuleTest\AbstractTest;
 class ConnectionFactoryTest extends AbstractTest
 {
     /** @var mixed[] $configuration */
-    private $configuration;
+    private array $configuration;
 
-    /** @var ConnectionFactory $connectionFactory */
-    private $connectionFactory;
+    private ConnectionFactory $connectionFactory;
 
     protected function setUp(): void
     {
