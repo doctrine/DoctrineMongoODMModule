@@ -112,12 +112,9 @@ final class Configuration extends AbstractOptions
      */
     protected array $types = [];
 
-    /**
-     * @return $this
-     */
-    public function setDriver(string $driver)
+    public function setDriver(string $driver): self
     {
-        $this->driver = (string) $driver;
+        $this->driver = $driver;
 
         return $this;
     }
@@ -129,10 +126,8 @@ final class Configuration extends AbstractOptions
 
     /**
      * @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generateProxies
-     *
-     * @return $this
      */
-    public function setGenerateProxies(int $generateProxies)
+    public function setGenerateProxies(int $generateProxies): self
     {
         $this->generateProxies = $generateProxies;
 
@@ -147,12 +142,9 @@ final class Configuration extends AbstractOptions
         return $this->generateProxies;
     }
 
-    /**
-     * @return $this
-     */
-    public function setMetadataCache(string $metadataCache)
+    public function setMetadataCache(string $metadataCache): self
     {
-        $this->metadataCache = (string) $metadataCache;
+        $this->metadataCache = $metadataCache;
 
         return $this;
     }
@@ -162,12 +154,9 @@ final class Configuration extends AbstractOptions
         return 'doctrine.cache.' . $this->metadataCache;
     }
 
-    /**
-     * @return $this
-     */
-    public function setProxyDir(string $proxyDir)
+    public function setProxyDir(string $proxyDir): self
     {
-        $this->proxyDir = (string) $proxyDir;
+        $this->proxyDir = $proxyDir;
 
         return $this;
     }
@@ -177,12 +166,9 @@ final class Configuration extends AbstractOptions
         return $this->proxyDir;
     }
 
-    /**
-     * @return $this
-     */
-    public function setProxyNamespace(string $proxyNamespace)
+    public function setProxyNamespace(string $proxyNamespace): self
     {
-        $this->proxyNamespace = (string) $proxyNamespace;
+        $this->proxyNamespace = $proxyNamespace;
 
         return $this;
     }
@@ -202,10 +188,8 @@ final class Configuration extends AbstractOptions
 
     /**
      * @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generateHydrators
-     *
-     * @return $this
      */
-    public function setGenerateHydrators(int $generateHydrators): Configuration
+    public function setGenerateHydrators(int $generateHydrators): self
     {
         $this->generateHydrators = $generateHydrators;
 
@@ -217,12 +201,9 @@ final class Configuration extends AbstractOptions
         return $this->hydratorDir;
     }
 
-    /**
-     * @return $this
-     */
-    public function setHydratorDir(string $hydratorDir)
+    public function setHydratorDir(string $hydratorDir): self
     {
-        $this->hydratorDir = (string) $hydratorDir;
+        $this->hydratorDir = $hydratorDir;
 
         return $this;
     }
@@ -232,12 +213,9 @@ final class Configuration extends AbstractOptions
         return $this->hydratorNamespace;
     }
 
-    /**
-     * @return $this
-     */
-    public function setHydratorNamespace(string $hydratorNamespace)
+    public function setHydratorNamespace(string $hydratorNamespace): self
     {
-        $this->hydratorNamespace = (string) $hydratorNamespace;
+        $this->hydratorNamespace = $hydratorNamespace;
 
         return $this;
     }
@@ -252,10 +230,8 @@ final class Configuration extends AbstractOptions
 
     /**
      * @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generatePersistentCollections
-     *
-     * @return $this
      */
-    public function setGeneratePersistentCollections(int $generatePersistentCollections)
+    public function setGeneratePersistentCollections(int $generatePersistentCollections): self
     {
         $this->generatePersistentCollections = (int) $generatePersistentCollections;
 
@@ -267,12 +243,9 @@ final class Configuration extends AbstractOptions
         return $this->persistentCollectionDir;
     }
 
-    /**
-     * @return $this
-     */
-    public function setPersistentCollectionDir(string $persistentCollectionDir)
+    public function setPersistentCollectionDir(string $persistentCollectionDir): self
     {
-        $this->persistentCollectionDir = (string) $persistentCollectionDir;
+        $this->persistentCollectionDir = $persistentCollectionDir;
 
         return $this;
     }
@@ -282,12 +255,9 @@ final class Configuration extends AbstractOptions
         return $this->persistentCollectionNamespace;
     }
 
-    /**
-     * @return $this
-     */
-    public function setPersistentCollectionNamespace(string $persistentCollectionNamespace)
+    public function setPersistentCollectionNamespace(string $persistentCollectionNamespace): self
     {
-        $this->persistentCollectionNamespace = (string) $persistentCollectionNamespace;
+        $this->persistentCollectionNamespace = $persistentCollectionNamespace;
 
         return $this;
     }
@@ -297,14 +267,9 @@ final class Configuration extends AbstractOptions
         return $this->persistentCollectionFactory;
     }
 
-    /**
-     * @param mixed $persistentCollectionFactory
-     *
-     * @return $this
-     */
-    public function setPersistentCollectionFactory($persistentCollectionFactory)
+    public function setPersistentCollectionFactory(?string $persistentCollectionFactory): self
     {
-        $this->persistentCollectionFactory = (string) $persistentCollectionFactory;
+        $this->persistentCollectionFactory = $persistentCollectionFactory;
 
         return $this;
     }
@@ -314,10 +279,7 @@ final class Configuration extends AbstractOptions
         return $this->persistentCollectionGenerator;
     }
 
-    /**
-     * @return $this
-     */
-    public function setPersistentCollectionGenerator(?string $persistentCollectionGenerator)
+    public function setPersistentCollectionGenerator(?string $persistentCollectionGenerator): self
     {
         $this->persistentCollectionGenerator = (string) $persistentCollectionGenerator;
 
@@ -329,16 +291,9 @@ final class Configuration extends AbstractOptions
         return $this->defaultDb;
     }
 
-    /**
-     * @return $this
-     */
-    public function setDefaultDb(?string $defaultDb)
+    public function setDefaultDb(?string $defaultDb): self
     {
-        if ($defaultDb === null) {
-            $this->defaultDb = $defaultDb;
-        } else {
-            $this->defaultDb = (string) $defaultDb;
-        }
+        $this->defaultDb = $defaultDb;
 
         return $this;
     }
@@ -353,10 +308,8 @@ final class Configuration extends AbstractOptions
 
     /**
      * @param mixed[] $filters
-     *
-     * @return $this
      */
-    public function setFilters(array $filters)
+    public function setFilters(array $filters): self
     {
         $this->filters = $filters;
 

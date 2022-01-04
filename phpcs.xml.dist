@@ -13,7 +13,9 @@
     <config name="php_version" value="70400"/>
 
     <!-- Include full Doctrine Coding Standard -->
-    <rule ref="Doctrine"/>
+    <rule ref="Doctrine">
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
+    </rule>
 
     <!-- Paths to check -->
     <file>config</file>

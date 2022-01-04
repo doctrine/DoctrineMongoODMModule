@@ -91,7 +91,7 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
     }
 
     /**
-     * {@inheritDoc}
+     * @return array<array-key,mixed>
      */
     public function getConfig(): array
     {
@@ -99,7 +99,7 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
     }
 
     /**
-     * {@inheritDoc}
+     * @return array<array-key,mixed>
      */
     public function getServiceConfig(): array
     {
@@ -110,17 +110,24 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
             ],
             'aliases' => [DocumentManager::class => 'doctrine.documentmanager.odm_default'],
             'factories' => [
-                // @codingStandardsIgnoreStart
-                'doctrine.authenticationadapter.odm_default'  => new CommonService\Authentication\AdapterFactory('odm_default'),
-                'doctrine.authenticationstorage.odm_default'  => new CommonService\Authentication\StorageFactory('odm_default'),
-                'doctrine.authenticationservice.odm_default'  => new CommonService\Authentication\AuthenticationServiceFactory('odm_default'),
-                'doctrine.connection.odm_default'      => new ODMService\ConnectionFactory('odm_default'),
-                'doctrine.configuration.odm_default'   => new ODMService\ConfigurationFactory('odm_default'),
-                'doctrine.driver.odm_default'          => new CommonService\DriverFactory('odm_default'),
-                'doctrine.documentmanager.odm_default' => new ODMService\DocumentManagerFactory('odm_default'),
-                'doctrine.eventmanager.odm_default'    => new CommonService\EventManagerFactory('odm_default'),
-                'doctrine.mongo_logger_collector.odm_default' => new ODMService\MongoLoggerCollectorFactory('odm_default'),
-                // @codingStandardsIgnoreEnd
+                'doctrine.authenticationadapter.odm_default'
+                    => new CommonService\Authentication\AdapterFactory('odm_default'),
+                'doctrine.authenticationstorage.odm_default'
+                    => new CommonService\Authentication\StorageFactory('odm_default'),
+                'doctrine.authenticationservice.odm_default'
+                    => new CommonService\Authentication\AuthenticationServiceFactory('odm_default'),
+                'doctrine.connection.odm_default'
+                    => new ODMService\ConnectionFactory('odm_default'),
+                'doctrine.configuration.odm_default'
+                    => new ODMService\ConfigurationFactory('odm_default'),
+                'doctrine.driver.odm_default'
+                    => new CommonService\DriverFactory('odm_default'),
+                'doctrine.documentmanager.odm_default'
+                    => new ODMService\DocumentManagerFactory('odm_default'),
+                'doctrine.eventmanager.odm_default'
+                    => new CommonService\EventManagerFactory('odm_default'),
+                'doctrine.mongo_logger_collector.odm_default'
+                    => new ODMService\MongoLoggerCollectorFactory('odm_default'),
             ],
         ];
     }
