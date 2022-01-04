@@ -8,10 +8,8 @@ use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Connection options for doctrine mongo
- *
- * @link    http://www.doctrine-project.org/
  */
-class Connection extends AbstractOptions
+final class Connection extends AbstractOptions
 {
     /**
      * The server with the mongo instance you want to connect to

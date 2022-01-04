@@ -13,10 +13,8 @@ use function assert;
 
 /**
  * Factory to create MongoDB configuration object.
- *
- * @link    http://www.doctrine-project.org/
  */
-class ConfigurationFactory extends AbstractFactory
+final class ConfigurationFactory extends AbstractFactory
 {
     /**
      * {@inheritDoc}

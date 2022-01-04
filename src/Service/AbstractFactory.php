@@ -11,6 +11,9 @@ use RuntimeException;
 
 use function sprintf;
 
+/**
+ * @internal
+ */
 // phpcs:disable SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
 abstract class AbstractFactory extends DoctrineModuleAbstractFactory
 {

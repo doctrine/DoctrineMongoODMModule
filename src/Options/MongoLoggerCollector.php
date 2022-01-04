@@ -8,10 +8,8 @@ use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Configuration options for a collector
- *
- * @link    http://www.doctrine-project.org/
  */
-class MongoLoggerCollector extends AbstractOptions
+final class MongoLoggerCollector extends AbstractOptions
 {
     /** @var string name to be assigned to the collector */
     protected string $name = 'odm_default';

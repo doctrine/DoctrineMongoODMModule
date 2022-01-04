@@ -25,10 +25,8 @@ use function sprintf;
 
 /**
  * Doctrine Module provider for Mongo DB ODM.
- *
- * @link    http://www.doctrine-project.org
  */
-class Module implements InitProviderInterface, ConfigProviderInterface, ServiceProviderInterface
+final class Module implements InitProviderInterface, ConfigProviderInterface, ServiceProviderInterface
 {
     public function init(ModuleManagerInterface $manager): void
     {
