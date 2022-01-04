@@ -26,22 +26,22 @@ class Connection extends AbstractOptions
     /**
      * Username if using mongo auth
      */
-    protected string $user = null;
+    protected ?string $user = null;
 
     /**
      * Password if using mongo auth
      */
-    protected string $password = null;
+    protected ?string $password = null;
 
     /**
      * If you want to connect to a specific database
      */
-    protected string $dbname = null;
+    protected ?string $dbname = null;
 
     /**
      * If you want to provide a custom connection string
      */
-    protected string $connectionString = null;
+    protected ?string $connectionString = null;
 
     /**
      * Further connection options defined by mongodb-odm
@@ -105,7 +105,7 @@ class Connection extends AbstractOptions
         return $this;
     }
 
-    public function getDbname(): string
+    public function getDbname(): ?string
     {
         return $this->dbname;
     }

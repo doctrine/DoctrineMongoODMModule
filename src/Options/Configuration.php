@@ -81,9 +81,9 @@ class Configuration extends AbstractOptions
     /**
      * Persistent collection generator service name.
      */
-    protected string $persistentCollectionGenerator;
+    protected ?string $persistentCollectionGenerator = null;
 
-    protected string $driver;
+    protected ?string $driver = null;
 
     protected ?string $defaultDb = null;
 
@@ -100,9 +100,9 @@ class Configuration extends AbstractOptions
      */
     protected ?string $logger = null;
 
-    protected string $classMetadataFactoryName;
+    protected ?string $classMetadataFactoryName = null;
 
-    protected string $repositoryFactory;
+    protected ?string $repositoryFactory = null;
 
     protected string $defaultDocumentRepositoryClassName = DefaultDocumentRepository::class;
 
