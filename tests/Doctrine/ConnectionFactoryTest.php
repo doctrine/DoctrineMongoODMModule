@@ -7,6 +7,7 @@ namespace DoctrineMongoODMModuleTest\Doctrine;
 use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Service\ConnectionFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
+use MongoDB\Client;
 
 /**
  * @covers  \DoctrineMongoODMModule\Service\ConnectionFactory
@@ -45,7 +46,7 @@ class ConnectionFactoryTest extends AbstractTest
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('config', $this->configuration);
 
-        $connection = $this->connectionFactory->createService($this->serviceManager);
+        $connection = ($this->connectionFactory)($this->serviceManager, Client::class);
 
         $this->assertEquals($connectionString, (string) $connection);
     }
@@ -61,7 +62,7 @@ class ConnectionFactoryTest extends AbstractTest
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('config', $this->configuration);
 
-        $connection = $this->connectionFactory->createService($this->serviceManager);
+        $connection = ($this->connectionFactory)($this->serviceManager, Client::class);
 
         $this->assertEquals($connectionString, (string) $connection);
     }
@@ -76,7 +77,7 @@ class ConnectionFactoryTest extends AbstractTest
         $this->configuration['doctrine']['connection'] = $connectionConfig;
         $this->serviceManager->setService('config', $this->configuration);
 
-        $connection = $this->connectionFactory->createService($this->serviceManager);
+        $connection = ($this->connectionFactory)($this->serviceManager, Client::class);
 
         $this->assertEquals($connectionString, (string) $connection);
     }
@@ -93,7 +94,7 @@ class ConnectionFactoryTest extends AbstractTest
         $this->configuration['doctrine']['configuration'] = $configurationConfig;
         $this->serviceManager->setService('config', $this->configuration);
 
-        $this->connectionFactory->createService($this->serviceManager);
+        ($this->connectionFactory)($this->serviceManager, Client::class);
         $configuration = $this->getConfiguration();
 
         $this->assertEquals($dbName, $configuration->getDefaultDB());
@@ -111,7 +112,7 @@ class ConnectionFactoryTest extends AbstractTest
 
         $configuration = $this->getConfiguration();
         $configuration->setDefaultDB($defaultDB);
-        $this->connectionFactory->createService($this->serviceManager);
+        ($this->connectionFactory)($this->serviceManager, Client::class);
 
         $this->assertEquals($defaultDB, $configuration->getDefaultDB());
     }
@@ -130,7 +131,7 @@ class ConnectionFactoryTest extends AbstractTest
         $this->serviceManager->setService('config', $this->configuration);
 
         $configuration = $this->getConfiguration();
-        $this->connectionFactory->createService($this->serviceManager);
+        ($this->connectionFactory)($this->serviceManager, Client::class);
 
         $this->assertEquals($dbName, $configuration->getDefaultDB());
     }
@@ -149,7 +150,7 @@ class ConnectionFactoryTest extends AbstractTest
         $this->serviceManager->setService('config', $this->configuration);
 
         $configuration = $this->getConfiguration();
-        $this->connectionFactory->createService($this->serviceManager);
+        ($this->connectionFactory)($this->serviceManager, Client::class);
 
         $this->assertEquals($dbName, $configuration->getDefaultDB());
     }

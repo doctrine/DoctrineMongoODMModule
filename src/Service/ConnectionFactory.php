@@ -8,7 +8,6 @@ use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 use MongoDB\Client;
 
 use function assert;
@@ -81,16 +80,6 @@ class ConnectionFactory extends AbstractFactory
         $driverOptions['typeMap'] = ['root' => 'array', 'document' => 'array'];
 
         return new Client($connectionString, $connectionOptions->getOptions(), $driverOptions);
-    }
-
-    /**
-     * @deprecated 3.1.0 With laminas-servicemanager v3 this method is obsolete and will be removed in 4.0.0.
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $container)
-    {
-        return $this($container, Client::class);
     }
 
     /**

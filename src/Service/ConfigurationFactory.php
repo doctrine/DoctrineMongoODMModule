@@ -8,7 +8,6 @@ use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\Types\Type;
 use DoctrineMongoODMModule\Options;
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 use function assert;
 
@@ -108,16 +107,6 @@ class ConfigurationFactory extends AbstractFactory
         }
 
         return $config;
-    }
-
-    /**
-     * @deprecated 3.1.0 With laminas-servicemanager v3 this method is obsolete and will be removed in 4.0.0.
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $container)
-    {
-        return $this($container, Configuration::class);
     }
 
     public function getOptionsClass(): string

@@ -21,7 +21,7 @@ class MongoLoggerCollectorFactoryTest extends AbstractTest
     {
         $factory = new MongoLoggerCollectorFactory('odm_default');
 
-        $collector = $factory->createService($this->serviceManager);
+        $collector = $factory($this->serviceManager, MongoLoggerCollector::class);
 
         $this->assertInstanceOf(MongoLoggerCollector::class, $collector);
     }
