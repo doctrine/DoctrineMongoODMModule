@@ -91,7 +91,7 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
     }
 
     /**
-     * {@inheritDoc}
+     * @return array<array-key,mixed>
      */
     public function getConfig(): array
     {
@@ -99,7 +99,7 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
     }
 
     /**
-     * {@inheritDoc}
+     * @return array<array-key,mixed>
      */
     public function getServiceConfig(): array
     {

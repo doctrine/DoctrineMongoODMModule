@@ -19,10 +19,7 @@ abstract class AbstractFactory extends DoctrineModuleAbstractFactory
 {
 // phpcs:enable SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getOptions(ContainerInterface $container, $key, $name = null): AbstractOptions
+    public function getOptions(ContainerInterface $container, string $key, ?string $name = null): AbstractOptions
     {
         if ($name === null) {
             $name = $this->getName();

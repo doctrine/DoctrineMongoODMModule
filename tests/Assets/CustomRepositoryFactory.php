@@ -22,15 +22,27 @@ class CustomRepositoryFactory implements RepositoryFactory
             /**
              * {@inheritDoc}
              */
-            public function find($id)
+            public function find($id): ?object
             {
                 return null;
             }
 
             /**
              * {@inheritDoc}
+             *
+             * @psalm-return mixed[]
              */
-            public function findAll()
+            public function findAll(): array
+            {
+                return [];
+            }
+
+            /**
+             * {@inheritDoc}
+             *
+             * @psalm-return mixed[]
+             */
+            public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null): array
             {
                 return [];
             }
@@ -38,23 +50,12 @@ class CustomRepositoryFactory implements RepositoryFactory
             /**
              * {@inheritDoc}
              */
-            public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
-            {
-                return [];
-            }
-
-            /**
-             * {@inheritDoc}
-             */
-            public function findOneBy(array $criteria)
+            public function findOneBy(array $criteria): ?object
             {
                 return null;
             }
 
-            /**
-             * {@inheritDoc}
-             */
-            public function getClassName()
+            public function getClassName(): string
             {
                 return '';
             }
