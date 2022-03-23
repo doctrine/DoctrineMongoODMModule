@@ -55,6 +55,9 @@ class CustomRepositoryFactory implements RepositoryFactory
                 return null;
             }
 
+            /**
+             * @psalm-return string
+             */
             public function getClassName(): string
             {
                 return '';
