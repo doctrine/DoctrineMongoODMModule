@@ -152,32 +152,65 @@ Test the newly created document
 -------------------------------
 
 To test your Doctrine ODM configuration, replace the indexAction in
-``module/Application/src/Application/Controller/IndexController.php``:
+``module/Application/src/Application/Controller/IndexController.php`` and add the
+document manager to the constructor:
 
 .. code:: php
 
-   <?php
-   //...
+    <?php
+    use Application\Document\Message;
+    use Laminas\Mvc\Controller\AbstractActionController;
 
-   use Application\Document\Message;
+    class IndexController extends AbstractActionController
+    {
+        public function __construct(private DocumentManager $dm)
+        {}
 
-       //...
-       public function indexAction()
-       {
-           $message = new Message();
-           $message->setText("Hello Doctrine!");
+        public function indexAction()
+        {
+            $message = new Message();
+            $message->setText("Hello Doctrine!");
 
-           $dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
-           $dm->persist($message);
-           $dm->flush();
+            $dm->persist($message);
+            $dm->flush();
 
-           var_dump($message);
+            var_dump($message);
 
-           return new ViewModel();
-       }
-       //...
+            return new ViewModel();
+        }
+        //...
+    }
 
-The dumped variable should contain a new generated id:
+Next, you need to set up a factory for your controller in
+``module/Application/src/Controller/IndexControllerFactory.php``,
+to boostrap it with the instance of Doctrine's document manager:
+
+.. code:: php
+
+    use Psr\Container\ContainerInterface;
+
+    class IndexControllerFactory
+    {
+        public function __invoke(ContainerInterface $container)
+        {
+            return new IndexController($container->get('doctrine.documentmanager.odm_default'));
+        }
+    }
+
+Lastly, wire everything together by configuring your newly created factory
+for your controller in ``module/Application/config/module.config.php``:
+
+.. code:: php
+
+    // ...
+    'controllers' => [
+        'factories' => [
+            Controller\IndexController::class => Controller\IndexControllerFactory::class,
+        ],
+    ],
+    // ...
+
+When accessing the index controller, the dumped variable should contain a new generated id:
 
 .. code:: php
 
