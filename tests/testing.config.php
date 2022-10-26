@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DoctrineMongoODMModuleTest;
 
+use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
+
 use function getenv;
 
 return [
@@ -20,10 +22,10 @@ return [
         ],
         'driver' => [
             'odm_default' => [
-                'drivers' => ['DoctrineMongoODMModuleTest\Assets\Document' => 'test'],
+                'drivers' => ['DoctrineMongoODMModuleTest\Assets\Document' => 'test_assets'],
             ],
-            'test' => [
-                'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
+            'test_assets' => [
+                'class' => AnnotationDriver::class,
                 'cache' => 'array',
                 'paths' => [__DIR__ . '/Assets/Document'],
             ],
