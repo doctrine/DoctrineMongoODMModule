@@ -78,75 +78,69 @@ Add this to the configuration array:
 
 .. code:: php
 
-   return [
-       // ...
-       
-       // to register classes in the "/Document" folder of any module,
-       // you can copy&paste this block to a module config without modifying it.
-       'doctrine' => [
-           'driver' => [
-               __NAMESPACE__ . '_driver' => [
-                   'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
-                   'paths' => [__DIR__ . '/../src/' . __NAMESPACE__ . '/Document']
-               ],
-               'odm_default' => [
-                   'drivers' => [
-                       __NAMESPACE__ . '\Document' => __NAMESPACE__ . '_driver'
-                   ]
-               ]
-           ]
-       ]
-   ];
+    return [
+        // ...
+
+        // to register classes in the "/Document" folder of any module,
+        // you can copy&paste this block to a module config without modifying it.
+        'doctrine' => [
+            'driver' => [
+                __NAMESPACE__ . '_driver' => [
+                    'class' => \Doctrine\ODM\MongoDB\Mapping\Driver\AttributeDriver::class,
+                    'paths' => [
+                        __DIR__ . '/../src/' . __NAMESPACE__ . '/Document',
+                    ],
+                ],
+                'odm_default' => [
+                    'drivers' => [
+                        __NAMESPACE__ . '\Document' => __NAMESPACE__ . '_driver',
+                    ],
+                ],
+            ],
+        ],
+    ];
 
 Create a managed document class
 -------------------------------
 
 Create your first Doctrine ODM managed document class in
-``module/Application/src/Application/Document/Message.php``:
+``module/Application/src/Application/Document/Message.php``. Here, we are using the
+`Mongo ODM attribute syntax <https://www.doctrine-project.org/2021/12/04/mongodb-odm-2.3.html>`__,
+which requires PHP 8.0 or newer.
 
 .. code:: php
 
-   <?php
+    use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
-   namespace Application\Document;
+    #[ODM\Document]
+    class Message
+    {
+        #[ODM\Id]
+        protected $id;
 
-   use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+        #[ODM\Field(type: "string")]
+        protected $text;
 
-   /**
-    * @ODM\Document
-    */
-   class Message
-   {
-       /**
-        * @ODM\Id
-        */
-       protected $id;
+        public function getId()
+        {
+            return $this->id;
+        }
 
-       /**
-        * @ODM\Field(type="string")
-        */
-       protected $text;
+        public function setId($id)
+        {
+            $this->id = $id;
+        }
 
-       public function getId()
-       {
-           return $this->id;
-       }
+        public function getText()
+        {
+            return $this->text;
+        }
 
-       public function setId($id)
-       {
-           $this->id = $id;
-       }
-
-       public function getText()
-       {
-           return $this->text;
-       }
-
-       public function setText($text)
-       {
-           $this->text = $text;
-       }
-   }
+        public function setText($text)
+        {
+            $this->text = $text;
+        }
+    }
 
 Test the newly created document
 -------------------------------
@@ -157,7 +151,6 @@ document manager to the constructor:
 
 .. code:: php
 
-    <?php
     use Application\Document\Message;
     use Laminas\Mvc\Controller\AbstractActionController;
 
@@ -171,14 +164,13 @@ document manager to the constructor:
             $message = new Message();
             $message->setText("Hello Doctrine!");
 
-            $dm->persist($message);
-            $dm->flush();
+            $this->dm->persist($message);
+            $this->dm->flush();
 
             var_dump($message);
 
             return new ViewModel();
         }
-        //...
     }
 
 Next, you need to set up a factory for your controller in
