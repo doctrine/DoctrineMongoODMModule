@@ -1,6 +1,7 @@
 {
     "name": "doctrine/doctrine-mongo-odm-module",
     "description": "Laminas Module which provides Doctrine MongoDB ODM functionality",
+    "license": "MIT",
     "keywords": [
         "doctrine",
         "laminas",
@@ -8,8 +9,6 @@
         "module",
         "odm"
     ],
-    "homepage": "https://www.doctrine-project.org/",
-    "license": "MIT",
     "authors": [
         {
             "name": "Kyle Spraggs",
@@ -44,17 +43,13 @@
             "email": "tom.h.anderson@gmail.com"
         }
     ],
-    "extra": {
-        "laminas": {
-            "module": "DoctrineMongoODMModule"
-        }
-    },
+    "homepage": "https://www.doctrine-project.org/",
     "require": {
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
         "ext-mongodb": "*",
         "container-interop/container-interop": "^1.2.0",
-        "doctrine/doctrine-module": "^5.2.1",
         "doctrine/doctrine-laminas-hydrator": "^3.0.1",
+        "doctrine/doctrine-module": "^5.2.1",
         "doctrine/event-manager": "^1.1.1",
         "doctrine/mongodb-odm": "^2.3.2",
         "doctrine/persistence": "^2.4.0",
@@ -83,8 +78,8 @@
         "vimeo/psalm": "^4.22.0"
     },
     "suggest": {
-        "laminas/laminas-form": "if you want to use form elements backed by Doctrine",
-        "laminas/laminas-developer-tools": "laminas-developer-tools if you want to profile operations executed by the ODM during development"
+        "laminas/laminas-developer-tools": "laminas-developer-tools if you want to profile operations executed by the ODM during development",
+        "laminas/laminas-form": "if you want to use form elements backed by Doctrine"
     },
     "autoload": {
         "psr-4": {
@@ -94,6 +89,21 @@
     "autoload-dev": {
         "psr-4": {
             "DoctrineMongoODMModuleTest\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/package-versions-deprecated": true
+        },
+        "platform": {
+            "ext-mongodb": "1.8.0"
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "module": "DoctrineMongoODMModule"
         }
     },
     "scripts": {
@@ -109,15 +119,5 @@
         "psalm": "psalm --stats",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover=coverage.xml"
-    },
-    "config": {
-        "sort-packages": true,
-        "platform": {
-            "ext-mongodb": "1.8.0"
-        },
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "composer/package-versions-deprecated": true
-        }
     }
 }
