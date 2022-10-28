@@ -12,10 +12,5 @@ services:
       - ./docker/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - mongodb
-    environment:
-        - TRAVIS
-        - TRAVIS_JOB_ID
-        - TRAVIS_BRANCH
-        - TRAVIS_PULL_REQUEST
   mongodb:
     image: mongo:latest
