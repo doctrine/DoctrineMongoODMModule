@@ -53,7 +53,7 @@
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
         "ext-mongodb": "*",
         "container-interop/container-interop": "^1.2.0",
-        "doctrine/doctrine-module": "^5.1.0 <5.2.0",
+        "doctrine/doctrine-module": "^5.2.1",
         "doctrine/doctrine-laminas-hydrator": "^3.0.1",
         "doctrine/event-manager": "^1.1.1",
         "doctrine/mongodb-odm": "^2.3.2",
