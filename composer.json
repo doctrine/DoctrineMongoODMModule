@@ -62,7 +62,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^9.0.0",
-        "doctrine/persistence": "^2.4.0",
+        "doctrine/persistence": "^2.4.0 || ^3.0.0",
         "jangregor/phpstan-prophecy": "^1.0.0",
         "laminas/laminas-db": "^2.13.4",
         "laminas/laminas-developer-tools": "^2.3.0",
