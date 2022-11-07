@@ -52,7 +52,6 @@
         "doctrine/doctrine-module": "^5.2.1",
         "doctrine/event-manager": "^1.1.1",
         "doctrine/mongodb-odm": "^2.3.2",
-        "doctrine/persistence": "^2.4.0",
         "laminas/laminas-eventmanager": "^3.4.0",
         "laminas/laminas-modulemanager": "^2.11.0",
         "laminas/laminas-mvc": "^3.3.3",
@@ -63,6 +62,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^9.0.0",
+        "doctrine/persistence": "^2.4.0 || ^3.0.0",
         "jangregor/phpstan-prophecy": "^1.0.0",
         "laminas/laminas-db": "^2.13.4",
         "laminas/laminas-developer-tools": "^2.3.0",
