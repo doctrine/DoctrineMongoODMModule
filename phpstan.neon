@@ -4,5 +4,7 @@ parameters:
     paths:
         - src
         - tests
+    ignoreErrors:
+        - '#Method class@anonymous/tests/Assets/CustomRepositoryFactory.*has parameter.*with no type specified#'
 includes:
     - vendor/jangregor/phpstan-prophecy/extension.neon
