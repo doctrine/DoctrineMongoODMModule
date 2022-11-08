@@ -6,8 +6,8 @@ namespace DoctrineMongoODMModule\Service;
 
 use Doctrine\Laminas\Hydrator\DoctrineObject;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
 
 use function assert;
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace DoctrineMongoODMModule\Service;
 
 use DoctrineModule\Service\AbstractFactory as DoctrineModuleAbstractFactory;
-use Interop\Container\ContainerInterface;
 use Laminas\Stdlib\AbstractOptions;
+use Psr\Container\ContainerInterface;
 use RuntimeException;
 
 use function sprintf;

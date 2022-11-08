@@ -7,8 +7,8 @@ namespace DoctrineMongoODMModule\Service;
 use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Configuration;
 use DoctrineMongoODMModule\Options;
-use Interop\Container\ContainerInterface;
 use MongoDB\Client;
+use Psr\Container\ContainerInterface;
 
 use function assert;
 use function strpos;

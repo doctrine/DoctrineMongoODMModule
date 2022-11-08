@@ -7,7 +7,7 @@ namespace DoctrineMongoODMModule\Service;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\Types\Type;
 use DoctrineMongoODMModule\Options;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 use function assert;
 
