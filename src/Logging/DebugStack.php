@@ -25,8 +25,7 @@ class DebugStack implements CommandLoggerInterface
     /** @var bool $enabled If Debug Stack is enabled (log queries) or not. */
     public bool $enabled = true;
 
-    /** @var mixed $currentQuery */
-    protected $currentQuery = 0;
+    protected mixed $currentQuery = 0;
 
     public function __construct()
     {

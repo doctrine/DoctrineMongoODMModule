@@ -16,8 +16,7 @@ class DoctrineObjectHydratorFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ServiceLocatorInterface|MockObject */
-    protected $services;
+    protected ServiceLocatorInterface|MockObject $services;
 
     protected function setUp(): void
     {
