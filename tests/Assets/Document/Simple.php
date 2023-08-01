@@ -9,40 +9,23 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /** @ODM\Document */
 class Simple
 {
-    /**
-     * @ODM\Id(strategy="UUID")
-     *
-     * @var mixed $id
-     */
-    protected $id;
+    /** @ODM\Id(strategy="UUID") */
+    protected mixed $id;
 
-    /**
-     * @ODM\Field(type="string")
-     *
-     * @var mixed $name
-     */
-    protected $name;
+    /** @ODM\Field(type="string") */
+    protected mixed $name;
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): mixed
     {
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function getName(): mixed
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name): void
+    public function setName(mixed $name): void
     {
         $this->name = (string) $name;
     }

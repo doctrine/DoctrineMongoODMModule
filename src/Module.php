@@ -20,7 +20,6 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputOption;
 
-use function get_class;
 use function sprintf;
 
 /**
@@ -34,7 +33,7 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
             throw new InvalidArgumentException(sprintf(
                 'Expected %s, but received %s.',
                 ModuleManager::class,
-                get_class($manager)
+                $manager::class
             ));
         }
 
@@ -75,7 +74,7 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
             throw new InvalidArgumentException(sprintf(
                 'Expected %s as event target, received %s.',
                 Application::class,
-                get_class($cli)
+                $cli::class
             ));
         }
 

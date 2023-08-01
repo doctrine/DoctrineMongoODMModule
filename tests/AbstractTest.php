@@ -12,11 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTest extends TestCase
 {
-    /** @var mixed $application */
-    protected $application;
+    protected mixed $application;
 
-    /** @var mixed $serviceManager */
-    protected $serviceManager;
+    protected mixed $serviceManager;
 
     protected function setUp(): void
     {
