@@ -19,7 +19,7 @@ To change docker to a different php version
 
 .. code:: bash
 
-   docker-compose build --build-arg PHP_VERSION=7.4
+   docker-compose build --build-arg PHP_VERSION=8.0
 
 then run the unit tests as
 
