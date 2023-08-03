@@ -23,7 +23,7 @@ class CustomRepositoryFactory implements RepositoryFactory
             /**
              * {@inheritDoc}
              */
-            public function find($id): ?object
+            public function find($id): object|null
             {
                 return null;
             }
@@ -43,7 +43,7 @@ class CustomRepositoryFactory implements RepositoryFactory
              *
              * @psalm-return mixed[]
              */
-            public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null): array
+            public function findBy(array $criteria, array|null $orderBy = null, $limit = null, $offset = null): array
             {
                 return [];
             }
@@ -51,14 +51,12 @@ class CustomRepositoryFactory implements RepositoryFactory
             /**
              * {@inheritDoc}
              */
-            public function findOneBy(array $criteria): ?object
+            public function findOneBy(array $criteria): object|null
             {
                 return null;
             }
 
-            /**
-             * @psalm-return string
-             */
+            /** @psalm-return string */
             public function getClassName(): string
             {
                 return stdClass::class;

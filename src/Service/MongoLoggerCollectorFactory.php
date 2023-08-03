@@ -19,6 +19,7 @@ final class MongoLoggerCollectorFactory extends AbstractFactory
     public function __construct(string $name)
     {
         parent::__construct($name);
+
         $this->name = $name;
     }
 
@@ -27,7 +28,7 @@ final class MongoLoggerCollectorFactory extends AbstractFactory
      *
      * @return MongoLoggerCollector
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array|null $options = null)
     {
         $settings = $this->getOptions($container, 'mongo_logger_collector');
         assert($settings instanceof Options\MongoLoggerCollector);

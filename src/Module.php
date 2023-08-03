@@ -33,7 +33,7 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
             throw new InvalidArgumentException(sprintf(
                 'Expected %s, but received %s.',
                 ModuleManager::class,
-                $manager::class
+                $manager::class,
             ));
         }
 
@@ -64,8 +64,8 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
                     'documentmanager',
                     null,
                     InputOption::VALUE_OPTIONAL,
-                    'The name of the documentmanager to use. If none is provided, it will use odm_default.'
-                )
+                    'The name of the documentmanager to use. If none is provided, it will use odm_default.',
+                ),
             );
         }
 
@@ -74,7 +74,7 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
             throw new InvalidArgumentException(sprintf(
                 'Expected %s as event target, received %s.',
                 Application::class,
-                $cli::class
+                $cli::class,
             ));
         }
 
@@ -89,17 +89,13 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
         $cli->getHelperSet()->set($documentHelper, 'dm');
     }
 
-    /**
-     * @return array<array-key,mixed>
-     */
+    /** @return array<array-key,mixed> */
     public function getConfig(): array
     {
         return include __DIR__ . '/../config/module.config.php';
     }
 
-    /**
-     * @return array<array-key,mixed>
-     */
+    /** @return array<array-key,mixed> */
     public function getServiceConfig(): array
     {
         return [

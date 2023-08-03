@@ -36,7 +36,7 @@ abstract class AbstractTest extends TestCase
             $writeConcern = new WriteConcern(1);     foreach ($collections as $collection) {
                 $database->dropCollection($collection->getName(), ['writeConcern' => $writeConcern]);
             }
-        } catch (RuntimeException $e) {
+        } catch (RuntimeException) {
         }
     }
 }

@@ -20,7 +20,7 @@ final class DocumentManagerFactory extends AbstractFactory
      *
      * @return DocumentManager
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array|null $options = null)
     {
         $options = $this->getOptions($container, 'documentmanager');
         assert($options instanceof Options\DocumentManager);

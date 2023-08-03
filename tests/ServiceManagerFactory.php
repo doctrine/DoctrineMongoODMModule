@@ -17,9 +17,7 @@ use function assert;
  */
 class ServiceManagerFactory
 {
-    /**
-     * @return mixed[]
-     */
+    /** @return mixed[] */
     public static function getConfiguration(): array
     {
         return include __DIR__ . '/TestConfiguration.php';
@@ -30,12 +28,12 @@ class ServiceManagerFactory
      *
      * @param  mixed[]|null $configuration
      */
-    public static function getServiceManager(?array $configuration = null): ServiceManager
+    public static function getServiceManager(array|null $configuration = null): ServiceManager
     {
         $configuration        = $configuration ?: static::getConfiguration();
         $serviceManager       = new ServiceManager();
         $serviceManagerConfig = new ServiceManagerConfig(
-            $configuration['service_manager'] ?? []
+            $configuration['service_manager'] ?? [],
         );
         $serviceManagerConfig->configureServiceManager($serviceManager);
         $serviceManager->setService('ApplicationConfig', $configuration);

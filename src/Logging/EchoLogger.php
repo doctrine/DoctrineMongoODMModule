@@ -47,7 +47,7 @@ class EchoLogger implements CommandLoggerInterface
             [
                 'command' => $event->getCommand(),
                 'db'      => $event->getDatabaseName(),
-            ]
+            ],
         );
     }
 

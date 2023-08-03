@@ -15,6 +15,7 @@ final class DocumentManagerTest extends AbstractTest
     protected function setUp(): void
     {
         parent::setup();
+
         $this->serviceManager->setAllowOverride(true);
         $this->configuration = $this->serviceManager->get('config');
         $this->serviceManager->setService('doctrine.configuration.odm_default', null);

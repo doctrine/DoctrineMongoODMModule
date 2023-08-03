@@ -21,7 +21,7 @@ final class ConfigurationFactory extends AbstractFactory
      *
      * @return Configuration
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array|null $options = null)
     {
         $configurationOptions = $this->getOptions($container, 'configuration');
         assert($configurationOptions instanceof Options\Configuration);
@@ -51,13 +51,13 @@ final class ConfigurationFactory extends AbstractFactory
 
         if ($configurationOptions->getPersistentCollectionFactory()) {
             $config->setPersistentCollectionFactory(
-                $container->get($configurationOptions->getPersistentCollectionFactory())
+                $container->get($configurationOptions->getPersistentCollectionFactory()),
             );
         }
 
         if ($configurationOptions->getPersistentCollectionGenerator()) {
             $config->setPersistentCollectionGenerator(
-                $container->get($configurationOptions->getPersistentCollectionGenerator())
+                $container->get($configurationOptions->getPersistentCollectionGenerator()),
             );
         }
 

@@ -27,32 +27,32 @@ final class ConfigurationFactoryTest extends AbstractTest
         $serviceLocator = new ServiceManager();
         $serviceLocator->setService(
             'stubbed_logger',
-            $this->getMockForAbstractClass(CommandLoggerInterface::class)
+            $this->getMockForAbstractClass(CommandLoggerInterface::class),
         );
 
         $serviceLocator->setService(
             'doctrine.cache.stubbed_metadatacache',
-            $metadataCache = $this->getMockForAbstractClass(Cache::class)
+            $metadataCache = $this->getMockForAbstractClass(Cache::class),
         );
 
         $serviceLocator->setService(
             'doctrine.driver.stubbed_driver',
-            $mappingDriver = $this->getMockForAbstractClass(MappingDriver::class)
+            $mappingDriver = $this->getMockForAbstractClass(MappingDriver::class),
         );
 
         $serviceLocator->setService(
             CustomRepositoryFactory::class,
-            $repositoryFactory = new CustomRepositoryFactory()
+            $repositoryFactory = new CustomRepositoryFactory(),
         );
 
         $serviceLocator->setService(
             PersistentCollectionFactory::class,
-            $persistentCollectionFactory = $this->getMockForAbstractClass(PersistentCollectionFactory::class)
+            $persistentCollectionFactory = $this->getMockForAbstractClass(PersistentCollectionFactory::class),
         );
 
         $serviceLocator->setService(
             PersistentCollectionGenerator::class,
-            $persistentCollectionGenerator = $this->getMockForAbstractClass(PersistentCollectionGenerator::class)
+            $persistentCollectionGenerator = $this->getMockForAbstractClass(PersistentCollectionGenerator::class),
         );
 
         $serviceLocator->setService(
@@ -89,7 +89,7 @@ final class ConfigurationFactoryTest extends AbstractTest
                         ],
                     ],
                 ],
-            ]
+            ],
         );
 
         $factory = new ConfigurationFactory('odm_test');

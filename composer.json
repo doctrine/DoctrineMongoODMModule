@@ -60,15 +60,15 @@
         "symfony/var-dumper": "^5.4.26 || ^6.3.2"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^9.0.2",
+        "doctrine/coding-standard": "^12.0.0",
         "doctrine/persistence": "^2.5.7 || ^3.2.0",
         "jangregor/phpstan-prophecy": "^1.0.0",
         "laminas/laminas-developer-tools": "^2.8.0",
         "laminas/laminas-hydrator": "^4.13.0",
         "laminas/laminas-session": "^2.16.0",
         "phpspec/prophecy-phpunit": "^2.0.2",
-        "phpstan/phpstan": "^1.9.1",
-        "phpunit/phpunit": "^9.5.26",
+        "phpstan/phpstan": "^1.10.26",
+        "phpunit/phpunit": "^9.6.10",
         "vimeo/psalm": "^4.30.0"
     },
     "suggest": {
