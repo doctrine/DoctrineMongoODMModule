@@ -69,7 +69,7 @@
         "phpspec/prophecy-phpunit": "^2.0.2",
         "phpstan/phpstan": "^1.10.26",
         "phpunit/phpunit": "^9.6.10",
-        "vimeo/psalm": "^4.30.0"
+        "vimeo/psalm": "^5.14.1"
     },
     "suggest": {
         "laminas/laminas-developer-tools": "laminas-developer-tools if you want to profile operations executed by the ODM during development",
