@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <psalm
-        errorLevel="4"
-        phpVersion="8.1"
+        errorLevel="3"
         resolveFromConfigFile="true"
+        findUnusedBaselineEntry="false"
+        findUnusedCode="false"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://getpsalm.org/schema/config"
         xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"

@@ -6,5 +6,6 @@ parameters:
         - tests
     ignoreErrors:
         - '#Method class@anonymous/tests/Assets/CustomRepositoryFactory.*has parameter.*with no type specified#'
+        - '#defaultDocumentRepositoryClassName with type .* is not subtype of native type string#'
 includes:
     - vendor/jangregor/phpstan-prophecy/extension.neon

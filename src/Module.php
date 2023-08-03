@@ -42,7 +42,7 @@ final class Module implements InitProviderInterface, ConfigProviderInterface, Se
         $events->attach('profiler_init', static function (EventInterface $e) use ($manager): void {
             $manager->getEvent()->getParam('ServiceManager')->get('doctrine.mongo_logger_collector.odm_default');
         });
-        $events->getSharedManager()->attach('doctrine', 'loadCli.post', [$this, 'loadCli']);
+        $events->getSharedManager()?->attach('doctrine', 'loadCli.post', [$this, 'loadCli']);
     }
 
     public function loadCli(EventInterface $event): void

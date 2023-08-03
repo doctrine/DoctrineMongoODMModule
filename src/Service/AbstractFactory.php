@@ -40,8 +40,17 @@ abstract class AbstractFactory extends DoctrineModuleAbstractFactory
             );
         }
 
-        $optionsClass = $this->getOptionsClass();
+        $optionsClass  = $this->getOptionsClass();
+        $optionsObject = new $optionsClass($options);
 
-        return new $optionsClass($options);
+        if (! $optionsObject instanceof AbstractOptions) {
+            throw new RuntimeException(sprintf(
+                'Class %s must inherit from %s, but does not.',
+                $optionsClass,
+                AbstractOptions::class,
+            ));
+        }
+
+        return $optionsObject;
     }
 }

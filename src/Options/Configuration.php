@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace DoctrineMongoODMModule\Options;
 
 use Doctrine\ODM\MongoDB\Configuration as MongoDbConfiguration;
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadataFactory;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository as DefaultDocumentRepository;
+use Doctrine\Persistence\ObjectRepository;
 use Laminas\Stdlib\AbstractOptions;
 
 /**
@@ -73,11 +75,15 @@ final class Configuration extends AbstractOptions
 
     /**
      * Persistent collection factory service name.
+     *
+     * @var class-string|null
      */
     protected string|null $persistentCollectionFactory = null;
 
     /**
      * Persistent collection generator service name.
+     *
+     * @var class-string|null
      */
     protected string|null $persistentCollectionGenerator = null;
 
@@ -98,10 +104,13 @@ final class Configuration extends AbstractOptions
      */
     protected string|null $logger = null;
 
+    /** @var class-string<ClassMetadataFactory>|null  */
     protected string|null $classMetadataFactoryName = null;
 
+    /** @var class-string|null  */
     protected string|null $repositoryFactory = null;
 
+    /** @var class-string<ObjectRepository<object>>|null  */
     protected string $defaultDocumentRepositoryClassName = DefaultDocumentRepository::class;
 
     /**
@@ -255,6 +264,7 @@ final class Configuration extends AbstractOptions
         return $this->persistentCollectionFactory;
     }
 
+    /** @param class-string|null $persistentCollectionFactory */
     public function setPersistentCollectionFactory(string|null $persistentCollectionFactory): self
     {
         $this->persistentCollectionFactory = $persistentCollectionFactory;
@@ -267,9 +277,10 @@ final class Configuration extends AbstractOptions
         return $this->persistentCollectionGenerator;
     }
 
+    /** @param class-string|null $persistentCollectionGenerator */
     public function setPersistentCollectionGenerator(string|null $persistentCollectionGenerator): self
     {
-        $this->persistentCollectionGenerator = (string) $persistentCollectionGenerator;
+        $this->persistentCollectionGenerator = $persistentCollectionGenerator;
 
         return $this;
     }
@@ -312,14 +323,16 @@ final class Configuration extends AbstractOptions
         return $this->logger;
     }
 
+    /** @psalm-return class-string<ClassMetadataFactory>|null */
     public function getClassMetadataFactoryName(): string|null
     {
         return $this->classMetadataFactoryName;
     }
 
+    /** @param class-string<ClassMetadataFactory>|null $classMetadataFactoryName */
     public function setClassMetadataFactoryName(string|null $classMetadataFactoryName): void
     {
-        $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
+        $this->classMetadataFactoryName = $classMetadataFactoryName;
     }
 
     /** @param mixed[] $types */
@@ -339,18 +352,21 @@ final class Configuration extends AbstractOptions
         return $this->repositoryFactory;
     }
 
+    /** @param class-string|null $repositoryFactory */
     public function setRepositoryFactory(string|null $repositoryFactory): Configuration
     {
-        $this->repositoryFactory = (string) $repositoryFactory;
+        $this->repositoryFactory = $repositoryFactory;
 
         return $this;
     }
 
-    public function getDefaultDocumentRepositoryClassName(): string
+    /** @psalm-return class-string<ObjectRepository<object>> */
+    public function getDefaultDocumentRepositoryClassName(): string|null
     {
         return $this->defaultDocumentRepositoryClassName;
     }
 
+    /** @param class-string<ObjectRepository<object>> $defaultDocumentRepositoryClassName */
     public function setDefaultDocumentRepositoryClassName(string $defaultDocumentRepositoryClassName): self
     {
         $this->defaultDocumentRepositoryClassName = $defaultDocumentRepositoryClassName;
