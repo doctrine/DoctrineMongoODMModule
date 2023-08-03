@@ -74,16 +74,16 @@ final class Configuration extends AbstractOptions
     /**
      * Persistent collection factory service name.
      */
-    protected ?string $persistentCollectionFactory = null;
+    protected string|null $persistentCollectionFactory = null;
 
     /**
      * Persistent collection generator service name.
      */
-    protected ?string $persistentCollectionGenerator = null;
+    protected string|null $persistentCollectionGenerator = null;
 
-    protected ?string $driver = null;
+    protected string|null $driver = null;
 
-    protected ?string $defaultDb = null;
+    protected string|null $defaultDb = null;
 
     /**
      * An array of filters. Array should be in the form
@@ -96,11 +96,11 @@ final class Configuration extends AbstractOptions
     /**
      * service name of the Logger
      */
-    protected ?string $logger = null;
+    protected string|null $logger = null;
 
-    protected ?string $classMetadataFactoryName = null;
+    protected string|null $classMetadataFactoryName = null;
 
-    protected ?string $repositoryFactory = null;
+    protected string|null $repositoryFactory = null;
 
     protected string $defaultDocumentRepositoryClassName = DefaultDocumentRepository::class;
 
@@ -124,9 +124,7 @@ final class Configuration extends AbstractOptions
         return 'doctrine.driver.' . $this->driver;
     }
 
-    /**
-     * @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generateProxies
-     */
+    /** @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generateProxies */
     public function setGenerateProxies(int $generateProxies): self
     {
         $this->generateProxies = $generateProxies;
@@ -134,9 +132,7 @@ final class Configuration extends AbstractOptions
         return $this;
     }
 
-    /**
-     * @psalm-return MongoDbConfiguration::AUTOGENERATE_*
-     */
+    /** @psalm-return MongoDbConfiguration::AUTOGENERATE_* */
     public function getGenerateProxies(): int
     {
         return $this->generateProxies;
@@ -178,17 +174,13 @@ final class Configuration extends AbstractOptions
         return $this->proxyNamespace;
     }
 
-    /**
-     * @psalm-return MongoDbConfiguration::AUTOGENERATE_*
-     */
+    /** @psalm-return MongoDbConfiguration::AUTOGENERATE_* */
     public function getGenerateHydrators(): int
     {
         return $this->generateHydrators;
     }
 
-    /**
-     * @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generateHydrators
-     */
+    /** @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generateHydrators */
     public function setGenerateHydrators(int $generateHydrators): self
     {
         $this->generateHydrators = $generateHydrators;
@@ -220,17 +212,13 @@ final class Configuration extends AbstractOptions
         return $this;
     }
 
-    /**
-     * @psalm-return MongoDbConfiguration::AUTOGENERATE_*
-     */
+    /** @psalm-return MongoDbConfiguration::AUTOGENERATE_* */
     public function getGeneratePersistentCollections(): int
     {
         return $this->generatePersistentCollections;
     }
 
-    /**
-     * @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generatePersistentCollections
-     */
+    /** @psalm-param MongoDbConfiguration::AUTOGENERATE_* $generatePersistentCollections */
     public function setGeneratePersistentCollections(int $generatePersistentCollections): self
     {
         $this->generatePersistentCollections = (int) $generatePersistentCollections;
@@ -262,53 +250,49 @@ final class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function getPersistentCollectionFactory(): ?string
+    public function getPersistentCollectionFactory(): string|null
     {
         return $this->persistentCollectionFactory;
     }
 
-    public function setPersistentCollectionFactory(?string $persistentCollectionFactory): self
+    public function setPersistentCollectionFactory(string|null $persistentCollectionFactory): self
     {
         $this->persistentCollectionFactory = $persistentCollectionFactory;
 
         return $this;
     }
 
-    public function getPersistentCollectionGenerator(): ?string
+    public function getPersistentCollectionGenerator(): string|null
     {
         return $this->persistentCollectionGenerator;
     }
 
-    public function setPersistentCollectionGenerator(?string $persistentCollectionGenerator): self
+    public function setPersistentCollectionGenerator(string|null $persistentCollectionGenerator): self
     {
         $this->persistentCollectionGenerator = (string) $persistentCollectionGenerator;
 
         return $this;
     }
 
-    public function getDefaultDb(): ?string
+    public function getDefaultDb(): string|null
     {
         return $this->defaultDb;
     }
 
-    public function setDefaultDb(?string $defaultDb): self
+    public function setDefaultDb(string|null $defaultDb): self
     {
         $this->defaultDb = $defaultDb;
 
         return $this;
     }
 
-    /**
-     * @return mixed[]
-     */
+    /** @return mixed[] */
     public function getFilters(): array
     {
         return $this->filters;
     }
 
-    /**
-     * @param mixed[] $filters
-     */
+    /** @param mixed[] $filters */
     public function setFilters(array $filters): self
     {
         $this->filters = $filters;
@@ -316,50 +300,46 @@ final class Configuration extends AbstractOptions
         return $this;
     }
 
-    public function setLogger(?string $logger): self
+    public function setLogger(string|null $logger): self
     {
         $this->logger = $logger;
 
         return $this;
     }
 
-    public function getLogger(): ?string
+    public function getLogger(): string|null
     {
         return $this->logger;
     }
 
-    public function getClassMetadataFactoryName(): ?string
+    public function getClassMetadataFactoryName(): string|null
     {
         return $this->classMetadataFactoryName;
     }
 
-    public function setClassMetadataFactoryName(?string $classMetadataFactoryName): void
+    public function setClassMetadataFactoryName(string|null $classMetadataFactoryName): void
     {
         $this->classMetadataFactoryName = (string) $classMetadataFactoryName;
     }
 
-    /**
-     * @param mixed[] $types
-     */
+    /** @param mixed[] $types */
     public function setTypes(array $types): void
     {
         $this->types = $types;
     }
 
-    /**
-     * @return mixed[]
-     */
+    /** @return mixed[] */
     public function getTypes(): array
     {
         return $this->types;
     }
 
-    public function getRepositoryFactory(): ?string
+    public function getRepositoryFactory(): string|null
     {
         return $this->repositoryFactory;
     }
 
-    public function setRepositoryFactory(?string $repositoryFactory): Configuration
+    public function setRepositoryFactory(string|null $repositoryFactory): Configuration
     {
         $this->repositoryFactory = (string) $repositoryFactory;
 

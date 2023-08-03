@@ -9,9 +9,7 @@ use DoctrineMongoODMModule\Service\ConnectionFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
 use MongoDB\Client;
 
-/**
- * @covers  \DoctrineMongoODMModule\Service\ConnectionFactory
- */
+/** @covers  \DoctrineMongoODMModule\Service\ConnectionFactory */
 class ConnectionFactoryTest extends AbstractTest
 {
     /** @var mixed[] $configuration */
@@ -22,6 +20,7 @@ class ConnectionFactoryTest extends AbstractTest
     protected function setUp(): void
     {
         parent::setup();
+
         $this->serviceManager->setAllowOverride(true);
         $this->serviceManager->setService('doctrine.configuration.odm_default', null);
         $this->serviceManager->setService('doctrine.connection.odm_default', null);

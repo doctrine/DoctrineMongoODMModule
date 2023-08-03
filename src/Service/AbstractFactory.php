@@ -11,12 +11,10 @@ use RuntimeException;
 
 use function sprintf;
 
-/**
- * @internal
- */
+/** @internal */
 abstract class AbstractFactory extends DoctrineModuleAbstractFactory
 {
-    public function getOptions(ContainerInterface $container, string $key, ?string $name = null): AbstractOptions
+    public function getOptions(ContainerInterface $container, string $key, string|null $name = null): AbstractOptions
     {
         if ($name === null) {
             $name = $this->getName();
@@ -37,8 +35,8 @@ abstract class AbstractFactory extends DoctrineModuleAbstractFactory
                 sprintf(
                     'Options with name "%s" could not be found in "doctrine.%s".',
                     $name,
-                    $key
-                )
+                    $key,
+                ),
             );
         }
 

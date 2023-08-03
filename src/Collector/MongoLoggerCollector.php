@@ -24,14 +24,8 @@ class MongoLoggerCollector implements CollectorInterface, AutoHideInterface
      */
     public const PRIORITY = 10;
 
-    protected DebugStack $mongoLogger;
-
-    protected string $name;
-
-    public function __construct(DebugStack $mongoLogger, string $name)
+    public function __construct(protected DebugStack $mongoLogger, protected string $name)
     {
-        $this->mongoLogger = $mongoLogger;
-        $this->name        = $name;
     }
 
     public function getName(): string
@@ -58,9 +52,7 @@ class MongoLoggerCollector implements CollectorInterface, AutoHideInterface
         return count($this->mongoLogger->queries);
     }
 
-    /**
-     * @return mixed[]
-     */
+    /** @return mixed[] */
     public function getQueries(): array
     {
         return $this->mongoLogger->queries;

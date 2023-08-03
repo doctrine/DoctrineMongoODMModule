@@ -26,7 +26,7 @@ final class ConnectionFactory extends AbstractFactory
      *
      * @return Client
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array|null $options = null)
     {
         $connectionOptions = $this->getOptions($container, 'connection');
         assert($connectionOptions instanceof Options\Connection);
@@ -58,7 +58,7 @@ final class ConnectionFactory extends AbstractFactory
                 $dbName = substr(
                     $connectionString,
                     $dbStart + 1,
-                    $dbEnd ? ($dbEnd - $dbStart - 1) : PHP_INT_MAX
+                    $dbEnd ? ($dbEnd - $dbStart - 1) : PHP_INT_MAX,
                 );
             }
         }

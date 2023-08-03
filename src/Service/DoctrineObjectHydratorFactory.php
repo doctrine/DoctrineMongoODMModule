@@ -19,7 +19,7 @@ final class DoctrineObjectHydratorFactory implements FactoryInterface
     public function __invoke(
         ContainerInterface $container,
         $requestedName = null,
-        ?array $options = null
+        array|null $options = null,
     ): DoctrineObject {
         $documentManager = $container->get('doctrine.documentmanager.odm_default');
         assert($documentManager instanceof DocumentManager);

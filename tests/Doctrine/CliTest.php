@@ -59,7 +59,7 @@ class CliTest extends TestCase
             'loadCli.post',
             static function () use (&$invocations): void {
                 $invocations += 1;
-            }
+            },
         );
 
         $application->bootstrap();
@@ -84,31 +84,31 @@ class CliTest extends TestCase
     {
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand',
-            $this->cli->get('odm:generate:hydrators')
+            $this->cli->get('odm:generate:hydrators'),
         );
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GeneratePersistentCollectionsCommand',
-            $this->cli->get('odm:generate:persistent-collections')
+            $this->cli->get('odm:generate:persistent-collections'),
         );
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand',
-            $this->cli->get('odm:generate:proxies')
+            $this->cli->get('odm:generate:proxies'),
         );
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\QueryCommand',
-            $this->cli->get('odm:query')
+            $this->cli->get('odm:query'),
         );
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\CreateCommand',
-            $this->cli->get('odm:schema:create')
+            $this->cli->get('odm:schema:create'),
         );
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand',
-            $this->cli->get('odm:schema:update')
+            $this->cli->get('odm:schema:update'),
         );
         $this->assertInstanceOf(
             'Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand',
-            $this->cli->get('odm:schema:drop')
+            $this->cli->get('odm:schema:drop'),
         );
     }
 }
