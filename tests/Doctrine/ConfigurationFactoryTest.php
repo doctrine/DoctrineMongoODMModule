@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DoctrineMongoODMModuleTest\Doctrine;
 
 use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\Psr6\CacheAdapter;
 use Doctrine\ODM\MongoDB\APM\CommandLoggerInterface;
 use Doctrine\ODM\MongoDB\Configuration as Config;
 use Doctrine\ODM\MongoDB\PersistentCollection\PersistentCollectionFactory;
@@ -99,7 +100,7 @@ final class ConfigurationFactoryTest extends AbstractTest
 
         $this->assertInstanceOf(Config::class, $config);
 
-        $this->assertSame($metadataCache, $config->getMetadataCacheImpl());
+        $this->assertEquals(CacheAdapter::wrap($metadataCache), $config->getMetadataCache());
         $this->assertSame($mappingDriver, $config->getMetadataDriverImpl());
 
         $this->assertSame(Config::AUTOGENERATE_EVAL, $config->getAutoGenerateProxyClasses());
