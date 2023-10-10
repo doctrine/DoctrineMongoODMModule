@@ -8,6 +8,8 @@ use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Document manager options for doctrine mongo
+ *
+ * @extends AbstractOptions<string>
  */
 final class DocumentManager extends AbstractOptions
 {

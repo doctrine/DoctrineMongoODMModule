@@ -12,6 +12,8 @@ use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Configuration options for doctrine mongo
+ *
+ * @extends AbstractOptions<int|string|array<string, string>|null>
  */
 final class Configuration extends AbstractOptions
 {
