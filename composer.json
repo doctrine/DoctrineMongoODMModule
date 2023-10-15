@@ -47,6 +47,7 @@
     "require": {
         "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
         "ext-mongodb": "*",
+        "doctrine/cache": "^1.11 || ^2.0",
         "doctrine/doctrine-laminas-hydrator": "^3.3.0",
         "doctrine/doctrine-module": "^6.0.4",
         "doctrine/event-manager": "^1.2.0 || ^2.0.0",
@@ -87,8 +88,8 @@
     },
     "config": {
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "composer/package-versions-deprecated": true
+            "composer/package-versions-deprecated": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "platform": {
             "ext-mongodb": "1.11.0"
