@@ -8,6 +8,8 @@ use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Connection options for doctrine mongo
+ *
+ * @extends AbstractOptions<int|string|array|null>
  */
 final class Connection extends AbstractOptions
 {

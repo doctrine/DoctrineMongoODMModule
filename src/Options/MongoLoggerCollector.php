@@ -8,6 +8,8 @@ use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Configuration options for a collector
+ *
+ * @extends AbstractOptions<string>
  */
 final class MongoLoggerCollector extends AbstractOptions
 {
