@@ -14,9 +14,9 @@ use Doctrine\ODM\MongoDB\Types\Type;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use DoctrineMongoODMModule\Service\ConfigurationFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
+use DoctrineMongoODMModuleTest\Assets\CustomDocumentRepository;
 use DoctrineMongoODMModuleTest\Assets\CustomRepositoryFactory;
 use DoctrineMongoODMModuleTest\Assets\CustomType;
-use DoctrineMongoODMModuleTest\Assets\DefaultDocumentRepository as CustomDocumentRepository;
 use Laminas\ServiceManager\ServiceManager;
 
 use function assert;
@@ -118,8 +118,8 @@ final class ConfigurationFactoryTest extends AbstractTest
         $this->assertSame($persistentCollectionGenerator, $config->getPersistentCollectionGenerator());
 
         $this->assertInstanceOf($typeClassName, Type::getType($typeName));
+        $this->assertSame('stdClass', $config->getClassMetadataFactoryName());
         $this->assertSame($repositoryFactory, $config->getRepositoryFactory());
-
         $this->assertSame(CustomDocumentRepository::class, $config->getDefaultDocumentRepositoryClassName());
     }
 }
