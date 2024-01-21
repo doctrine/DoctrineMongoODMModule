@@ -13,7 +13,7 @@ return [
         'configuration' => [
             'odm_default' => [
                 'default_db' => 'doctrineMongoODMModuleTest',
-                'default_document_repository_class_name' => Assets\DefaultDocumentRepository::class,
+                'default_document_repository_class_name' => Assets\CustomDocumentRepository::class,
             ],
         ],
         'connection' => [
