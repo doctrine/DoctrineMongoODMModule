@@ -45,11 +45,11 @@
     ],
     "homepage": "https://www.doctrine-project.org/",
     "require": {
-        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
         "ext-mongodb": "*",
         "doctrine/cache": "^1.11 || ^2.0",
         "doctrine/doctrine-laminas-hydrator": "^3.3.0",
-        "doctrine/doctrine-module": "^6.0.4",
+        "doctrine/doctrine-module": "^6.1.0",
         "doctrine/event-manager": "^1.2.0 || ^2.0.0",
         "doctrine/mongodb-odm": "^2.5.2",
         "laminas/laminas-eventmanager": "^3.10.0",
