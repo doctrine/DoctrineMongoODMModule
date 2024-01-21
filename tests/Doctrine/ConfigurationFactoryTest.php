@@ -14,6 +14,7 @@ use Doctrine\ODM\MongoDB\Types\Type;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use DoctrineMongoODMModule\Service\ConfigurationFactory;
 use DoctrineMongoODMModuleTest\AbstractTest;
+use DoctrineMongoODMModuleTest\Assets\CustomClassMetadataFactory;
 use DoctrineMongoODMModuleTest\Assets\CustomDocumentRepository;
 use DoctrineMongoODMModuleTest\Assets\CustomRepositoryFactory;
 use DoctrineMongoODMModuleTest\Assets\CustomType;
@@ -84,7 +85,7 @@ final class ConfigurationFactoryTest extends AbstractTest
                             'types'                                  => [
                                 $typeName = 'foo_type' => $typeClassName = CustomType::class,
                             ],
-                            'classMetadataFactoryName'               => 'stdClass',
+                            'classMetadataFactoryName'               => CustomClassMetadataFactory::class,
                             'repositoryFactory'                      => CustomRepositoryFactory::class,
                             'default_document_repository_class_name' => CustomDocumentRepository::class,
                         ],
@@ -118,7 +119,7 @@ final class ConfigurationFactoryTest extends AbstractTest
         $this->assertSame($persistentCollectionGenerator, $config->getPersistentCollectionGenerator());
 
         $this->assertInstanceOf($typeClassName, Type::getType($typeName));
-        $this->assertSame('stdClass', $config->getClassMetadataFactoryName());
+        $this->assertSame(CustomClassMetadataFactory::class, $config->getClassMetadataFactoryName());
         $this->assertSame($repositoryFactory, $config->getRepositoryFactory());
         $this->assertSame(CustomDocumentRepository::class, $config->getDefaultDocumentRepositoryClassName());
     }
